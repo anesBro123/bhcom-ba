@@ -1,0 +1,31 @@
+<header class="topbar">
+  <div class="topbar__spacer"></div>
+
+  <div class="topbar__actions">
+    <button
+      type="button"
+      class="topbar__icon-btn"
+      [attr.aria-label]="themeAriaLabel()"
+      (click)="themeService.toggle()"
+    >
+      @if (isDark()) {
+        <svg lucideSun [size]="20" />
+      } @else {
+        <svg lucideMoon [size]="20" />
+      }
+    </button>
+
+    <button type="button" class="topbar__icon-btn topbar__icon-btn--badge" aria-label="Notifications">
+      <svg lucideBell [size]="20" />
+      <span class="topbar__badge">3</span>
+    </button>
+
+    <button type="button" class="topbar__icon-btn" aria-label="Change language">
+      <svg lucideGlobe [size]="20" />
+    </button>
+
+    <button type="button" class="topbar__avatar" aria-label="User profile">
+      <svg lucideCircleUser [size]="28" />
+    </button>
+  </div>
+</header>

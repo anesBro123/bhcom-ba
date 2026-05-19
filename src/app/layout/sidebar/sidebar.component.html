@@ -1,0 +1,29 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <svg lucideTruck [size]="22" class="sidebar__brand-icon" />
+    <span class="sidebar__brand-name">BHCOM.BA</span>
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (section of navSections; track section.title) {
+      <div class="sidebar__section">
+        <h2 class="sidebar__section-title">{{ section.title }}</h2>
+        <ul class="sidebar__items">
+          @for (item of section.items; track item.route) {
+            <li>
+              <a
+                [routerLink]="item.route"
+                routerLinkActive="sidebar__link--active"
+                [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+                class="sidebar__link"
+              >
+                <svg [lucideIcon]="item.icon" [size]="18" class="sidebar__link-icon" />
+                <span>{{ item.label }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </nav>
+</aside>
