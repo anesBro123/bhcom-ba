@@ -1,0 +1,44 @@
+{
+  "topbar": {
+    "theme": {
+      "light": "Switch to light mode",
+      "dark": "Switch to dark mode"
+    },
+    "notifications": "Notifications",
+    "changeLanguage": "Change language",
+    "profile": "User profile",
+    "lang": {
+      "en": "English",
+      "bh": "Bosanski"
+    }
+  },
+  "nav": {
+    "sections": {
+      "dashboard": "DASHBOARD",
+      "shipments": "SHIPMENTS",
+      "fleet": "FLEET MANAGEMENT"
+    },
+    "overview": "Overview",
+    "liveMap": "Live Shipment Map",
+    "fleetStatus": "Fleet Status",
+    "allShipments": "All Shipments",
+    "trackShipment": "Track Shipment",
+    "createShipment": "Create Shipment",
+    "delayedShipments": "Delayed Shipments",
+    "vehicleList": "Vehicle List",
+    "maintenanceLogs": "Maintenance Logs",
+    "driverAssignments": "Driver Assignments"
+  },
+  "pages": {
+    "dashboardOverview": "Dashboard Overview",
+    "liveMap": "Live Shipment Map",
+    "fleetStatus": "Fleet Status",
+    "allShipments": "All Shipments",
+    "trackShipment": "Track Shipment",
+    "createShipment": "Create Shipment",
+    "delayedShipments": "Delayed Shipments",
+    "vehicleList": "Vehicle List",
+    "maintenanceLogs": "Maintenance Logs",
+    "driverAssignments": "Driver Assignments"
+  }
+}

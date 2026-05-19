@@ -1,0 +1,44 @@
+{
+  "topbar": {
+    "theme": {
+      "light": "Prebaci na svijetli režim",
+      "dark": "Prebaci na tamni režim"
+    },
+    "notifications": "Obavještenja",
+    "changeLanguage": "Promijeni jezik",
+    "profile": "Korisnički profil",
+    "lang": {
+      "en": "English",
+      "bh": "Bosanski"
+    }
+  },
+  "nav": {
+    "sections": {
+      "dashboard": "KONTROLNA TABLA",
+      "shipments": "POŠILJKE",
+      "fleet": "UPRAVLJANJE FLOTE"
+    },
+    "overview": "Pregled",
+    "liveMap": "Mapa pošiljki uživo",
+    "fleetStatus": "Status flote",
+    "allShipments": "Sve pošiljke",
+    "trackShipment": "Prati pošiljku",
+    "createShipment": "Kreiraj pošiljku",
+    "delayedShipments": "Odgođene pošiljke",
+    "vehicleList": "Lista vozila",
+    "maintenanceLogs": "Evidencija održavanja",
+    "driverAssignments": "Dodjele vozača"
+  },
+  "pages": {
+    "dashboardOverview": "Pregled kontrolne table",
+    "liveMap": "Mapa pošiljki uživo",
+    "fleetStatus": "Status flote",
+    "allShipments": "Sve pošiljke",
+    "trackShipment": "Prati pošiljku",
+    "createShipment": "Kreiraj pošiljku",
+    "delayedShipments": "Odgođene pošiljke",
+    "vehicleList": "Lista vozila",
+    "maintenanceLogs": "Evidencija održavanja",
+    "driverAssignments": "Dodjele vozača"
+  }
+}

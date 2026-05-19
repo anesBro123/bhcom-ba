@@ -5,7 +5,9 @@
     <button
       type="button"
       class="topbar__icon-btn"
-      [attr.aria-label]="themeAriaLabel()"
+      [attr.aria-label]="
+        (isDark() ? 'topbar.theme.light' : 'topbar.theme.dark') | translate
+      "
       (click)="themeService.toggle()"
     >
       @if (isDark()) {
@@ -15,16 +17,50 @@
       }
     </button>
 
-    <button type="button" class="topbar__icon-btn topbar__icon-btn--badge" aria-label="Notifications">
+    <button
+      type="button"
+      class="topbar__icon-btn topbar__icon-btn--badge"
+      [attr.aria-label]="'topbar.notifications' | translate"
+    >
       <svg lucideBell [size]="20" />
       <span class="topbar__badge">3</span>
     </button>
 
-    <button type="button" class="topbar__icon-btn" aria-label="Change language">
-      <svg lucideGlobe [size]="20" />
-    </button>
+    <div class="topbar__lang">
+      <button
+        type="button"
+        class="topbar__icon-btn"
+        [attr.aria-label]="'topbar.changeLanguage' | translate"
+        [attr.aria-expanded]="langMenuOpen()"
+        aria-haspopup="listbox"
+        (click)="toggleLangMenu()"
+      >
+        <svg lucideGlobe [size]="20" />
+      </button>
 
-    <button type="button" class="topbar__avatar" aria-label="User profile">
+      @if (langMenuOpen()) {
+        <ul class="topbar__lang-menu" role="listbox">
+          @for (lang of languages; track lang.code) {
+            <li role="option" [attr.aria-selected]="languageService.lang() === lang.code">
+              <button
+                type="button"
+                class="topbar__lang-option"
+                [class.topbar__lang-option--active]="languageService.lang() === lang.code"
+                (click)="selectLanguage(lang.code)"
+              >
+                {{ lang.labelKey | translate }}
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="topbar__avatar"
+      [attr.aria-label]="'topbar.profile' | translate"
+    >
       <svg lucideCircleUser [size]="28" />
     </button>
   </div>

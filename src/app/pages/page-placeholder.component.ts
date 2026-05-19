@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-placeholder',
-  template: `<h1 class="page-title">{{ title }}</h1>`,
+  imports: [TranslatePipe],
+  template: `<h1 class="page-title">{{ titleKey | translate }}</h1>`,
   styles: `
     .page-title {
       margin: 0;
@@ -15,5 +17,5 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PagePlaceholderComponent {
   private readonly route = inject(ActivatedRoute);
-  protected readonly title = this.route.snapshot.data['title'] as string;
+  protected readonly titleKey = this.route.snapshot.data['titleKey'] as string;
 }

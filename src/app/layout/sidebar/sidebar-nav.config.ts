@@ -13,41 +13,41 @@ import {
 } from '@lucide/angular';
 
 export interface NavItem {
-  label: string;
+  labelKey: string;
   route: string;
   icon: LucideIcon;
   exact?: boolean;
 }
 
 export interface NavSection {
-  title: string;
+  titleKey: string;
   items: NavItem[];
 }
 
 export const SIDEBAR_NAV: NavSection[] = [
   {
-    title: 'DASHBOARD',
+    titleKey: 'nav.sections.dashboard',
     items: [
-      { label: 'Overview', route: '/dashboard', icon: LucideLayoutGrid, exact: true },
-      { label: 'Live Shipment Map', route: '/dashboard/live-map', icon: LucideMap },
-      { label: 'Fleet Status', route: '/dashboard/fleet-status', icon: LucideActivity },
+      { labelKey: 'nav.overview', route: '/dashboard', icon: LucideLayoutGrid, exact: true },
+      { labelKey: 'nav.liveMap', route: '/dashboard/live-map', icon: LucideMap },
+      { labelKey: 'nav.fleetStatus', route: '/dashboard/fleet-status', icon: LucideActivity },
     ],
   },
   {
-    title: 'SHIPMENTS',
+    titleKey: 'nav.sections.shipments',
     items: [
-      { label: 'All Shipments', route: '/shipments', icon: LucideTruck, exact: true },
-      { label: 'Track Shipment', route: '/shipments/track', icon: LucideNavigation },
-      { label: 'Create Shipment', route: '/shipments/create', icon: LucideSquarePlus },
-      { label: 'Delayed Shipments', route: '/shipments/delayed', icon: LucideClock },
+      { labelKey: 'nav.allShipments', route: '/shipments', icon: LucideTruck, exact: true },
+      { labelKey: 'nav.trackShipment', route: '/shipments/track', icon: LucideNavigation },
+      { labelKey: 'nav.createShipment', route: '/shipments/create', icon: LucideSquarePlus },
+      { labelKey: 'nav.delayedShipments', route: '/shipments/delayed', icon: LucideClock },
     ],
   },
   {
-    title: 'FLEET MANAGEMENT',
+    titleKey: 'nav.sections.fleet',
     items: [
-      { label: 'Vehicle List', route: '/fleet/vehicles', icon: LucideVan },
-      { label: 'Maintenance Logs', route: '/fleet/maintenance', icon: LucideWrench },
-      { label: 'Driver Assignments', route: '/fleet/drivers', icon: LucideUsers },
+      { labelKey: 'nav.vehicleList', route: '/fleet/vehicles', icon: LucideVan },
+      { labelKey: 'nav.maintenanceLogs', route: '/fleet/maintenance', icon: LucideWrench },
+      { labelKey: 'nav.driverAssignments', route: '/fleet/drivers', icon: LucideUsers },
     ],
   },
 ];
