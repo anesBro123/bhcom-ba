@@ -1,4 +1,8 @@
 {
+  "sidebar": {
+    "collapse": "Suzi bočnu traku",
+    "expand": "Proširi bočnu traku"
+  },
   "topbar": {
     "theme": {
       "light": "Prebaci na svijetli režim",
@@ -16,7 +20,10 @@
     "sections": {
       "dashboard": "KONTROLNA TABLA",
       "shipments": "POŠILJKE",
-      "fleet": "UPRAVLJANJE FLOTE"
+      "fleet": "UPRAVLJANJE FLOTE",
+      "vendorsClients": "PRODAVCI I KLIJENTI",
+      "orders": "NARUDŽBE",
+      "reports": "IZVJEŠTAJI"
     },
     "overview": "Pregled",
     "liveMap": "Mapa pošiljki uživo",
@@ -27,7 +34,18 @@
     "delayedShipments": "Odgođene pošiljke",
     "vehicleList": "Lista vozila",
     "maintenanceLogs": "Evidencija održavanja",
-    "driverAssignments": "Dodjele vozača"
+    "driverAssignments": "Dodjele vozača",
+    "vendorDirectory": "Imenik prodavaca",
+    "addVendor": "Dodaj prodavca",
+    "clientsList": "Lista klijenata",
+    "clientFeedback": "Povratne informacije klijenata",
+    "allOrders": "Sve narudžbe",
+    "scheduledDeliveries": "Zakazane isporuke",
+    "returns": "Povrati",
+    "cancellations": "Otkazivanja",
+    "deliveryPerformance": "Performanse isporuke",
+    "revenueAnalysis": "Analiza prihoda",
+    "fleetEfficiency": "Efikasnost flote"
   },
   "pages": {
     "dashboardOverview": "Pregled kontrolne table",
@@ -39,6 +57,17 @@
     "delayedShipments": "Odgođene pošiljke",
     "vehicleList": "Lista vozila",
     "maintenanceLogs": "Evidencija održavanja",
-    "driverAssignments": "Dodjele vozača"
+    "driverAssignments": "Dodjele vozača",
+    "vendorDirectory": "Imenik prodavaca",
+    "addVendor": "Dodaj prodavca",
+    "clientsList": "Lista klijenata",
+    "clientFeedback": "Povratne informacije klijenata",
+    "allOrders": "Sve narudžbe",
+    "scheduledDeliveries": "Zakazane isporuke",
+    "returns": "Povrati",
+    "cancellations": "Otkazivanja",
+    "deliveryPerformance": "Performanse isporuke",
+    "revenueAnalysis": "Analiza prihoda",
+    "fleetEfficiency": "Efikasnost flote"
   }
 }

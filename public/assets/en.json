@@ -1,4 +1,8 @@
 {
+  "sidebar": {
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
+  },
   "topbar": {
     "theme": {
       "light": "Switch to light mode",
@@ -16,7 +20,10 @@
     "sections": {
       "dashboard": "DASHBOARD",
       "shipments": "SHIPMENTS",
-      "fleet": "FLEET MANAGEMENT"
+      "fleet": "FLEET MANAGEMENT",
+      "vendorsClients": "VENDORS & CLIENTS",
+      "orders": "ORDERS",
+      "reports": "REPORTS"
     },
     "overview": "Overview",
     "liveMap": "Live Shipment Map",
@@ -27,7 +34,18 @@
     "delayedShipments": "Delayed Shipments",
     "vehicleList": "Vehicle List",
     "maintenanceLogs": "Maintenance Logs",
-    "driverAssignments": "Driver Assignments"
+    "driverAssignments": "Driver Assignments",
+    "vendorDirectory": "Vendor Directory",
+    "addVendor": "Add Vendor",
+    "clientsList": "Clients List",
+    "clientFeedback": "Client Feedback",
+    "allOrders": "All Orders",
+    "scheduledDeliveries": "Scheduled Deliveries",
+    "returns": "Returns",
+    "cancellations": "Cancellations",
+    "deliveryPerformance": "Delivery Performance",
+    "revenueAnalysis": "Revenue Analysis",
+    "fleetEfficiency": "Fleet Efficiency"
   },
   "pages": {
     "dashboardOverview": "Dashboard Overview",
@@ -39,6 +57,17 @@
     "delayedShipments": "Delayed Shipments",
     "vehicleList": "Vehicle List",
     "maintenanceLogs": "Maintenance Logs",
-    "driverAssignments": "Driver Assignments"
+    "driverAssignments": "Driver Assignments",
+    "vendorDirectory": "Vendor Directory",
+    "addVendor": "Add Vendor",
+    "clientsList": "Clients List",
+    "clientFeedback": "Client Feedback",
+    "allOrders": "All Orders",
+    "scheduledDeliveries": "Scheduled Deliveries",
+    "returns": "Returns",
+    "cancellations": "Cancellations",
+    "deliveryPerformance": "Delivery Performance",
+    "revenueAnalysis": "Revenue Analysis",
+    "fleetEfficiency": "Fleet Efficiency"
   }
 }
