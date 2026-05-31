@@ -15,6 +15,36 @@
   --sidebar-width-collapsed: 72px;
   --sidebar-width: var(--sidebar-width-expanded);
   --topbar-height: 64px;
+  --text-table-header-size: 0.875rem;
+  --bg-table-card: transparent;
+  --border-table: rgba(255, 255, 255, 0.06);
+  --bg-table-header: transparent;
+  --text-table-header: #9ca3af;
+  --text-table-header-weight: 500;
+  --text-table-body: #f3f4f6;
+  --bg-table-row-hover: rgba(255, 255, 255, 0.04);
+  --bg-table-filter: transparent;
+  --border-table-filter: rgba(255, 255, 255, 0.12);
+  --bg-pagination-active: #f8fafc;
+  --text-pagination-active: #0b0f19;
+  --text-pagination-muted: #94a3b8;
+  --bg-pagination-btn: transparent;
+  --border-pagination-btn: rgba(255, 255, 255, 0.12);
+  --shipment-status-in-transit-bg: rgba(255, 255, 255, 0.1);
+  --shipment-status-in-transit-text: #f8fafc;
+  --shipment-status-pending-bg: rgba(255, 255, 255, 0.06);
+  --shipment-status-pending-text: #cbd5e1;
+  --shipment-status-delivered-bg: #f8fafc;
+  --shipment-status-delivered-text: #0b0f19;
+  --shipment-priority-standard-bg: #3b82f6;
+  --shipment-priority-standard-text: #ffffff;
+  --shipment-priority-express-bg: #ef4444;
+  --shipment-priority-express-text: #ffffff;
+  --shipment-priority-economy-bg: #22c55e;
+  --shipment-priority-economy-text: #ffffff;
+  --bg-table-actions-menu: var(--bg-app);
+  --border-table-actions-menu: rgba(255, 255, 255, 0.08);
+  --shadow-table-actions-menu: 0 8px 24px rgb(0 0 0 / 0.35);
 }
 
 [data-sidebar-collapsed] {
@@ -33,6 +63,36 @@
   --bg-topbar: #ffffff;
   --bg-icon-btn: #eef1f5;
   --bg-icon-btn-hover: #e4e8ee;
+  --text-table-header-size: 0.875rem;
+  --bg-table-card: #ffffff;
+  --border-table: rgba(0, 0, 0, 0.08);
+  --bg-table-header: #f8fafc;
+  --text-table-header: #64748b;
+  --text-table-header-weight: 600;
+  --text-table-body: #1e293b;
+  --bg-table-row-hover: #f1f5f9;
+  --bg-table-filter: #ffffff;
+  --border-table-filter: rgba(0, 0, 0, 0.12);
+  --bg-pagination-active: #1e293b;
+  --text-pagination-active: #ffffff;
+  --text-pagination-muted: #64748b;
+  --bg-pagination-btn: #ffffff;
+  --border-pagination-btn: rgba(0, 0, 0, 0.12);
+  --shipment-status-in-transit-bg: #dbeafe;
+  --shipment-status-in-transit-text: #1d4ed8;
+  --shipment-status-pending-bg: #f1f5f9;
+  --shipment-status-pending-text: #475569;
+  --shipment-status-delivered-bg: #1e293b;
+  --shipment-status-delivered-text: #ffffff;
+  --shipment-priority-standard-bg: #3b82f6;
+  --shipment-priority-standard-text: #ffffff;
+  --shipment-priority-express-bg: #ef4444;
+  --shipment-priority-express-text: #ffffff;
+  --shipment-priority-economy-bg: #22c55e;
+  --shipment-priority-economy-text: #ffffff;
+  --bg-table-actions-menu: var(--bg-table-card);
+  --border-table-actions-menu: rgba(0, 0, 0, 0.08);
+  --shadow-table-actions-menu: 0 4px 16px rgb(0 0 0 / 0.1);
 }
 
 *,

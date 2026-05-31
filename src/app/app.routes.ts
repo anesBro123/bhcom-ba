@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AppShellComponent } from './layout/app-shell.component';
+import { ShipmentsPageComponent } from './features/shipments/shipments-page.component';
 import { PagePlaceholderComponent } from './pages/page-placeholder.component';
 
 export const routes: Routes = [
@@ -25,8 +26,7 @@ export const routes: Routes = [
       },
       {
         path: 'shipments',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.allShipments' },
+        component: ShipmentsPageComponent,
       },
       {
         path: 'shipments/track',

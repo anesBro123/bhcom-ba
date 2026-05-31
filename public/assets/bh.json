@@ -69,5 +69,63 @@
     "deliveryPerformance": "Performanse isporuke",
     "revenueAnalysis": "Analiza prihoda",
     "fleetEfficiency": "Efikasnost flote"
+  },
+  "tables": {
+    "common": {
+      "loading": "Učitavanje...",
+      "empty": "Nema pronađenih zapisa.",
+      "loadError": "Nije moguće učitati podatke tabele.",
+      "previous": "Prethodna",
+      "next": "Sljedeća",
+      "showingSummary": "Prikazano {{from}} do {{to}} od {{total}} {{entity}}",
+      "actions": "Akcije reda",
+      "actionsMenu": "Akcije"
+    },
+    "shipments": {
+      "title": "Lista pošiljki",
+      "entity": "pošiljki",
+      "columns": {
+        "id": "ID",
+        "customer": "Kupac",
+        "origin": "Polaziste",
+        "destination": "Odrediste",
+        "departure": "Polazak",
+        "eta": "ETA",
+        "status": "Status",
+        "type": "Tip",
+        "priority": "Prioritet"
+      },
+      "status": {
+        "in_transit": "U tranzitu",
+        "pending": "Na cekanju",
+        "delivered": "Isporuceno"
+      },
+      "type": {
+        "road": "Cesta",
+        "air": "Avion",
+        "sea": "Brod"
+      },
+      "priority": {
+        "standard": "Standardni",
+        "express": "Ekspres",
+        "economy": "Ekonomski"
+      },
+      "actions": {
+        "view": "Pogledaj detalje",
+        "edit": "Uredi pošiljku",
+        "duplicate": "Dupliciraj",
+        "delete": "Obriši"
+      },
+      "filters": {
+        "search": "Pretraga",
+        "searchPlaceholder": "Pretraži pošiljke...",
+        "status": "Status",
+        "allStatuses": "Svi statusi",
+        "type": "Tip",
+        "allTypes": "Svi tipovi",
+        "priority": "Prioritet",
+        "allPriorities": "Svi prioriteti"
+      }
+    }
   }
 }

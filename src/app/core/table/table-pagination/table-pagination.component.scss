@@ -1,0 +1,59 @@
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border-table);
+}
+
+.table-pagination__summary {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-pagination-muted);
+}
+
+.table-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table-pagination__btn {
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--border-pagination-btn);
+  border-radius: 0.5rem;
+  background: var(--bg-pagination-btn);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--bg-table-row-hover);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+.table-pagination__btn--page {
+  min-width: 2.25rem;
+  padding: 0;
+}
+
+.table-pagination__btn--active {
+  background: var(--bg-pagination-active);
+  color: var(--text-pagination-active);
+  border-color: var(--bg-pagination-active);
+}
+
+@media (max-width: 768px) {
+  .table-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

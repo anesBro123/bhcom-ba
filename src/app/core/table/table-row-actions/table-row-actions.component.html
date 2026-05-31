@@ -1,0 +1,49 @@
+<div class="table-row-actions">
+  <button
+    type="button"
+    class="table-row-actions__trigger"
+    [attr.aria-label]="'tables.common.actions' | translate"
+    [attr.aria-expanded]="menuOpen()"
+    aria-haspopup="menu"
+    [disabled]="visibleActions().length === 0"
+    (click)="toggleMenu()"
+  >
+    <svg lucideEllipsis [size]="18" />
+  </button>
+
+  @if (menuOpen()) {
+    <div class="table-row-actions__menu" role="menu">
+      <div class="table-row-actions__menu-header">
+        {{ 'tables.common.actionsMenu' | translate }}
+      </div>
+
+      <ul class="table-row-actions__list">
+        @for (item of visibleActions(); track item.id; let index = $index) {
+          @if (showSeparatorBefore(item, index)) {
+            <li class="table-row-actions__separator" role="separator"></li>
+          }
+
+          <li role="none">
+            <button
+              type="button"
+              class="table-row-actions__item"
+              [class.table-row-actions__item--danger]="item.danger"
+              role="menuitem"
+              [disabled]="isDisabled(item)"
+              (click)="selectAction(item)"
+            >
+              @if (item.icon) {
+                <svg
+                  [lucideIcon]="item.icon"
+                  [size]="16"
+                  class="table-row-actions__item-icon"
+                />
+              }
+              <span>{{ item.labelKey | translate }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

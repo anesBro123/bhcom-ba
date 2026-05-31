@@ -69,5 +69,63 @@
     "deliveryPerformance": "Delivery Performance",
     "revenueAnalysis": "Revenue Analysis",
     "fleetEfficiency": "Fleet Efficiency"
+  },
+  "tables": {
+    "common": {
+      "loading": "Loading...",
+      "empty": "No records found.",
+      "loadError": "Unable to load table data.",
+      "previous": "Previous",
+      "next": "Next",
+      "showingSummary": "Showing {{from}} to {{to}} of {{total}} {{entity}}",
+      "actions": "Row actions",
+      "actionsMenu": "Actions"
+    },
+    "shipments": {
+      "title": "Shipment List",
+      "entity": "shipments",
+      "columns": {
+        "id": "ID",
+        "customer": "Customer",
+        "origin": "Origin",
+        "destination": "Destination",
+        "departure": "Departure",
+        "eta": "ETA",
+        "status": "Status",
+        "type": "Type",
+        "priority": "Priority"
+      },
+      "status": {
+        "in_transit": "In Transit",
+        "pending": "Pending",
+        "delivered": "Delivered"
+      },
+      "type": {
+        "road": "Road",
+        "air": "Air",
+        "sea": "Sea"
+      },
+      "priority": {
+        "standard": "Standard",
+        "express": "Express",
+        "economy": "Economy"
+      },
+      "actions": {
+        "view": "View Details",
+        "edit": "Edit Shipment",
+        "duplicate": "Duplicate",
+        "delete": "Delete"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search shipments...",
+        "status": "Status",
+        "allStatuses": "All statuses",
+        "type": "Type",
+        "allTypes": "All types",
+        "priority": "Priority",
+        "allPriorities": "All priorities"
+      }
+    }
   }
 }

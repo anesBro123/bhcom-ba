@@ -1,0 +1,45 @@
+<div class="table-pagination">
+  <p class="table-pagination__summary">
+    {{
+      summaryKey()
+        | translate
+          : {
+              from: rangeFrom(),
+              to: rangeTo(),
+              total: total(),
+              entity: (entityKey() | translate),
+            }
+    }}
+  </p>
+
+  <div class="table-pagination__controls">
+    <button
+      type="button"
+      class="table-pagination__btn"
+      [disabled]="!canGoPrevious()"
+      (click)="previousPage()"
+    >
+      {{ 'tables.common.previous' | translate }}
+    </button>
+
+    @for (pageNumber of pages(); track pageNumber) {
+      <button
+        type="button"
+        class="table-pagination__btn table-pagination__btn--page"
+        [class.table-pagination__btn--active]="pageNumber === page()"
+        (click)="goToPage(pageNumber)"
+      >
+        {{ pageNumber }}
+      </button>
+    }
+
+    <button
+      type="button"
+      class="table-pagination__btn"
+      [disabled]="!canGoNext()"
+      (click)="nextPage()"
+    >
+      {{ 'tables.common.next' | translate }}
+    </button>
+  </div>
+</div>

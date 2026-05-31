@@ -1,0 +1,146 @@
+<section class="data-table-page">
+  <ng-content select="[tableToolbar]" />
+
+  <div class="data-table-card">
+    @if (hasFilters()) {
+      <app-table-filter-bar
+        [filters]="definition().filters!"
+        [values]="tableStore.query().filters"
+        (filterChange)="onFilterChange($event)"
+      />
+    }
+
+    <header class="data-table-card__header">
+      <h2 class="data-table-card__title">{{ definition().titleKey | translate }}</h2>
+    </header>
+
+    @if (tableStore.loading()) {
+      <div class="data-table-card__state">{{ 'tables.common.loading' | translate }}</div>
+    } @else if (tableStore.error()) {
+      <div class="data-table-card__state data-table-card__state--error">
+        {{ tableStore.error()! | translate }}
+      </div>
+    } @else {
+        <div class="data-table-card__scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                @if (definition().selectable) {
+                  <th class="data-table__checkbox-col">
+                    <input
+                      type="checkbox"
+                      class="data-table__checkbox"
+                      [checked]="tableStore.allSelected()"
+                      [indeterminate]="tableStore.someSelected()"
+                      (change)="onToggleAll()"
+                    />
+                  </th>
+                }
+
+                @for (column of visibleColumns(); track column.key) {
+                  <th
+                    [attr.data-column]="column.key"
+                    [style.width]="column.width"
+                    [style.text-align]="column.align ?? 'left'"
+                    [class.data-table__th--sortable]="column.sortable"
+                    (click)="onSort(column)"
+                  >
+                    <span class="data-table__th-content">
+                      <span>{{ column.titleKey | translate }}</span>
+                      @if (column.sortable) {
+                        <span class="data-table__sort-icon">
+                          @if (!isSorted(column)) {
+                            <svg lucideArrowUpDown [size]="14" />
+                          } @else if (sortDirection(column) === 'asc') {
+                            <svg lucideArrowUp [size]="14" />
+                          } @else {
+                            <svg lucideArrowDown [size]="14" />
+                          }
+                        </span>
+                      }
+                    </span>
+                  </th>
+                }
+
+                @if (hasActions()) {
+                  <th
+                    class="data-table__actions-col"
+                    [style.width]="actionsWidth()"
+                  >
+                    @if (definition().actions?.titleKey) {
+                      {{ definition().actions!.titleKey! | translate }}
+                    }
+                  </th>
+                }
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (row of tableStore.rows(); track trackRow(row)) {
+                <tr class="data-table__row">
+                  @if (definition().selectable) {
+                    <td class="data-table__checkbox-col">
+                      <input
+                        type="checkbox"
+                        class="data-table__checkbox"
+                        [checked]="isSelected(row)"
+                        (change)="onToggleRow(row)"
+                      />
+                    </td>
+                  }
+
+                  @for (column of visibleColumns(); track column.key) {
+                    <td
+                      [attr.data-column]="column.key"
+                      [style.width]="column.width"
+                      [style.text-align]="column.align ?? 'left'"
+                    >
+                      @if (column.cell === 'custom' && cellTemplate(column.key); as template) {
+                        <ng-container
+                          *ngTemplateOutlet="template; context: cellContext(row, column)"
+                        />
+                      } @else {
+                        {{ formatValue(row, column) }}
+                      }
+                    </td>
+                  }
+
+                  @if (hasActions()) {
+                    <td class="data-table__actions-col" [style.width]="actionsWidth()">
+                      <app-table-row-actions
+                        [actions]="definition().actions!.items"
+                        [row]="row"
+                        (action)="onRowAction($event)"
+                      />
+                    </td>
+                  }
+                </tr>
+              } @empty {
+                <tr>
+                  <td
+                    class="data-table__empty"
+                    [attr.colspan]="
+                      visibleColumns().length +
+                      (definition().selectable ? 1 : 0) +
+                      (hasActions() ? 1 : 0)
+                    "
+                  >
+                    {{ 'tables.common.empty' | translate }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <app-table-pagination
+          [page]="tableStore.query().page"
+          [pageSize]="tableStore.query().pageSize"
+          [total]="tableStore.total()"
+          [summaryKey]="definition().summaryKey"
+          [entityKey]="definition().entityKey"
+          (pageChange)="tableStore.setPage($event)"
+        />
+    }
+  </div>
+</section>
