@@ -1,0 +1,7 @@
+$breakpoint-md: 768px;
+
+@mixin below-md {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}

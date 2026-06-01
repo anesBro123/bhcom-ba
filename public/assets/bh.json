@@ -1,9 +1,11 @@
 {
   "sidebar": {
-    "collapse": "Suzi bočnu traku",
-    "expand": "Proširi bočnu traku"
+    "collapse": "Suzi",
+    "expand": "Proširi",
+    "close": "Zatvori meni"
   },
   "topbar": {
+    "openMenu": "Otvori meni",
     "theme": {
       "light": "Prebaci na svijetli režim",
       "dark": "Prebaci na tamni režim"

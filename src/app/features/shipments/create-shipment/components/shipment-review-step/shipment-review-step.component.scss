@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as *;
+
 :host {
   display: block;
 }
@@ -177,7 +179,7 @@
   }
 }
 
-@media (max-width: 960px) {
+@include below-md {
   .review-step {
     grid-template-columns: 1fr;
   }
@@ -189,5 +191,9 @@
   .review-dl__row {
     grid-template-columns: 1fr;
     gap: 0.25rem;
+  }
+
+  .cost-card {
+    padding: 1rem;
   }
 }

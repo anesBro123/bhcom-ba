@@ -14,7 +14,14 @@ export const ShipmentTable = defineTable<Shipment>()({
   selectable: true,
   trackBy: 'id',
   columns: [
-    { key: 'id', titleKey: 'tables.shipments.columns.id', sortable: true, width: '8rem', cell: 'custom' },
+    {
+      key: 'id',
+      titleKey: 'tables.shipments.columns.id',
+      sortable: true,
+      width: '8rem',
+      cell: 'custom',
+      mobile: { primary: true },
+    },
     { key: 'customer', titleKey: 'tables.shipments.columns.customer', sortable: true, width: '140px' },
     { key: 'origin', titleKey: 'tables.shipments.columns.origin', sortable: true, width: '160px' },
     { key: 'destination', titleKey: 'tables.shipments.columns.destination', sortable: true, width: '160px' },

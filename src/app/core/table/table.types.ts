@@ -13,6 +13,12 @@ export interface ColumnDef<T, K extends keyof T & string = keyof T & string> {
   align?: 'left' | 'center' | 'right';
   format?: ColumnFormat;
   cell?: ColumnCell;
+  mobile?: {
+    /** Shown in card header; defaults to first visible column if none marked */
+    primary?: boolean;
+    /** Omit from card body (e.g. when only used in header) */
+    hidden?: boolean;
+  };
 }
 
 export type FilterDef<T> =

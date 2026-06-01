@@ -5,15 +5,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-page-placeholder',
   imports: [TranslatePipe],
-  template: `<h1 class="page-title">{{ titleKey | translate }}</h1>`,
-  styles: `
-    .page-title {
-      margin: 0;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-  `,
+  templateUrl: './page-placeholder.component.html',
+  styleUrl: './page-placeholder.component.scss',
 })
 export class PagePlaceholderComponent {
   private readonly route = inject(ActivatedRoute);

@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as *;
+
 .topbar {
   display: flex;
   align-items: center;
@@ -7,8 +9,46 @@
   background-color: var(--bg-topbar);
 }
 
+.topbar__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+  color: var(--text-primary);
+
+  svg {
+    stroke-width: 2px;
+  }
+
+  &:hover {
+    color: var(--text-muted);
+  }
+}
+
 .topbar__spacer {
   flex: 1;
+}
+
+@include below-md {
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .topbar__menu-btn {
+    display: flex;
+  }
+
+  .topbar__actions {
+    gap: 0.5rem;
+  }
+
+  .topbar__icon-btn {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .topbar__actions {

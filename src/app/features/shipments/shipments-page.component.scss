@@ -81,6 +81,7 @@
   color: var(--shipment-priority-economy-text);
 }
 
-:host ::ng-deep .data-table td[data-column='customer'] {
+:host ::ng-deep .data-table td[data-column='customer'],
+:host ::ng-deep .data-table-row-card__field dd[data-column='customer'] {
   font-weight: 500;
 }

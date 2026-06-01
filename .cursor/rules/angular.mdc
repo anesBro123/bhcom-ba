@@ -13,3 +13,13 @@ alwaysApply: false
 - Icons: import from `@lucide/angular` (same as form/table defs).
 - Styling: use CSS variables from `styles.scss`; avoid hard-coded hex in components.
 - No NgModules unless the codebase already uses them in that area.
+
+## Responsive layout
+
+- Primary mobile breakpoint: **768px** (`max-width: 768px`).
+- In component SCSS: `@use 'styles/breakpoints' as *;` then `@include below-md { ... }` (requires `stylePreprocessorOptions.includePaths: ["src"]` in `angular.json`).
+- Layout padding: `--layout-padding-x`, `--layout-padding-x-mobile`, etc. in `styles.scss`.
+- Prefer responsive rules in **core** form/table/shell components so feature pages inherit automatically; only add feature SCSS when a screen has a unique layout (e.g. review-step two-column grid).
+- Form footers stack at **640px** (`form-footer.component.scss`); do not change without reason.
+- Tables on mobile: card list via `DataTableComponent` `isMobileLayout` (`matchMedia` 768px) — see `tables.mdc`; do not add a second table/card UI on feature pages.
+- Shell/layout mobile behavior: see `00-project.mdc` (hamburger, drawer, `SidebarService`).

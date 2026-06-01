@@ -14,3 +14,13 @@ alwaysApply: false
 6. i18n: `titleKey`, column `titleKey`, action `labelKey` in table def.
 
 Do not rebuild pagination/filter/sort UI outside `DataTableComponent`.
+
+## Mobile (≤768px)
+
+- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `core/layout/viewport.ts`, `isMobileLayout` signal).
+- Table and cards are mutually exclusive (`@if` / `@else`); only one is in the DOM.
+- Cards use column `titleKey` labels + values; custom `appTableCell` templates render in both views.
+- Optional column `mobile` metadata:
+  - `mobile.primary: true` — card header (defaults to first visible column).
+  - `mobile.hidden: true` — omit from card body only.
+- Filters, pagination, selection, and row actions work the same on mobile.

@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -7,8 +7,10 @@ import {
   Injector,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   QueryList,
   TemplateRef,
+  afterNextRender,
   computed,
   inject,
   input,
@@ -33,6 +35,7 @@ import type {
 import { TablePaginationComponent } from '../table-pagination/table-pagination.component';
 import { TableFilterBarComponent } from '../table-filter-bar/table-filter-bar.component';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
+import { MOBILE_MEDIA_QUERY } from '../../layout/viewport';
 
 @Component({
   selector: 'app-data-table',
@@ -60,14 +63,33 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   private readonly api = inject(TableApiService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly injector = inject(Injector);
+  private readonly platformId = inject(PLATFORM_ID);
   private dataSubscription: Subscription | null = null;
+  private mediaQuery: MediaQueryList | null = null;
 
   protected tableStore!: TableStore<T>;
   protected readonly cellTemplateMap = signal(new Map<string, TemplateRef<TableCellContext<T>>>());
+  protected readonly isMobileLayout = signal(false);
 
   protected readonly visibleColumns = computed(() =>
     this.definition().columns.filter((column) => !column.hidden),
   );
+
+  protected readonly primaryColumn = computed((): ColumnDef<T> | undefined => {
+    const columns = this.visibleColumns();
+    return columns.find((column) => column.mobile?.primary) ?? columns[0];
+  });
+
+  protected readonly cardBodyColumns = computed(() => {
+    const primary = this.primaryColumn();
+    if (!primary) {
+      return [];
+    }
+
+    return this.visibleColumns().filter(
+      (column) => column.key !== primary.key && !column.mobile?.hidden,
+    );
+  });
 
   protected hasActions(): boolean {
     return (this.definition().actions?.items.length ?? 0) > 0;
@@ -87,6 +109,26 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
 
   protected onRowAction(event: RowActionEvent<T>): void {
     this.rowAction.emit(event);
+  }
+
+  constructor() {
+    afterNextRender(() => {
+      if (!isPlatformBrowser(this.platformId)) {
+        return;
+      }
+
+      this.mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+      const updateLayout = (): void => {
+        this.isMobileLayout.set(this.mediaQuery?.matches ?? false);
+      };
+
+      updateLayout();
+      this.mediaQuery.addEventListener('change', updateLayout);
+
+      this.destroyRef.onDestroy(() => {
+        this.mediaQuery?.removeEventListener('change', updateLayout);
+      });
+    });
   }
 
   ngOnInit(): void {

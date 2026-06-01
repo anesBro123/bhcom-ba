@@ -5,17 +5,25 @@
     <button
       type="button"
       class="sidebar__brand-toggle"
-      [attr.aria-label]="
-        (sidebarService.collapsed() ? 'sidebar.expand' : 'sidebar.collapse') | translate
-      "
+      [attr.aria-label]="toggleLabelKey | translate"
+      [attr.title]="toggleLabelKey | translate"
       [attr.aria-expanded]="!sidebarService.collapsed()"
       (click)="sidebarService.toggle()"
     >
       @if (sidebarService.collapsed()) {
-        <svg lucidePanelLeft [size]="18" />
+        <svg lucidePanelLeftOpen [size]="18" />
       } @else {
         <svg lucidePanelLeftClose [size]="18" />
       }
+    </button>
+    <button
+      type="button"
+      class="sidebar__close"
+      [attr.aria-label]="'sidebar.close' | translate"
+      [attr.title]="'sidebar.close' | translate"
+      (click)="sidebarService.closeMobile()"
+    >
+      <svg lucideX [size]="20" />
     </button>
   </div>
 

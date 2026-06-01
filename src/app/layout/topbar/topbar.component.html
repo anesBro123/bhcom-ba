@@ -1,4 +1,14 @@
 <header class="topbar">
+  <button
+    type="button"
+    class="topbar__menu-btn"
+    [attr.aria-label]="'topbar.openMenu' | translate"
+    [attr.title]="'topbar.openMenu' | translate"
+    (click)="sidebarService.openMobile()"
+  >
+    <svg lucideMenu [size]="22" />
+  </button>
+
   <div class="topbar__spacer"></div>
 
   <div class="topbar__actions">

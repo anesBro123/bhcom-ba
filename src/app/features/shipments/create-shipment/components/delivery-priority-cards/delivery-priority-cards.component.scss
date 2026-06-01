@@ -1,3 +1,4 @@
+@use 'styles/breakpoints' as *;
 @use '../../../../../core/form/fields/form-controls.shared';
 
 :host {
@@ -83,4 +84,10 @@
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+@include below-md {
+  .priority-card {
+    padding: 0.875rem 1rem;
+  }
 }

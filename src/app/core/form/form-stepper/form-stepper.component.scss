@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as *;
+
 .form-stepper {
   display: flex;
   flex-direction: column;
@@ -62,8 +64,22 @@
   }
 }
 
-@media (max-width: 768px) {
+@include below-md {
   .form-stepper__labels {
-    gap: 0.625rem 1rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.75rem 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .form-stepper__label {
+    flex-shrink: 0;
+    font-size: 0.8125rem;
   }
 }

@@ -15,12 +15,21 @@ Logistics/admin SPA. Prefer existing abstractions over new UI frameworks.
 ## Source map (read files when implementing, don’t guess)
 
 - Routes: `src/app/app.routes.ts`
+- App shell: `src/app/layout/` — `app-shell`, `sidebar`, `topbar`
 - Sidebar nav: `src/app/layout/sidebar/sidebar-nav.config.ts` (keep in sync with routes)
+- Layout services: `src/app/core/layout/sidebar.service.ts` (desktop collapse + mobile drawer), `theme/`, `i18n/`
 - Forms framework: `src/app/core/form/` — export barrel `index.ts`
 - Tables framework: `src/app/core/table/` — export barrel `index.ts`
 - Features: `src/app/features/<domain>/`
 - i18n: `public/assets/en.json` + `bh.json` (add keys to both)
-- Theme tokens: `src/styles.scss` (`--bg-*`, `--text-*`, form/table vars)
+- Theme + layout tokens: `src/styles.scss` (`--bg-*`, `--text-*`, `--layout-padding-*`, form/table vars)
+- Breakpoints: `src/styles/_breakpoints.scss` (`@mixin below-md`), `src/app/core/layout/viewport.ts` (`MOBILE_BREAKPOINT_PX` = 768)
+
+## Layout behavior (do not reimplement ad hoc)
+
+- **Desktop:** persistent sidebar (`SidebarService.collapsed`), panel collapse/expand in sidebar brand row.
+- **Mobile (≤768px):** topbar hamburger → `SidebarService.openMobile()`; drawer overlay + backdrop in `app-shell`; X closes drawer; nav scrolls inside sidebar; auto-close on route change / Escape / backdrop.
+- **Main scroll:** `.app-shell__content` only — sidebar is viewport-height with internal nav scroll.
 
 ## References for patterns
 

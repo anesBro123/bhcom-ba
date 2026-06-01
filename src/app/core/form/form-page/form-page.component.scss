@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as *;
+
 .form-page {
   display: flex;
   flex-direction: column;
@@ -33,4 +35,14 @@
 
 .form-page__step-content > app-form-footer:last-child {
   padding-top: 0.25rem;
+}
+
+@include below-md {
+  .form-page__title {
+    font-size: 1.25rem;
+  }
+
+  .form-stepper-card {
+    padding: 1rem 1rem 0.875rem;
+  }
 }

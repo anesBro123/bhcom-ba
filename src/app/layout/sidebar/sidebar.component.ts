@@ -1,11 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostBinding, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   LucideDynamicIcon,
-  LucidePanelLeft,
   LucidePanelLeftClose,
+  LucidePanelLeftOpen,
   LucideTruck,
+  LucideX,
 } from '@lucide/angular';
 import { SidebarService } from '../../core/layout/sidebar.service';
 import { SIDEBAR_NAV } from './sidebar-nav.config';
@@ -18,8 +19,9 @@ import { SIDEBAR_NAV } from './sidebar-nav.config';
     TranslatePipe,
     LucideDynamicIcon,
     LucideTruck,
-    LucidePanelLeft,
     LucidePanelLeftClose,
+    LucidePanelLeftOpen,
+    LucideX,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -27,4 +29,20 @@ import { SIDEBAR_NAV } from './sidebar-nav.config';
 export class SidebarComponent {
   protected readonly sidebarService = inject(SidebarService);
   protected readonly navSections = SIDEBAR_NAV;
+
+  @HostBinding('class.sidebar--mobile-open')
+  protected get mobileOpenClass(): boolean {
+    return this.sidebarService.mobileOpen();
+  }
+
+  @HostListener('document:keydown.escape')
+  protected onEscape(): void {
+    if (this.sidebarService.mobileOpen()) {
+      this.sidebarService.closeMobile();
+    }
+  }
+
+  protected get toggleLabelKey(): string {
+    return this.sidebarService.collapsed() ? 'sidebar.expand' : 'sidebar.collapse';
+  }
 }

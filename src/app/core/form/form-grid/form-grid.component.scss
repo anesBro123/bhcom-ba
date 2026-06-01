@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as *;
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -10,7 +12,12 @@
   gap: 1.25rem 1rem;
 }
 
-@media (max-width: 768px) {
+@include below-md {
+  :host.form-grid,
+  .form-grid {
+    gap: 1rem;
+  }
+
   :host.form-grid ::ng-deep .form-field-cell {
     grid-column: span 12 !important;
   }

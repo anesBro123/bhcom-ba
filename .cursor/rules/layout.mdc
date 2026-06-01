@@ -1,0 +1,39 @@
+---
+description: App shell, sidebar, topbar, mobile drawer
+globs: src/app/layout/**,src/app/core/layout/**
+alwaysApply: false
+---
+
+# Layout (`src/app/layout` + `core/layout`)
+
+## Structure
+
+- `AppShellComponent` — grid: sidebar column + `app-shell__main` (topbar + scrollable `router-outlet` content).
+- `SidebarComponent` — brand row, collapsible nav (desktop), drawer (mobile).
+- `TopbarComponent` — hamburger (mobile only), theme/lang/notifications/profile actions.
+
+## SidebarService (`core/layout/sidebar.service.ts`)
+
+| API | Purpose |
+|-----|---------|
+| `collapsed` / `toggle()` / `setCollapsed()` | Desktop narrow sidebar (persisted `localStorage`) |
+| `mobileOpen` / `openMobile()` / `closeMobile()` | Mobile drawer (not persisted) |
+
+On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMobile()`.
+
+## Mobile drawer (≤768px)
+
+- Topbar: `LucideMenu` → `openMobile()`.
+- Sidebar: `position: fixed`, slides in; brand row shows **X** (`closeMobile`), not panel collapse toggle.
+- `app-shell`: backdrop button when `mobileOpen()`; single-column grid.
+- i18n: `topbar.openMenu`, `sidebar.close`, `sidebar.collapse` / `sidebar.expand`.
+
+## Desktop sidebar
+
+- Viewport height (`100vh`), nav area scrolls (`overflow-y` on `.sidebar__nav`).
+- Brand row: `PanelLeftClose` / `PanelLeftOpen` for collapse.
+
+## Styling
+
+- Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
+- Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).

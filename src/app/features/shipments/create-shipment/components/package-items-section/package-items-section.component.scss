@@ -1,3 +1,4 @@
+@use 'styles/breakpoints' as *;
 @use '../../../../../core/form/fields/form-controls.shared';
 
 :host {
@@ -102,7 +103,11 @@
   color: var(--text-primary);
 }
 
-@media (max-width: 768px) {
+@include below-md {
+  .package-item-card {
+    padding: 0.875rem;
+  }
+
   .package-item-grid__field--half,
   .package-item-grid__field--third,
   .package-item-grid__field--checkbox {

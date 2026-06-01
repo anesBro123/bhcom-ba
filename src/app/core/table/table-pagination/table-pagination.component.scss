@@ -1,9 +1,11 @@
+@use 'styles/breakpoints' as *;
+
 .table-pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 1.25rem;
+  padding: 1rem var(--table-card-padding-x);
   border-top: 1px solid var(--border-table);
 }
 
@@ -51,9 +53,15 @@
   border-color: var(--bg-pagination-active);
 }
 
-@media (max-width: 768px) {
+@include below-md {
   .table-pagination {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 1rem var(--table-card-padding-x-mobile);
+  }
+
+  .table-pagination__controls {
+    width: 100%;
+    justify-content: center;
   }
 }
