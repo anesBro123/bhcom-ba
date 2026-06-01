@@ -1,0 +1,33 @@
+<footer class="form-footer" [class.form-footer--in-card]="inCard()">
+  <div class="form-footer__start">
+    @if (showPrevious() && actions().previous) {
+      <button
+        type="button"
+        class="form-footer__btn form-footer__btn--secondary"
+        [disabled]="isFirstStep()"
+        (click)="previous.emit()"
+      >
+        {{ actions().previous!.labelKey | translate }}
+      </button>
+    }
+  </div>
+
+  <div class="form-footer__end">
+    @if (isLastStep()) {
+      @if (actions().submit) {
+        <button type="button" class="form-footer__btn form-footer__btn--primary" (click)="submit.emit()">
+          @if (submitIcon(); as icon) {
+            <span class="form-footer__btn-icon">
+              <ng-container *ngComponentOutlet="icon; inputs: iconInputs" />
+            </span>
+          }
+          {{ actions().submit!.labelKey | translate }}
+        </button>
+      }
+    } @else if (actions().next) {
+      <button type="button" class="form-footer__btn form-footer__btn--primary" (click)="next.emit()">
+        {{ actions().next!.labelKey | translate }}
+      </button>
+    }
+  </div>
+</footer>

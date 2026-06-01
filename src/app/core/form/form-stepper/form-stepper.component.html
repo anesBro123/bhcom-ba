@@ -1,0 +1,28 @@
+<div class="form-stepper">
+  <div class="form-stepper__meta">
+    <span>{{
+      'forms.common.stepOf'
+        | translate: { current: stepIndex() + 1, total: steps().length }
+    }}</span>
+    <span>{{
+      'forms.common.percentComplete' | translate: { percent: progressPercent() }
+    }}</span>
+  </div>
+
+  <div class="form-stepper__bar" role="progressbar" [attr.aria-valuenow]="progressPercent()">
+    <div class="form-stepper__bar-fill" [style.width.%]="progressPercent()"></div>
+  </div>
+
+  <nav class="form-stepper__labels" aria-label="Form steps">
+    @for (step of steps(); track step.id; let index = $index) {
+      <span
+        class="form-stepper__label"
+        [class.form-stepper__label--active]="index === stepIndex()"
+        [class.form-stepper__label--completed]="index < stepIndex()"
+        [class.form-stepper__label--inactive]="index > stepIndex()"
+      >
+        {{ step.titleKey | translate }}
+      </span>
+    }
+  </nav>
+</div>

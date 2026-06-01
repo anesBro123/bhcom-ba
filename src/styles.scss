@@ -45,6 +45,28 @@
   --bg-table-actions-menu: var(--bg-app);
   --border-table-actions-menu: rgba(255, 255, 255, 0.08);
   --shadow-table-actions-menu: 0 8px 24px rgb(0 0 0 / 0.35);
+  --bg-form-card: rgba(255, 255, 255, 0.02);
+  --border-form-card: rgba(255, 255, 255, 0.1);
+  --radius-form-card: 0.75rem;
+  --gap-form-sections: 1.25rem;
+  --bg-form-input: rgba(255, 255, 255, 0.04);
+  --border-form-input: rgba(255, 255, 255, 0.12);
+  --border-form-input-focus: rgba(255, 255, 255, 0.24);
+  --text-form-label: #94a3b8;
+  --text-form-placeholder: #64748b;
+  --text-form-error: var(--accent-danger);
+  --bg-form-progress-track: rgba(255, 255, 255, 0.08);
+  --bg-form-progress-fill: #f8fafc;
+  --text-form-step-active: #f8fafc;
+  --text-form-step-inactive: #64748b;
+  --bg-form-btn-primary: #f8fafc;
+  --text-form-btn-primary: #0b0f19;
+  --bg-form-btn-secondary: transparent;
+  --border-form-btn-secondary: rgba(255, 255, 255, 0.12);
+  --bg-form-section-footer: rgba(255, 255, 255, 0.02);
+  --bg-form-radio-card: rgba(255, 255, 255, 0.02);
+  --border-form-radio-card: rgba(255, 255, 255, 0.12);
+  --border-form-radio-card-active: rgba(255, 255, 255, 0.32);
 }
 
 [data-sidebar-collapsed] {
@@ -93,6 +115,28 @@
   --bg-table-actions-menu: var(--bg-table-card);
   --border-table-actions-menu: rgba(0, 0, 0, 0.08);
   --shadow-table-actions-menu: 0 4px 16px rgb(0 0 0 / 0.1);
+  --bg-form-card: #ffffff;
+  --border-form-card: rgba(0, 0, 0, 0.08);
+  --radius-form-card: 0.75rem;
+  --gap-form-sections: 1.25rem;
+  --bg-form-input: #ffffff;
+  --border-form-input: rgba(0, 0, 0, 0.12);
+  --border-form-input-focus: rgba(0, 0, 0, 0.24);
+  --text-form-label: #64748b;
+  --text-form-placeholder: #94a3b8;
+  --text-form-error: var(--accent-danger);
+  --bg-form-progress-track: rgba(0, 0, 0, 0.08);
+  --bg-form-progress-fill: #1e293b;
+  --text-form-step-active: #0f172a;
+  --text-form-step-inactive: #94a3b8;
+  --bg-form-btn-primary: #1e293b;
+  --text-form-btn-primary: #ffffff;
+  --bg-form-btn-secondary: #ffffff;
+  --border-form-btn-secondary: rgba(0, 0, 0, 0.12);
+  --bg-form-section-footer: #f8fafc;
+  --bg-form-radio-card: #ffffff;
+  --border-form-radio-card: rgba(0, 0, 0, 0.12);
+  --border-form-radio-card-active: rgba(0, 0, 0, 0.32);
 }
 
 *,

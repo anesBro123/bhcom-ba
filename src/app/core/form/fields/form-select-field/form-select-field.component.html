@@ -1,0 +1,33 @@
+<div class="form-field">
+  @if (field().labelKey) {
+    <label class="form-label" [attr.for]="field().key">{{ field().labelKey! | translate }}</label>
+  }
+
+  <div class="form-select-wrap">
+    <select
+      class="form-control form-control--select"
+      [id]="field().key"
+      [formControl]="$any(control())"
+    >
+      @if (field().placeholderKey) {
+        <option value="">{{ field().placeholderKey! | translate }}</option>
+      }
+      @for (option of options(); track option.value) {
+        <option [value]="option.value">
+          @if (option.labelKey) {
+            {{ option.labelKey | translate }}
+          } @else {
+            {{ option.label }}
+          }
+        </option>
+      }
+    </select>
+    <span class="form-select-wrap__chevron">
+      <svg lucideChevronDown [size]="16" />
+    </span>
+  </div>
+
+  @if (showError()) {
+    <p class="form-field__error">{{ 'forms.common.fieldRequired' | translate }}</p>
+  }
+</div>

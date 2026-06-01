@@ -56,6 +56,7 @@ export const SIDEBAR_NAV: NavSection[] = [
     titleKey: 'nav.sections.fleet',
     items: [
       { labelKey: 'nav.vehicleList', route: '/fleet/vehicles', icon: LucideVan },
+      { labelKey: 'nav.createVehicle', route: '/fleet/vehicles/create', icon: LucideSquarePlus },
       { labelKey: 'nav.maintenanceLogs', route: '/fleet/maintenance', icon: LucideWrench },
       { labelKey: 'nav.driverAssignments', route: '/fleet/drivers', icon: LucideUsers },
     ],

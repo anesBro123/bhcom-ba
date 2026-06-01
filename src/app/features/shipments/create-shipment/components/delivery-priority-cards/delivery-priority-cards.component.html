@@ -1,0 +1,27 @@
+<div class="form-field">
+  <span class="form-label">{{ 'forms.createShipment.fields.deliveryPriority' | translate }}</span>
+
+  @if (control(); as ctrl) {
+    <div class="priority-cards">
+      @for (option of options; track option.value) {
+        <label
+          class="priority-card"
+          [class.priority-card--active]="ctrl.value === option.value"
+        >
+          <input
+            class="priority-card__input"
+            type="radio"
+            [formControl]="ctrl"
+            [value]="option.value"
+          />
+          <span class="priority-card__radio"></span>
+          <span class="priority-card__content">
+            <span class="priority-card__title">{{ option.labelKey | translate }}</span>
+            <span class="priority-card__description">{{ option.descriptionKey | translate }}</span>
+          </span>
+          <span class="priority-card__price">{{ option.priceKey | translate }}</span>
+        </label>
+      }
+    </div>
+  }
+</div>

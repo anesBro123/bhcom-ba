@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { AppShellComponent } from './layout/app-shell.component';
+import { CreateVehiclePageComponent } from './features/fleet/vehicles/create-vehicle-page.component';
+import { CreateShipmentPageComponent } from './features/shipments/create-shipment/create-shipment-page.component';
 import { ShipmentsPageComponent } from './features/shipments/shipments-page.component';
 import { PagePlaceholderComponent } from './pages/page-placeholder.component';
 
@@ -35,8 +37,7 @@ export const routes: Routes = [
       },
       {
         path: 'shipments/create',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.createShipment' },
+        component: CreateShipmentPageComponent,
       },
       {
         path: 'shipments/delayed',
@@ -47,6 +48,10 @@ export const routes: Routes = [
         path: 'fleet/vehicles',
         component: PagePlaceholderComponent,
         data: { titleKey: 'pages.vehicleList' },
+      },
+      {
+        path: 'fleet/vehicles/create',
+        component: CreateVehiclePageComponent,
       },
       {
         path: 'fleet/maintenance',

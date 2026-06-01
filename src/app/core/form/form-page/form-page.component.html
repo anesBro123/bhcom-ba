@@ -1,0 +1,130 @@
+<section class="form-page">
+  @if (definition().titleKey) {
+    <header class="form-page__header">
+      <h1 class="form-page__title">{{ definition().titleKey! | translate }}</h1>
+    </header>
+  }
+
+  @if (showStepper()) {
+    <div class="form-stepper-card">
+      <app-form-stepper
+        [steps]="definition().steps"
+        [stepIndex]="formStore.stepIndex()"
+        [progressPercent]="formStore.progressPercent()"
+      />
+    </div>
+
+    <div class="form-page__step-content">
+      @if (currentStep().kind === 'template') {
+        @if (stepTemplate(currentStep().id); as template) {
+          <ng-container *ngTemplateOutlet="template; context: stepContext(currentStep().id)" />
+        }
+      } @else {
+        @for (section of currentStep().sections ?? []; track section.id) {
+          @if (sectionKind(section) === 'template') {
+            @if (sectionTemplate(currentStep().id, section.id); as template) {
+              <ng-container
+                *ngTemplateOutlet="template; context: sectionContext(currentStep().id, section.id)"
+              />
+            }
+          } @else {
+            <app-form-section
+              [titleKey]="section.titleKey"
+              [subtitleKey]="section.subtitleKey"
+              [icon]="section.icon"
+              [showFooter]="embedFooterInSection() || hasFooterSlot(section)"
+            >
+              <app-form-grid>
+                @for (field of visibleFields(section); track field.key) {
+                  <app-form-field-renderer
+                    [formGroup]="formGroup()"
+                    [field]="field"
+                    [stepId]="currentStep().id"
+                    [sectionId]="section.id"
+                    [formValue]="formValue()"
+                    [customTemplate]="fieldTemplate(currentStep().id, section.id, field.key)"
+                  />
+                }
+              </app-form-grid>
+
+              @if (embedFooterInSection()) {
+                <div formSectionFooter>
+                  <app-form-footer
+                    [actions]="definition().actions"
+                    [isFirstStep]="formStore.isFirstStep()"
+                    [isLastStep]="formStore.isLastStep()"
+                    [showPrevious]="isStepper()"
+                    [inCard]="true"
+                    (previous)="onPrevious()"
+                    (next)="onNext()"
+                    (submit)="onSubmit()"
+                  />
+                </div>
+              }
+            </app-form-section>
+          }
+        }
+      }
+
+      @if (!embedFooterInSection()) {
+        <app-form-footer
+          [actions]="definition().actions"
+          [isFirstStep]="formStore.isFirstStep()"
+          [isLastStep]="formStore.isLastStep()"
+          [showPrevious]="isStepper()"
+          (previous)="onPrevious()"
+          (next)="onNext()"
+          (submit)="onSubmit()"
+        />
+      }
+    </div>
+  } @else {
+    <div class="form-page__sections">
+      @if (currentStep().kind === 'template') {
+        @if (stepTemplate(currentStep().id); as template) {
+          <ng-container *ngTemplateOutlet="template; context: stepContext(currentStep().id)" />
+        }
+      } @else {
+        @for (section of currentStep().sections ?? []; track section.id) {
+          @if (sectionKind(section) === 'template') {
+            @if (sectionTemplate(currentStep().id, section.id); as template) {
+              <ng-container
+                *ngTemplateOutlet="template; context: sectionContext(currentStep().id, section.id)"
+              />
+            }
+          } @else {
+            <app-form-section
+              [titleKey]="section.titleKey"
+              [subtitleKey]="section.subtitleKey"
+              [icon]="section.icon"
+              [showFooter]="hasFooterSlot(section)"
+            >
+              <app-form-grid>
+                @for (field of visibleFields(section); track field.key) {
+                  <app-form-field-renderer
+                    [formGroup]="formGroup()"
+                    [field]="field"
+                    [stepId]="currentStep().id"
+                    [sectionId]="section.id"
+                    [formValue]="formValue()"
+                    [customTemplate]="fieldTemplate(currentStep().id, section.id, field.key)"
+                  />
+                }
+              </app-form-grid>
+            </app-form-section>
+          }
+        }
+      }
+    </div>
+
+    <app-form-footer
+      [actions]="definition().actions"
+      [isFirstStep]="formStore.isFirstStep()"
+      [isLastStep]="formStore.isLastStep()"
+      [showPrevious]="false"
+      (previous)="onPrevious()"
+      (next)="onNext()"
+      (submit)="onSubmit()"
+    />
+  }
+</section>

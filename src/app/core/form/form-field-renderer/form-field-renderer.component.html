@@ -1,0 +1,32 @@
+@if (control(); as ctrl) {
+  <div class="form-field-cell" [style.grid-column]="columnSpan()">
+    @if (field().type === 'custom' && customTemplate(); as template) {
+      <ng-container *ngTemplateOutlet="template; context: fieldContext()" />
+    } @else {
+      @switch (field().type) {
+        @case ('select') {
+          <app-form-select-field [control]="ctrl" [field]="field()" />
+        }
+        @case ('textarea') {
+          <app-form-textarea-field [control]="ctrl" [field]="field()" />
+        }
+        @case ('radio') {
+          <app-form-radio-field [control]="ctrl" [field]="field()" />
+        }
+        @case ('toggle') {
+          <app-form-toggle-field [control]="ctrl" [field]="field()" />
+        }
+        @case ('checkbox') {
+          <app-form-checkbox-field [control]="ctrl" [field]="field()" />
+        }
+        @default {
+          <app-form-text-field
+            [control]="ctrl"
+            [field]="field()"
+            [inputType]="textInputType()"
+          />
+        }
+      }
+    }
+  </div>
+}

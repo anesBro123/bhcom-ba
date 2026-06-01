@@ -1,0 +1,33 @@
+@use '../form-controls.shared';
+
+.form-date-wrap {
+  position: relative;
+}
+
+.form-date-wrap__icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  pointer-events: none;
+  color: var(--text-muted);
+}
+
+.form-control--date {
+  padding-left: 2.375rem;
+  color-scheme: dark;
+
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+[data-theme='light'] .form-control--date {
+  color-scheme: light;
+}

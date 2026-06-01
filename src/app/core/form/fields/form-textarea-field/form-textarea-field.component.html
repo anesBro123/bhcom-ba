@@ -1,0 +1,21 @@
+<div class="form-field">
+  @if (field().labelKey) {
+    <label class="form-label" [attr.for]="field().key">{{ field().labelKey! | translate }}</label>
+  }
+
+  <textarea
+    class="form-control form-control--textarea"
+    [id]="field().key"
+    [rows]="field().rows ?? 4"
+    [formControl]="$any(control())"
+    [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
+  ></textarea>
+
+  @if (field().descriptionKey) {
+    <p class="form-field__hint">{{ field().descriptionKey! | translate }}</p>
+  }
+
+  @if (showError()) {
+    <p class="form-field__error">{{ 'forms.common.fieldRequired' | translate }}</p>
+  }
+</div>

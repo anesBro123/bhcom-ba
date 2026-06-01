@@ -1,0 +1,36 @@
+.form-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.form-page__header {
+  margin-bottom: 1.25rem;
+}
+
+.form-page__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.form-page__sections,
+.form-page__step-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-form-sections);
+}
+
+.form-stepper-card {
+  margin-bottom: var(--gap-form-sections);
+  padding: 1.25rem 1.5rem 1.125rem;
+  border: 1px solid var(--border-form-card);
+  border-radius: var(--radius-form-card);
+  background: var(--bg-form-card);
+}
+
+.form-page__step-content > app-form-footer:last-child {
+  padding-top: 0.25rem;
+}

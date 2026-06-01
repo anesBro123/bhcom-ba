@@ -1,0 +1,18 @@
+<div class="form-field">
+  <div class="form-toggle-row">
+    <div class="form-toggle-row__content">
+      @if (field().labelKey) {
+        <span class="form-toggle-row__label">{{ field().labelKey! | translate }}</span>
+      }
+      @if (field().descriptionKey) {
+        <span class="form-toggle-row__description">{{ field().descriptionKey! | translate }}</span>
+      }
+    </div>
+
+    <label class="form-toggle">
+      <input class="form-toggle__input" type="checkbox" [formControl]="$any(control())" />
+      <span class="form-toggle__track"></span>
+      <span class="form-toggle__thumb"></span>
+    </label>
+  </div>
+</div>

@@ -33,6 +33,7 @@
     "createShipment": "Create Shipment",
     "delayedShipments": "Delayed Shipments",
     "vehicleList": "Vehicle List",
+    "createVehicle": "Create Vehicle",
     "maintenanceLogs": "Maintenance Logs",
     "driverAssignments": "Driver Assignments",
     "vendorDirectory": "Vendor Directory",
@@ -56,6 +57,7 @@
     "createShipment": "Create Shipment",
     "delayedShipments": "Delayed Shipments",
     "vehicleList": "Vehicle List",
+    "createVehicle": "Create Vehicle",
     "maintenanceLogs": "Maintenance Logs",
     "driverAssignments": "Driver Assignments",
     "vendorDirectory": "Vendor Directory",
@@ -125,6 +127,228 @@
         "allTypes": "All types",
         "priority": "Priority",
         "allPriorities": "All priorities"
+      }
+    }
+  },
+  "forms": {
+    "common": {
+      "previous": "Previous",
+      "next": "Next",
+      "stepOf": "Step {{current}} of {{total}}",
+      "percentComplete": "{{percent}}% Complete",
+      "fieldRequired": "This field is required"
+    },
+    "createShipment": {
+      "steps": {
+        "type": "Shipment Type",
+        "addresses": "Addresses",
+        "packages": "Package Details",
+        "services": "Services",
+        "review": "Review"
+      },
+      "sections": {
+        "type": {
+          "title": "Shipment Type & Priority",
+          "subtitle": "Select the type of shipment and delivery priority"
+        },
+        "origin": {
+          "title": "Origin Address",
+          "subtitle": "Enter the pickup location details"
+        },
+        "destination": {
+          "title": "Destination Address",
+          "subtitle": "Enter the delivery location details"
+        },
+        "packages": {
+          "title": "Package Details",
+          "subtitle": "Add items to your shipment"
+        },
+        "services": {
+          "title": "Special Services & Options",
+          "subtitle": "Configure additional services for your shipment"
+        },
+        "review": {
+          "title": "Review & Cost Estimate",
+          "subtitle": "Review your shipment details and get a cost estimate"
+        }
+      },
+      "fields": {
+        "shipmentType": "Shipment Type",
+        "deliveryPriority": "Delivery Priority",
+        "pickupDate": "Pickup Date",
+        "deliveryDate": "Preferred Delivery Date",
+        "companyName": "Company Name",
+        "contactName": "Contact Name",
+        "addressLine1": "Address Line 1",
+        "addressLine2": "Address Line 2 (Optional)",
+        "city": "City",
+        "state": "State/Province",
+        "zip": "ZIP/Postal Code",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "preferredCarrier": "Preferred Carrier",
+        "serviceLevel": "Service Level",
+        "specialInstructions": "Special Instructions"
+      },
+      "placeholders": {
+        "pickupDate": "Select pickup date",
+        "deliveryDate": "Select delivery date",
+        "companyName": "Enter company name",
+        "contactName": "Enter contact name",
+        "addressLine1": "Enter street address",
+        "addressLine2": "Enter apartment, suite, etc.",
+        "city": "Enter city",
+        "state": "Select state",
+        "zip": "Enter ZIP code",
+        "phone": "Enter phone number",
+        "email": "Enter email address",
+        "selectCarrier": "Select carrier",
+        "selectService": "Select service",
+        "specialInstructions": "Enter any special handling instructions, delivery notes, or requirements..."
+      },
+      "shipmentTypes": {
+        "standardPackage": "Standard Package",
+        "documentEnvelope": "Document Envelope",
+        "freightPallet": "Freight/Pallet",
+        "bulkCargo": "Bulk Cargo"
+      },
+      "priority": {
+        "standard": {
+          "title": "Standard",
+          "description": "5-7 business days",
+          "price": "$15.99"
+        },
+        "express": {
+          "title": "Express",
+          "description": "2-3 business days",
+          "price": "$29.99"
+        },
+        "overnight": {
+          "title": "Overnight",
+          "description": "Next business day",
+          "price": "$49.99"
+        }
+      },
+      "packages": {
+        "itemLabel": "Item {{index}}",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter item description",
+        "category": "Category",
+        "quantity": "Quantity",
+        "weight": "Weight (lbs)",
+        "value": "Value ($)",
+        "hazardous": "Hazardous",
+        "dimensions": "Dimensions (inches)",
+        "length": "Length",
+        "width": "Width",
+        "height": "Height",
+        "addItem": "Add Another Item",
+        "totalItems": "Total Items",
+        "totalWeight": "Total Weight",
+        "totalValue": "Total Value",
+        "weightValue": "{{weight}} lbs",
+        "currencyValue": "${{value}}"
+      },
+      "categories": {
+        "general": "General Merchandise",
+        "electronics": "Electronics",
+        "clothing": "Clothing",
+        "food": "Food & Beverage",
+        "documents": "Documents"
+      },
+      "carriers": {
+        "fedex": "FedEx",
+        "ups": "UPS",
+        "dhl": "DHL",
+        "usps": "USPS"
+      },
+      "serviceLevels": {
+        "ground": "Ground",
+        "express": "Express",
+        "overnight": "Overnight"
+      },
+      "services": {
+        "insuranceCoverage": "Insurance Coverage",
+        "insuranceCoverageDesc": "Protect your shipment against loss or damage",
+        "signatureRequired": "Signature Required",
+        "signatureRequiredDesc": "Require recipient signature upon delivery",
+        "fragileHandling": "Fragile Handling",
+        "fragileHandlingDesc": "Extra care for delicate items",
+        "temperatureControl": "Temperature Control",
+        "temperatureControlDesc": "Climate-controlled transport",
+        "infoBanner": "Additional services may affect shipping cost and delivery time. Review the cost estimate in the next step."
+      },
+      "review": {
+        "summary": "Shipment Summary",
+        "type": "Type",
+        "priority": "Priority",
+        "totalItems": "Total Items",
+        "totalWeight": "Total Weight",
+        "totalValue": "Total Value",
+        "route": "Route",
+        "from": "From",
+        "to": "To",
+        "services": "Special Services",
+        "noServices": "No special services selected.",
+        "costBreakdown": "Cost Breakdown",
+        "baseShipping": "Base Shipping",
+        "weightCharge": "Weight Charge",
+        "servicesCharge": "Services",
+        "totalCost": "Total Estimated Cost",
+        "recalculate": "Recalculate Estimate",
+        "estimateNote": "This is an estimate. Final cost may vary based on actual dimensions and carrier rates."
+      },
+      "actions": {
+        "create": "Create Shipment"
+      }
+    },
+    "createVehicle": {
+      "title": "Create Vehicle",
+      "steps": {
+        "main": "Vehicle Details"
+      },
+      "sections": {
+        "identity": {
+          "title": "Vehicle Information",
+          "subtitle": "Enter basic identification details for the vehicle"
+        },
+        "specs": {
+          "title": "Specifications",
+          "subtitle": "Configure type, capacity, and operational status"
+        }
+      },
+      "fields": {
+        "plateNumber": "License Plate",
+        "make": "Make",
+        "model": "Model",
+        "year": "Year",
+        "vehicleType": "Vehicle Type",
+        "capacityKg": "Capacity (kg)",
+        "status": "Status",
+        "notes": "Notes"
+      },
+      "placeholders": {
+        "plateNumber": "Enter license plate number",
+        "make": "Enter manufacturer",
+        "model": "Enter model name",
+        "year": "e.g. 2024",
+        "vehicleType": "Select vehicle type",
+        "capacityKg": "Enter max load capacity",
+        "status": "Select status",
+        "notes": "Optional notes about the vehicle..."
+      },
+      "vehicleTypes": {
+        "van": "Van",
+        "truck": "Truck",
+        "trailer": "Trailer"
+      },
+      "statuses": {
+        "active": "Active",
+        "maintenance": "In Maintenance",
+        "retired": "Retired"
+      },
+      "actions": {
+        "create": "Create Vehicle"
       }
     }
   }

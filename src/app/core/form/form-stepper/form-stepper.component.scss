@@ -1,0 +1,69 @@
+.form-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.form-stepper__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.form-stepper__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-form-progress-track);
+  overflow: hidden;
+}
+
+.form-stepper__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--bg-form-progress-fill);
+  transition: width 0.2s ease;
+}
+
+.form-stepper__labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.875rem;
+}
+
+.form-stepper__label {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.form-stepper__label--active {
+  color: var(--text-form-step-active);
+  font-weight: 600;
+}
+
+.form-stepper__label--completed {
+  color: var(--text-form-step-active);
+  font-weight: 400;
+}
+
+.form-stepper__label--inactive {
+  color: var(--text-form-step-inactive);
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .form-stepper__labels {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-stepper__labels {
+    gap: 0.625rem 1rem;
+  }
+}

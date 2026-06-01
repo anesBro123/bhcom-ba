@@ -1,0 +1,36 @@
+<div class="form-field">
+  @if (field().labelKey) {
+    <label class="form-label" [attr.for]="field().key">{{ field().labelKey! | translate }}</label>
+  }
+
+  @if (isDate()) {
+    <div class="form-date-wrap">
+      <span class="form-date-wrap__icon">
+        <svg lucideCalendar [size]="16" />
+      </span>
+      <input
+        class="form-control form-control--date"
+        [id]="field().key"
+        type="date"
+        [formControl]="$any(control())"
+        [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
+      />
+    </div>
+  } @else {
+    <input
+      class="form-control"
+      [id]="field().key"
+      [type]="inputType()"
+      [formControl]="$any(control())"
+      [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
+    />
+  }
+
+  @if (field().descriptionKey) {
+    <p class="form-field__hint">{{ field().descriptionKey! | translate }}</p>
+  }
+
+  @if (showError()) {
+    <p class="form-field__error">{{ 'forms.common.fieldRequired' | translate }}</p>
+  }
+</div>

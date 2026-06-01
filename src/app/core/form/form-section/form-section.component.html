@@ -1,0 +1,27 @@
+<article class="form-section-card" [class.form-section-card--flat]="flat()">
+  <header class="form-section-card__header">
+    @if (icon()) {
+      <span class="form-section-card__icon">
+        <ng-container *ngComponentOutlet="icon()!; inputs: iconInputs" />
+      </span>
+    }
+    <div class="form-section-card__titles">
+      <h2 class="form-section-card__title">{{ titleKey() | translate }}</h2>
+      @if (subtitleKey()) {
+        <p class="form-section-card__subtitle">{{ subtitleKey()! | translate }}</p>
+      }
+    </div>
+  </header>
+
+  <div class="form-section-card__body">
+    <ng-content select="[formSectionBefore]" />
+    <ng-content />
+    <ng-content select="[formSectionAfter]" />
+  </div>
+
+  @if (showFooter()) {
+    <footer class="form-section-card__footer">
+      <ng-content select="[formSectionFooter]" />
+    </footer>
+  }
+</article>

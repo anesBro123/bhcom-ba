@@ -33,6 +33,7 @@
     "createShipment": "Kreiraj pošiljku",
     "delayedShipments": "Odgođene pošiljke",
     "vehicleList": "Lista vozila",
+    "createVehicle": "Dodaj vozilo",
     "maintenanceLogs": "Evidencija održavanja",
     "driverAssignments": "Dodjele vozača",
     "vendorDirectory": "Imenik prodavaca",
@@ -56,6 +57,7 @@
     "createShipment": "Kreiraj pošiljku",
     "delayedShipments": "Odgođene pošiljke",
     "vehicleList": "Lista vozila",
+    "createVehicle": "Dodaj vozilo",
     "maintenanceLogs": "Evidencija održavanja",
     "driverAssignments": "Dodjele vozača",
     "vendorDirectory": "Imenik prodavaca",
@@ -125,6 +127,228 @@
         "allTypes": "Svi tipovi",
         "priority": "Prioritet",
         "allPriorities": "Svi prioriteti"
+      }
+    }
+  },
+  "forms": {
+    "common": {
+      "previous": "Prethodno",
+      "next": "Sljedeće",
+      "stepOf": "Korak {{current}} od {{total}}",
+      "percentComplete": "{{percent}}% završeno",
+      "fieldRequired": "Ovo polje je obavezno"
+    },
+    "createShipment": {
+      "steps": {
+        "type": "Tip pošiljke",
+        "addresses": "Adrese",
+        "packages": "Detalji paketa",
+        "services": "Usluge",
+        "review": "Pregled"
+      },
+      "sections": {
+        "type": {
+          "title": "Tip pošiljke i prioritet",
+          "subtitle": "Odaberite tip pošiljke i prioritet dostave"
+        },
+        "origin": {
+          "title": "Adresa polazišta",
+          "subtitle": "Unesite podatke o lokaciji preuzimanja"
+        },
+        "destination": {
+          "title": "Adresa odredišta",
+          "subtitle": "Unesite podatke o lokaciji dostave"
+        },
+        "packages": {
+          "title": "Detalji paketa",
+          "subtitle": "Dodajte stavke u pošiljku"
+        },
+        "services": {
+          "title": "Posebne usluge i opcije",
+          "subtitle": "Konfigurišite dodatne usluge za pošiljku"
+        },
+        "review": {
+          "title": "Pregled i procjena troškova",
+          "subtitle": "Pregledajte detalje pošiljke i dobijte procjenu troškova"
+        }
+      },
+      "fields": {
+        "shipmentType": "Tip pošiljke",
+        "deliveryPriority": "Prioritet dostave",
+        "pickupDate": "Datum preuzimanja",
+        "deliveryDate": "Željeni datum dostave",
+        "companyName": "Naziv kompanije",
+        "contactName": "Kontakt osoba",
+        "addressLine1": "Adresa linija 1",
+        "addressLine2": "Adresa linija 2 (opcionalno)",
+        "city": "Grad",
+        "state": "Država/Pokrajina",
+        "zip": "Poštanski broj",
+        "phone": "Broj telefona",
+        "email": "Email adresa",
+        "preferredCarrier": "Preferirani prevoznik",
+        "serviceLevel": "Nivo usluge",
+        "specialInstructions": "Posebne instrukcije"
+      },
+      "placeholders": {
+        "pickupDate": "Odaberite datum preuzimanja",
+        "deliveryDate": "Odaberite datum dostave",
+        "companyName": "Unesite naziv kompanije",
+        "contactName": "Unesite ime kontakta",
+        "addressLine1": "Unesite ulicu",
+        "addressLine2": "Unesite stan, sprat, itd.",
+        "city": "Unesite grad",
+        "state": "Odaberite državu",
+        "zip": "Unesite poštanski broj",
+        "phone": "Unesite broj telefona",
+        "email": "Unesite email adresu",
+        "selectCarrier": "Odaberite prevoznika",
+        "selectService": "Odaberite uslugu",
+        "specialInstructions": "Unesite posebne instrukcije za rukovanje, napomene o dostavi..."
+      },
+      "shipmentTypes": {
+        "standardPackage": "Standardni paket",
+        "documentEnvelope": "Koverta za dokumente",
+        "freightPallet": "Teret/Paleta",
+        "bulkCargo": "Rasuti teret"
+      },
+      "priority": {
+        "standard": {
+          "title": "Standardni",
+          "description": "5-7 radnih dana",
+          "price": "$15.99"
+        },
+        "express": {
+          "title": "Ekspres",
+          "description": "2-3 radna dana",
+          "price": "$29.99"
+        },
+        "overnight": {
+          "title": "Preko noći",
+          "description": "Sljedeći radni dan",
+          "price": "$49.99"
+        }
+      },
+      "packages": {
+        "itemLabel": "Stavka {{index}}",
+        "description": "Opis",
+        "descriptionPlaceholder": "Unesite opis stavke",
+        "category": "Kategorija",
+        "quantity": "Količina",
+        "weight": "Težina (lbs)",
+        "value": "Vrijednost ($)",
+        "hazardous": "Opasno",
+        "dimensions": "Dimenzije (inči)",
+        "length": "Dužina",
+        "width": "Širina",
+        "height": "Visina",
+        "addItem": "Dodaj još jednu stavku",
+        "totalItems": "Ukupno stavki",
+        "totalWeight": "Ukupna težina",
+        "totalValue": "Ukupna vrijednost",
+        "weightValue": "{{weight}} lbs",
+        "currencyValue": "${{value}}"
+      },
+      "categories": {
+        "general": "Opća roba",
+        "electronics": "Elektronika",
+        "clothing": "Odjeća",
+        "food": "Hrana i piće",
+        "documents": "Dokumenti"
+      },
+      "carriers": {
+        "fedex": "FedEx",
+        "ups": "UPS",
+        "dhl": "DHL",
+        "usps": "USPS"
+      },
+      "serviceLevels": {
+        "ground": "Kopno",
+        "express": "Ekspres",
+        "overnight": "Preko noći"
+      },
+      "services": {
+        "insuranceCoverage": "Osiguranje",
+        "insuranceCoverageDesc": "Zaštitite pošiljku od gubitka ili oštećenja",
+        "signatureRequired": "Potreban potpis",
+        "signatureRequiredDesc": "Zahtijevajte potpis primaoca pri dostavi",
+        "fragileHandling": "Rukovanje lomljivim",
+        "fragileHandlingDesc": "Dodatna pažnja za delikatne predmete",
+        "temperatureControl": "Kontrola temperature",
+        "temperatureControlDesc": "Transport u kontrolisanim uslovima",
+        "infoBanner": "Dodatne usluge mogu uticati na cijenu i vrijeme dostave. Pregledajte procjenu troškova u sljedećem koraku."
+      },
+      "review": {
+        "summary": "Sažetak pošiljke",
+        "type": "Tip",
+        "priority": "Prioritet",
+        "totalItems": "Ukupno stavki",
+        "totalWeight": "Ukupna težina",
+        "totalValue": "Ukupna vrijednost",
+        "route": "Ruta",
+        "from": "Od",
+        "to": "Do",
+        "services": "Posebne usluge",
+        "noServices": "Nema odabranih posebnih usluga.",
+        "costBreakdown": "Pregled troškova",
+        "baseShipping": "Osnovna dostava",
+        "weightCharge": "Naknada po težini",
+        "servicesCharge": "Usluge",
+        "totalCost": "Ukupna procijenjena cijena",
+        "recalculate": "Ponovo izračunaj",
+        "estimateNote": "Ovo je procjena. Konačna cijena može varirati na osnovu stvarnih dimenzija i tarifa prevoznika."
+      },
+      "actions": {
+        "create": "Kreiraj pošiljku"
+      }
+    },
+    "createVehicle": {
+      "title": "Dodaj vozilo",
+      "steps": {
+        "main": "Detalji vozila"
+      },
+      "sections": {
+        "identity": {
+          "title": "Informacije o vozilu",
+          "subtitle": "Unesite osnovne identifikacione podatke vozila"
+        },
+        "specs": {
+          "title": "Specifikacije",
+          "subtitle": "Konfigurišite tip, kapacitet i operativni status"
+        }
+      },
+      "fields": {
+        "plateNumber": "Registarska oznaka",
+        "make": "Marka",
+        "model": "Model",
+        "year": "Godina",
+        "vehicleType": "Tip vozila",
+        "capacityKg": "Kapacitet (kg)",
+        "status": "Status",
+        "notes": "Napomene"
+      },
+      "placeholders": {
+        "plateNumber": "Unesite registarsku oznaku",
+        "make": "Unesite proizvođača",
+        "model": "Unesite naziv modela",
+        "year": "npr. 2024",
+        "vehicleType": "Odaberite tip vozila",
+        "capacityKg": "Unesite maksimalni kapacitet",
+        "status": "Odaberite status",
+        "notes": "Opcionalne napomene o vozilu..."
+      },
+      "vehicleTypes": {
+        "van": "Kombi",
+        "truck": "Kamion",
+        "trailer": "Prikolica"
+      },
+      "statuses": {
+        "active": "Aktivno",
+        "maintenance": "Na servisu",
+        "retired": "Povučeno"
+      },
+      "actions": {
+        "create": "Kreiraj vozilo"
       }
     }
   }
