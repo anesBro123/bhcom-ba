@@ -1,0 +1,16 @@
+---
+description: Declarative form system
+globs: src/app/core/form/**,src/**/*.form.ts,src/**/*form-page*
+alwaysApply: false
+---
+
+# Forms (`src/app/core/form`)
+
+1. Model: `*.model.ts` interface for form value.
+2. Definition: `export const X = defineForm<Model>()({ mode: 'single'|'stepper', steps: [...] })`.
+3. Page: `FormBuilder` group mirrors field keys; pass `[definition]` + `[form]` to `FormPageComponent`.
+4. Options: `{ value, labelKey }`; field types: text, number, textarea, select, radio, checkbox, toggle.
+5. Custom blocks: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` directives in page HTML.
+6. Submit: `form.getRawValue() as Model` (validators on `FormGroup`, not only in def).
+
+Extend field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc duplicate inputs on standard pages.

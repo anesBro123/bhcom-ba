@@ -1,0 +1,29 @@
+---
+description: BHCOM BA — stack, layout, commands
+alwaysApply: true
+---
+
+# bhcom-ba (Angular 21)
+
+Logistics/admin SPA. Prefer existing abstractions over new UI frameworks.
+
+## Commands
+
+- `npm start` — dev server (4200)
+- `npm run build` / `npm test` — build / Vitest
+
+## Source map (read files when implementing, don’t guess)
+
+- Routes: `src/app/app.routes.ts`
+- Sidebar nav: `src/app/layout/sidebar/sidebar-nav.config.ts` (keep in sync with routes)
+- Forms framework: `src/app/core/form/` — export barrel `index.ts`
+- Tables framework: `src/app/core/table/` — export barrel `index.ts`
+- Features: `src/app/features/<domain>/`
+- i18n: `public/assets/en.json` + `bh.json` (add keys to both)
+- Theme tokens: `src/styles.scss` (`--bg-*`, `--text-*`, form/table vars)
+
+## References for patterns
+
+- Simple form page: `features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
+- Stepper + custom sections: `features/shipments/create-shipment/`
+- List/table page: `features/shipments/shipments-page.*` + `shipment.table.ts`

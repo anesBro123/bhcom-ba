@@ -1,0 +1,15 @@
+---
+description: Angular component conventions
+globs: src/**/*.{ts,html,scss}
+alwaysApply: false
+---
+
+# Angular conventions
+
+- Standalone components only; `imports: [...]` in `@Component`.
+- Use `inject()` for DI; `protected readonly` for template API.
+- Prefer signals/computed in stores (`FormStore`, `TableStore`) — match existing code.
+- One component per folder: `.ts`, `.html`, `.scss` (`styleUrl`, `templateUrl`).
+- Icons: import from `@lucide/angular` (same as form/table defs).
+- Styling: use CSS variables from `styles.scss`; avoid hard-coded hex in components.
+- No NgModules unless the codebase already uses them in that area.

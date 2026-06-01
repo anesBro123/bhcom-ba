@@ -1,0 +1,14 @@
+---
+description: Adding a new screen
+globs: src/app/features/**,src/app/app.routes.ts,src/app/layout/sidebar/sidebar-nav.config.ts
+alwaysApply: false
+---
+
+# New feature page checklist
+
+1. Feature folder: `src/app/features/<domain>/<feature>/`
+2. Register route in `app.routes.ts` under `AppShellComponent` children.
+3. If in sidebar: add `NavItem` in `sidebar-nav.config.ts` with matching `route`.
+4. Placeholder only: reuse `PagePlaceholderComponent` + `data: { titleKey: 'pages.*' }`.
+5. Form: `*.form.ts` + page; Table: `*.table.ts` + page; wire i18n under `forms.*` / `tables.*`.
+6. Export types from `*.model.ts`; keep mock data in `*.mock-data.ts` beside feature.

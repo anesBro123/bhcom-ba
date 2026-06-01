@@ -1,0 +1,16 @@
+---
+description: Declarative data tables
+globs: src/app/core/table/**,src/**/*.table.ts
+alwaysApply: false
+---
+
+# Tables (`src/app/core/table`)
+
+1. Row type in `*.model.ts`.
+2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.
+3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells.
+4. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
+5. Mock data: `TableApiService.loadMock(data, query, table.filters)` until API exists.
+6. i18n: `titleKey`, column `titleKey`, action `labelKey` in table def.
+
+Do not rebuild pagination/filter/sort UI outside `DataTableComponent`.
