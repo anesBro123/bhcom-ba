@@ -8,8 +8,8 @@ import {
   LucideTruck,
   LucideX,
 } from '@lucide/angular';
+import { PORTAL_CONFIG } from '../../core/portal';
 import { SidebarService } from '../../core/layout/sidebar.service';
-import { SIDEBAR_NAV } from './sidebar-nav.config';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,7 +28,8 @@ import { SIDEBAR_NAV } from './sidebar-nav.config';
 })
 export class SidebarComponent {
   protected readonly sidebarService = inject(SidebarService);
-  protected readonly navSections = SIDEBAR_NAV;
+  protected readonly portal = inject(PORTAL_CONFIG);
+  protected readonly navSections = this.portal.nav;
 
   @HostBinding('class.sidebar--mobile-open')
   protected get mobileOpenClass(): boolean {

@@ -1,0 +1,14 @@
+<div class="theme-picker">
+  <button
+    type="button"
+    class="theme-picker__trigger"
+    [attr.aria-label]="'topbar.changeTheme' | translate"
+    (click)="toggleTheme()"
+  >
+    @if (isDark()) {
+      <svg lucideSun [size]="20" />
+    } @else {
+      <svg lucideMoon [size]="20" />
+    }
+  </button>
+</div>

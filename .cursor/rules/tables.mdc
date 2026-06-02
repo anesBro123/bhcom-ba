@@ -1,10 +1,10 @@
 ---
 description: Declarative data tables
-globs: src/app/core/table/**,src/**/*.table.ts
+globs: src/app/features/shared/table/**,src/**/*.table.ts
 alwaysApply: false
 ---
 
-# Tables (`src/app/core/table`)
+# Tables (`src/app/features/shared/table`)
 
 1. Row type in `*.model.ts`.
 2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.

@@ -1,0 +1,25 @@
+.theme-picker {
+  position: relative;
+}
+
+.theme-picker__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-icon-btn);
+  color: var(--text-primary);
+  transition: background-color 0.15s ease;
+
+  svg {
+    stroke-width: 1.75px;
+  }
+
+  &:hover {
+    background-color: var(--bg-icon-btn-hover);
+  }
+}

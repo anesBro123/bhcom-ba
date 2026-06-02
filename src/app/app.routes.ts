@@ -1,123 +1,34 @@
 import { Routes } from '@angular/router';
-import { AppShellComponent } from './layout/app-shell.component';
-import { CreateVehiclePageComponent } from './features/fleet/vehicles/create-vehicle-page.component';
-import { CreateShipmentPageComponent } from './features/shipments/create-shipment/create-shipment-page.component';
-import { ShipmentsPageComponent } from './features/shipments/shipments-page.component';
-import { PagePlaceholderComponent } from './pages/page-placeholder.component';
+import {
+  ADMIN_PORTAL_CONFIG,
+  EMPLOYEE_PORTAL_CONFIG,
+  guestGuard,
+  portalMatchGuard,
+  PORTAL_CONFIG,
+} from './core/portal';
+import { LoginPageComponent } from './pages/login/login-page.component';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [guestGuard],
+    providers: [{ provide: PORTAL_CONFIG, useValue: EMPLOYEE_PORTAL_CONFIG }],
+  },
+  {
+    path: 'admin/login',
+    component: LoginPageComponent,
+    canActivate: [guestGuard],
+    providers: [{ provide: PORTAL_CONFIG, useValue: ADMIN_PORTAL_CONFIG }],
+  },
+  {
+    path: 'admin',
+    canMatch: [portalMatchGuard('admin')],
+    loadChildren: () => import('./routes/admin.routes'),
+  },
+  {
     path: '',
-    component: AppShellComponent,
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      {
-        path: 'dashboard',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.dashboardOverview' },
-      },
-      {
-        path: 'dashboard/live-map',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.liveMap' },
-      },
-      {
-        path: 'dashboard/fleet-status',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.fleetStatus' },
-      },
-      {
-        path: 'shipments',
-        component: ShipmentsPageComponent,
-      },
-      {
-        path: 'shipments/track',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.trackShipment' },
-      },
-      {
-        path: 'shipments/create',
-        component: CreateShipmentPageComponent,
-      },
-      {
-        path: 'shipments/delayed',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.delayedShipments' },
-      },
-      {
-        path: 'fleet/vehicles',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.vehicleList' },
-      },
-      {
-        path: 'fleet/vehicles/create',
-        component: CreateVehiclePageComponent,
-      },
-      {
-        path: 'fleet/maintenance',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.maintenanceLogs' },
-      },
-      {
-        path: 'fleet/drivers',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.driverAssignments' },
-      },
-      {
-        path: 'vendors',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.vendorDirectory' },
-      },
-      {
-        path: 'vendors/add',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.addVendor' },
-      },
-      {
-        path: 'clients',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.clientsList' },
-      },
-      {
-        path: 'clients/feedback',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.clientFeedback' },
-      },
-      {
-        path: 'orders',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.allOrders' },
-      },
-      {
-        path: 'orders/scheduled',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.scheduledDeliveries' },
-      },
-      {
-        path: 'orders/returns',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.returns' },
-      },
-      {
-        path: 'orders/cancellations',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.cancellations' },
-      },
-      {
-        path: 'reports/delivery-performance',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.deliveryPerformance' },
-      },
-      {
-        path: 'reports/revenue',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.revenueAnalysis' },
-      },
-      {
-        path: 'reports/fleet-efficiency',
-        component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.fleetEfficiency' },
-      },
-    ],
+    canMatch: [portalMatchGuard('employee')],
+    loadChildren: () => import('./routes/employee.routes'),
   },
 ];

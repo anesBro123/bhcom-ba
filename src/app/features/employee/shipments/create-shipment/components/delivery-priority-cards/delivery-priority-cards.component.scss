@@ -1,0 +1,93 @@
+@use 'styles/breakpoints' as *;
+@use '../../../../../shared/form/fields/form-controls.shared';
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.form-field {
+  margin-top: 0.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-form-card);
+}
+
+.priority-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.625rem;
+}
+
+.priority-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--border-form-radio-card);
+  border-radius: 0.625rem;
+  background: var(--bg-form-radio-card);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.priority-card--active {
+  border-color: var(--border-form-radio-card-active);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.priority-card__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.priority-card__radio {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--border-form-input);
+  border-radius: 50%;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.priority-card--active .priority-card__radio {
+  border-color: var(--text-primary);
+  background: radial-gradient(circle, var(--text-primary) 38%, transparent 40%);
+}
+
+.priority-card__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.priority-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.priority-card__description {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.priority-card__price {
+  flex-shrink: 0;
+  padding: 0.3125rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@include below-md {
+  .priority-card {
+    padding: 0.875rem 1rem;
+  }
+}

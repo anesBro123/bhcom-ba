@@ -9,8 +9,13 @@ alwaysApply: false
 ## Structure
 
 - `AppShellComponent` — grid: sidebar column + `app-shell__main` (topbar + scrollable `router-outlet` content).
-- `SidebarComponent` — brand row, collapsible nav (desktop), drawer (mobile).
-- `TopbarComponent` — hamburger (mobile only), theme/lang/notifications/profile actions.
+- `SidebarComponent` — brand row (BHCOM + portal suffix from `PORTAL_CONFIG`), collapsible nav (desktop), drawer (mobile).
+- Nav types: `layout/sidebar/nav.model.ts`; configs: `employee-nav.config.ts`, `admin-nav.config.ts`.
+- `PORTAL_CONFIG` provided on shell route in `employee.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
+- `TopbarComponent` — hamburger (mobile only), theme/notifications/profile actions.
+- `LanguagePickerComponent` (`layout/language-picker/`) — globe language menu; shared by topbar and login page.
+- `ThemePickerComponent` (`layout/theme-picker/`) — light/dark theme menu; shared by topbar and login page.
+- Profile icon opens **account menu** (`topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `PORTAL_CONFIG.loginUrl` (`/login` or `/admin/login`).
 
 ## SidebarService (`core/layout/sidebar.service.ts`)
 
@@ -37,3 +42,4 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
 - Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
+- **Portal accent:** `AppShellComponent` host class `portal-employee` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss` (`--portal-accent`, `--portal-accent-muted`, `--portal-accent-nav-bg`). Login uses `.login--employee` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.

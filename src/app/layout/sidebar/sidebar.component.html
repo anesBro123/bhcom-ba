@@ -1,7 +1,13 @@
 <aside class="sidebar" [class.sidebar--collapsed]="sidebarService.collapsed()">
   <div class="sidebar__brand">
     <svg lucideTruck [size]="22" class="sidebar__brand-icon" />
-    <span class="sidebar__brand-name">BHCOM.BA</span>
+    <div
+      class="sidebar__brand-text"
+      [attr.title]="portal.shell.brandSuffixKey | translate"
+    >
+      <span class="sidebar__brand-title">BHCOM</span>
+      <span class="sidebar__brand-portal">{{ portal.shell.brandSuffixKey | translate }}</span>
+    </div>
     <button
       type="button"
       class="sidebar__brand-toggle"

@@ -1,0 +1,34 @@
+// Portal accent colors (employee green, admin blue). Edit here for login + shell continuity.
+// Applied via .portal-{employee|admin} on app-shell and .login--{employee|admin} on login page.
+
+.portal-employee,
+.login--employee {
+  --portal-accent: #059669;
+  --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
+  --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
+  --portal-accent-focus-ring: 0 0 0 3px rgb(5 150 105 / 0.25);
+}
+
+[data-theme='dark'] .portal-employee,
+[data-theme='dark'] .login--employee {
+  --portal-accent: #34d399;
+  --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
+  --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
+  --portal-accent-focus-ring: 0 0 0 3px rgb(52 211 153 / 0.2);
+}
+
+.portal-admin,
+.login--admin {
+  --portal-accent: #2563eb;
+  --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
+  --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
+  --portal-accent-focus-ring: 0 0 0 3px rgb(37 99 235 / 0.25);
+}
+
+[data-theme='dark'] .portal-admin,
+[data-theme='dark'] .login--admin {
+  --portal-accent: #60a5fa;
+  --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
+  --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
+  --portal-accent-focus-ring: 0 0 0 3px rgb(96 165 250 / 0.2);
+}

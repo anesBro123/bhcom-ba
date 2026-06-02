@@ -8,6 +8,6 @@ alwaysApply: false
 
 - All user-visible strings via translation keys (`labelKey`, `titleKey`, `| translate`).
 - Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json`.
-- Key namespaces: `nav.*`, `pages.*`, `forms.*`, `tables.*`, `topbar.*`, `sidebar.*`.
+- Key namespaces: `nav.*`, `nav.admin.*`, `pages.*`, `forms.*`, `tables.*`, `topbar.*`, `sidebar.*`, `portal.*`, `login.*` (including `login.switchToAdmin` / `login.switchToEmployee` for portal links on login).
 - In TS, return key strings for labels (e.g. `statusLabel()` → `'tables.shipments.status.${status}'`).
 - Do not embed English prose in templates when a key exists or should exist.

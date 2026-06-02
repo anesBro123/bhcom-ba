@@ -1,10 +1,10 @@
 ---
 description: Declarative form system
-globs: src/app/core/form/**,src/**/*.form.ts,src/**/*form-page*
+globs: src/app/features/shared/form/**,src/**/*.form.ts,src/**/*form-page*
 alwaysApply: false
 ---
 
-# Forms (`src/app/core/form`)
+# Forms (`src/app/features/shared/form`)
 
 1. Model: `*.model.ts` interface for form value.
 2. Definition: `export const X = defineForm<Model>()({ mode: 'single'|'stepper', steps: [...] })`.

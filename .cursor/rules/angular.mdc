@@ -13,6 +13,7 @@ alwaysApply: false
 - Icons: import from `@lucide/angular` (same as form/table defs).
 - Styling: use CSS variables from `styles.scss`; avoid hard-coded hex in components.
 - No NgModules unless the codebase already uses them in that area.
+- **No unit tests** — do not add or extend `*.spec.ts` / Vitest files (see `00-project.mdc`).
 
 ## Responsive layout
 

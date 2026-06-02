@@ -49,6 +49,12 @@
     width: 36px;
     height: 36px;
   }
+
+  app-language-picker .lang-picker__trigger,
+  app-theme-picker .theme-picker__trigger {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .topbar__actions {
@@ -99,30 +105,43 @@
   pointer-events: none;
 }
 
-.topbar__lang {
+.topbar__account {
   position: relative;
 }
 
-.topbar__lang-menu {
+.topbar__account-menu {
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
   z-index: 10;
-  min-width: 140px;
-  margin: 0;
-  padding: 0.25rem;
-  list-style: none;
+  min-width: 200px;
+  padding: 0.5rem 0;
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   background-color: var(--bg-topbar);
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
 }
 
-.topbar__lang-option {
-  display: block;
+.topbar__account-header {
+  margin: 0;
+  padding: 0.25rem 1rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.topbar__account-divider {
+  height: 1px;
+  margin: 0.25rem 0;
+  background-color: var(--border-subtle);
+}
+
+.topbar__account-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.5rem 1rem;
   text-align: left;
   font-size: 0.875rem;
   color: var(--text-primary);
@@ -131,9 +150,13 @@
   &:hover {
     background-color: var(--bg-active);
   }
+}
 
-  &--active {
-    font-weight: 600;
-    color: var(--accent-primary, var(--text-primary));
+.topbar__account-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+
+  svg {
+    stroke-width: 1.75px;
   }
 }

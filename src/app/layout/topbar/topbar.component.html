@@ -12,20 +12,7 @@
   <div class="topbar__spacer"></div>
 
   <div class="topbar__actions">
-    <button
-      type="button"
-      class="topbar__icon-btn"
-      [attr.aria-label]="
-        (isDark() ? 'topbar.theme.light' : 'topbar.theme.dark') | translate
-      "
-      (click)="themeService.toggle()"
-    >
-      @if (isDark()) {
-        <svg lucideSun [size]="20" />
-      } @else {
-        <svg lucideMoon [size]="20" />
-      }
-    </button>
+    <app-theme-picker />
 
     <button
       type="button"
@@ -36,42 +23,54 @@
       <span class="topbar__badge">3</span>
     </button>
 
-    <div class="topbar__lang">
+    <app-language-picker (opened)="onLanguagePickerOpened()" />
+
+    <div class="topbar__account">
       <button
         type="button"
         class="topbar__icon-btn"
-        [attr.aria-label]="'topbar.changeLanguage' | translate"
-        [attr.aria-expanded]="langMenuOpen()"
-        aria-haspopup="listbox"
-        (click)="toggleLangMenu()"
+        [attr.aria-label]="'topbar.openAccountMenu' | translate"
+        [attr.aria-expanded]="accountMenuOpen()"
+        aria-haspopup="menu"
+        (click)="toggleAccountMenu()"
       >
-        <svg lucideGlobe [size]="20" />
+        <svg lucideCircleUser [size]="20" />
       </button>
 
-      @if (langMenuOpen()) {
-        <ul class="topbar__lang-menu" role="listbox">
-          @for (lang of languages; track lang.code) {
-            <li role="option" [attr.aria-selected]="languageService.lang() === lang.code">
-              <button
-                type="button"
-                class="topbar__lang-option"
-                [class.topbar__lang-option--active]="languageService.lang() === lang.code"
-                (click)="selectLanguage(lang.code)"
-              >
-                {{ lang.labelKey | translate }}
-              </button>
-            </li>
-          }
-        </ul>
+      @if (accountMenuOpen()) {
+        <div class="topbar__account-menu" role="menu">
+          <p class="topbar__account-header">{{ 'topbar.account.title' | translate }}</p>
+          <div class="topbar__account-divider" role="separator"></div>
+          <button
+            type="button"
+            class="topbar__account-item"
+            role="menuitem"
+            (click)="onProfileClick()"
+          >
+            <svg lucideUser [size]="18" class="topbar__account-icon" />
+            <span>{{ 'topbar.account.profile' | translate }}</span>
+          </button>
+          <button
+            type="button"
+            class="topbar__account-item"
+            role="menuitem"
+            (click)="onSettingsClick()"
+          >
+            <svg lucideSettings [size]="18" class="topbar__account-icon" />
+            <span>{{ 'topbar.account.settings' | translate }}</span>
+          </button>
+          <div class="topbar__account-divider" role="separator"></div>
+          <button
+            type="button"
+            class="topbar__account-item"
+            role="menuitem"
+            (click)="logout()"
+          >
+            <svg lucideLogOut [size]="18" class="topbar__account-icon" />
+            <span>{{ 'topbar.account.logout' | translate }}</span>
+          </button>
+        </div>
       }
     </div>
-
-    <button
-      type="button"
-      class="topbar__icon-btn"
-      [attr.aria-label]="'topbar.profile' | translate"
-    >
-      <svg lucideCircleUser [size]="20" />
-    </button>
   </div>
 </header>

@@ -6,19 +6,63 @@
   },
   "topbar": {
     "openMenu": "Otvori meni",
+    "changeTheme": "Promijeni temu",
     "theme": {
       "light": "Prebaci na svijetli režim",
-      "dark": "Prebaci na tamni režim"
+      "dark": "Prebaci na tamni režim",
+      "lightLabel": "Svijetla",
+      "darkLabel": "Tamna"
     },
     "notifications": "Obavještenja",
     "changeLanguage": "Promijeni jezik",
     "profile": "Korisnički profil",
+    "openAccountMenu": "Otvori meni računa",
+    "account": {
+      "title": "Moj račun",
+      "profile": "Profil",
+      "settings": "Postavke",
+      "logout": "Odjava"
+    },
     "lang": {
       "en": "English",
       "bh": "Bosanski"
     }
   },
+  "portal": {
+    "admin": {
+      "badge": "ADMIN"
+    },
+    "employee": {
+      "badge": "ZAPOSLENIK"
+    }
+  },
+  "login": {
+    "admin": {
+      "badge": "Admin portal",
+      "title": "Prijava administratora",
+      "subtitle": "Prijavite se za upravljanje platformom"
+    },
+    "employee": {
+      "badge": "Portal zaposlenika",
+      "title": "Prijava zaposlenika",
+      "subtitle": "Prijavite se za pristup radnom prostoru"
+    },
+    "username": "Korisničko ime",
+    "password": "Lozinka",
+    "submit": "Prijavi se",
+    "error": "Prijava nije uspjela. Pokušajte ponovo.",
+    "switchToAdmin": "Administrator? Prijavite se na admin portal",
+    "switchToEmployee": "Zaposlenik? Prijavite se na portal zaposlenika"
+  },
   "nav": {
+    "admin": {
+      "sections": {
+        "main": "ADMIN"
+      },
+      "dashboard": "Kontrolna tabla",
+      "users": "Korisnici",
+      "settings": "Postavke"
+    },
     "sections": {
       "dashboard": "KONTROLNA TABLA",
       "shipments": "POŠILJKE",
@@ -72,7 +116,12 @@
     "cancellations": "Otkazivanja",
     "deliveryPerformance": "Performanse isporuke",
     "revenueAnalysis": "Analiza prihoda",
-    "fleetEfficiency": "Efikasnost flote"
+    "fleetEfficiency": "Efikasnost flote",
+    "admin": {
+      "dashboard": "Admin kontrolna tabla",
+      "users": "Upravljanje korisnicima",
+      "settings": "Sistemske postavke"
+    }
   },
   "tables": {
     "common": {

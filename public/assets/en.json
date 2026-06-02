@@ -6,19 +6,63 @@
   },
   "topbar": {
     "openMenu": "Open menu",
+    "changeTheme": "Change theme",
     "theme": {
       "light": "Switch to light mode",
-      "dark": "Switch to dark mode"
+      "dark": "Switch to dark mode",
+      "lightLabel": "Light",
+      "darkLabel": "Dark"
     },
     "notifications": "Notifications",
     "changeLanguage": "Change language",
     "profile": "User profile",
+    "openAccountMenu": "Open account menu",
+    "account": {
+      "title": "My Account",
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Log out"
+    },
     "lang": {
       "en": "English",
       "bh": "Bosanski"
     }
   },
+  "portal": {
+    "admin": {
+      "badge": "ADMIN"
+    },
+    "employee": {
+      "badge": "EMPLOYEE"
+    }
+  },
+  "login": {
+    "admin": {
+      "badge": "Admin portal",
+      "title": "Admin sign in",
+      "subtitle": "Sign in to manage the platform"
+    },
+    "employee": {
+      "badge": "Employee portal",
+      "title": "Employee sign in",
+      "subtitle": "Sign in to access your workspace"
+    },
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign in",
+    "error": "Sign in failed. Please try again.",
+    "switchToAdmin": "Administrator? Sign in to the admin portal",
+    "switchToEmployee": "Employee? Sign in to the employee portal"
+  },
   "nav": {
+    "admin": {
+      "sections": {
+        "main": "ADMIN"
+      },
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "settings": "Settings"
+    },
     "sections": {
       "dashboard": "DASHBOARD",
       "shipments": "SHIPMENTS",
@@ -72,7 +116,12 @@
     "cancellations": "Cancellations",
     "deliveryPerformance": "Delivery Performance",
     "revenueAnalysis": "Revenue Analysis",
-    "fleetEfficiency": "Fleet Efficiency"
+    "fleetEfficiency": "Fleet Efficiency",
+    "admin": {
+      "dashboard": "Admin Dashboard",
+      "users": "User Management",
+      "settings": "System Settings"
+    }
   },
   "tables": {
     "common": {

@@ -1,3 +1,5 @@
+@use 'styles/portal-accent';
+
 :root,
 [data-theme='dark'] {
   --bg-app: #0b0f19;
@@ -11,6 +13,12 @@
   --bg-topbar: #0b0f19;
   --bg-icon-btn: rgba(255, 255, 255, 0.08);
   --bg-icon-btn-hover: rgba(255, 255, 255, 0.12);
+  /* Standalone page semantics (login, etc.) */
+  --bg-page: var(--bg-app);
+  --bg-surface: rgba(255, 255, 255, 0.06);
+  --bg-muted: var(--bg-active);
+  --border-default: var(--border-form-input);
+  --text-secondary: var(--text-muted);
   --sidebar-width-expanded: 256px;
   --sidebar-width-collapsed: 72px;
   --sidebar-width: var(--sidebar-width-expanded);
@@ -91,6 +99,12 @@
   --bg-topbar: #ffffff;
   --bg-icon-btn: #eef1f5;
   --bg-icon-btn-hover: #e4e8ee;
+  /* Standalone page semantics (login, etc.) */
+  --bg-page: var(--bg-app);
+  --bg-surface: #ffffff;
+  --bg-muted: var(--bg-active);
+  --border-default: var(--border-form-input);
+  --text-secondary: var(--text-muted);
   --text-table-header-size: 0.875rem;
   --bg-table-card: #ffffff;
   --border-table: rgba(0, 0, 0, 0.08);

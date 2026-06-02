@@ -5,34 +5,44 @@ alwaysApply: true
 
 # bhcom-ba (Angular 21)
 
-Logistics/admin SPA. Prefer existing abstractions over new UI frameworks.
+Logistics SPA with **employee** (`/`) and **admin** (`/admin`) portals. Prefer existing abstractions over new UI frameworks.
 
 ## Commands
 
 - `npm start` — dev server (4200)
-- `npm run build` / `npm test` — build / Vitest
+- `npm run build` — production build
+- `npm test` — run existing Vitest suite only when asked; see **Testing** below
+
+## Testing (agents)
+
+- **Never add unit tests** — no new `*.spec.ts` files, Vitest cases, test helpers, or test-only dependencies.
+- Do not scaffold, suggest, or include unit tests as part of feature work, refactors, or bug fixes unless the user explicitly requests tests.
+- Do not extend or rewrite existing unit tests unless the user explicitly asks.
+- Prefer manual verification (`npm start`, `npm run build`) over adding coverage.
 
 ## Source map (read files when implementing, don’t guess)
 
-- Routes: `src/app/app.routes.ts`
+- Root routes: `src/app/app.routes.ts` (login + lazy portal trees)
+- Portal routes: `src/app/routes/employee.routes.ts`, `admin.routes.ts`
+- Auth: `src/app/core/auth/`
+- Portal config/guards: `src/app/core/portal/` (`PORTAL_CONFIG`, `portalMatchGuard`, `guestGuard`)
 - App shell: `src/app/layout/` — `app-shell`, `sidebar`, `topbar`
-- Sidebar nav: `src/app/layout/sidebar/sidebar-nav.config.ts` (keep in sync with routes)
-- Layout services: `src/app/core/layout/sidebar.service.ts` (desktop collapse + mobile drawer), `theme/`, `i18n/`
-- Forms framework: `src/app/core/form/` — export barrel `index.ts`
-- Tables framework: `src/app/core/table/` — export barrel `index.ts`
-- Features: `src/app/features/<domain>/`
-- i18n: `public/assets/en.json` + `bh.json` (add keys to both)
-- Theme + layout tokens: `src/styles.scss` (`--bg-*`, `--text-*`, `--layout-padding-*`, form/table vars)
-- Breakpoints: `src/styles/_breakpoints.scss` (`@mixin below-md`), `src/app/core/layout/viewport.ts` (`MOBILE_BREAKPOINT_PX` = 768)
+- Sidebar nav: `employee-nav.config.ts`, `admin-nav.config.ts` (types in `nav.model.ts`)
+- Layout services: `src/app/core/layout/sidebar.service.ts`, `theme/`, `i18n/`
+- Forms framework: `src/app/features/shared/form/` — barrel `index.ts`
+- Tables framework: `src/app/features/shared/table/` — barrel `index.ts`
+- Features: `features/employee/`, `features/admin/`, `features/shared/`
+- i18n: `public/assets/en.json` + `bh.json` (`portal.*`, `login.*`, `nav.admin.*`)
+- Theme: `src/styles.scss`; breakpoints: `src/styles/_breakpoints.scss`, `core/layout/viewport.ts`
 
 ## Layout behavior (do not reimplement ad hoc)
 
-- **Desktop:** persistent sidebar (`SidebarService.collapsed`), panel collapse/expand in sidebar brand row.
-- **Mobile (≤768px):** topbar hamburger → `SidebarService.openMobile()`; drawer overlay + backdrop in `app-shell`; X closes drawer; nav scrolls inside sidebar; auto-close on route change / Escape / backdrop.
-- **Main scroll:** `.app-shell__content` only — sidebar is viewport-height with internal nav scroll.
+- **Desktop:** persistent sidebar (`SidebarService.collapsed`), panel collapse/expand in brand row.
+- **Mobile (≤768px):** topbar hamburger → drawer; brand shows portal suffix + close (X).
+- **Main scroll:** `.app-shell__content` only.
 
 ## References for patterns
 
-- Simple form page: `features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
-- Stepper + custom sections: `features/shipments/create-shipment/`
-- List/table page: `features/shipments/shipments-page.*` + `shipment.table.ts`
+- Form page: `features/employee/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
+- Stepper: `features/employee/shipments/create-shipment/`
+- Table page: `features/employee/shipments/shipments-page.*` + `shipment.table.ts`
