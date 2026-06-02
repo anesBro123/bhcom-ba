@@ -17,6 +17,7 @@ export class FormFooterComponent {
   readonly isLastStep = input(false);
   readonly showPrevious = input(true);
   readonly inCard = input(false);
+  readonly submitDisabled = input(false);
 
   previous = output<void>();
   next = output<void>();

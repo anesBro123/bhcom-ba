@@ -10,11 +10,15 @@ import type { LucideIcon } from '@lucide/angular';
   styleUrl: './form-section.component.scss',
 })
 export class FormSectionComponent {
-  readonly titleKey = input.required<string>();
+  readonly titleKey = input<string>();
   readonly subtitleKey = input<string>();
   readonly icon = input<LucideIcon>();
   readonly showFooter = input(false);
   readonly flat = input(false);
 
   protected readonly iconInputs = { size: 16 };
+
+  protected hasHeader(): boolean {
+    return !!(this.titleKey() || this.subtitleKey() || this.icon());
+  }
 }

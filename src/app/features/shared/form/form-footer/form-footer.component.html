@@ -15,7 +15,12 @@
   <div class="form-footer__end">
     @if (isLastStep()) {
       @if (actions().submit) {
-        <button type="button" class="form-footer__btn form-footer__btn--primary" (click)="submit.emit()">
+        <button
+          type="button"
+          class="form-footer__btn form-footer__btn--primary"
+          [disabled]="submitDisabled()"
+          (click)="submit.emit()"
+        >
           @if (submitIcon(); as icon) {
             <span class="form-footer__btn-icon">
               <ng-container *ngComponentOutlet="icon; inputs: iconInputs" />
@@ -25,7 +30,12 @@
         </button>
       }
     } @else if (actions().next) {
-      <button type="button" class="form-footer__btn form-footer__btn--primary" (click)="next.emit()">
+      <button
+        type="button"
+        class="form-footer__btn form-footer__btn--primary"
+        [disabled]="submitDisabled()"
+        (click)="next.emit()"
+      >
         {{ actions().next!.labelKey | translate }}
       </button>
     }

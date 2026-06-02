@@ -9,6 +9,7 @@ export type FieldType =
   | 'tel'
   | 'number'
   | 'date'
+  | 'password'
   | 'select'
   | 'textarea'
   | 'radio'
@@ -36,6 +37,7 @@ export interface FieldDef<T, K extends keyof T & string = keyof T & string> {
   labelKey?: string;
   placeholderKey?: string;
   descriptionKey?: string;
+  autocomplete?: string;
   colSpan?: ColSpan;
   hidden?: (value: Partial<T>) => boolean;
   disabled?: (value: Partial<T>) => boolean;
@@ -46,7 +48,7 @@ export interface FieldDef<T, K extends keyof T & string = keyof T & string> {
 
 export interface FormSectionDef<T> {
   id: string;
-  titleKey: string;
+  titleKey?: string;
   subtitleKey?: string;
   icon?: LucideIcon;
   fields?: readonly FieldDef<T>[];
@@ -56,7 +58,7 @@ export interface FormSectionDef<T> {
 
 export interface FormStepDef<T> {
   id: string;
-  titleKey: string;
+  titleKey?: string;
   kind: 'fields' | 'template';
   sections?: readonly FormSectionDef<T>[];
   validate?: (form: FormGroup) => boolean;

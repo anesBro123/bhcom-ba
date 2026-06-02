@@ -57,14 +57,20 @@
   background: transparent;
 }
 
-.form-section-card--flat {
+.form-section-card--flat,
+.form-section-card--headless {
   border: none;
   border-radius: 0;
   background: transparent;
 }
 
-.form-section-card--flat .form-section-card__footer {
+.form-section-card--flat .form-section-card__footer,
+.form-section-card--headless .form-section-card__footer {
   background: transparent;
+}
+
+.form-section-card--headless .form-section-card__body {
+  padding: 0;
 }
 
 @include below-md {

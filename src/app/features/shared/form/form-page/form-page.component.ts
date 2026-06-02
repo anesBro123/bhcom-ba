@@ -57,6 +57,7 @@ import type {
 export class FormPageComponent<T extends object> implements OnInit, AfterContentInit {
   definition = input.required<FormDefinition<T>>();
   formGroup = input.required<FormGroup>();
+  submitDisabled = input(false);
 
   submit = output<void>();
   stepChange = output<{ from: number; to: number }>();

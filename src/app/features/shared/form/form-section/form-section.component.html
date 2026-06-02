@@ -1,17 +1,25 @@
-<article class="form-section-card" [class.form-section-card--flat]="flat()">
-  <header class="form-section-card__header">
-    @if (icon()) {
-      <span class="form-section-card__icon">
-        <ng-container *ngComponentOutlet="icon()!; inputs: iconInputs" />
-      </span>
-    }
-    <div class="form-section-card__titles">
-      <h2 class="form-section-card__title">{{ titleKey() | translate }}</h2>
-      @if (subtitleKey()) {
-        <p class="form-section-card__subtitle">{{ subtitleKey()! | translate }}</p>
+<article
+  class="form-section-card"
+  [class.form-section-card--flat]="flat()"
+  [class.form-section-card--headless]="!hasHeader()"
+>
+  @if (hasHeader()) {
+    <header class="form-section-card__header">
+      @if (icon()) {
+        <span class="form-section-card__icon">
+          <ng-container *ngComponentOutlet="icon()!; inputs: iconInputs" />
+        </span>
       }
-    </div>
-  </header>
+      <div class="form-section-card__titles">
+        @if (titleKey()) {
+          <h2 class="form-section-card__title">{{ titleKey()! | translate }}</h2>
+        }
+        @if (subtitleKey()) {
+          <p class="form-section-card__subtitle">{{ subtitleKey()! | translate }}</p>
+        }
+      </div>
+    </header>
+  }
 
   <div class="form-section-card__body">
     <ng-content select="[formSectionBefore]" />

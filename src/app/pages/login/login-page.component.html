@@ -14,36 +14,17 @@
         <p class="login__subtitle">{{ portal.login.subtitleKey | translate }}</p>
       }
 
-      <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="login__field">
-          <label class="login__label" for="username">{{ 'login.username' | translate }}</label>
-          <input
-            id="username"
-            type="text"
-            class="login__input"
-            formControlName="username"
-            autocomplete="username"
-          />
-        </div>
-        <div class="login__field">
-          <label class="login__label" for="password">{{ 'login.password' | translate }}</label>
-          <input
-            id="password"
-            type="password"
-            class="login__input"
-            formControlName="password"
-            autocomplete="current-password"
-          />
-        </div>
+      @if (errorKey(); as key) {
+        <p class="login__error" role="alert">{{ key | translate }}</p>
+      }
 
-        @if (errorKey(); as key) {
-          <p class="login__error" role="alert">{{ key | translate }}</p>
-        }
-
-        <button type="submit" class="login__submit" [disabled]="submitting()">
-          {{ 'login.submit' | translate }}
-        </button>
-      </form>
+      <app-form-page
+        class="login__form"
+        [definition]="formDef"
+        [formGroup]="form"
+        [submitDisabled]="submitting()"
+        (submit)="onSubmit()"
+      />
 
       <p class="login__switch">
         <a [routerLink]="alternateLoginUrl" class="login__switch-link">

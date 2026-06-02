@@ -8,13 +8,16 @@ import {
   EMPLOYEE_PORTAL_CONFIG,
   PORTAL_CONFIG,
 } from '../../core/portal';
+import { FormPageComponent } from '../../features/shared/form';
 import { LanguagePickerComponent } from '../../layout/language-picker/language-picker.component';
 import { ThemePickerComponent } from '../../layout/theme-picker/theme-picker.component';
+import { LoginForm } from './login.form';
 
 @Component({
   selector: 'app-login-page',
   imports: [
     ReactiveFormsModule,
+    FormPageComponent,
     TranslatePipe,
     RouterLink,
     ThemePickerComponent,
@@ -28,6 +31,7 @@ export class LoginPageComponent {
   private readonly router = inject(Router);
   protected readonly portal = inject(PORTAL_CONFIG);
 
+  protected readonly formDef = LoginForm;
   protected readonly submitting = signal(false);
   protected readonly errorKey = signal<string | null>(null);
 
@@ -51,8 +55,7 @@ export class LoginPageComponent {
   }
 
   protected onSubmit(): void {
-    if (this.form.invalid || this.submitting()) {
-      this.form.markAllAsTouched();
+    if (this.submitting()) {
       return;
     }
 

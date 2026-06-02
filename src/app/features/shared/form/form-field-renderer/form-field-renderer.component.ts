@@ -52,9 +52,15 @@ export class FormFieldRendererComponent<T extends object> {
     };
   }
 
-  protected textInputType(): 'text' | 'email' | 'tel' | 'number' | 'date' {
+  protected textInputType(): 'text' | 'email' | 'tel' | 'number' | 'date' | 'password' {
     const type = this.field().type;
-    if (type === 'email' || type === 'tel' || type === 'number' || type === 'date') {
+    if (
+      type === 'email' ||
+      type === 'tel' ||
+      type === 'number' ||
+      type === 'date' ||
+      type === 'password'
+    ) {
       return type;
     }
     return 'text';

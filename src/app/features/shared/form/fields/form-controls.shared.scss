@@ -17,11 +17,21 @@
   &:focus {
     outline: none;
     border-color: var(--border-form-input-focus);
+    box-shadow: var(--portal-accent-focus-ring, none);
   }
 
   &:disabled {
     opacity: 0.55;
     cursor: not-allowed;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text-primary);
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-form-input) inset;
+    caret-color: var(--text-primary);
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
 

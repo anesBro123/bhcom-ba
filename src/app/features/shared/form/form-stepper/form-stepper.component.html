@@ -15,14 +15,16 @@
 
   <nav class="form-stepper__labels" aria-label="Form steps">
     @for (step of steps(); track step.id; let index = $index) {
-      <span
-        class="form-stepper__label"
-        [class.form-stepper__label--active]="index === stepIndex()"
-        [class.form-stepper__label--completed]="index < stepIndex()"
-        [class.form-stepper__label--inactive]="index > stepIndex()"
-      >
-        {{ step.titleKey | translate }}
-      </span>
+      @if (step.titleKey) {
+        <span
+          class="form-stepper__label"
+          [class.form-stepper__label--active]="index === stepIndex()"
+          [class.form-stepper__label--completed]="index < stepIndex()"
+          [class.form-stepper__label--inactive]="index > stepIndex()"
+        >
+          {{ step.titleKey | translate }}
+        </span>
+      }
     }
   </nav>
 </div>

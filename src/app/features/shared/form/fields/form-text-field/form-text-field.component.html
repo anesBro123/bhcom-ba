@@ -13,6 +13,7 @@
         [id]="field().key"
         type="date"
         [formControl]="$any(control())"
+        [attr.autocomplete]="field().autocomplete ?? null"
         [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
       />
     </div>
@@ -22,6 +23,7 @@
       [id]="field().key"
       [type]="inputType()"
       [formControl]="$any(control())"
+      [attr.autocomplete]="field().autocomplete ?? null"
       [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
     />
   }

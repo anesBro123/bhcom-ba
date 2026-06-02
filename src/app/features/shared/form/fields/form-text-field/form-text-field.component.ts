@@ -14,7 +14,7 @@ import type { FieldDef } from '../../form.types';
 export class FormTextFieldComponent<T extends object> {
   readonly control = input.required<AbstractControl>();
   readonly field = input.required<FieldDef<T>>();
-  readonly inputType = input<'text' | 'email' | 'tel' | 'number' | 'date'>('text');
+  readonly inputType = input<'text' | 'email' | 'tel' | 'number' | 'date' | 'password'>('text');
 
   protected isDate(): boolean {
     return this.inputType() === 'date';
