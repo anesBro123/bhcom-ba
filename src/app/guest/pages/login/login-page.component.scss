@@ -1,4 +1,5 @@
 @use 'styles/breakpoints' as *;
+@use 'styles/auth-card-footer';
 
 .login {
   display: flex;
@@ -96,40 +97,3 @@
   color: var(--color-danger, #dc2626);
 }
 
-.login__footer {
-  .login__switch {
-    margin: 0;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  .login__switch:first-child {
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-subtle);
-  }
-
-  .login__switch + .login__switch {
-    margin-top: 0.75rem;
-  }
-}
-
-.login__switch {
-  margin: 1.25rem 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-subtle);
-  font-size: 0.875rem;
-  line-height: 1.4;
-  text-align: center;
-  color: var(--text-secondary);
-}
-
-.login__switch-link {
-  color: var(--text-secondary);
-  text-decoration: underline;
-  transition: color 0.15s ease;
-
-  &:hover {
-    color: var(--portal-accent, var(--text-primary));
-  }
-}

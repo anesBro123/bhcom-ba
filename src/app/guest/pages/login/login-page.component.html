@@ -19,21 +19,23 @@
         (submit)="onSubmit()"
       />
 
-      <div class="login__footer">
-        <p class="login__switch">
-          <a [routerLink]="signInUrl" class="login__switch-link">
-            {{ 'login.choosePortal' | translate }}
+      <footer class="auth-card__footer">
+        <p class="auth-card__prompt">
+          {{ 'login.switchPortal.label' | translate }}
+          <a [routerLink]="signInUrl" class="auth-card__action">
+            {{ 'login.switchPortal.action' | translate }}
           </a>
         </p>
 
         @if (portal.portal === 'admin' && portal.registerUrl) {
-          <p class="login__switch">
-            <a [routerLink]="portal.registerUrl" class="login__switch-link">
-              {{ 'login.createAdminAccount' | translate }}
+          <p class="auth-card__prompt">
+            {{ 'login.createAccount.label' | translate }}
+            <a [routerLink]="portal.registerUrl" class="auth-card__action">
+              {{ 'login.createAccount.action' | translate }}
             </a>
           </p>
         }
-      </div>
+      </footer>
     </div>
   </div>
 </div>

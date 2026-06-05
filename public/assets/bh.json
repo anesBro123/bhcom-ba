@@ -117,8 +117,14 @@
     "password": "Lozinka",
     "submit": "Prijavi se",
     "error": "Prijava nije uspjela. Pokušajte ponovo.",
-    "choosePortal": "Pogrešan portal? Izaberite ponovo",
-    "createAdminAccount": "Nova organizacija? Registracija"
+    "switchPortal": {
+      "label": "Pogrešan portal?",
+      "action": "Izaberite ponovo"
+    },
+    "createAccount": {
+      "label": "Nova organizacija?",
+      "action": "Registracija"
+    }
   },
   "register": {
     "admin": {
@@ -126,7 +132,10 @@
       "title": "Kreiranje admin računa",
       "subtitle": "Registrujte organizaciju za upravljanje platformom"
     },
-    "signIn": "Već imate račun? Prijavite se",
+    "signIn": {
+      "label": "Već imate račun?",
+      "action": "Prijavite se"
+    },
     "error": "Registracija nije uspjela. Pokušajte ponovo.",
     "success": {
       "title": "Registracija primljena",

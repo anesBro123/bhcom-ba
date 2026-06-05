@@ -117,8 +117,14 @@
     "password": "Password",
     "submit": "Sign in",
     "error": "Sign in failed. Please try again.",
-    "choosePortal": "Wrong portal? Choose again",
-    "createAdminAccount": "New organization? Register"
+    "switchPortal": {
+      "label": "Wrong portal?",
+      "action": "Choose again"
+    },
+    "createAccount": {
+      "label": "New organization?",
+      "action": "Register"
+    }
   },
   "register": {
     "admin": {
@@ -126,7 +132,10 @@
       "title": "Create admin account",
       "subtitle": "Register your organization to manage the platform"
     },
-    "signIn": "Already have an account? Sign in",
+    "signIn": {
+      "label": "Already have an account?",
+      "action": "Sign in"
+    },
     "error": "Registration failed. Please try again.",
     "success": {
       "title": "Registration received",

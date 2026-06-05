@@ -1,0 +1,53 @@
+.auth-card__footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  text-align: center;
+}
+
+.auth-card__prompt {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.auth-card__action {
+  font-weight: 600;
+  color: var(--portal-accent, #2563eb);
+  text-decoration: none;
+  margin-inline-start: 0.25em;
+  transition: color 0.15s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--portal-accent, #2563eb);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.auth-card__back {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--text-secondary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--portal-accent, #2563eb);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}

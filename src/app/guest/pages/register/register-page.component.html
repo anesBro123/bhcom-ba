@@ -18,31 +18,35 @@
           (submit)="onSubmit()"
         />
 
-        <p class="register__switch">
-          <a [routerLink]="loginUrl" class="register__switch-link">
-            {{ 'register.signIn' | translate }}
-          </a>
-        </p>
+        <footer class="auth-card__footer">
+          <p class="auth-card__prompt">
+            {{ 'register.signIn.label' | translate }}
+            <a [routerLink]="loginUrl" class="auth-card__action">
+              {{ 'register.signIn.action' | translate }}
+            </a>
+          </p>
 
-        <p class="register__switch register__switch--home">
-          <a [routerLink]="landingUrl" class="register__switch-link">
+          <a [routerLink]="landingUrl" class="auth-card__back">
             {{ 'guest.backToHome' | translate }}
           </a>
-        </p>
+        </footer>
       } @else {
         <div class="register__success" role="status">
           <h1 class="register__success-title">{{ 'register.success.title' | translate }}</h1>
           <p class="register__success-message">{{ 'register.success.message' | translate }}</p>
-          <p class="register__switch">
-            <a [routerLink]="loginUrl" class="register__switch-link">
-              {{ 'register.signIn' | translate }}
-            </a>
-          </p>
-          <p class="register__switch register__switch--home">
-            <a [routerLink]="landingUrl" class="register__switch-link">
+
+          <footer class="auth-card__footer">
+            <p class="auth-card__prompt">
+              {{ 'register.signIn.label' | translate }}
+              <a [routerLink]="loginUrl" class="auth-card__action">
+                {{ 'register.signIn.action' | translate }}
+              </a>
+            </p>
+
+            <a [routerLink]="landingUrl" class="auth-card__back">
               {{ 'guest.backToHome' | translate }}
             </a>
-          </p>
+          </footer>
         </div>
       }
     </div>
