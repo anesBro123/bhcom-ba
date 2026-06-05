@@ -1,0 +1,29 @@
+<div class="sign-in">
+  <header class="sign-in__header">
+    <h1 class="sign-in__title">{{ 'signIn.title' | translate }}</h1>
+    <p class="sign-in__subtitle">{{ 'signIn.subtitle' | translate }}</p>
+  </header>
+
+  <div class="sign-in__cards">
+    <app-portal-card
+      portal="employee"
+      badgeKey="signIn.portals.employee.badge"
+      titleKey="signIn.portals.employee.title"
+      descriptionKey="signIn.portals.employee.description"
+      [route]="employeeLoginUrl"
+    />
+    <app-portal-card
+      portal="admin"
+      badgeKey="signIn.portals.admin.badge"
+      titleKey="signIn.portals.admin.title"
+      descriptionKey="signIn.portals.admin.description"
+      [route]="adminLoginUrl"
+    />
+  </div>
+
+  <p class="sign-in__back">
+    <a [routerLink]="landingUrl" class="sign-in__back-link">
+      {{ 'guest.backToHome' | translate }}
+    </a>
+  </p>
+</div>

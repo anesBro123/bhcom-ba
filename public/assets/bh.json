@@ -36,6 +36,72 @@
       "badge": "ZAPOSLENIK"
     }
   },
+  "guest": {
+    "backToHome": "Nazad na početnu",
+    "topbar": {
+      "signIn": "Prijava",
+      "register": "Registracija kompanije"
+    },
+    "footer": {
+      "copyright": "© 2026 BHCOM.BA. Sva prava zadržana.",
+      "privacy": "Privatnost",
+      "terms": "Uslovi",
+      "contact": "Kontakt"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Logističke operacije za moderna vozila",
+      "subtitle": "Upravljajte pošiljkama, flotom i postavkama organizacije na jednoj platformi prilagođenoj Bosni i Hercegovini.",
+      "ctaRegister": "Registrujte kompaniju",
+      "ctaSignIn": "Prijava"
+    },
+    "features": {
+      "title": "Sve što vam treba za logistiku",
+      "fleet": {
+        "title": "Upravljanje flotom",
+        "description": "Pratite vozila, održavanje i dodjele vozača iz jednog radnog prostora."
+      },
+      "shipments": {
+        "title": "Praćenje pošiljki",
+        "description": "Kreirajte, pratite i rješavajte pošiljke uz operativni uvid u realnom vremenu."
+      },
+      "admin": {
+        "title": "Kontrola organizacije",
+        "description": "Administratori konfigurišu platformu, upravljaju korisnicima i postavkama kompanije."
+      }
+    },
+    "portals": {
+      "title": "Izaberite portal",
+      "subtitle": "Zaposlenici i administratori organizacije koriste odvojene portale za prijavu.",
+      "employee": {
+        "badge": "Portal zaposlenika",
+        "title": "Za zaposlenike",
+        "description": "Prijavite se za dnevne operacije — pošiljke, flota, narudžbe i izvještaji."
+      },
+      "admin": {
+        "badge": "Admin portal",
+        "title": "Za administratore organizacije",
+        "description": "Prijavite se za upravljanje kompanijom, korisnicima i konfiguracijom platforme."
+      }
+    }
+  },
+  "signIn": {
+    "title": "Prijava na BHCOM",
+    "subtitle": "Izaberite portal koji odgovara vašoj ulozi.",
+    "portals": {
+      "employee": {
+        "badge": "Portal zaposlenika",
+        "title": "Prijava zaposlenika",
+        "description": "Pristupite radnom prostoru za pošiljke, flotu i dnevne operacije."
+      },
+      "admin": {
+        "badge": "Admin portal",
+        "title": "Prijava administratora",
+        "description": "Upravljajte organizacijom, korisnicima i postavkama platforme."
+      }
+    }
+  },
   "login": {
     "admin": {
       "badge": "Admin portal",
@@ -51,9 +117,8 @@
     "password": "Lozinka",
     "submit": "Prijavi se",
     "error": "Prijava nije uspjela. Pokušajte ponovo.",
-    "switchToAdmin": "Administrator? Prijavite se na admin portal",
-    "switchToEmployee": "Zaposlenik? Prijavite se na portal zaposlenika",
-    "createAdminAccount": "Nova organizacija? Kreirajte admin račun"
+    "choosePortal": "Pogrešan portal? Izaberite ponovo",
+    "createAdminAccount": "Nova organizacija? Registracija"
   },
   "register": {
     "admin": {

@@ -1,0 +1,8 @@
+<a class="portal-card__link" [routerLink]="route()">
+  <span class="portal-card__badge">{{ badgeKey() | translate }}</span>
+  <h3 class="portal-card__title">{{ titleKey() | translate }}</h3>
+  <p class="portal-card__description">{{ descriptionKey() | translate }}</p>
+  <span class="portal-card__action">
+    <svg lucideArrowRight [size]="18" />
+  </span>
+</a>

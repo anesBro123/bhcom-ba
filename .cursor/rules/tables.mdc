@@ -1,10 +1,10 @@
 ---
 description: Declarative data tables
-globs: src/app/features/shared/table/**,src/**/*.table.ts
+globs: src/app/shared/table/**,src/**/*.table.ts
 alwaysApply: false
 ---
 
-# Tables (`src/app/features/shared/table`)
+# Tables (`src/app/shared/table`)
 
 1. Row type in `*.model.ts`.
 2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.
@@ -17,7 +17,7 @@ Do not rebuild pagination/filter/sort UI outside `DataTableComponent`.
 
 ## Mobile (≤768px)
 
-- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `core/layout/viewport.ts`, `isMobileLayout` signal).
+- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal).
 - Table and cards are mutually exclusive (`@if` / `@else`); only one is in the DOM.
 - Cards use column `titleKey` labels + values; custom `appTableCell` templates render in both views.
 - Optional column `mobile` metadata:

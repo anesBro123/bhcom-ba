@@ -1,0 +1,40 @@
+---
+description: Guest layer — public routes, shell, guards
+globs: src/app/guest/**
+alwaysApply: false
+---
+
+# Guest layer (`src/app/guest`)
+
+Public / unauthenticated area. No sidebar — `GuestShellComponent` (topbar + scrollable outlet + optional footer).
+
+## Routes (`guest.routes.ts`)
+
+| Path | Page | Guard | Notes |
+|------|------|-------|-------|
+| `/` | `LandingPageComponent` | `publicGuestGuard` | `data: { showFooter: true, showNavActions: true }` |
+| `/sign-in` | `SignInPageComponent` | `publicGuestGuard` | Portal picker cards; `data: { showNavActions: true }` |
+| `/login` | `LoginPageComponent` | `guestGuard` | Employee; `PORTAL_CONFIG` → `EMPLOYEE_PORTAL_CONFIG` |
+| `/admin/login` | `LoginPageComponent` | `guestGuard` | Admin; `PORTAL_CONFIG` → `ADMIN_PORTAL_CONFIG` |
+| `/admin/register` | `RegisterPageComponent` | `guestGuard` | Admin only; `PORTAL_CONFIG` → `ADMIN_PORTAL_CONFIG` |
+
+## Shell (`guest/shell/`)
+
+- `GuestShellComponent` — reads deepest route `data.showFooter` / `data.showNavActions`
+- `GuestTopbarComponent` — brand, language/theme pickers (`shared/ui/`), conditional nav actions
+- `GuestFooterComponent` — landing footer links
+- `PortalCardComponent` — employee/admin portal cards on sign-in page
+
+## Pages (`guest/pages/`)
+
+- `landing/` — marketing hero + feature cards
+- `sign-in/` — portal picker (imports `EMPLOYEE_PORTAL_CONFIG` / `ADMIN_PORTAL_CONFIG` for login URLs)
+- `login/` — shared login form (`login.form.ts`, `login.model.ts`); accent via `PORTAL_CONFIG`
+- `register/` — admin company registration (`register-admin.form.ts`)
+
+## Constants & imports
+
+- `guest.constants.ts` — `LANDING_URL`, `SIGN_IN_URL`
+- Portal URLs: prefer `portal/common/constants/portal-urls.ts` or `portal/common/index.ts` barrel
+- Auth: `shared/core/auth/auth.service.ts`
+- Guest may import `portal/common/**` and portal configs — do not import portal features or shell

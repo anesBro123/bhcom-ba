@@ -1,17 +1,29 @@
 ---
 description: Adding a new screen
-globs: src/app/features/**,src/app/routes/**,src/app/app.routes.ts,src/app/layout/sidebar/*-nav.config.ts
+globs: src/app/portal/**/features/**,src/app/portal/**/**.routes.ts,src/app/guest/**,src/app/app.routes.ts
 alwaysApply: false
 ---
 
-# New feature page checklist
+# New page checklist
 
-1. Feature folder: `src/app/features/employee/<domain>/` or `features/admin/<domain>/` (not both).
-2. Register route in `employee.routes.ts` or `admin.routes.ts` under `AppShellComponent` children.
+## Portal feature page
+
+1. Feature folder: `portal/employee/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
+2. Register route in `employee.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
 3. If in sidebar: add `NavItem` in `employee-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` (`/…` or `/admin/…`).
-4. Placeholder only: `PagePlaceholderComponent` + `data: { titleKey: 'pages.*' }`.
+4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'pages.*' }` (admin: `pages.admin.*`).
 5. Form: `*.form.ts` + page; Table: `*.table.ts` + page; i18n under `forms.*` / `tables.*`.
 6. Types in `*.model.ts`; mock data in `*.mock-data.ts`.
-7. **No `*.spec.ts`** — do not add unit tests for new pages or components.
+7. Feature HTTP: colocate `*.service.ts` with the feature; promote to `portal/{employee|admin}/data/` when shared within one portal.
+
+## Guest page
+
+1. Page folder: `guest/pages/<name>/` (`.ts`, `.html`, `.scss`).
+2. Register in `guest/guest.routes.ts` under `GuestShellComponent` children.
+3. Pick guard: `publicGuestGuard` (marketing/picker) or `guestGuard` (login/register with `PORTAL_CONFIG` provider).
+4. Optional route `data`: `showFooter`, `showNavActions` for guest shell chrome.
+5. Forms: `*.form.ts` + `*.model.ts` colocated (see `guest/pages/login/`).
+
+**No `*.spec.ts`** — do not add unit tests for new pages or components.
 
 Do not import admin features from employee routes or vice versa.

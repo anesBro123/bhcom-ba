@@ -1,0 +1,27 @@
+@if (linkUrl(); as url) {
+  <a class="brand-mark" [routerLink]="url">
+    <svg lucideTruck [size]="22" class="brand-mark__icon" />
+    <div
+      class="brand-mark__text"
+      [attr.title]="portalSuffixKey() ? (portalSuffixKey()! | translate) : null"
+    >
+      <span class="brand-mark__title">BHCOM</span>
+      @if (portalSuffixKey(); as suffixKey) {
+        <span class="brand-mark__portal">{{ suffixKey | translate }}</span>
+      }
+    </div>
+  </a>
+} @else {
+  <div class="brand-mark">
+    <svg lucideTruck [size]="22" class="brand-mark__icon" />
+    <div
+      class="brand-mark__text"
+      [attr.title]="portalSuffixKey() ? (portalSuffixKey()! | translate) : null"
+    >
+      <span class="brand-mark__title">BHCOM</span>
+      @if (portalSuffixKey(); as suffixKey) {
+        <span class="brand-mark__portal">{{ suffixKey | translate }}</span>
+      }
+    </div>
+  </div>
+}

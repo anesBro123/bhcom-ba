@@ -1,0 +1,71 @@
+<div class="landing">
+  <section class="landing__hero">
+    <div class="landing__hero-copy">
+      <h1 class="landing__title">{{ 'landing.hero.title' | translate }}</h1>
+      <p class="landing__subtitle">{{ 'landing.hero.subtitle' | translate }}</p>
+      <div class="landing__hero-actions">
+        <a class="landing__btn landing__btn--primary" [routerLink]="signInUrl">
+          {{ 'landing.hero.ctaSignIn' | translate }}
+        </a>
+        <a class="landing__btn landing__btn--register" [routerLink]="registerUrl">
+          {{ 'landing.hero.ctaRegister' | translate }}
+        </a>
+      </div>
+    </div>
+    <div class="landing__hero-visual" aria-hidden="true">
+      <svg lucideTruck [size]="96" class="landing__hero-icon" />
+    </div>
+  </section>
+
+  <section class="landing__features" aria-labelledby="landing-features-title">
+    <h2 id="landing-features-title" class="landing__section-title">
+      {{ 'landing.features.title' | translate }}
+    </h2>
+    <ul class="landing__feature-grid">
+      @for (feature of features; track feature.titleKey) {
+        <li
+          class="landing__feature-card"
+          [class.landing__feature-card--employee]="feature.accent === 'employee'"
+          [class.landing__feature-card--admin]="feature.accent === 'admin'"
+        >
+          @switch (feature.icon) {
+            @case ('truck') {
+              <svg lucideTruck [size]="28" class="landing__feature-icon" />
+            }
+            @case ('package') {
+              <svg lucidePackage [size]="28" class="landing__feature-icon" />
+            }
+            @case ('settings') {
+              <svg lucideSettings [size]="28" class="landing__feature-icon" />
+            }
+          }
+          <h3 class="landing__feature-title">{{ feature.titleKey | translate }}</h3>
+          <p class="landing__feature-description">{{ feature.descriptionKey | translate }}</p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="landing__portals" aria-labelledby="landing-portals-title">
+    <h2 id="landing-portals-title" class="landing__section-title">
+      {{ 'landing.portals.title' | translate }}
+    </h2>
+    <p class="landing__section-subtitle">{{ 'landing.portals.subtitle' | translate }}</p>
+    <div class="landing__portal-grid">
+      <app-portal-card
+        portal="employee"
+        badgeKey="landing.portals.employee.badge"
+        titleKey="landing.portals.employee.title"
+        descriptionKey="landing.portals.employee.description"
+        [route]="employeeLoginUrl"
+      />
+      <app-portal-card
+        portal="admin"
+        badgeKey="landing.portals.admin.badge"
+        titleKey="landing.portals.admin.title"
+        descriptionKey="landing.portals.admin.description"
+        [route]="adminLoginUrl"
+      />
+    </div>
+  </section>
+</div>

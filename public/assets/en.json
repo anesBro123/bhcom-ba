@@ -36,6 +36,72 @@
       "badge": "EMPLOYEE"
     }
   },
+  "guest": {
+    "backToHome": "Back to home",
+    "topbar": {
+      "signIn": "Sign in",
+      "register": "Register company"
+    },
+    "footer": {
+      "copyright": "© 2026 BHCOM.BA. All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Logistics operations for modern fleets",
+      "subtitle": "Manage shipments, fleet, and organization settings in one platform built for Bosnia and Herzegovina.",
+      "ctaRegister": "Register your company",
+      "ctaSignIn": "Sign in"
+    },
+    "features": {
+      "title": "Everything you need to run logistics",
+      "fleet": {
+        "title": "Fleet management",
+        "description": "Track vehicles, maintenance, and driver assignments from a single workspace."
+      },
+      "shipments": {
+        "title": "Shipment tracking",
+        "description": "Create, monitor, and resolve shipments with real-time operational visibility."
+      },
+      "admin": {
+        "title": "Organization control",
+        "description": "Admins configure the platform, manage users, and oversee company settings."
+      }
+    },
+    "portals": {
+      "title": "Choose your portal",
+      "subtitle": "Employees and organization admins use separate sign-in portals.",
+      "employee": {
+        "badge": "Employee portal",
+        "title": "For employees",
+        "description": "Sign in to manage daily operations — shipments, fleet, orders, and reports."
+      },
+      "admin": {
+        "badge": "Admin portal",
+        "title": "For organization admins",
+        "description": "Sign in to manage your company, users, and platform configuration."
+      }
+    }
+  },
+  "signIn": {
+    "title": "Sign in to BHCOM",
+    "subtitle": "Choose the portal that matches your role.",
+    "portals": {
+      "employee": {
+        "badge": "Employee portal",
+        "title": "Employee sign in",
+        "description": "Access your workspace for shipments, fleet, and daily operations."
+      },
+      "admin": {
+        "badge": "Admin portal",
+        "title": "Admin sign in",
+        "description": "Manage your organization, users, and platform settings."
+      }
+    }
+  },
   "login": {
     "admin": {
       "badge": "Admin portal",
@@ -51,9 +117,8 @@
     "password": "Password",
     "submit": "Sign in",
     "error": "Sign in failed. Please try again.",
-    "switchToAdmin": "Administrator? Sign in to the admin portal",
-    "switchToEmployee": "Employee? Sign in to the employee portal",
-    "createAdminAccount": "New organization? Create an admin account"
+    "choosePortal": "Wrong portal? Choose again",
+    "createAdminAccount": "New organization? Register"
   },
   "register": {
     "admin": {

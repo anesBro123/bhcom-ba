@@ -1,0 +1,105 @@
+@use 'styles/breakpoints' as *;
+@use 'styles/topbar' as topbar;
+
+@include topbar.topbar-base;
+@include topbar.topbar-icon-btn;
+
+.topbar__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+  color: var(--text-primary);
+
+  svg {
+    stroke-width: 2px;
+  }
+
+  &:hover {
+    color: var(--text-muted);
+  }
+}
+
+@include below-md {
+  .topbar__menu-btn {
+    display: flex;
+  }
+}
+
+.topbar__badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background-color: var(--accent-danger);
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.topbar__account {
+  position: relative;
+}
+
+.topbar__account-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background-color: var(--bg-topbar);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+}
+
+.topbar__account-header {
+  margin: 0;
+  padding: 0.25rem 1rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.topbar__account-divider {
+  height: 1px;
+  margin: 0.25rem 0;
+  background-color: var(--border-subtle);
+}
+
+.topbar__account-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--bg-active);
+  }
+}
+
+.topbar__account-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+
+  svg {
+    stroke-width: 1.75px;
+  }
+}

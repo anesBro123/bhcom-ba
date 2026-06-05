@@ -7,6 +7,25 @@ alwaysApply: true
 
 Logistics SPA with **employee** (`/`) and **admin** (`/admin`) portals. Prefer existing abstractions over new UI frameworks.
 
+## App structure (`src/app/`)
+
+Only three top-level folders — no `core/`, `features/`, or `layout/`:
+
+| Folder | Role |
+|--------|------|
+| `shared/` | Auth, i18n, theme, `form/`, `table/`, `ui/` — used by guest and portal |
+| `guest/` | Public routes, guest shell, guest guards, login/register pages |
+| `portal/` | Authenticated shell, configs, guards, features, `pages/page-placeholder/` |
+
+Paths below are relative to `src/app/` unless prefixed with `src/`.
+
+## Import boundaries
+
+- `shared/**` — import anywhere (guest + portal).
+- `guest/**` → may import `portal/common/**` and portal configs (login URLs, `PORTAL_CONFIG`) — intentional.
+- `portal/employee/**` ↔ `portal/admin/**` — **no** cross-import of features or routes.
+- Feature HTTP: colocate `*.service.ts` in the feature; promote to `portal/{employee|admin}/data/` when shared within one portal.
+
 ## Commands
 
 - `npm start` — dev server (4200)
@@ -22,27 +41,39 @@ Logistics SPA with **employee** (`/`) and **admin** (`/admin`) portals. Prefer e
 
 ## Source map (read files when implementing, don’t guess)
 
-- Root routes: `src/app/app.routes.ts` (login + lazy portal trees)
-- Portal routes: `src/app/routes/employee.routes.ts`, `admin.routes.ts`
-- Auth: `src/app/core/auth/`
-- Portal config/guards: `src/app/core/portal/` (`PORTAL_CONFIG`, `portalMatchGuard`, `guestGuard`)
-- App shell: `src/app/layout/` — `app-shell`, `sidebar`, `topbar`
-- Sidebar nav: `employee-nav.config.ts`, `admin-nav.config.ts` (types in `nav.model.ts`)
-- Layout services: `src/app/core/layout/sidebar.service.ts`, `theme/`, `i18n/`
-- Forms framework: `src/app/features/shared/form/` — barrel `index.ts`
-- Tables framework: `src/app/features/shared/table/` — barrel `index.ts`
-- Features: `features/employee/`, `features/admin/`, `features/shared/`
-- i18n: `public/assets/en.json` + `bh.json` (`portal.*`, `login.*`, `nav.admin.*`)
-- Theme: `src/styles.scss`; breakpoints: `src/styles/_breakpoints.scss`, `core/layout/viewport.ts`
+- Root routes: `app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`
+- Guest routes: `guest/guest.routes.ts`; constants: `guest/guest.constants.ts`
+- Portal routes: `portal/employee/employee.routes.ts`, `portal/admin/admin.routes.ts`
+- URL constants: `portal/common/constants/portal-urls.ts` (barrel: `portal/common/index.ts`)
+- Auth: `shared/core/auth/` — single session + `portal`; stub login until API
+- Guards: `guest/guards/` (`guestGuard`, `publicGuestGuard`); `portal/guards/portal-match.guard.ts`
+- Portal config: `portal/common/models/portal-config.model.ts`, `portal/employee/employee-portal.config.ts`, `portal/admin/admin-portal.config.ts`
+- Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `PortalTopbarComponent`, `sidebar.service.ts`
+- Sidebar nav: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
+- Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
+- Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`)
+- Features: `portal/employee/features/` (fleet, shipments); `portal/admin/features/` — not created yet (placeholders only)
+- Placeholder pages: `portal/pages/page-placeholder/page-placeholder.component.ts`
+- i18n: `public/assets/en.json` + `bh.json`
+- Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
+
+## Auth routing (guards)
+
+| Guard | Where | Behavior |
+|-------|-------|----------|
+| `publicGuestGuard` | `/`, `/sign-in` | Authenticated → redirect to session portal home |
+| `guestGuard` | `/login`, `/admin/login`, `/admin/register` | Unauthenticated → allow; same-portal session → portal home; other portal → that portal home |
+| `portalMatchGuard` | `''` and `admin` lazy trees | Unauthenticated → `/`; wrong portal → correct portal home |
 
 ## Layout behavior (do not reimplement ad hoc)
 
 - **Desktop:** persistent sidebar (`SidebarService.collapsed`), panel collapse/expand in brand row.
 - **Mobile (≤768px):** topbar hamburger → drawer; brand shows portal suffix + close (X).
-- **Main scroll:** `.app-shell__content` only.
+- **Main scroll:** `.portal-shell__content` (portal) or guest shell outlet area (guest).
 
 ## References for patterns
 
-- Form page: `features/employee/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
-- Stepper: `features/employee/shipments/create-shipment/`
-- Table page: `features/employee/shipments/shipments-page.*` + `shipment.table.ts`
+- Form page: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
+- Stepper: `portal/employee/features/shipments/create-shipment/`
+- Table page: `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
+- Guest login: `guest/pages/login/`; admin register: `guest/pages/register/`

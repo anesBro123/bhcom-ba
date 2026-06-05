@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LanguageService } from './core/i18n/language.service';
-import { SidebarService } from './core/layout/sidebar.service';
-import { ThemeService } from './core/theme/theme.service';
+import { LanguageService } from './shared/core/i18n/language.service';
+import { ThemeService } from './shared/core/theme/theme.service';
+import { SidebarService } from './portal/shell/sidebar.service';
 
 @Component({
   selector: 'app-root',

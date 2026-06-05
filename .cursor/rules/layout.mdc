@@ -1,23 +1,26 @@
 ---
 description: App shell, sidebar, topbar, mobile drawer
-globs: src/app/layout/**,src/app/core/layout/**
+globs: src/app/guest/shell/**,src/app/portal/shell/**,src/app/shared/ui/**
 alwaysApply: false
 ---
 
-# Layout (`src/app/layout` + `core/layout`)
+# Layout (`guest/shell` + `portal/shell` + `shared/ui`)
 
 ## Structure
 
-- `AppShellComponent` — grid: sidebar column + `app-shell__main` (topbar + scrollable `router-outlet` content).
-- `SidebarComponent` — brand row (BHCOM + portal suffix from `PORTAL_CONFIG`), collapsible nav (desktop), drawer (mobile).
-- Nav types: `layout/sidebar/nav.model.ts`; configs: `employee-nav.config.ts`, `admin-nav.config.ts`.
+- `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
+- `PortalSidebarComponent` (`portal-sidebar`) — brand row (BHCOM + portal suffix from `PORTAL_CONFIG`), collapsible nav (desktop), drawer (mobile).
+- Nav types: `portal/common/models/nav.model.ts`; configs: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
 - `PORTAL_CONFIG` provided on shell route in `employee.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
-- `TopbarComponent` — hamburger (mobile only), theme/notifications/profile actions.
-- `LanguagePickerComponent` (`layout/language-picker/`) — globe language menu; shared by topbar and login page.
-- `ThemePickerComponent` (`layout/theme-picker/`) — light/dark theme menu; shared by topbar and login page.
-- Profile icon opens **account menu** (`topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `PORTAL_CONFIG.loginUrl` (`/login` or `/admin/login`).
+- `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
+- `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest topbar.
+- `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest topbar.
+- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/admin/login`, `/admin/register`. No sidebar.
+- Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
+- `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest topbar.
+- Profile icon opens **account menu** (`topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
 
-## SidebarService (`core/layout/sidebar.service.ts`)
+## SidebarService (`portal/shell/sidebar.service.ts`)
 
 | API | Purpose |
 |-----|---------|
@@ -30,7 +33,7 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 - Topbar: `LucideMenu` → `openMobile()`.
 - Sidebar: `position: fixed`, slides in; brand row shows **X** (`closeMobile`), not panel collapse toggle.
-- `app-shell`: backdrop button when `mobileOpen()`; single-column grid.
+- `portal-shell`: backdrop button when `mobileOpen()`; single-column grid.
 - i18n: `topbar.openMenu`, `sidebar.close`, `sidebar.collapse` / `sidebar.expand`.
 
 ## Desktop sidebar
@@ -42,4 +45,4 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
 - Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
-- **Portal accent:** `AppShellComponent` host class `portal-employee` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss` (`--portal-accent`, `--portal-accent-muted`, `--portal-accent-nav-bg`). Login uses `.login--employee` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
+- **Portal accent:** `PortalShellComponent` host class `portal-employee` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--employee` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
