@@ -3,11 +3,12 @@ import { ReactiveFormsModule, type AbstractControl } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LucideCalendar } from '@lucide/angular';
 
+import { FormFieldErrorComponent } from '../../form-field-error/form-field-error.component';
 import type { FieldDef } from '../../form.types';
 
 @Component({
   selector: 'app-form-text-field',
-  imports: [ReactiveFormsModule, TranslatePipe, LucideCalendar],
+  imports: [ReactiveFormsModule, TranslatePipe, LucideCalendar, FormFieldErrorComponent],
   templateUrl: './form-text-field.component.html',
   styleUrl: './form-text-field.component.scss',
 })
@@ -18,10 +19,5 @@ export class FormTextFieldComponent<T extends object> {
 
   protected isDate(): boolean {
     return this.inputType() === 'date';
-  }
-
-  protected showError(): boolean {
-    const control = this.control();
-    return control.touched && control.invalid;
   }
 }

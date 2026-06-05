@@ -5,6 +5,8 @@ export { FormGridComponent, gridColumnSpan } from './form-grid/form-grid.compone
 export { FormStepperComponent } from './form-stepper/form-stepper.component';
 export { FormFooterComponent } from './form-footer/form-footer.component';
 export { FormFieldRendererComponent } from './form-field-renderer/form-field-renderer.component';
+export { FormFieldErrorComponent } from './form-field-error/form-field-error.component';
+export { getControlErrorKey, getControlErrorParams } from './form-control-error';
 export { FormFieldTemplateDirective } from './form-field-template.directive';
 export { FormStepTemplateDirective } from './form-step-template.directive';
 export { FormSectionTemplateDirective } from './form-section-template.directive';

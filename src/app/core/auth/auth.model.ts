@@ -1,5 +1,22 @@
 import { Portal } from '../portal/portal.model';
 
+export type AdminTitle = 'mr' | 'ms';
+
+export interface RegisterAdminPayload {
+  title: AdminTitle;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phone: string;
+  companyName: string;
+  vatId: string;
+  country: string;
+  city: string;
+  postcode: string;
+  address: string;
+}
+
 export interface LoginCredentials {
   username: string;
   password: string;

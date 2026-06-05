@@ -7,6 +7,7 @@ export interface PortalConfig {
   portal: Portal;
   homeUrl: string;
   loginUrl: string;
+  registerUrl?: string;
   nav: NavSection[];
   login: {
     titleKey: string;

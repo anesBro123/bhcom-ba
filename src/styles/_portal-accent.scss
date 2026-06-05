@@ -18,7 +18,8 @@
 }
 
 .portal-admin,
-.login--admin {
+.login--admin,
+.register--admin {
   --portal-accent: #2563eb;
   --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
   --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
@@ -26,7 +27,8 @@
 }
 
 [data-theme='dark'] .portal-admin,
-[data-theme='dark'] .login--admin {
+[data-theme='dark'] .login--admin,
+[data-theme='dark'] .register--admin {
   --portal-accent: #60a5fa;
   --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
   --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);

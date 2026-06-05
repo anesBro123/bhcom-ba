@@ -10,7 +10,5 @@
     <p class="form-field__hint">{{ field().descriptionKey! | translate }}</p>
   }
 
-  @if (showError()) {
-    <p class="form-field__error">{{ 'forms.common.fieldRequired' | translate }}</p>
-  }
+  <app-form-field-error [control]="control()" [errorKeys]="field().errorKeys" />
 </div>

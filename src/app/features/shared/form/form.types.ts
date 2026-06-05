@@ -17,7 +17,7 @@ export type FieldType =
   | 'checkbox'
   | 'custom';
 
-export type ColSpan = 1 | 2 | 3 | 'full';
+export type ColSpan = 1 | 2 | 3 | 4 | 5 | 'full';
 
 export interface SelectOption {
   value: string;
@@ -44,6 +44,7 @@ export interface FieldDef<T, K extends keyof T & string = keyof T & string> {
   options?: SelectOption[] | RadioOption[];
   rows?: number;
   validators?: ValidatorFn[];
+  errorKeys?: Partial<Record<string, string>>;
 }
 
 export interface FormSectionDef<T> {

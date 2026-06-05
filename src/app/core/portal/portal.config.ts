@@ -22,6 +22,7 @@ export const ADMIN_PORTAL_CONFIG: PortalConfig = {
   portal: 'admin',
   homeUrl: '/admin/dashboard',
   loginUrl: '/admin/login',
+  registerUrl: '/admin/register',
   nav: ADMIN_NAV,
   login: {
     titleKey: 'login.admin.title',

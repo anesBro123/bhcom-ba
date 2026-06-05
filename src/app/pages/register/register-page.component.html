@@ -1,0 +1,46 @@
+<div class="register register--admin">
+  <div class="register__panel">
+    <header class="register__header">
+      <div class="register__header-actions">
+        <app-theme-picker />
+        <app-language-picker />
+      </div>
+    </header>
+
+    <div class="register__card">
+      @if (!submitted()) {
+        <span class="register__badge">{{ 'register.admin.badge' | translate }}</span>
+        <h1 class="register__title">{{ 'register.admin.title' | translate }}</h1>
+        <p class="register__subtitle">{{ 'register.admin.subtitle' | translate }}</p>
+
+        @if (errorKey(); as key) {
+          <p class="register__error" role="alert">{{ key | translate }}</p>
+        }
+
+        <app-form-page
+          class="register__form"
+          [definition]="formDef"
+          [formGroup]="form"
+          [submitDisabled]="submitting()"
+          (submit)="onSubmit()"
+        />
+
+        <p class="register__switch">
+          <a [routerLink]="loginUrl" class="register__switch-link">
+            {{ 'register.signIn' | translate }}
+          </a>
+        </p>
+      } @else {
+        <div class="register__success" role="status">
+          <h1 class="register__success-title">{{ 'register.success.title' | translate }}</h1>
+          <p class="register__success-message">{{ 'register.success.message' | translate }}</p>
+          <p class="register__switch">
+            <a [routerLink]="loginUrl" class="register__switch-link">
+              {{ 'register.signIn' | translate }}
+            </a>
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -52,7 +52,21 @@
     "submit": "Sign in",
     "error": "Sign in failed. Please try again.",
     "switchToAdmin": "Administrator? Sign in to the admin portal",
-    "switchToEmployee": "Employee? Sign in to the employee portal"
+    "switchToEmployee": "Employee? Sign in to the employee portal",
+    "createAdminAccount": "New organization? Create an admin account"
+  },
+  "register": {
+    "admin": {
+      "badge": "Admin portal",
+      "title": "Create admin account",
+      "subtitle": "Register your organization to manage the platform"
+    },
+    "signIn": "Already have an account? Sign in",
+    "error": "Registration failed. Please try again.",
+    "success": {
+      "title": "Registration received",
+      "message": "Your account is being verified. Our team will reach out shortly. Please check your email for updates."
+    }
   },
   "nav": {
     "admin": {
@@ -187,7 +201,18 @@
       "next": "Next",
       "stepOf": "Step {{current}} of {{total}}",
       "percentComplete": "{{percent}}% Complete",
-      "fieldRequired": "This field is required"
+      "fieldRequired": "This field is required",
+      "errors": {
+        "required": "This field is required",
+        "email": "Enter a valid email address",
+        "minLength": "Must be at least {{min}} characters",
+        "maxLength": "Must be at most {{max}} characters",
+        "min": "Must be at least {{min}}",
+        "max": "Must be at most {{max}}",
+        "pattern": "Invalid format",
+        "passwordMismatch": "Passwords do not match",
+        "invalid": "This value is invalid"
+      }
     },
     "createShipment": {
       "steps": {
@@ -400,6 +425,76 @@
       },
       "actions": {
         "create": "Create Vehicle"
+      }
+    },
+    "registerAdmin": {
+      "steps": {
+        "personal": "Personal details",
+        "company": "Company",
+        "location": "Location"
+      },
+      "sections": {
+        "contact": {
+          "title": "Contact information",
+          "subtitle": "Your personal details and login credentials"
+        },
+        "business": {
+          "title": "Company information",
+          "subtitle": "Details about your organization"
+        },
+        "address": {
+          "title": "Business address",
+          "subtitle": "Where your company is located"
+        }
+      },
+      "fields": {
+        "title": "Title",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "password": "Password",
+        "passwordConfirm": "Confirm password",
+        "phone": "Phone",
+        "companyName": "Company name",
+        "vatId": "VAT ID",
+        "country": "Country",
+        "city": "City",
+        "postcode": "Postcode",
+        "address": "Address"
+      },
+      "titles": {
+        "mr": "Mr",
+        "ms": "Ms"
+      },
+      "countries": {
+        "BA": "Bosnia and Herzegovina",
+        "RS": "Serbia",
+        "HR": "Croatia",
+        "ME": "Montenegro",
+        "MK": "North Macedonia",
+        "AL": "Albania",
+        "SI": "Slovenia",
+        "DE": "Germany",
+        "AT": "Austria",
+        "IT": "Italy",
+        "FR": "France",
+        "NL": "Netherlands",
+        "BE": "Belgium",
+        "CH": "Switzerland",
+        "GB": "United Kingdom",
+        "PL": "Poland",
+        "CZ": "Czech Republic",
+        "HU": "Hungary",
+        "RO": "Romania",
+        "BG": "Bulgaria",
+        "GR": "Greece",
+        "ES": "Spain",
+        "PT": "Portugal",
+        "SE": "Sweden",
+        "DK": "Denmark"
+      },
+      "actions": {
+        "submit": "Submit registration"
       }
     }
   }

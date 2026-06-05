@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { delay, Observable, of, tap } from 'rxjs';
 import { Portal } from '../portal/portal.model';
-import { LoginCredentials, Session } from './auth.model';
+import { LoginCredentials, RegisterAdminPayload, Session } from './auth.model';
 import { AUTH_STORAGE_KEY } from './auth.config';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +20,13 @@ export class AuthService {
 
   loginAdmin(credentials: LoginCredentials): Observable<Session> {
     return this.loginStub('admin', credentials);
+  }
+
+  registerAdmin(payload: RegisterAdminPayload): Observable<void> {
+    return of(undefined).pipe(
+      delay(600),
+      tap(() => console.info('Admin registration submitted', payload.email)),
+    );
   }
 
   logout(): void {

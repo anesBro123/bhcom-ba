@@ -31,6 +31,14 @@
           {{ switchPortalKey | translate }}
         </a>
       </p>
+
+      @if (portal.portal === 'admin' && portal.registerUrl) {
+        <p class="login__switch">
+          <a [routerLink]="portal.registerUrl" class="login__switch-link">
+            {{ 'login.createAdminAccount' | translate }}
+          </a>
+        </p>
+      }
     </div>
   </div>
 </div>

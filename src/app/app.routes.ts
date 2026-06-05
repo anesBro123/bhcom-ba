@@ -7,6 +7,7 @@ import {
   PORTAL_CONFIG,
 } from './core/portal';
 import { LoginPageComponent } from './pages/login/login-page.component';
+import { RegisterPageComponent } from './pages/register/register-page.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,12 @@ export const routes: Routes = [
   {
     path: 'admin/login',
     component: LoginPageComponent,
+    canActivate: [guestGuard],
+    providers: [{ provide: PORTAL_CONFIG, useValue: ADMIN_PORTAL_CONFIG }],
+  },
+  {
+    path: 'admin/register',
+    component: RegisterPageComponent,
     canActivate: [guestGuard],
     providers: [{ provide: PORTAL_CONFIG, useValue: ADMIN_PORTAL_CONFIG }],
   },

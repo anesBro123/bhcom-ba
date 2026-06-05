@@ -13,5 +13,6 @@ alwaysApply: false
 5. Optional `titleKey` / `subtitleKey` on sections and steps — header/labels omitted when unset.
 6. Custom blocks: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` directives in page HTML.
 7. Submit: `form.getRawValue() as Model` (validators on `FormGroup`, not only in def). Pass `[submitDisabled]` to `app-form-page` during async submit (parent owns the signal).
+8. Field errors: built-in widgets use `app-form-field-error` (reads `control.errors` with priority order). Optional `errorKeys` on `FieldDef` overrides i18n keys for custom validators. Custom `appFormField` templates may import `FormFieldErrorComponent` from the form barrel.
 
 Extend field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc duplicate inputs on standard pages.

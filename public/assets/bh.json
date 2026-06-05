@@ -52,7 +52,21 @@
     "submit": "Prijavi se",
     "error": "Prijava nije uspjela. Pokušajte ponovo.",
     "switchToAdmin": "Administrator? Prijavite se na admin portal",
-    "switchToEmployee": "Zaposlenik? Prijavite se na portal zaposlenika"
+    "switchToEmployee": "Zaposlenik? Prijavite se na portal zaposlenika",
+    "createAdminAccount": "Nova organizacija? Kreirajte admin račun"
+  },
+  "register": {
+    "admin": {
+      "badge": "Admin portal",
+      "title": "Kreiranje admin računa",
+      "subtitle": "Registrujte organizaciju za upravljanje platformom"
+    },
+    "signIn": "Već imate račun? Prijavite se",
+    "error": "Registracija nije uspjela. Pokušajte ponovo.",
+    "success": {
+      "title": "Registracija primljena",
+      "message": "Vaš račun se verifikuje. Naš tim će vas uskoro kontaktirati. Provjerite email za obavijesti."
+    }
   },
   "nav": {
     "admin": {
@@ -187,7 +201,18 @@
       "next": "Sljedeće",
       "stepOf": "Korak {{current}} od {{total}}",
       "percentComplete": "{{percent}}% završeno",
-      "fieldRequired": "Ovo polje je obavezno"
+      "fieldRequired": "Ovo polje je obavezno",
+      "errors": {
+        "required": "Ovo polje je obavezno",
+        "email": "Unesite ispravnu email adresu",
+        "minLength": "Mora imati najmanje {{min}} znakova",
+        "maxLength": "Mora imati najviše {{max}} znakova",
+        "min": "Mora biti najmanje {{min}}",
+        "max": "Mora biti najviše {{max}}",
+        "pattern": "Neispravan format",
+        "passwordMismatch": "Lozinke se ne podudaraju",
+        "invalid": "Ova vrijednost nije ispravna"
+      }
     },
     "createShipment": {
       "steps": {
@@ -400,6 +425,76 @@
       },
       "actions": {
         "create": "Kreiraj vozilo"
+      }
+    },
+    "registerAdmin": {
+      "steps": {
+        "personal": "Lični podaci",
+        "company": "Kompanija",
+        "location": "Lokacija"
+      },
+      "sections": {
+        "contact": {
+          "title": "Kontakt informacije",
+          "subtitle": "Vaši lični podaci i pristupni podaci"
+        },
+        "business": {
+          "title": "Podaci o kompaniji",
+          "subtitle": "Informacije o vašoj organizaciji"
+        },
+        "address": {
+          "title": "Poslovna adresa",
+          "subtitle": "Lokacija vaše kompanije"
+        }
+      },
+      "fields": {
+        "title": "Titula",
+        "firstName": "Ime",
+        "lastName": "Prezime",
+        "email": "Email",
+        "password": "Lozinka",
+        "passwordConfirm": "Potvrdite lozinku",
+        "phone": "Telefon",
+        "companyName": "Naziv kompanije",
+        "vatId": "PDV broj",
+        "country": "Država",
+        "city": "Grad",
+        "postcode": "Poštanski broj",
+        "address": "Adresa"
+      },
+      "titles": {
+        "mr": "G.",
+        "ms": "Gđa"
+      },
+      "countries": {
+        "BA": "Bosna i Hercegovina",
+        "RS": "Srbija",
+        "HR": "Hrvatska",
+        "ME": "Crna Gora",
+        "MK": "Sjeverna Makedonija",
+        "AL": "Albanija",
+        "SI": "Slovenija",
+        "DE": "Njemačka",
+        "AT": "Austrija",
+        "IT": "Italija",
+        "FR": "Francuska",
+        "NL": "Holandija",
+        "BE": "Belgija",
+        "CH": "Švicarska",
+        "GB": "Ujedinjeno Kraljevstvo",
+        "PL": "Poljska",
+        "CZ": "Češka",
+        "HU": "Mađarska",
+        "RO": "Rumunija",
+        "BG": "Bugarska",
+        "GR": "Grčka",
+        "ES": "Španija",
+        "PT": "Portugal",
+        "SE": "Švedska",
+        "DK": "Danska"
+      },
+      "actions": {
+        "submit": "Pošalji registraciju"
       }
     }
   }
