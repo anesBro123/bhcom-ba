@@ -19,8 +19,8 @@ alwaysApply: false
 ## Guest page
 
 1. Page folder: `guest/pages/<name>/` (`.ts`, `.html`, `.scss`).
-2. Register in `guest/guest.routes.ts` under `GuestShellComponent` children.
-3. Pick guard: `publicGuestGuard` (marketing/picker) or `guestGuard` (login/register with `PORTAL_CONFIG` provider).
+2. Register in `guest/guest.routes.ts` under a `GuestShellComponent` tree (root paths or nested `path: 'admin'` for `/admin/*`).
+3. Add `canActivate: [guestGuard]` on the route.
 4. Optional route `data`: `showFooter`, `showNavActions` for guest shell chrome.
 5. Forms: `*.form.ts` + `*.model.ts` colocated (see `guest/pages/login/`).
 

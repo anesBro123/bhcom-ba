@@ -9,40 +9,35 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AuthService } from '../../../shared/core/auth/auth.service';
-import { PORTAL_CONFIG } from '../../../portal/common/models/portal-config.model';
+import { ADMIN_LOGIN_URL, LANDING_URL } from '../../../shared/constants/app-urls';
 import { FormPageComponent } from '../../../shared/form';
-import { LANDING_URL } from '../../guest.constants';
-import { RegisterAdminForm } from './register-admin.form';
-import type { RegisterAdminFormModel } from './register-admin.model';
+import { RegisterCompanyForm } from './register-company.form';
+import type { RegisterCompanyFormModel } from './register-company.model';
+import { RegisterCompanyService } from './register-company.service';
 
 @Component({
-  selector: 'app-register-page',
+  selector: 'app-register-company-page',
   imports: [
     ReactiveFormsModule,
     FormPageComponent,
     TranslatePipe,
     RouterLink,
   ],
-  templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.scss',
+  templateUrl: './register-company-page.component.html',
+  styleUrl: './register-company-page.component.scss',
 })
-export class RegisterPageComponent {
-  private readonly auth = inject(AuthService);
+export class RegisterCompanyPageComponent {
+  private readonly registerCompany = inject(RegisterCompanyService);
   private readonly fb = inject(FormBuilder);
-  protected readonly portal = inject(PORTAL_CONFIG);
 
-  protected readonly formDef = RegisterAdminForm;
+  protected readonly formDef = RegisterCompanyForm;
   protected readonly landingUrl = LANDING_URL;
+  protected readonly loginUrl = ADMIN_LOGIN_URL;
   protected readonly submitting = signal(false);
   protected readonly submitted = signal(false);
   protected readonly errorKey = signal<string | null>(null);
 
   protected readonly form = this.buildForm();
-
-  protected get loginUrl(): string {
-    return this.portal.loginUrl;
-  }
 
   protected onSubmit(): void {
     if (this.submitting() || this.submitted()) {
@@ -55,12 +50,12 @@ export class RegisterPageComponent {
     }
 
     const { passwordConfirm: _passwordConfirm, ...payload } =
-      this.form.getRawValue() as RegisterAdminFormModel;
+      this.form.getRawValue() as RegisterCompanyFormModel;
 
     this.submitting.set(true);
     this.errorKey.set(null);
 
-    this.auth.registerAdmin(payload).subscribe({
+    this.registerCompany.register(payload).subscribe({
       next: () => {
         this.submitting.set(false);
         this.submitted.set(true);

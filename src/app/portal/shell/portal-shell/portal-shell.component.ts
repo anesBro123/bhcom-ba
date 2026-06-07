@@ -13,11 +13,11 @@ import { SidebarService } from '../sidebar.service';
   styleUrl: './portal-shell.component.scss',
 })
 export class PortalShellComponent {
-  private readonly portal = inject(PORTAL_CONFIG);
+  private readonly portalConfig = inject(PORTAL_CONFIG);
   protected readonly sidebarService = inject(SidebarService);
 
   @HostBinding('class')
   protected get portalHostClass(): string {
-    return this.portal.portal === 'admin' ? 'portal-admin' : 'portal-employee';
+    return this.portalConfig.portalKind === 'admin' ? 'portal-admin' : 'portal-employee';
   }
 }

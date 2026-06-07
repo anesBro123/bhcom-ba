@@ -2,69 +2,69 @@ import { LucideBuilding2, LucideMapPin, LucideSend, LucideUser } from '@lucide/a
 
 import { defineForm } from '../../../shared/form';
 
-import { COUNTRY_OPTIONS, TITLE_OPTIONS } from './register-admin.constants';
-import type { RegisterAdminFormModel } from './register-admin.model';
+import { COUNTRY_OPTIONS, TITLE_OPTIONS } from './register-company.constants';
+import type { RegisterCompanyFormModel } from './register-company.model';
 
-export const RegisterAdminForm = defineForm<RegisterAdminFormModel>()({
+export const RegisterCompanyForm = defineForm<RegisterCompanyFormModel>()({
   mode: 'stepper',
   steps: [
     {
       id: 'personal',
-      titleKey: 'forms.registerAdmin.steps.personal',
+      titleKey: 'forms.registerCompany.steps.personal',
       kind: 'fields',
       sections: [
         {
           id: 'contact',
-          titleKey: 'forms.registerAdmin.sections.contact.title',
-          subtitleKey: 'forms.registerAdmin.sections.contact.subtitle',
+          titleKey: 'forms.registerCompany.sections.contact.title',
+          subtitleKey: 'forms.registerCompany.sections.contact.subtitle',
           icon: LucideUser,
           fields: [
             {
               key: 'title',
               type: 'select',
-              labelKey: 'forms.registerAdmin.fields.title',
+              labelKey: 'forms.registerCompany.fields.title',
               colSpan: 4,
               options: TITLE_OPTIONS,
             },
             {
               key: 'firstName',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.firstName',
+              labelKey: 'forms.registerCompany.fields.firstName',
               autocomplete: 'given-name',
               colSpan: 5,
             },
             {
               key: 'lastName',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.lastName',
+              labelKey: 'forms.registerCompany.fields.lastName',
               autocomplete: 'family-name',
               colSpan: 5,
             },
             {
               key: 'email',
               type: 'email',
-              labelKey: 'forms.registerAdmin.fields.email',
+              labelKey: 'forms.registerCompany.fields.email',
               autocomplete: 'email',
               colSpan: 'full',
             },
             {
               key: 'password',
               type: 'password',
-              labelKey: 'forms.registerAdmin.fields.password',
+              labelKey: 'forms.registerCompany.fields.password',
               autocomplete: 'new-password',
               colSpan: 'full',
             },
             {
               key: 'passwordConfirm',
               type: 'password',
-              labelKey: 'forms.registerAdmin.fields.passwordConfirm',
+              labelKey: 'forms.registerCompany.fields.passwordConfirm',
               autocomplete: 'new-password',
               colSpan: 'full',
             },
             {
               key: 'phone',
               type: 'tel',
-              labelKey: 'forms.registerAdmin.fields.phone',
+              labelKey: 'forms.registerCompany.fields.phone',
               autocomplete: 'tel',
               colSpan: 'full',
             },
@@ -74,26 +74,26 @@ export const RegisterAdminForm = defineForm<RegisterAdminFormModel>()({
     },
     {
       id: 'company',
-      titleKey: 'forms.registerAdmin.steps.company',
+      titleKey: 'forms.registerCompany.steps.company',
       kind: 'fields',
       sections: [
         {
           id: 'business',
-          titleKey: 'forms.registerAdmin.sections.business.title',
-          subtitleKey: 'forms.registerAdmin.sections.business.subtitle',
+          titleKey: 'forms.registerCompany.sections.business.title',
+          subtitleKey: 'forms.registerCompany.sections.business.subtitle',
           icon: LucideBuilding2,
           fields: [
             {
               key: 'companyName',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.companyName',
+              labelKey: 'forms.registerCompany.fields.companyName',
               autocomplete: 'organization',
               colSpan: 'full',
             },
             {
               key: 'vatId',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.vatId',
+              labelKey: 'forms.registerCompany.fields.vatId',
               colSpan: 'full',
             },
           ],
@@ -102,40 +102,40 @@ export const RegisterAdminForm = defineForm<RegisterAdminFormModel>()({
     },
     {
       id: 'location',
-      titleKey: 'forms.registerAdmin.steps.location',
+      titleKey: 'forms.registerCompany.steps.location',
       kind: 'fields',
       sections: [
         {
           id: 'address',
-          titleKey: 'forms.registerAdmin.sections.address.title',
-          subtitleKey: 'forms.registerAdmin.sections.address.subtitle',
+          titleKey: 'forms.registerCompany.sections.address.title',
+          subtitleKey: 'forms.registerCompany.sections.address.subtitle',
           icon: LucideMapPin,
           fields: [
             {
               key: 'country',
               type: 'select',
-              labelKey: 'forms.registerAdmin.fields.country',
+              labelKey: 'forms.registerCompany.fields.country',
               colSpan: 'full',
               options: COUNTRY_OPTIONS,
             },
             {
               key: 'city',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.city',
+              labelKey: 'forms.registerCompany.fields.city',
               autocomplete: 'address-level2',
               colSpan: 2,
             },
             {
               key: 'postcode',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.postcode',
+              labelKey: 'forms.registerCompany.fields.postcode',
               autocomplete: 'postal-code',
               colSpan: 2,
             },
             {
               key: 'address',
               type: 'text',
-              labelKey: 'forms.registerAdmin.fields.address',
+              labelKey: 'forms.registerCompany.fields.address',
               autocomplete: 'street-address',
               colSpan: 'full',
             },
@@ -147,6 +147,6 @@ export const RegisterAdminForm = defineForm<RegisterAdminFormModel>()({
   actions: {
     previous: { labelKey: 'forms.common.previous' },
     next: { labelKey: 'forms.common.next' },
-    submit: { labelKey: 'forms.registerAdmin.actions.submit', icon: LucideSend },
+    submit: { labelKey: 'forms.registerCompany.actions.submit', icon: LucideSend },
   },
 });

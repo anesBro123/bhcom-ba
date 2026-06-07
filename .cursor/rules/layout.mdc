@@ -15,7 +15,7 @@ alwaysApply: false
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
 - `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest topbar.
 - `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest topbar.
-- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/admin/login`, `/admin/register`. No sidebar.
+- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No sidebar.
 - Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest topbar.
 - Profile icon opens **account menu** (`topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).

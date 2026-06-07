@@ -1,26 +1,4 @@
-import type { Portal } from './portal.type';
-
-export type AdminTitle = 'mr' | 'ms';
-
-export interface RegisterAdminPayload {
-  title: AdminTitle;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phone: string;
-  companyName: string;
-  vatId: string;
-  country: string;
-  city: string;
-  postcode: string;
-  address: string;
-}
-
-export interface LoginCredentials {
-  username: string;
-  password: string;
-}
+import type { PortalKind } from '../../constants/portal-kind.type';
 
 export interface AuthUser {
   id: string;
@@ -30,6 +8,6 @@ export interface AuthUser {
 
 export interface Session {
   accessToken: string;
-  portal: Portal;
+  portalKind: PortalKind;
   user: AuthUser;
 }

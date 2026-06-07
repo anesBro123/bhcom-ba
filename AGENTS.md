@@ -6,10 +6,10 @@ Angular 21 logistics SPA with **admin** and **employee** portals. Before impleme
 
 ```
 src/app/
-├── shared/          # auth, i18n, theme, form/, table/, ui/
+├── shared/          # auth, i18n, theme, constants/, form/, table/, ui/
 ├── guest/           # public routes, shell, guards, login/register pages
 └── portal/          # authenticated shell, configs, features, guards
-    ├── common/      # models, URL constants, barrel index
+    ├── common/      # models, PORTAL_CONFIG barrel (nav + portal-config)
     ├── shell/       # PortalShell, sidebar, topbar, SidebarService
     ├── pages/       # PagePlaceholderComponent
     ├── guards/      # portalMatchGuard
@@ -27,7 +27,7 @@ Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreat
 | `guest/` | Public / unauthenticated routes, shell, guards |
 | `portal/` | Authenticated employee + admin (shell, configs, features) |
 
-Guest may import from `portal/common/` and portal configs for login URLs — that is intentional. Do **not** import portal features or shell from guest.
+Guest may import from `shared/**` only for URLs and auth. Do **not** import portal configs, features, or shell from guest.
 
 ## Testing
 
@@ -45,8 +45,8 @@ Guest may import from `portal/common/` and portal configs for login URLs — tha
 ### Routing
 
 - Root routes: `src/app/app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`.
-- Guest routes: `src/app/guest/guest.routes.ts` — landing, sign-in, login, register.
-- URL constants: `portal/common/constants/portal-urls.ts` (`EMPLOYEE_HOME_URL`, `ADMIN_LOGIN_URL`, etc.).
+- Guest routes: `src/app/guest/guest.routes.ts` — two `GuestShellComponent` trees (root + `admin` prefix); landing, sign-in, login, register.
+- URL constants: `shared/constants/app-urls.ts` (`LANDING_URL`, `SIGN_IN_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`, `COMPANY_REGISTER_URL`, `portalHomeUrl()`, etc.).
 
 | Guest path | Purpose |
 |------------|---------|
@@ -54,17 +54,16 @@ Guest may import from `portal/common/` and portal configs for login URLs — tha
 | `/sign-in` | Portal picker |
 | `/login` | Employee login |
 | `/admin/login` | Admin login |
-| `/admin/register` | Admin company registration |
+| `/register` | Company registration |
 
 ### Guards
 
 | Guard | File | Role |
 |-------|------|------|
-| `publicGuestGuard` | `guest/guards/public.guest.guard.ts` | Landing/sign-in — redirect authenticated users to portal home |
-| `guestGuard` | `guest/guards/guest.guard.ts` | Login/register — block same-portal re-login, cross-portal redirect |
+| `guestGuard` | `guest/guards/guest.guard.ts` | All guest routes — unauthenticated allow; authenticated → session portal home |
 | `portalMatchGuard` | `portal/guards/portal-match.guard.ts` | Lazy portal trees — require auth + matching portal |
 
-- Auth: `shared/core/auth/` — single session + `portal`; stub login until API.
+- Auth: `shared/core/auth/` — session types (`AuthUser`, `Session`); `PortalKind` in `shared/constants/portal-kind.type.ts`; stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`.
 - Portal shell injects `PORTAL_CONFIG` only (not `AuthService` for nav).
 
 **Do not** import `portal/admin/features/**` from employee routes or vice versa. Both may use `shared/**`.
@@ -83,7 +82,9 @@ Guest may import from `portal/common/` and portal configs for login URLs — tha
 - **Form example:** `portal/employee/features/fleet/vehicles/`
 - **Table example:** `portal/employee/features/shipments/`
 - **Stepper form:** `portal/employee/features/shipments/create-shipment/`
-- **Guest login:** `guest/pages/login/`
+- **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
+- **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
+- **App URLs:** `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker)
 

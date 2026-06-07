@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { delay, Observable, of, tap } from 'rxjs';
-import type { Portal } from './portal.type';
-import { LoginCredentials, RegisterAdminPayload, Session } from './auth.model';
+import { Observable, of, tap } from 'rxjs';
+import type { PortalKind } from '../../constants/portal-kind.type';
+import { Session } from './auth.model';
 import { AUTH_STORAGE_KEY } from './auth.config';
 
 @Injectable({ providedIn: 'root' })
@@ -10,23 +10,16 @@ export class AuthService {
 
   readonly session = this._session.asReadonly();
   readonly isAuthenticated = computed(() => this._session() !== null);
-  readonly portal = computed(() => this._session()?.portal ?? null);
+  readonly portalKind = computed(() => this._session()?.portalKind ?? null);
   readonly token = computed(() => this._session()?.accessToken ?? null);
   readonly user = computed(() => this._session()?.user ?? null);
 
-  loginEmployee(credentials: LoginCredentials): Observable<Session> {
+  loginEmployee(credentials: { username: string; password: string }): Observable<Session> {
     return this.loginStub('employee', credentials);
   }
 
-  loginAdmin(credentials: LoginCredentials): Observable<Session> {
+  loginAdmin(credentials: { username: string; password: string }): Observable<Session> {
     return this.loginStub('admin', credentials);
-  }
-
-  registerAdmin(payload: RegisterAdminPayload): Observable<void> {
-    return of(undefined).pipe(
-      delay(600),
-      tap(() => console.info('Admin registration submitted', payload.email)),
-    );
   }
 
   logout(): void {
@@ -34,12 +27,15 @@ export class AuthService {
     localStorage.removeItem(AUTH_STORAGE_KEY);
   }
 
-  private loginStub(portal: Portal, credentials: LoginCredentials): Observable<Session> {
+  private loginStub(
+    portalKind: PortalKind,
+    credentials: { username: string; password: string },
+  ): Observable<Session> {
     const session: Session = {
-      accessToken: `stub-${portal}-${Date.now()}`,
-      portal,
+      accessToken: `stub-${portalKind}-${Date.now()}`,
+      portalKind,
       user: {
-        id: `${portal}-${credentials.username}`,
+        id: `${portalKind}-${credentials.username}`,
         username: credentials.username,
         displayName: credentials.username,
       },
@@ -58,13 +54,14 @@ export class AuthService {
       if (!raw) {
         return null;
       }
-      const parsed = JSON.parse(raw) as Session;
+      const parsed = JSON.parse(raw) as Session & { portal?: PortalKind };
+      const portalKind = parsed.portalKind ?? parsed.portal;
       if (
         parsed?.accessToken &&
-        (parsed.portal === 'admin' || parsed.portal === 'employee') &&
+        (portalKind === 'admin' || portalKind === 'employee') &&
         parsed.user
       ) {
-        return parsed;
+        return { accessToken: parsed.accessToken, portalKind, user: parsed.user };
       }
       return null;
     } catch {

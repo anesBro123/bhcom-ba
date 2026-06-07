@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
-import { PORTAL_CONFIG } from '../portal/common/models/portal-config.model';
-import { ADMIN_PORTAL_CONFIG } from '../portal/admin/admin-portal.config';
-import { EMPLOYEE_PORTAL_CONFIG } from '../portal/employee/employee-portal.config';
 import { guestGuard } from './guards/guest.guard';
-import { publicGuestGuard } from './guards/public.guest.guard';
-import { GuestShellComponent } from './shell/guest-shell/guest-shell.component';
+import { AdminLoginPageComponent } from './pages/login/admin-login-page.component';
+import { EmployeeLoginPageComponent } from './pages/login/employee-login-page.component';
 import { LandingPageComponent } from './pages/landing/landing-page.component';
-import { LoginPageComponent } from './pages/login/login-page.component';
-import { RegisterPageComponent } from './pages/register/register-page.component';
+import { RegisterCompanyPageComponent } from './pages/register/register-company-page.component';
 import { SignInPageComponent } from './pages/sign-in/sign-in-page.component';
+import { GuestShellComponent } from './shell/guest-shell/guest-shell.component';
 
 export default [
   {
@@ -19,20 +16,24 @@ export default [
         path: '',
         pathMatch: 'full',
         component: LandingPageComponent,
-        canActivate: [publicGuestGuard],
+        canActivate: [guestGuard],
         data: { showFooter: true, showNavActions: true },
       },
       {
         path: 'sign-in',
         component: SignInPageComponent,
-        canActivate: [publicGuestGuard],
+        canActivate: [guestGuard],
         data: { showNavActions: true },
       },
       {
         path: 'login',
-        component: LoginPageComponent,
+        component: EmployeeLoginPageComponent,
         canActivate: [guestGuard],
-        providers: [{ provide: PORTAL_CONFIG, useValue: EMPLOYEE_PORTAL_CONFIG }],
+      },
+      {
+        path: 'register',
+        component: RegisterCompanyPageComponent,
+        canActivate: [guestGuard],
       },
     ],
   },
@@ -42,15 +43,8 @@ export default [
     children: [
       {
         path: 'login',
-        component: LoginPageComponent,
+        component: AdminLoginPageComponent,
         canActivate: [guestGuard],
-        providers: [{ provide: PORTAL_CONFIG, useValue: ADMIN_PORTAL_CONFIG }],
-      },
-      {
-        path: 'register',
-        component: RegisterPageComponent,
-        canActivate: [guestGuard],
-        providers: [{ provide: PORTAL_CONFIG, useValue: ADMIN_PORTAL_CONFIG }],
       },
     ],
   },

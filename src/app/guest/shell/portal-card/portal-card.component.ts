@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LucideArrowRight } from '@lucide/angular';
-import type { Portal } from '../../../shared/core/auth/portal.type';
+import type { PortalKind } from '../../../shared/constants/portal-kind.type';
 
 @Component({
   selector: 'app-portal-card',
@@ -14,13 +14,13 @@ import type { Portal } from '../../../shared/core/auth/portal.type';
   },
 })
 export class PortalCardComponent {
-  readonly portal = input.required<Portal>();
+  readonly portalKind = input.required<PortalKind>();
   readonly badgeKey = input.required<string>();
   readonly titleKey = input.required<string>();
   readonly descriptionKey = input.required<string>();
   readonly route = input.required<string>();
 
   protected get hostClass(): string {
-    return `portal-card portal-card--${this.portal()}`;
+    return `portal-card portal-card--${this.portalKind()}`;
   }
 }

@@ -13,7 +13,7 @@ Only three top-level folders — no `core/`, `features/`, or `layout/`:
 
 | Folder | Role |
 |--------|------|
-| `shared/` | Auth, i18n, theme, `form/`, `table/`, `ui/` — used by guest and portal |
+| `shared/` | Auth, i18n, theme, `constants/`, `form/`, `table/`, `ui/` — used by guest and portal |
 | `guest/` | Public routes, guest shell, guest guards, login/register pages |
 | `portal/` | Authenticated shell, configs, guards, features, `pages/page-placeholder/` |
 
@@ -22,7 +22,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 ## Import boundaries
 
 - `shared/**` — import anywhere (guest + portal).
-- `guest/**` → may import `portal/common/**` and portal configs (login URLs, `PORTAL_CONFIG`) — intentional.
+- `guest/**` → imports `shared/**` only (URLs via `shared/constants/app-urls.ts`). Do not import portal configs or features.
 - `portal/employee/**` ↔ `portal/admin/**` — **no** cross-import of features or routes.
 - Feature HTTP: colocate `*.service.ts` in the feature; promote to `portal/{employee|admin}/data/` when shared within one portal.
 
@@ -42,11 +42,11 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 ## Source map (read files when implementing, don’t guess)
 
 - Root routes: `app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`
-- Guest routes: `guest/guest.routes.ts`; constants: `guest/guest.constants.ts`
+- Guest routes: `guest/guest.routes.ts`
 - Portal routes: `portal/employee/employee.routes.ts`, `portal/admin/admin.routes.ts`
-- URL constants: `portal/common/constants/portal-urls.ts` (barrel: `portal/common/index.ts`)
-- Auth: `shared/core/auth/` — single session + `portal`; stub login until API
-- Guards: `guest/guards/` (`guestGuard`, `publicGuestGuard`); `portal/guards/portal-match.guard.ts`
+- App URLs + portal kind: `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`
+- Auth: `shared/core/auth/` — session types (`AuthUser`, `Session` in `auth.model.ts`); stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`
+- Guards: `guest/guards/guest.guard.ts` (`guestGuard`); `portal/guards/portal-match.guard.ts`
 - Portal config: `portal/common/models/portal-config.model.ts`, `portal/employee/employee-portal.config.ts`, `portal/admin/admin-portal.config.ts`
 - Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `PortalTopbarComponent`, `sidebar.service.ts`
 - Sidebar nav: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
@@ -61,8 +61,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 
 | Guard | Where | Behavior |
 |-------|-------|----------|
-| `publicGuestGuard` | `/`, `/sign-in` | Authenticated → redirect to session portal home |
-| `guestGuard` | `/login`, `/admin/login`, `/admin/register` | Unauthenticated → allow; same-portal session → portal home; other portal → that portal home |
+| `guestGuard` | `/`, `/sign-in`, `/login`, `/register`, `/admin/login` | Unauthenticated → allow; authenticated → session portal home |
 | `portalMatchGuard` | `''` and `admin` lazy trees | Unauthenticated → `/`; wrong portal → correct portal home |
 
 ## Layout behavior (do not reimplement ad hoc)
@@ -76,4 +75,5 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Form page: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
 - Stepper: `portal/employee/features/shipments/create-shipment/`
 - Table page: `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
-- Guest login: `guest/pages/login/`; admin register: `guest/pages/register/`
+- Guest login: `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
+- Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)

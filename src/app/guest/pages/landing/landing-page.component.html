@@ -53,14 +53,14 @@
     <p class="landing__section-subtitle">{{ 'landing.portals.subtitle' | translate }}</p>
     <div class="landing__portal-grid">
       <app-portal-card
-        portal="employee"
+        portalKind="employee"
         badgeKey="landing.portals.employee.badge"
         titleKey="landing.portals.employee.title"
         descriptionKey="landing.portals.employee.description"
         [route]="employeeLoginUrl"
       />
       <app-portal-card
-        portal="admin"
+        portalKind="admin"
         badgeKey="landing.portals.admin.badge"
         titleKey="landing.portals.admin.title"
         descriptionKey="landing.portals.admin.description"

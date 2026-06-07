@@ -2,9 +2,9 @@
   <div class="register__panel">
     <div class="register__card">
       @if (!submitted()) {
-        <span class="register__badge">{{ 'register.admin.badge' | translate }}</span>
-        <h1 class="register__title">{{ 'register.admin.title' | translate }}</h1>
-        <p class="register__subtitle">{{ 'register.admin.subtitle' | translate }}</p>
+        <span class="register__badge">{{ 'register.company.badge' | translate }}</span>
+        <h1 class="register__title">{{ 'register.company.title' | translate }}</h1>
+        <p class="register__subtitle">{{ 'register.company.subtitle' | translate }}</p>
 
         @if (errorKey(); as key) {
           <p class="register__error" role="alert">{{ key | translate }}</p>

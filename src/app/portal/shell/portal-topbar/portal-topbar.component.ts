@@ -12,8 +12,7 @@ import {
 import { AuthService } from '../../../shared/core/auth/auth.service';
 import { LanguagePickerComponent } from '../../../shared/ui/language-picker/language-picker.component';
 import { ThemePickerComponent } from '../../../shared/ui/theme-picker/theme-picker.component';
-import { LANDING_URL } from '../../../guest/guest.constants';
-import { PORTAL_CONFIG } from '../../common/models/portal-config.model';
+import { LANDING_URL } from '../../../shared/constants/app-urls';
 import { SidebarService } from '../sidebar.service';
 
 @Component({
@@ -37,7 +36,6 @@ export class PortalTopbarComponent {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly languagePicker = viewChild(LanguagePickerComponent);
-  protected readonly portal = inject(PORTAL_CONFIG);
   protected readonly sidebarService = inject(SidebarService);
 
   protected readonly accountMenuOpen = signal(false);

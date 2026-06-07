@@ -3,29 +3,27 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../shared/core/auth/auth.service';
-import { PORTAL_CONFIG } from '../../../portal/common/models/portal-config.model';
+import {
+  ADMIN_HOME_URL,
+  COMPANY_REGISTER_URL,
+  SIGN_IN_URL,
+} from '../../../shared/constants/app-urls';
 import { FormPageComponent } from '../../../shared/form';
-import { SIGN_IN_URL } from '../../guest.constants';
 import { LoginForm } from './login.form';
 
 @Component({
-  selector: 'app-login-page',
-  imports: [
-    ReactiveFormsModule,
-    FormPageComponent,
-    TranslatePipe,
-    RouterLink,
-  ],
-  templateUrl: './login-page.component.html',
+  selector: 'app-admin-login-page',
+  imports: [ReactiveFormsModule, FormPageComponent, TranslatePipe, RouterLink],
+  templateUrl: './admin-login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
-export class LoginPageComponent {
+export class AdminLoginPageComponent {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
-  protected readonly portal = inject(PORTAL_CONFIG);
 
   protected readonly formDef = LoginForm;
   protected readonly signInUrl = SIGN_IN_URL;
+  protected readonly registerUrl = COMPANY_REGISTER_URL;
   protected readonly submitting = signal(false);
   protected readonly errorKey = signal<string | null>(null);
 
@@ -34,28 +32,20 @@ export class LoginPageComponent {
     password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
-  protected get portalClass(): string {
-    return this.portal.portal === 'admin' ? 'login--admin' : 'login--employee';
-  }
-
   protected onSubmit(): void {
     if (this.submitting()) {
       return;
     }
 
     const { username, password } = this.form.getRawValue();
-    const login$ =
-      this.portal.portal === 'admin'
-        ? this.auth.loginAdmin({ username, password })
-        : this.auth.loginEmployee({ username, password });
 
     this.submitting.set(true);
     this.errorKey.set(null);
 
-    login$.subscribe({
+    this.auth.loginAdmin({ username, password }).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(this.portal.homeUrl);
+        void this.router.navigateByUrl(ADMIN_HOME_URL);
       },
       error: () => {
         this.submitting.set(false);

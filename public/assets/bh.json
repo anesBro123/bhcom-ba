@@ -127,10 +127,10 @@
     }
   },
   "register": {
-    "admin": {
-      "badge": "Admin portal",
-      "title": "Kreiranje admin računa",
-      "subtitle": "Registrujte organizaciju za upravljanje platformom"
+    "company": {
+      "badge": "Registracija kompanije",
+      "title": "Registrujte kompaniju",
+      "subtitle": "Kreirajte račun organizacije za upravljanje platformom"
     },
     "signIn": {
       "label": "Već imate račun?",
@@ -501,7 +501,7 @@
         "create": "Kreiraj vozilo"
       }
     },
-    "registerAdmin": {
+    "registerCompany": {
       "steps": {
         "personal": "Lični podaci",
         "company": "Kompanija",

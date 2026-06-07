@@ -10,13 +10,15 @@ Public / unauthenticated area. No sidebar — `GuestShellComponent` (topbar + sc
 
 ## Routes (`guest.routes.ts`)
 
+Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) and `admin` prefix (`/admin/login`).
+
 | Path | Page | Guard | Notes |
 |------|------|-------|-------|
-| `/` | `LandingPageComponent` | `publicGuestGuard` | `data: { showFooter: true, showNavActions: true }` |
-| `/sign-in` | `SignInPageComponent` | `publicGuestGuard` | Portal picker cards; `data: { showNavActions: true }` |
-| `/login` | `LoginPageComponent` | `guestGuard` | Employee; `PORTAL_CONFIG` → `EMPLOYEE_PORTAL_CONFIG` |
-| `/admin/login` | `LoginPageComponent` | `guestGuard` | Admin; `PORTAL_CONFIG` → `ADMIN_PORTAL_CONFIG` |
-| `/admin/register` | `RegisterPageComponent` | `guestGuard` | Admin only; `PORTAL_CONFIG` → `ADMIN_PORTAL_CONFIG` |
+| `/` | `LandingPageComponent` | `guestGuard` | `data: { showFooter: true, showNavActions: true }` |
+| `/sign-in` | `SignInPageComponent` | `guestGuard` | Portal picker cards; `data: { showNavActions: true }` |
+| `/login` | `EmployeeLoginPageComponent` | `guestGuard` | Employee login |
+| `/admin/login` | `AdminLoginPageComponent` | `guestGuard` | Admin login |
+| `/register` | `RegisterCompanyPageComponent` | `guestGuard` | Company registration |
 
 ## Shell (`guest/shell/`)
 
@@ -28,13 +30,12 @@ Public / unauthenticated area. No sidebar — `GuestShellComponent` (topbar + sc
 ## Pages (`guest/pages/`)
 
 - `landing/` — marketing hero + feature cards
-- `sign-in/` — portal picker (imports `EMPLOYEE_PORTAL_CONFIG` / `ADMIN_PORTAL_CONFIG` for login URLs)
-- `login/` — shared login form (`login.form.ts`, `login.model.ts`); accent via `PORTAL_CONFIG`
-- `register/` — admin company registration (`register-admin.form.ts`)
+- `sign-in/` — portal picker (login URLs from `shared/constants/app-urls.ts`)
+- `login/` — split pages (`employee-login-page`, `admin-login-page`); shared `login.form.ts`, `login.model.ts`, `login-page.component.scss`; accent via `.login--employee` / `.login--admin` on page root
+- `register/` — company registration: `register-company-page`, `register-company.form.ts`, `register-company.model.ts`, `register-company.service.ts` (stub), `register-company.config.ts` (API path), `register-company.constants.ts` (select options)
 
 ## Constants & imports
 
-- `guest.constants.ts` — `LANDING_URL`, `SIGN_IN_URL`
-- Portal URLs: prefer `portal/common/constants/portal-urls.ts` or `portal/common/index.ts` barrel
+- App URLs: `shared/constants/app-urls.ts` (`LANDING_URL`, login/register/home paths, `portalHomeUrl()`)
 - Auth: `shared/core/auth/auth.service.ts`
-- Guest may import `portal/common/**` and portal configs — do not import portal features or shell
+- Guest imports `shared/**` only — do **not** import portal configs, features, or shell

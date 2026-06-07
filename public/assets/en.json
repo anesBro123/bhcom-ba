@@ -127,10 +127,10 @@
     }
   },
   "register": {
-    "admin": {
-      "badge": "Admin portal",
-      "title": "Create admin account",
-      "subtitle": "Register your organization to manage the platform"
+    "company": {
+      "badge": "Company registration",
+      "title": "Register your company",
+      "subtitle": "Create your organization account to manage the platform"
     },
     "signIn": {
       "label": "Already have an account?",
@@ -501,7 +501,7 @@
         "create": "Create Vehicle"
       }
     },
-    "registerAdmin": {
+    "registerCompany": {
       "steps": {
         "personal": "Personal details",
         "company": "Company",

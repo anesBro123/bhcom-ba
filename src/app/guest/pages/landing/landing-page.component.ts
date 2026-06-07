@@ -6,9 +6,12 @@ import {
   LucideSettings,
   LucideTruck,
 } from '@lucide/angular';
-import { ADMIN_PORTAL_CONFIG } from '../../../portal/admin/admin-portal.config';
-import { EMPLOYEE_PORTAL_CONFIG } from '../../../portal/employee/employee-portal.config';
-import { SIGN_IN_URL } from '../../guest.constants';
+import {
+  ADMIN_LOGIN_URL,
+  COMPANY_REGISTER_URL,
+  EMPLOYEE_LOGIN_URL,
+  SIGN_IN_URL,
+} from '../../../shared/constants/app-urls';
 import { PortalCardComponent } from '../../shell/portal-card/portal-card.component';
 
 @Component({
@@ -19,9 +22,9 @@ import { PortalCardComponent } from '../../shell/portal-card/portal-card.compone
 })
 export class LandingPageComponent {
   protected readonly signInUrl = SIGN_IN_URL;
-  protected readonly registerUrl = ADMIN_PORTAL_CONFIG.registerUrl ?? '/admin/register';
-  protected readonly employeeLoginUrl = EMPLOYEE_PORTAL_CONFIG.loginUrl;
-  protected readonly adminLoginUrl = ADMIN_PORTAL_CONFIG.loginUrl;
+  protected readonly registerUrl = COMPANY_REGISTER_URL;
+  protected readonly employeeLoginUrl = EMPLOYEE_LOGIN_URL;
+  protected readonly adminLoginUrl = ADMIN_LOGIN_URL;
 
   protected readonly features = [
     {
