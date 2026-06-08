@@ -145,11 +145,10 @@
   "nav": {
     "admin": {
       "sections": {
-        "main": "ADMIN"
+        "vehicles": "VEHICLES"
       },
-      "dashboard": "Dashboard",
-      "users": "Users",
-      "settings": "Settings"
+      "allVehicles": "All Vehicles",
+      "createVehicle": "Add Vehicle"
     },
     "sections": {
       "dashboard": "DASHBOARD",
@@ -208,7 +207,10 @@
     "admin": {
       "dashboard": "Admin Dashboard",
       "users": "User Management",
-      "settings": "System Settings"
+      "settings": "System Settings",
+      "vehicles": "All Vehicles",
+      "createVehicle": "Add Vehicle",
+      "editVehicle": "Edit Vehicle"
     }
   },
   "tables": {
@@ -266,6 +268,28 @@
         "allTypes": "All types",
         "priority": "Priority",
         "allPriorities": "All priorities"
+      }
+    },
+    "adminVehicles": {
+      "title": "Vehicle List",
+      "entity": "vehicles",
+      "columns": {
+        "registarskaOznaka": "Registration Mark",
+        "marka": "Make",
+        "komercijalnaOznaka": "Model",
+        "brojSasije": "Chassis Number",
+        "vrstaVozila": "Vehicle Category",
+        "vazenjeRegistracije": "Registration Valid Until"
+      },
+      "actions": {
+        "edit": "Edit Vehicle",
+        "delete": "Delete"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search by plate, VIN, make, model...",
+        "vrstaVozila": "Vehicle Category",
+        "allVrste": "All categories"
       }
     }
   },
@@ -499,6 +523,135 @@
       },
       "actions": {
         "create": "Create Vehicle"
+      }
+    },
+    "adminVehicle": {
+      "titleCreate": "Add Vehicle",
+      "titleEdit": "Edit Vehicle",
+      "steps": {
+        "registration": "Registration & Document",
+        "owner": "Owner & User",
+        "identity": "Vehicle Identity",
+        "mass": "Mass & Capacity",
+        "engine": "Engine",
+        "registrationValidity": "Registration & Chip Data"
+      },
+      "sections": {
+        "document": {
+          "title": "Driving License (Front)",
+          "subtitle": "Registration mark, dates, and document identifiers"
+        },
+        "vlasnik": {
+          "title": "Owner Data (C.1)",
+          "subtitle": "Surname, first name, and residence or company seat"
+        },
+        "korisnik": {
+          "title": "User Data (C.3)",
+          "subtitle": "If the user differs from the owner"
+        },
+        "identity": {
+          "title": "Vehicle Identity (D / E / J / R)",
+          "subtitle": "Make, type, model, chassis number, category, and color"
+        },
+        "mass": {
+          "title": "Mass & Axles (F / G / L)",
+          "subtitle": "Permitted mass, empty mass, payload, and axle count"
+        },
+        "engine": {
+          "title": "Engine (P / Q)",
+          "subtitle": "Displacement, power, fuel type, engine number, power-to-mass ratio"
+        },
+        "validity": {
+          "title": "Registration Validity & Chip (H / K / S)",
+          "subtitle": "Registration expiry, homologation, seating, standing places, sale restriction, chip data"
+        }
+      },
+      "fields": {
+        "registarskaOznaka": "Registration Mark (A)",
+        "datumPrveRegistracije": "Date of First Registration (B)",
+        "datumIzdavanjaDozvole": "Date of License Issue (I)",
+        "brojDokumenta": "Document Number",
+        "serijskiBrojDozvole": "License Serial Number",
+        "vlasnikPrezime": "Owner Surname (C.1.1)",
+        "vlasnikIme": "Owner First Name (C.1.2)",
+        "vlasnikPrebivaliste": "Owner Residence / Seat (C.1.3)",
+        "korisnikPrezime": "User Surname (C.3.1)",
+        "korisnikIme": "User First Name (C.3.2)",
+        "korisnikPrebivaliste": "User Residence / Seat (C.3.3)",
+        "jmbgVlasnika": "Owner Personal ID (JMBG)",
+        "jmbgKorisnika": "User Personal ID (JMBG)",
+        "marka": "Vehicle Make (D.1)",
+        "tipVozila": "Vehicle Type (D.2)",
+        "komercijalnaOznaka": "Commercial Name / Model (D.3)",
+        "brojSasije": "Chassis Number (E)",
+        "vrstaVozila": "Vehicle Category (J)",
+        "boja": "Vehicle Color (R)",
+        "najvecaDozvoljenaMasa": "Maximum Permitted Mass (F.1)",
+        "masaVozila": "Vehicle Mass (G)",
+        "nosivostKg": "Payload Capacity (kg)",
+        "brojOsovina": "Number of Axles (L)",
+        "radnaZapremina": "Engine Displacement (P.1)",
+        "snagaKw": "Engine Power kW (P.2)",
+        "vrstaGoriva": "Fuel / Drive Type (P.3)",
+        "brojMotora": "Engine Number (P.5)",
+        "odnosSnagaMasa": "Power-to-Mass Ratio kW/kg (Q)",
+        "vazenjeRegistracije": "Registration Valid Until (H)",
+        "homologacijskaOznaka": "Homologation Mark (K)",
+        "brojMestaSedenje": "Seating Capacity (S.1)",
+        "brojMestaStajanje": "Standing Places (S.2)",
+        "zabranaOtudjenjaDo": "Sale Restriction Until",
+        "podaciNaCipu": "Chip Data"
+      },
+      "placeholders": {
+        "registarskaOznaka": "e.g. BG-123-AA",
+        "brojDokumenta": "Document number (bottom left)",
+        "serijskiBrojDozvole": "License serial (bottom right)",
+        "vlasnikPrezime": "Owner surname",
+        "vlasnikIme": "Owner first name",
+        "vlasnikPrebivaliste": "Address or company seat",
+        "korisnikPrezime": "User surname",
+        "korisnikIme": "User first name",
+        "korisnikPrebivaliste": "User address or seat",
+        "jmbgVlasnika": "13-digit personal ID",
+        "jmbgKorisnika": "13-digit personal ID",
+        "marka": "e.g. Mercedes-Benz",
+        "tipVozila": "Exact variant per technical docs",
+        "komercijalnaOznaka": "e.g. Sprinter",
+        "brojSasije": "17-character VIN",
+        "vrstaVozila": "Select category",
+        "boja": "Official registered color",
+        "najvecaDozvoljenaMasa": "kg",
+        "masaVozila": "Empty mass in kg",
+        "nosivostKg": "Max cargo weight in kg",
+        "brojOsovina": "Number of axles",
+        "radnaZapremina": "ccm",
+        "snagaKw": "kW",
+        "vrstaGoriva": "Select fuel type",
+        "brojMotora": "Engine identification number",
+        "odnosSnagaMasa": "kW/kg",
+        "homologacijskaOznaka": "Homologation code",
+        "brojMestaSedenje": "Including driver seat",
+        "brojMestaStajanje": "For buses and combi vehicles",
+        "podaciNaCipu": "Additional chip-encoded vehicle data"
+      },
+      "vrstaVozila": {
+        "putnicko": "Passenger",
+        "teretno": "Cargo",
+        "motocikl": "Motorcycle",
+        "autobus": "Bus",
+        "prikljucno": "Trailer",
+        "radno": "Work vehicle"
+      },
+      "vrstaGoriva": {
+        "benzin": "Petrol",
+        "dizel": "Diesel",
+        "gas": "LPG / CNG",
+        "elektricni": "Electric",
+        "hibrid": "Hybrid"
+      },
+      "actions": {
+        "create": "Create Vehicle",
+        "update": "Save Changes"
       }
     },
     "registerCompany": {

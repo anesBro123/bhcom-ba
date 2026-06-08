@@ -145,11 +145,10 @@
   "nav": {
     "admin": {
       "sections": {
-        "main": "ADMIN"
+        "vehicles": "VOZILA"
       },
-      "dashboard": "Kontrolna tabla",
-      "users": "Korisnici",
-      "settings": "Postavke"
+      "allVehicles": "Sva vozila",
+      "createVehicle": "Dodaj vozilo"
     },
     "sections": {
       "dashboard": "KONTROLNA TABLA",
@@ -208,7 +207,10 @@
     "admin": {
       "dashboard": "Admin kontrolna tabla",
       "users": "Upravljanje korisnicima",
-      "settings": "Sistemske postavke"
+      "settings": "Sistemske postavke",
+      "vehicles": "Sva vozila",
+      "createVehicle": "Dodaj vozilo",
+      "editVehicle": "Uredi vozilo"
     }
   },
   "tables": {
@@ -266,6 +268,28 @@
         "allTypes": "Svi tipovi",
         "priority": "Prioritet",
         "allPriorities": "Svi prioriteti"
+      }
+    },
+    "adminVehicles": {
+      "title": "Lista vozila",
+      "entity": "vozila",
+      "columns": {
+        "registarskaOznaka": "Registarska oznaka",
+        "marka": "Marka",
+        "komercijalnaOznaka": "Model",
+        "brojSasije": "Broj šasije",
+        "vrstaVozila": "Vrsta vozila",
+        "vazenjeRegistracije": "Važenje registracije"
+      },
+      "actions": {
+        "edit": "Uredi vozilo",
+        "delete": "Obriši"
+      },
+      "filters": {
+        "search": "Pretraga",
+        "searchPlaceholder": "Pretraži po tablici, šasiji, marki, modelu...",
+        "vrstaVozila": "Vrsta vozila",
+        "allVrste": "Sve vrste"
       }
     }
   },
@@ -499,6 +523,135 @@
       },
       "actions": {
         "create": "Kreiraj vozilo"
+      }
+    },
+    "adminVehicle": {
+      "titleCreate": "Dodaj vozilo",
+      "titleEdit": "Uredi vozilo",
+      "steps": {
+        "registration": "Registracija i dokument",
+        "owner": "Vlasnik i korisnik",
+        "identity": "Identitet vozila",
+        "mass": "Masa i nosivost",
+        "engine": "Motor",
+        "registrationValidity": "Registracija i podaci sa čipa"
+      },
+      "sections": {
+        "document": {
+          "title": "Saobraćajna dozvola (prednja strana)",
+          "subtitle": "Registarska oznaka, datumi i identifikacioni brojevi dokumenta"
+        },
+        "vlasnik": {
+          "title": "Podaci o vlasniku vozila (C.1)",
+          "subtitle": "Prezime, ime, prebivalište ili sedište firme"
+        },
+        "korisnik": {
+          "title": "Podaci o korisniku vozila (C.3)",
+          "subtitle": "Ako korisnik nije isti kao vlasnik"
+        },
+        "identity": {
+          "title": "Identitet vozila (D / E / J / R)",
+          "subtitle": "Marka, tip, model, broj šasije, vrsta i boja"
+        },
+        "mass": {
+          "title": "Masa i osovina (F / G / L)",
+          "subtitle": "Najveća dozvoljena masa, masa vozila, nosivost i broj osovina"
+        },
+        "engine": {
+          "title": "Motor (P / Q)",
+          "subtitle": "Zapremina, snaga, gorivo, broj motora, odnos snaga/masa"
+        },
+        "validity": {
+          "title": "Važenje registracije i čip (H / K / S)",
+          "subtitle": "Datum važenja, homologacija, mesta za sedenje/stajanje, zabrana otuđenja, podaci sa čipa"
+        }
+      },
+      "fields": {
+        "registarskaOznaka": "Registarska oznaka vozila (A)",
+        "datumPrveRegistracije": "Datum prve registracije (B)",
+        "datumIzdavanjaDozvole": "Datum izdavanja saobraćajne dozvole (I)",
+        "brojDokumenta": "Broj dokumenta",
+        "serijskiBrojDozvole": "Serijski broj saobraćajne dozvole",
+        "vlasnikPrezime": "Prezime vlasnika (C.1.1)",
+        "vlasnikIme": "Ime vlasnika (C.1.2)",
+        "vlasnikPrebivaliste": "Prebivalište ili sedište vlasnika (C.1.3)",
+        "korisnikPrezime": "Prezime korisnika (C.3.1)",
+        "korisnikIme": "Ime korisnika (C.3.2)",
+        "korisnikPrebivaliste": "Prebivalište ili sedište korisnika (C.3.3)",
+        "jmbgVlasnika": "JMBG vlasnika",
+        "jmbgKorisnika": "JMBG korisnika",
+        "marka": "Marka vozila (D.1)",
+        "tipVozila": "Tip vozila (D.2)",
+        "komercijalnaOznaka": "Komercijalna oznaka / model (D.3)",
+        "brojSasije": "Broj šasije (E)",
+        "vrstaVozila": "Vrsta vozila (J)",
+        "boja": "Boja vozila (R)",
+        "najvecaDozvoljenaMasa": "Najveća dozvoljena masa (F.1)",
+        "masaVozila": "Masa vozila (G)",
+        "nosivostKg": "Nosivost vozila (kg)",
+        "brojOsovina": "Broj osovina (L)",
+        "radnaZapremina": "Radna zapremina motora (P.1)",
+        "snagaKw": "Snaga motora u kW (P.2)",
+        "vrstaGoriva": "Vrsta goriva ili pogona (P.3)",
+        "brojMotora": "Broj motora (P.5)",
+        "odnosSnagaMasa": "Odnos snaga/masa u kW/kg (Q)",
+        "vazenjeRegistracije": "Važenje registracije (H)",
+        "homologacijskaOznaka": "Homologacijska oznaka (K)",
+        "brojMestaSedenje": "Broj mesta za sedenje (S.1)",
+        "brojMestaStajanje": "Broj mesta za stajanje (S.2)",
+        "zabranaOtudjenjaDo": "Zabrana otuđenja vozila do",
+        "podaciNaCipu": "Podaci upisani na čip"
+      },
+      "placeholders": {
+        "registarskaOznaka": "npr. BG-123-AA",
+        "brojDokumenta": "Donji lijevi ugao — broj dokumenta",
+        "serijskiBrojDozvole": "Donji desni ugao — serijski broj",
+        "vlasnikPrezime": "Prezime vlasnika",
+        "vlasnikIme": "Ime vlasnika",
+        "vlasnikPrebivaliste": "Adresa ili sedište firme",
+        "korisnikPrezime": "Prezime korisnika",
+        "korisnikIme": "Ime korisnika",
+        "korisnikPrebivaliste": "Adresa ili sedište korisnika",
+        "jmbgVlasnika": "13-cifreni JMBG",
+        "jmbgKorisnika": "13-cifreni JMBG",
+        "marka": "npr. Mercedes-Benz",
+        "tipVozila": "Tačna varijanta prema tehničkoj dokumentaciji",
+        "komercijalnaOznaka": "npr. Sprinter",
+        "brojSasije": "17-karakterni VIN",
+        "vrstaVozila": "Odaberite vrstu",
+        "boja": "Zvanična boja vozila",
+        "najvecaDozvoljenaMasa": "kg",
+        "masaVozila": "Prazna masa u kg",
+        "nosivostKg": "Maksimalna težina tereta u kg",
+        "brojOsovina": "Broj osovina",
+        "radnaZapremina": "ccm",
+        "snagaKw": "kW",
+        "vrstaGoriva": "Odaberite vrstu goriva",
+        "brojMotora": "Identifikacioni broj motora",
+        "odnosSnagaMasa": "kW/kg",
+        "homologacijskaOznaka": "Homologacioni kod",
+        "brojMestaSedenje": "Uključujući vozačevo mesto",
+        "brojMestaStajanje": "Za autobuse i kombi vozila",
+        "podaciNaCipu": "Dodatne informacije sa biometrijskog čipa"
+      },
+      "vrstaVozila": {
+        "putnicko": "Putničko",
+        "teretno": "Teretno",
+        "motocikl": "Motocikl",
+        "autobus": "Autobus",
+        "prikljucno": "Priključno",
+        "radno": "Radno vozilo"
+      },
+      "vrstaGoriva": {
+        "benzin": "Benzin",
+        "dizel": "Dizel",
+        "gas": "Gas",
+        "elektricni": "Električni",
+        "hibrid": "Hibrid"
+      },
+      "actions": {
+        "create": "Kreiraj vozilo",
+        "update": "Sačuvaj izmjene"
       }
     },
     "registerCompany": {

@@ -7,6 +7,7 @@ export interface PortalConfig {
   nav: NavSection[];
   shell: {
     brandSuffixKey: string;
+    homeUrl: string;
   };
 }
 

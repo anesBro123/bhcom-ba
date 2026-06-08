@@ -7,7 +7,13 @@ export const EMPLOYEE_LOGIN_URL = '/login';
 export const ADMIN_LOGIN_URL = '/admin/login';
 export const EMPLOYEE_HOME_URL = '/dashboard';
 export const ADMIN_HOME_URL = '/admin/dashboard';
+export const ADMIN_VEHICLES_URL = '/admin/vehicles';
+export const ADMIN_CREATE_VEHICLE_URL = '/admin/vehicles/create';
 
 export function portalHomeUrl(portalKind: PortalKind): string {
   return portalKind === 'admin' ? ADMIN_HOME_URL : EMPLOYEE_HOME_URL;
+}
+
+export function adminEditVehicleUrl(id: string): string {
+  return `${ADMIN_VEHICLES_URL}/${id}/edit`;
 }

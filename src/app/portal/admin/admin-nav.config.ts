@@ -1,18 +1,25 @@
-import { LucideLayoutGrid, LucideSettings, LucideUsers } from '@lucide/angular';
+import { LucideSquarePlus, LucideTruck } from '@lucide/angular';
+import {
+  ADMIN_CREATE_VEHICLE_URL,
+  ADMIN_VEHICLES_URL,
+} from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
 
 export const ADMIN_NAV: NavSection[] = [
   {
-    titleKey: 'nav.admin.sections.main',
+    titleKey: 'nav.admin.sections.vehicles',
     items: [
       {
-        labelKey: 'nav.admin.dashboard',
-        route: '/admin/dashboard',
-        icon: LucideLayoutGrid,
+        labelKey: 'nav.admin.allVehicles',
+        route: ADMIN_VEHICLES_URL,
+        icon: LucideTruck,
         exact: true,
       },
-      { labelKey: 'nav.admin.users', route: '/admin/users', icon: LucideUsers },
-      { labelKey: 'nav.admin.settings', route: '/admin/settings', icon: LucideSettings },
+      {
+        labelKey: 'nav.admin.createVehicle',
+        route: ADMIN_CREATE_VEHICLE_URL,
+        icon: LucideSquarePlus,
+      },
     ],
   },
 ];

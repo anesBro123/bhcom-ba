@@ -1,0 +1,42 @@
+---
+description: App route URLs — single source of truth
+globs: src/app/**/*.{ts,html},src/app/**/*.routes.ts
+alwaysApply: true
+---
+
+# App URLs (`shared/constants/app-urls.ts`)
+
+All **application route paths** must come from `shared/constants/app-urls.ts`. Do not hardcode path strings like `'/admin/vehicles'` or `'/dashboard'` in components, nav configs, portal configs, guards, or templates.
+
+## Rules
+
+1. **Add new routes here first** — export a `*_URL` constant (or a small builder like `adminEditVehicleUrl(id)`).
+2. **Import from `shared/constants/app-urls.ts`** in guest, portal, and shared code that navigates or links.
+3. **Portal shell home** — `PortalConfig.shell.homeUrl` uses `ADMIN_HOME_URL` / `EMPLOYEE_HOME_URL`, not literals.
+4. **Nav `route` fields** — use constants, not string literals.
+5. **Router navigation** — prefer `router.navigateByUrl(CONST)` or `router.navigateByUrl(builder(id))`.
+
+## Not in this file
+
+- **HTTP API paths** (e.g. `/api/admin/vehicles`) — colocate in feature `*.constants.ts` or `*.config.ts`.
+- **Angular route `path` segments** in `*.routes.ts` (relative segments like `vehicles`, `:id/edit`) — only full absolute app URLs belong in `app-urls.ts`.
+
+## Examples
+
+```typescript
+// ❌ BAD
+homeUrl: '/admin/dashboard',
+route: '/admin/vehicles/create',
+this.router.navigate(['/admin/vehicles']);
+
+// ✅ GOOD
+import { ADMIN_HOME_URL, ADMIN_CREATE_VEHICLE_URL, ADMIN_VEHICLES_URL } from '../../shared/constants/app-urls';
+
+homeUrl: ADMIN_HOME_URL,
+route: ADMIN_CREATE_VEHICLE_URL,
+this.router.navigateByUrl(ADMIN_VEHICLES_URL);
+```
+
+## Current exports
+
+`LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`, `EMPLOYEE_HOME_URL`, `ADMIN_HOME_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `portalHomeUrl()`, `adminEditVehicleUrl()`.

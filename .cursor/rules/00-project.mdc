@@ -44,7 +44,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Root routes: `app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`
 - Guest routes: `guest/guest.routes.ts`
 - Portal routes: `portal/employee/employee.routes.ts`, `portal/admin/admin.routes.ts`
-- App URLs + portal kind: `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`
+- App URLs + portal kind: `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts` — **never hardcode route paths**; see `.cursor/rules/app-urls.mdc`
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session` in `auth.model.ts`); stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`
 - Guards: `guest/guards/guest.guard.ts` (`guestGuard`); `portal/guards/portal-match.guard.ts`
 - Portal config: `portal/common/models/portal-config.model.ts`, `portal/employee/employee-portal.config.ts`, `portal/admin/admin-portal.config.ts`

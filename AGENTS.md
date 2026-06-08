@@ -46,7 +46,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 - Root routes: `src/app/app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`.
 - Guest routes: `src/app/guest/guest.routes.ts` — two `GuestShellComponent` trees (root + `admin` prefix); landing, sign-in, login, register.
-- URL constants: `shared/constants/app-urls.ts` (`LANDING_URL`, `SIGN_IN_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`, `COMPANY_REGISTER_URL`, `portalHomeUrl()`, etc.).
+- URL constants: `shared/constants/app-urls.ts` — **never hardcode route paths**; add new URLs here first (see `.cursor/rules/app-urls.mdc`).
 
 | Guest path | Purpose |
 |------------|---------|
@@ -93,6 +93,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | Rule | When it applies |
 |------|-----------------|
 | `00-project.mdc` | Always — stack, paths, commands, portals |
+| `app-urls.mdc` | Always — route URLs via `shared/constants/app-urls.ts` only |
 | `angular.mdc` | `src/**/*.{ts,html,scss}` |
 | `guest.mdc` | `src/app/guest/**` |
 | `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` |
