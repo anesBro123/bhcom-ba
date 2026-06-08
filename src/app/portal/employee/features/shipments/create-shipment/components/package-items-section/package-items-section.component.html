@@ -1,28 +1,28 @@
 <app-form-section
-  titleKey="forms.createShipment.sections.packages.title"
-  subtitleKey="forms.createShipment.sections.packages.subtitle"
+  titleKey="portal.employee.features.shipments.form.sections.packages.title"
+  subtitleKey="portal.employee.features.shipments.form.sections.packages.subtitle"
   [showFooter]="true"
 >
   <div class="package-items">
     @for (item of items().controls; track $index; let index = $index) {
       <div class="package-item-card">
         <h3 class="package-item-card__title">
-          {{ 'forms.createShipment.packages.itemLabel' | translate: { index: index + 1 } }}
+          {{ 'portal.employee.features.shipments.form.packages.itemLabel' | translate: { index: index + 1 } }}
         </h3>
 
         <div class="package-item-grid">
           <div class="package-item-grid__field package-item-grid__field--half">
-            <label class="form-label">{{ 'forms.createShipment.packages.description' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.description' | translate }}</label>
             <input
               class="form-control"
               type="text"
               [formControl]="$any(itemGroup(index).get('description'))"
-              [placeholder]="'forms.createShipment.packages.descriptionPlaceholder' | translate"
+              [placeholder]="'portal.employee.features.shipments.form.packages.descriptionPlaceholder' | translate"
             />
           </div>
 
           <div class="package-item-grid__field package-item-grid__field--half">
-            <label class="form-label">{{ 'forms.createShipment.packages.category' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.category' | translate }}</label>
             <div class="form-select-wrap">
               <select
                 class="form-control form-control--select"
@@ -39,7 +39,7 @@
           </div>
 
           <div class="package-item-grid__field package-item-grid__field--third">
-            <label class="form-label">{{ 'forms.createShipment.packages.quantity' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.quantity' | translate }}</label>
             <input
               class="form-control"
               type="number"
@@ -49,7 +49,7 @@
           </div>
 
           <div class="package-item-grid__field package-item-grid__field--third">
-            <label class="form-label">{{ 'forms.createShipment.packages.weight' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.weight' | translate }}</label>
             <input
               class="form-control"
               type="number"
@@ -60,7 +60,7 @@
           </div>
 
           <div class="package-item-grid__field package-item-grid__field--third">
-            <label class="form-label">{{ 'forms.createShipment.packages.value' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.value' | translate }}</label>
             <input
               class="form-control"
               type="number"
@@ -78,34 +78,34 @@
                 [formControl]="$any(itemGroup(index).get('hazardous'))"
               />
               <span class="form-checkbox-row__label">{{
-                'forms.createShipment.packages.hazardous' | translate
+                'portal.employee.features.shipments.form.packages.hazardous' | translate
               }}</span>
             </label>
           </div>
 
           <div class="package-item-grid__field package-item-grid__field--full">
-            <label class="form-label">{{ 'forms.createShipment.packages.dimensions' | translate }}</label>
+            <label class="form-label">{{ 'portal.employee.features.shipments.form.packages.dimensions' | translate }}</label>
             <div class="package-dimensions">
               <input
                 class="form-control"
                 type="number"
                 min="0"
                 [formControl]="$any(itemGroup(index).get('length'))"
-                [placeholder]="'forms.createShipment.packages.length' | translate"
+                [placeholder]="'portal.employee.features.shipments.form.packages.length' | translate"
               />
               <input
                 class="form-control"
                 type="number"
                 min="0"
                 [formControl]="$any(itemGroup(index).get('width'))"
-                [placeholder]="'forms.createShipment.packages.width' | translate"
+                [placeholder]="'portal.employee.features.shipments.form.packages.width' | translate"
               />
               <input
                 class="form-control"
                 type="number"
                 min="0"
                 [formControl]="$any(itemGroup(index).get('height'))"
-                [placeholder]="'forms.createShipment.packages.height' | translate"
+                [placeholder]="'portal.employee.features.shipments.form.packages.height' | translate"
               />
             </div>
           </div>
@@ -115,25 +115,25 @@
 
     <button type="button" class="package-items__add-btn" (click)="addItem()">
       <svg lucidePlus [size]="16" />
-      <span>{{ 'forms.createShipment.packages.addItem' | translate }}</span>
+      <span>{{ 'portal.employee.features.shipments.form.packages.addItem' | translate }}</span>
     </button>
   </div>
 
   <div formSectionFooter class="package-totals">
     <div class="package-totals__item">
-      <span class="package-totals__label">{{ 'forms.createShipment.packages.totalItems' | translate }}</span>
+      <span class="package-totals__label">{{ 'portal.employee.features.shipments.form.packages.totalItems' | translate }}</span>
       <span class="package-totals__value">{{ totals().totalItems }}</span>
     </div>
     <div class="package-totals__item">
-      <span class="package-totals__label">{{ 'forms.createShipment.packages.totalWeight' | translate }}</span>
+      <span class="package-totals__label">{{ 'portal.employee.features.shipments.form.packages.totalWeight' | translate }}</span>
       <span class="package-totals__value">{{
-        'forms.createShipment.packages.weightValue' | translate: { weight: totals().totalWeight.toFixed(1) }
+        'portal.employee.features.shipments.form.packages.weightValue' | translate: { weight: totals().totalWeight.toFixed(1) }
       }}</span>
     </div>
     <div class="package-totals__item">
-      <span class="package-totals__label">{{ 'forms.createShipment.packages.totalValue' | translate }}</span>
+      <span class="package-totals__label">{{ 'portal.employee.features.shipments.form.packages.totalValue' | translate }}</span>
       <span class="package-totals__value">{{
-        'forms.createShipment.packages.currencyValue' | translate: { value: totals().totalValue.toFixed(2) }
+        'portal.employee.features.shipments.form.packages.currencyValue' | translate: { value: totals().totalValue.toFixed(2) }
       }}</span>
     </div>
   </div>

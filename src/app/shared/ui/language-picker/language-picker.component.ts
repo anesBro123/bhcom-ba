@@ -19,8 +19,8 @@ export class LanguagePickerComponent {
   protected readonly menuOpen = signal(false);
 
   protected readonly languages: { code: AppLanguage; labelKey: string }[] = [
-    { code: 'en', labelKey: 'topbar.lang.en' },
-    { code: 'bh', labelKey: 'topbar.lang.bh' },
+    { code: 'en', labelKey: 'shared.topbar.lang.en' },
+    { code: 'bh', labelKey: 'shared.topbar.lang.bh' },
   ];
 
   @HostListener('document:click', ['$event'])

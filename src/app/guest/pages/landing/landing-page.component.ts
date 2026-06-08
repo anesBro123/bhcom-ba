@@ -30,20 +30,20 @@ export class LandingPageComponent {
     {
       icon: 'truck',
       accent: 'employee',
-      titleKey: 'landing.features.fleet.title',
-      descriptionKey: 'landing.features.fleet.description',
+      titleKey: 'guest.landing.features.fleet.title',
+      descriptionKey: 'guest.landing.features.fleet.description',
     },
     {
       icon: 'package',
       accent: 'neutral',
-      titleKey: 'landing.features.shipments.title',
-      descriptionKey: 'landing.features.shipments.description',
+      titleKey: 'guest.landing.features.shipments.title',
+      descriptionKey: 'guest.landing.features.shipments.description',
     },
     {
       icon: 'settings',
       accent: 'admin',
-      titleKey: 'landing.features.admin.title',
-      descriptionKey: 'landing.features.admin.description',
+      titleKey: 'guest.landing.features.admin.title',
+      descriptionKey: 'guest.landing.features.admin.description',
     },
   ] as const;
 }

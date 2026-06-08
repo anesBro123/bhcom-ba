@@ -11,8 +11,8 @@ alwaysApply: false
 1. Feature folder: `portal/employee/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
 2. Register route in `employee.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
 3. If in sidebar: add `NavItem` in `employee-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`).
-4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'pages.*' }` (admin: `pages.admin.*`).
-5. Form: `*.form.ts` + page; Table: `*.table.ts` + page; i18n under `forms.*` / `tables.*`.
+4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.employee.pages.*' }` (admin: `portal.admin.pages.*`).
+5. Form: `*.form.ts` + page; Table: `*.table.ts` + page; i18n under feature namespace (see `i18n.mdc`).
 6. Types in `*.model.ts`; mock data in `*.mock-data.ts`.
 7. Feature HTTP: colocate `*.service.ts` with the feature; promote to `portal/{employee|admin}/data/` when shared within one portal.
 

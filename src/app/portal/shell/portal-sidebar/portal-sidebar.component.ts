@@ -44,6 +44,6 @@ export class PortalSidebarComponent {
   }
 
   protected get toggleLabelKey(): string {
-    return this.sidebarService.collapsed() ? 'sidebar.expand' : 'sidebar.collapse';
+    return this.sidebarService.collapsed() ? 'shared.sidebar.expand' : 'shared.sidebar.collapse';
   }
 }

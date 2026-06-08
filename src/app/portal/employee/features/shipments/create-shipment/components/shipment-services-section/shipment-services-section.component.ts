@@ -29,23 +29,23 @@ export class ShipmentServicesSectionComponent {
   protected readonly toggles = [
     {
       key: 'insuranceCoverage',
-      labelKey: 'forms.createShipment.services.insuranceCoverage',
-      descriptionKey: 'forms.createShipment.services.insuranceCoverageDesc',
+      labelKey: 'portal.employee.features.shipments.form.services.insuranceCoverage',
+      descriptionKey: 'portal.employee.features.shipments.form.services.insuranceCoverageDesc',
     },
     {
       key: 'signatureRequired',
-      labelKey: 'forms.createShipment.services.signatureRequired',
-      descriptionKey: 'forms.createShipment.services.signatureRequiredDesc',
+      labelKey: 'portal.employee.features.shipments.form.services.signatureRequired',
+      descriptionKey: 'portal.employee.features.shipments.form.services.signatureRequiredDesc',
     },
     {
       key: 'fragileHandling',
-      labelKey: 'forms.createShipment.services.fragileHandling',
-      descriptionKey: 'forms.createShipment.services.fragileHandlingDesc',
+      labelKey: 'portal.employee.features.shipments.form.services.fragileHandling',
+      descriptionKey: 'portal.employee.features.shipments.form.services.fragileHandlingDesc',
     },
     {
       key: 'temperatureControl',
-      labelKey: 'forms.createShipment.services.temperatureControl',
-      descriptionKey: 'forms.createShipment.services.temperatureControlDesc',
+      labelKey: 'portal.employee.features.shipments.form.services.temperatureControl',
+      descriptionKey: 'portal.employee.features.shipments.form.services.temperatureControlDesc',
     },
   ] as const;
 }

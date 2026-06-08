@@ -7,8 +7,74 @@ alwaysApply: false
 # i18n
 
 - All user-visible strings via translation keys (`labelKey`, `titleKey`, `| translate`).
-- Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json`.
-- Key namespaces: `nav.*`, `nav.admin.*`, `pages.*`, `forms.*` (incl. `forms.registerCompany.*`), `tables.*`, `topbar.*`, `sidebar.*`, `portal.*`, `login.*`, `guest.*`, `landing.*`, `signIn.*`, `register.*`.
-- Admin page titles use `pages.admin.*`; employee placeholders use `pages.*`.
-- In TS, return key strings for labels (e.g. `statusLabel()` → `'tables.shipments.status.${status}'`).
+- Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json` (single file per language).
+- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.employee.features.shipments.table.status.${status}'`).
 - Do not embed English prose in templates when a key exists or should exist.
+
+## Key tree (mirrors `src/app/` layers)
+
+```
+shared.*                          — shell chrome + form/table framework
+guest.*                           — public pages (landing, sign-in, login, register)
+portal.shell.{admin|employee}.*   — portal badge in sidebar brand
+portal.admin.nav.*                — admin sidebar
+portal.admin.pages.*              — admin route titleKey
+portal.admin.features.<feature>.* — admin feature (form, table)
+portal.employee.nav.*             — employee sidebar
+portal.employee.pages.*           — employee route titleKey
+portal.employee.features.<domain>.<feature>.* — employee feature (form, table)
+```
+
+### Shared (`shared.*`)
+
+| Path | Use for |
+|------|---------|
+| `shared.sidebar.*` | Portal sidebar chrome |
+| `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
+| `shared.form.common.*` | Form stepper footer, field errors |
+| `shared.table.common.*` | Table loading, empty, pagination, row actions |
+
+### Guest (`guest.*`)
+
+| Path | Use for |
+|------|---------|
+| `guest.landing.*` | Landing page |
+| `guest.signIn.*` | Portal picker |
+| `guest.login.*` | Employee + admin login pages |
+| `guest.register.*` | Company registration page chrome |
+| `guest.register.form.*` | Register company stepper form |
+| `guest.topbar.*`, `guest.footer.*` | Guest shell |
+
+### Portal admin feature example
+
+```
+portal.admin.features.vehicles.form.fields.marka
+portal.admin.features.vehicles.table.columns.marka
+portal.admin.nav.allVehicles
+portal.admin.pages.vehicles
+```
+
+### Portal employee feature example
+
+```
+portal.employee.features.shipments.form.steps.type
+portal.employee.features.shipments.table.columns.id
+portal.employee.features.fleet.vehicles.form.fields.plateNumber
+portal.employee.nav.allShipments
+portal.employee.pages.allShipments
+```
+
+## Rules for new keys
+
+1. **Do not** add feature strings under legacy roots (`forms.*`, `tables.*`, top-level `nav.*`, `pages.*`, `landing.*`, `login.*`).
+2. **Admin vs employee** — always under `portal.admin` or `portal.employee` (never cross-import keys).
+3. **Form defs** (`*.form.ts`) — keys under `…features.<feature>.form.*`.
+4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*`; use `shared.table.common.*` for shared table chrome.
+5. **Route `data.titleKey`** — `portal.<portal>.pages.<pageId>`.
+6. **Nav `labelKey`** — `portal.<portal>.nav.<itemId>`.
+7. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).
+
+## Files
+
+- Translations: `public/assets/en.json`, `public/assets/bh.json`
+- Language switching: `shared/core/i18n/language.service.ts`

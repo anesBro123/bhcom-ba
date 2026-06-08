@@ -19,7 +19,7 @@
       [disabled]="!canGoPrevious()"
       (click)="previousPage()"
     >
-      {{ 'tables.common.previous' | translate }}
+      {{ 'shared.table.common.previous' | translate }}
     </button>
 
     @for (pageNumber of pages(); track pageNumber) {
@@ -39,7 +39,7 @@
       [disabled]="!canGoNext()"
       (click)="nextPage()"
     >
-      {{ 'tables.common.next' | translate }}
+      {{ 'shared.table.common.next' | translate }}
     </button>
   </div>
 </div>

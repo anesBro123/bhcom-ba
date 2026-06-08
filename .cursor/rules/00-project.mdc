@@ -48,7 +48,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session` in `auth.model.ts`); stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`
 - Guards: `guest/guards/guest.guard.ts` (`guestGuard`); `portal/guards/portal-match.guard.ts`
 - Portal config: `portal/common/models/portal-config.model.ts`, `portal/employee/employee-portal.config.ts`, `portal/admin/admin-portal.config.ts`
-- Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `PortalTopbarComponent`, `sidebar.service.ts`
+- Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `PortalTopbarComponent`, `shared.sidebar.service.ts`
 - Sidebar nav: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
 - Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`)

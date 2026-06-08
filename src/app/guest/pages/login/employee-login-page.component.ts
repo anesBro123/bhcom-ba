@@ -44,7 +44,7 @@ export class EmployeeLoginPageComponent {
       },
       error: () => {
         this.submitting.set(false);
-        this.errorKey.set('login.error');
+        this.errorKey.set('guest.login.error');
       },
     });
   }

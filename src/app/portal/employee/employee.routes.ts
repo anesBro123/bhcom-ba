@@ -17,17 +17,17 @@ export default [
       {
         path: 'dashboard',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.dashboardOverview' },
+        data: { titleKey: 'portal.employee.pages.dashboardOverview' },
       },
       {
         path: 'dashboard/live-map',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.liveMap' },
+        data: { titleKey: 'portal.employee.pages.liveMap' },
       },
       {
         path: 'dashboard/fleet-status',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.fleetStatus' },
+        data: { titleKey: 'portal.employee.pages.fleetStatus' },
       },
       {
         path: 'shipments',
@@ -36,7 +36,7 @@ export default [
       {
         path: 'shipments/track',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.trackShipment' },
+        data: { titleKey: 'portal.employee.pages.trackShipment' },
       },
       {
         path: 'shipments/create',
@@ -45,12 +45,12 @@ export default [
       {
         path: 'shipments/delayed',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.delayedShipments' },
+        data: { titleKey: 'portal.employee.pages.delayedShipments' },
       },
       {
         path: 'fleet/vehicles',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.vehicleList' },
+        data: { titleKey: 'portal.employee.pages.vehicleList' },
       },
       {
         path: 'fleet/vehicles/create',
@@ -59,67 +59,67 @@ export default [
       {
         path: 'fleet/maintenance',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.maintenanceLogs' },
+        data: { titleKey: 'portal.employee.pages.maintenanceLogs' },
       },
       {
         path: 'fleet/drivers',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.driverAssignments' },
+        data: { titleKey: 'portal.employee.pages.driverAssignments' },
       },
       {
         path: 'vendors',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.vendorDirectory' },
+        data: { titleKey: 'portal.employee.pages.vendorDirectory' },
       },
       {
         path: 'vendors/add',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.addVendor' },
+        data: { titleKey: 'portal.employee.pages.addVendor' },
       },
       {
         path: 'clients',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.clientsList' },
+        data: { titleKey: 'portal.employee.pages.clientsList' },
       },
       {
         path: 'clients/feedback',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.clientFeedback' },
+        data: { titleKey: 'portal.employee.pages.clientFeedback' },
       },
       {
         path: 'orders',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.allOrders' },
+        data: { titleKey: 'portal.employee.pages.allOrders' },
       },
       {
         path: 'orders/scheduled',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.scheduledDeliveries' },
+        data: { titleKey: 'portal.employee.pages.scheduledDeliveries' },
       },
       {
         path: 'orders/returns',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.returns' },
+        data: { titleKey: 'portal.employee.pages.returns' },
       },
       {
         path: 'orders/cancellations',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.cancellations' },
+        data: { titleKey: 'portal.employee.pages.cancellations' },
       },
       {
         path: 'reports/delivery-performance',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.deliveryPerformance' },
+        data: { titleKey: 'portal.employee.pages.deliveryPerformance' },
       },
       {
         path: 'reports/revenue',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.revenueAnalysis' },
+        data: { titleKey: 'portal.employee.pages.revenueAnalysis' },
       },
       {
         path: 'reports/fleet-efficiency',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.fleetEfficiency' },
+        data: { titleKey: 'portal.employee.pages.fleetEfficiency' },
       },
     ],
   },

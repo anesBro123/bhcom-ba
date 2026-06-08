@@ -1,39 +1,65 @@
 {
-  "sidebar": {
-    "collapse": "Collapse",
-    "expand": "Expand",
-    "close": "Close menu"
-  },
-  "topbar": {
-    "openMenu": "Open menu",
-    "changeTheme": "Change theme",
-    "theme": {
-      "light": "Switch to light mode",
-      "dark": "Switch to dark mode",
-      "lightLabel": "Light",
-      "darkLabel": "Dark"
+  "shared": {
+    "sidebar": {
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "close": "Close menu"
     },
-    "notifications": "Notifications",
-    "changeLanguage": "Change language",
-    "profile": "User profile",
-    "openAccountMenu": "Open account menu",
-    "account": {
-      "title": "My Account",
-      "profile": "Profile",
-      "settings": "Settings",
-      "logout": "Log out"
+    "topbar": {
+      "openMenu": "Open menu",
+      "changeTheme": "Change theme",
+      "theme": {
+        "light": "Switch to light mode",
+        "dark": "Switch to dark mode",
+        "lightLabel": "Light",
+        "darkLabel": "Dark"
+      },
+      "notifications": "Notifications",
+      "changeLanguage": "Change language",
+      "profile": "User profile",
+      "openAccountMenu": "Open account menu",
+      "account": {
+        "title": "My Account",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Log out"
+      },
+      "lang": {
+        "en": "English",
+        "bh": "Bosanski"
+      }
     },
-    "lang": {
-      "en": "English",
-      "bh": "Bosanski"
-    }
-  },
-  "portal": {
-    "admin": {
-      "badge": "ADMIN"
+    "form": {
+      "common": {
+        "previous": "Previous",
+        "next": "Next",
+        "stepOf": "Step {{current}} of {{total}}",
+        "percentComplete": "{{percent}}% Complete",
+        "fieldRequired": "This field is required",
+        "errors": {
+          "required": "This field is required",
+          "email": "Enter a valid email address",
+          "minLength": "Must be at least {{min}} characters",
+          "maxLength": "Must be at most {{max}} characters",
+          "min": "Must be at least {{min}}",
+          "max": "Must be at most {{max}}",
+          "pattern": "Invalid format",
+          "passwordMismatch": "Passwords do not match",
+          "invalid": "This value is invalid"
+        }
+      }
     },
-    "employee": {
-      "badge": "EMPLOYEE"
+    "table": {
+      "common": {
+        "loading": "Loading...",
+        "empty": "No records found.",
+        "loadError": "Unable to load table data.",
+        "previous": "Previous",
+        "next": "Next",
+        "showingSummary": "Showing {{from}} to {{to}} of {{total}} {{entity}}",
+        "actions": "Row actions",
+        "actionsMenu": "Actions"
+      }
     }
   },
   "guest": {
@@ -47,681 +73,675 @@
       "privacy": "Privacy",
       "terms": "Terms",
       "contact": "Contact"
-    }
-  },
-  "landing": {
-    "hero": {
-      "title": "Logistics operations for modern fleets",
-      "subtitle": "Manage shipments, fleet, and organization settings in one platform built for Bosnia and Herzegovina.",
-      "ctaRegister": "Register your company",
-      "ctaSignIn": "Sign in"
     },
-    "features": {
-      "title": "Everything you need to run logistics",
-      "fleet": {
-        "title": "Fleet management",
-        "description": "Track vehicles, maintenance, and driver assignments from a single workspace."
+    "landing": {
+      "hero": {
+        "title": "Logistics operations for modern fleets",
+        "subtitle": "Manage shipments, fleet, and organization settings in one platform built for Bosnia and Herzegovina.",
+        "ctaRegister": "Register your company",
+        "ctaSignIn": "Sign in"
       },
-      "shipments": {
-        "title": "Shipment tracking",
-        "description": "Create, monitor, and resolve shipments with real-time operational visibility."
+      "features": {
+        "title": "Everything you need to run logistics",
+        "fleet": {
+          "title": "Fleet management",
+          "description": "Track vehicles, maintenance, and driver assignments from a single workspace."
+        },
+        "shipments": {
+          "title": "Shipment tracking",
+          "description": "Create, monitor, and resolve shipments with real-time operational visibility."
+        },
+        "admin": {
+          "title": "Organization control",
+          "description": "Admins configure the platform, manage users, and oversee company settings."
+        }
       },
-      "admin": {
-        "title": "Organization control",
-        "description": "Admins configure the platform, manage users, and oversee company settings."
+      "portals": {
+        "title": "Choose your portal",
+        "subtitle": "Employees and organization admins use separate sign-in portals.",
+        "employee": {
+          "badge": "Employee portal",
+          "title": "For employees",
+          "description": "Sign in to manage daily operations — shipments, fleet, orders, and reports."
+        },
+        "admin": {
+          "badge": "Admin portal",
+          "title": "For organization admins",
+          "description": "Sign in to manage your company, users, and platform configuration."
+        }
       }
     },
-    "portals": {
-      "title": "Choose your portal",
-      "subtitle": "Employees and organization admins use separate sign-in portals.",
-      "employee": {
-        "badge": "Employee portal",
-        "title": "For employees",
-        "description": "Sign in to manage daily operations — shipments, fleet, orders, and reports."
-      },
-      "admin": {
-        "badge": "Admin portal",
-        "title": "For organization admins",
-        "description": "Sign in to manage your company, users, and platform configuration."
+    "signIn": {
+      "title": "Sign in to BHCOM",
+      "subtitle": "Choose the portal that matches your role.",
+      "portals": {
+        "employee": {
+          "badge": "Employee portal",
+          "title": "Employee sign in",
+          "description": "Access your workspace for shipments, fleet, and daily operations."
+        },
+        "admin": {
+          "badge": "Admin portal",
+          "title": "Admin sign in",
+          "description": "Manage your organization, users, and platform settings."
+        }
       }
-    }
-  },
-  "signIn": {
-    "title": "Sign in to BHCOM",
-    "subtitle": "Choose the portal that matches your role.",
-    "portals": {
-      "employee": {
-        "badge": "Employee portal",
-        "title": "Employee sign in",
-        "description": "Access your workspace for shipments, fleet, and daily operations."
-      },
+    },
+    "login": {
       "admin": {
         "badge": "Admin portal",
         "title": "Admin sign in",
-        "description": "Manage your organization, users, and platform settings."
+        "subtitle": "Sign in to manage the platform"
+      },
+      "employee": {
+        "badge": "Employee portal",
+        "title": "Employee sign in",
+        "subtitle": "Sign in to access your workspace"
+      },
+      "username": "Username",
+      "password": "Password",
+      "submit": "Sign in",
+      "error": "Sign in failed. Please try again.",
+      "switchPortal": {
+        "label": "Wrong portal?",
+        "action": "Choose again"
+      },
+      "createAccount": {
+        "label": "New organization?",
+        "action": "Register"
+      }
+    },
+    "register": {
+      "company": {
+        "badge": "Company registration",
+        "title": "Register your company",
+        "subtitle": "Create your organization account to manage the platform"
+      },
+      "signIn": {
+        "label": "Already have an account?",
+        "action": "Sign in"
+      },
+      "error": "Registration failed. Please try again.",
+      "success": {
+        "title": "Registration received",
+        "message": "Your account is being verified. Our team will reach out shortly. Please check your email for updates."
+      },
+      "form": {
+        "steps": {
+          "personal": "Personal details",
+          "company": "Company",
+          "location": "Location"
+        },
+        "sections": {
+          "contact": {
+            "title": "Contact information",
+            "subtitle": "Your personal details and login credentials"
+          },
+          "business": {
+            "title": "Company information",
+            "subtitle": "Details about your organization"
+          },
+          "address": {
+            "title": "Business address",
+            "subtitle": "Where your company is located"
+          }
+        },
+        "fields": {
+          "title": "Title",
+          "firstName": "First name",
+          "lastName": "Last name",
+          "email": "Email",
+          "password": "Password",
+          "passwordConfirm": "Confirm password",
+          "phone": "Phone",
+          "companyName": "Company name",
+          "vatId": "VAT ID",
+          "country": "Country",
+          "city": "City",
+          "postcode": "Postcode",
+          "address": "Address"
+        },
+        "titles": {
+          "mr": "Mr",
+          "ms": "Ms"
+        },
+        "countries": {
+          "BA": "Bosnia and Herzegovina",
+          "RS": "Serbia",
+          "HR": "Croatia",
+          "ME": "Montenegro",
+          "MK": "North Macedonia",
+          "AL": "Albania",
+          "SI": "Slovenia",
+          "DE": "Germany",
+          "AT": "Austria",
+          "IT": "Italy",
+          "FR": "France",
+          "NL": "Netherlands",
+          "BE": "Belgium",
+          "CH": "Switzerland",
+          "GB": "United Kingdom",
+          "PL": "Poland",
+          "CZ": "Czech Republic",
+          "HU": "Hungary",
+          "RO": "Romania",
+          "BG": "Bulgaria",
+          "GR": "Greece",
+          "ES": "Spain",
+          "PT": "Portugal",
+          "SE": "Sweden",
+          "DK": "Denmark"
+        },
+        "actions": {
+          "submit": "Submit registration"
+        }
       }
     }
   },
-  "login": {
+  "portal": {
+    "shell": {
+      "admin": {
+        "badge": "ADMIN"
+      },
+      "employee": {
+        "badge": "EMPLOYEE"
+      }
+    },
     "admin": {
-      "badge": "Admin portal",
-      "title": "Admin sign in",
-      "subtitle": "Sign in to manage the platform"
+      "nav": {
+        "sections": {
+          "vehicles": "VEHICLES"
+        },
+        "allVehicles": "All Vehicles",
+        "createVehicle": "Add Vehicle"
+      },
+      "pages": {
+        "dashboard": "Admin Dashboard",
+        "users": "User Management",
+        "settings": "System Settings",
+        "vehicles": "All Vehicles",
+        "createVehicle": "Add Vehicle",
+        "editVehicle": "Edit Vehicle"
+      },
+      "features": {
+        "vehicles": {
+          "form": {
+            "titleCreate": "Add Vehicle",
+            "titleEdit": "Edit Vehicle",
+            "steps": {
+              "registration": "Registration & Document",
+              "owner": "Owner & User",
+              "identity": "Vehicle Identity",
+              "mass": "Mass & Capacity",
+              "engine": "Engine",
+              "registrationValidity": "Registration & Chip Data"
+            },
+            "sections": {
+              "document": {
+                "title": "Driving License (Front)",
+                "subtitle": "Registration mark, dates, and document identifiers"
+              },
+              "vlasnik": {
+                "title": "Owner Data (C.1)",
+                "subtitle": "Surname, first name, and residence or company seat"
+              },
+              "korisnik": {
+                "title": "User Data (C.3)",
+                "subtitle": "If the user differs from the owner"
+              },
+              "identity": {
+                "title": "Vehicle Identity (D / E / J / R)",
+                "subtitle": "Make, type, model, chassis number, category, and color"
+              },
+              "mass": {
+                "title": "Mass & Axles (F / G / L)",
+                "subtitle": "Permitted mass, empty mass, payload, and axle count"
+              },
+              "engine": {
+                "title": "Engine (P / Q)",
+                "subtitle": "Displacement, power, fuel type, engine number, power-to-mass ratio"
+              },
+              "validity": {
+                "title": "Registration Validity & Chip (H / K / S)",
+                "subtitle": "Registration expiry, homologation, seating, standing places, sale restriction, chip data"
+              }
+            },
+            "fields": {
+              "registarskaOznaka": "Registration Mark (A)",
+              "datumPrveRegistracije": "Date of First Registration (B)",
+              "datumIzdavanjaDozvole": "Date of License Issue (I)",
+              "brojDokumenta": "Document Number",
+              "serijskiBrojDozvole": "License Serial Number",
+              "vlasnikPrezime": "Owner Surname (C.1.1)",
+              "vlasnikIme": "Owner First Name (C.1.2)",
+              "vlasnikPrebivaliste": "Owner Residence / Seat (C.1.3)",
+              "korisnikPrezime": "User Surname (C.3.1)",
+              "korisnikIme": "User First Name (C.3.2)",
+              "korisnikPrebivaliste": "User Residence / Seat (C.3.3)",
+              "jmbgVlasnika": "Owner Personal ID (JMBG)",
+              "jmbgKorisnika": "User Personal ID (JMBG)",
+              "marka": "Vehicle Make (D.1)",
+              "tipVozila": "Vehicle Type (D.2)",
+              "komercijalnaOznaka": "Commercial Name / Model (D.3)",
+              "brojSasije": "Chassis Number (E)",
+              "vrstaVozila": "Vehicle Category (J)",
+              "boja": "Vehicle Color (R)",
+              "najvecaDozvoljenaMasa": "Maximum Permitted Mass (F.1)",
+              "masaVozila": "Vehicle Mass (G)",
+              "nosivostKg": "Payload Capacity (kg)",
+              "brojOsovina": "Number of Axles (L)",
+              "radnaZapremina": "Engine Displacement (P.1)",
+              "snagaKw": "Engine Power kW (P.2)",
+              "vrstaGoriva": "Fuel / Drive Type (P.3)",
+              "brojMotora": "Engine Number (P.5)",
+              "odnosSnagaMasa": "Power-to-Mass Ratio kW/kg (Q)",
+              "vazenjeRegistracije": "Registration Valid Until (H)",
+              "homologacijskaOznaka": "Homologation Mark (K)",
+              "brojMestaSedenje": "Seating Capacity (S.1)",
+              "brojMestaStajanje": "Standing Places (S.2)",
+              "zabranaOtudjenjaDo": "Sale Restriction Until",
+              "podaciNaCipu": "Chip Data"
+            },
+            "placeholders": {
+              "registarskaOznaka": "e.g. BG-123-AA",
+              "brojDokumenta": "Document number (bottom left)",
+              "serijskiBrojDozvole": "License serial (bottom right)",
+              "vlasnikPrezime": "Owner surname",
+              "vlasnikIme": "Owner first name",
+              "vlasnikPrebivaliste": "Address or company seat",
+              "korisnikPrezime": "User surname",
+              "korisnikIme": "User first name",
+              "korisnikPrebivaliste": "User address or seat",
+              "jmbgVlasnika": "13-digit personal ID",
+              "jmbgKorisnika": "13-digit personal ID",
+              "marka": "e.g. Mercedes-Benz",
+              "tipVozila": "Exact variant per technical docs",
+              "komercijalnaOznaka": "e.g. Sprinter",
+              "brojSasije": "17-character VIN",
+              "vrstaVozila": "Select category",
+              "boja": "Official registered color",
+              "najvecaDozvoljenaMasa": "kg",
+              "masaVozila": "Empty mass in kg",
+              "nosivostKg": "Max cargo weight in kg",
+              "brojOsovina": "Number of axles",
+              "radnaZapremina": "ccm",
+              "snagaKw": "kW",
+              "vrstaGoriva": "Select fuel type",
+              "brojMotora": "Engine identification number",
+              "odnosSnagaMasa": "kW/kg",
+              "homologacijskaOznaka": "Homologation code",
+              "brojMestaSedenje": "Including driver seat",
+              "brojMestaStajanje": "For buses and combi vehicles",
+              "podaciNaCipu": "Additional chip-encoded vehicle data"
+            },
+            "vrstaVozila": {
+              "putnicko": "Passenger",
+              "teretno": "Cargo",
+              "motocikl": "Motorcycle",
+              "autobus": "Bus",
+              "prikljucno": "Trailer",
+              "radno": "Work vehicle"
+            },
+            "vrstaGoriva": {
+              "benzin": "Petrol",
+              "dizel": "Diesel",
+              "gas": "LPG / CNG",
+              "elektricni": "Electric",
+              "hibrid": "Hybrid"
+            },
+            "actions": {
+              "create": "Create Vehicle",
+              "update": "Save Changes"
+            }
+          },
+          "table": {
+            "title": "Vehicle List",
+            "entity": "vehicles",
+            "columns": {
+              "registarskaOznaka": "Registration Mark",
+              "marka": "Make",
+              "komercijalnaOznaka": "Model",
+              "brojSasije": "Chassis Number",
+              "vrstaVozila": "Vehicle Category",
+              "vazenjeRegistracije": "Registration Valid Until"
+            },
+            "actions": {
+              "edit": "Edit Vehicle",
+              "delete": "Delete"
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search by plate, VIN, make, model...",
+              "vrstaVozila": "Vehicle Category",
+              "allVrste": "All categories"
+            }
+          }
+        }
+      }
     },
     "employee": {
-      "badge": "Employee portal",
-      "title": "Employee sign in",
-      "subtitle": "Sign in to access your workspace"
-    },
-    "username": "Username",
-    "password": "Password",
-    "submit": "Sign in",
-    "error": "Sign in failed. Please try again.",
-    "switchPortal": {
-      "label": "Wrong portal?",
-      "action": "Choose again"
-    },
-    "createAccount": {
-      "label": "New organization?",
-      "action": "Register"
-    }
-  },
-  "register": {
-    "company": {
-      "badge": "Company registration",
-      "title": "Register your company",
-      "subtitle": "Create your organization account to manage the platform"
-    },
-    "signIn": {
-      "label": "Already have an account?",
-      "action": "Sign in"
-    },
-    "error": "Registration failed. Please try again.",
-    "success": {
-      "title": "Registration received",
-      "message": "Your account is being verified. Our team will reach out shortly. Please check your email for updates."
-    }
-  },
-  "nav": {
-    "admin": {
-      "sections": {
-        "vehicles": "VEHICLES"
-      },
-      "allVehicles": "All Vehicles",
-      "createVehicle": "Add Vehicle"
-    },
-    "sections": {
-      "dashboard": "DASHBOARD",
-      "shipments": "SHIPMENTS",
-      "fleet": "FLEET MANAGEMENT",
-      "vendorsClients": "VENDORS & CLIENTS",
-      "orders": "ORDERS",
-      "reports": "REPORTS"
-    },
-    "overview": "Overview",
-    "liveMap": "Live Shipment Map",
-    "fleetStatus": "Fleet Status",
-    "allShipments": "All Shipments",
-    "trackShipment": "Track Shipment",
-    "createShipment": "Create Shipment",
-    "delayedShipments": "Delayed Shipments",
-    "vehicleList": "Vehicle List",
-    "createVehicle": "Create Vehicle",
-    "maintenanceLogs": "Maintenance Logs",
-    "driverAssignments": "Driver Assignments",
-    "vendorDirectory": "Vendor Directory",
-    "addVendor": "Add Vendor",
-    "clientsList": "Clients List",
-    "clientFeedback": "Client Feedback",
-    "allOrders": "All Orders",
-    "scheduledDeliveries": "Scheduled Deliveries",
-    "returns": "Returns",
-    "cancellations": "Cancellations",
-    "deliveryPerformance": "Delivery Performance",
-    "revenueAnalysis": "Revenue Analysis",
-    "fleetEfficiency": "Fleet Efficiency"
-  },
-  "pages": {
-    "dashboardOverview": "Dashboard Overview",
-    "liveMap": "Live Shipment Map",
-    "fleetStatus": "Fleet Status",
-    "allShipments": "All Shipments",
-    "trackShipment": "Track Shipment",
-    "createShipment": "Create Shipment",
-    "delayedShipments": "Delayed Shipments",
-    "vehicleList": "Vehicle List",
-    "createVehicle": "Create Vehicle",
-    "maintenanceLogs": "Maintenance Logs",
-    "driverAssignments": "Driver Assignments",
-    "vendorDirectory": "Vendor Directory",
-    "addVendor": "Add Vendor",
-    "clientsList": "Clients List",
-    "clientFeedback": "Client Feedback",
-    "allOrders": "All Orders",
-    "scheduledDeliveries": "Scheduled Deliveries",
-    "returns": "Returns",
-    "cancellations": "Cancellations",
-    "deliveryPerformance": "Delivery Performance",
-    "revenueAnalysis": "Revenue Analysis",
-    "fleetEfficiency": "Fleet Efficiency",
-    "admin": {
-      "dashboard": "Admin Dashboard",
-      "users": "User Management",
-      "settings": "System Settings",
-      "vehicles": "All Vehicles",
-      "createVehicle": "Add Vehicle",
-      "editVehicle": "Edit Vehicle"
-    }
-  },
-  "tables": {
-    "common": {
-      "loading": "Loading...",
-      "empty": "No records found.",
-      "loadError": "Unable to load table data.",
-      "previous": "Previous",
-      "next": "Next",
-      "showingSummary": "Showing {{from}} to {{to}} of {{total}} {{entity}}",
-      "actions": "Row actions",
-      "actionsMenu": "Actions"
-    },
-    "shipments": {
-      "title": "Shipment List",
-      "entity": "shipments",
-      "columns": {
-        "id": "ID",
-        "customer": "Customer",
-        "origin": "Origin",
-        "destination": "Destination",
-        "departure": "Departure",
-        "eta": "ETA",
-        "status": "Status",
-        "type": "Type",
-        "priority": "Priority"
-      },
-      "status": {
-        "in_transit": "In Transit",
-        "pending": "Pending",
-        "delivered": "Delivered"
-      },
-      "type": {
-        "road": "Road",
-        "air": "Air",
-        "sea": "Sea"
-      },
-      "priority": {
-        "standard": "Standard",
-        "express": "Express",
-        "economy": "Economy"
-      },
-      "actions": {
-        "view": "View Details",
-        "edit": "Edit Shipment",
-        "duplicate": "Duplicate",
-        "delete": "Delete"
-      },
-      "filters": {
-        "search": "Search",
-        "searchPlaceholder": "Search shipments...",
-        "status": "Status",
-        "allStatuses": "All statuses",
-        "type": "Type",
-        "allTypes": "All types",
-        "priority": "Priority",
-        "allPriorities": "All priorities"
-      }
-    },
-    "adminVehicles": {
-      "title": "Vehicle List",
-      "entity": "vehicles",
-      "columns": {
-        "registarskaOznaka": "Registration Mark",
-        "marka": "Make",
-        "komercijalnaOznaka": "Model",
-        "brojSasije": "Chassis Number",
-        "vrstaVozila": "Vehicle Category",
-        "vazenjeRegistracije": "Registration Valid Until"
-      },
-      "actions": {
-        "edit": "Edit Vehicle",
-        "delete": "Delete"
-      },
-      "filters": {
-        "search": "Search",
-        "searchPlaceholder": "Search by plate, VIN, make, model...",
-        "vrstaVozila": "Vehicle Category",
-        "allVrste": "All categories"
-      }
-    }
-  },
-  "forms": {
-    "common": {
-      "previous": "Previous",
-      "next": "Next",
-      "stepOf": "Step {{current}} of {{total}}",
-      "percentComplete": "{{percent}}% Complete",
-      "fieldRequired": "This field is required",
-      "errors": {
-        "required": "This field is required",
-        "email": "Enter a valid email address",
-        "minLength": "Must be at least {{min}} characters",
-        "maxLength": "Must be at most {{max}} characters",
-        "min": "Must be at least {{min}}",
-        "max": "Must be at most {{max}}",
-        "pattern": "Invalid format",
-        "passwordMismatch": "Passwords do not match",
-        "invalid": "This value is invalid"
-      }
-    },
-    "createShipment": {
-      "steps": {
-        "type": "Shipment Type",
-        "addresses": "Addresses",
-        "packages": "Package Details",
-        "services": "Services",
-        "review": "Review"
-      },
-      "sections": {
-        "type": {
-          "title": "Shipment Type & Priority",
-          "subtitle": "Select the type of shipment and delivery priority"
+      "nav": {
+        "sections": {
+          "dashboard": "DASHBOARD",
+          "shipments": "SHIPMENTS",
+          "fleet": "FLEET MANAGEMENT",
+          "vendorsClients": "VENDORS & CLIENTS",
+          "orders": "ORDERS",
+          "reports": "REPORTS"
         },
-        "origin": {
-          "title": "Origin Address",
-          "subtitle": "Enter the pickup location details"
+        "overview": "Overview",
+        "liveMap": "Live Shipment Map",
+        "fleetStatus": "Fleet Status",
+        "allShipments": "All Shipments",
+        "trackShipment": "Track Shipment",
+        "createShipment": "Create Shipment",
+        "delayedShipments": "Delayed Shipments",
+        "vehicleList": "Vehicle List",
+        "createVehicle": "Create Vehicle",
+        "maintenanceLogs": "Maintenance Logs",
+        "driverAssignments": "Driver Assignments",
+        "vendorDirectory": "Vendor Directory",
+        "addVendor": "Add Vendor",
+        "clientsList": "Clients List",
+        "clientFeedback": "Client Feedback",
+        "allOrders": "All Orders",
+        "scheduledDeliveries": "Scheduled Deliveries",
+        "returns": "Returns",
+        "cancellations": "Cancellations",
+        "deliveryPerformance": "Delivery Performance",
+        "revenueAnalysis": "Revenue Analysis",
+        "fleetEfficiency": "Fleet Efficiency"
+      },
+      "pages": {
+        "dashboardOverview": "Dashboard Overview",
+        "liveMap": "Live Shipment Map",
+        "fleetStatus": "Fleet Status",
+        "allShipments": "All Shipments",
+        "trackShipment": "Track Shipment",
+        "createShipment": "Create Shipment",
+        "delayedShipments": "Delayed Shipments",
+        "vehicleList": "Vehicle List",
+        "createVehicle": "Create Vehicle",
+        "maintenanceLogs": "Maintenance Logs",
+        "driverAssignments": "Driver Assignments",
+        "vendorDirectory": "Vendor Directory",
+        "addVendor": "Add Vendor",
+        "clientsList": "Clients List",
+        "clientFeedback": "Client Feedback",
+        "allOrders": "All Orders",
+        "scheduledDeliveries": "Scheduled Deliveries",
+        "returns": "Returns",
+        "cancellations": "Cancellations",
+        "deliveryPerformance": "Delivery Performance",
+        "revenueAnalysis": "Revenue Analysis",
+        "fleetEfficiency": "Fleet Efficiency"
+      },
+      "features": {
+        "shipments": {
+          "form": {
+            "steps": {
+              "type": "Shipment Type",
+              "addresses": "Addresses",
+              "packages": "Package Details",
+              "services": "Services",
+              "review": "Review"
+            },
+            "sections": {
+              "type": {
+                "title": "Shipment Type & Priority",
+                "subtitle": "Select the type of shipment and delivery priority"
+              },
+              "origin": {
+                "title": "Origin Address",
+                "subtitle": "Enter the pickup location details"
+              },
+              "destination": {
+                "title": "Destination Address",
+                "subtitle": "Enter the delivery location details"
+              },
+              "packages": {
+                "title": "Package Details",
+                "subtitle": "Add items to your shipment"
+              },
+              "services": {
+                "title": "Special Services & Options",
+                "subtitle": "Configure additional services for your shipment"
+              },
+              "review": {
+                "title": "Review & Cost Estimate",
+                "subtitle": "Review your shipment details and get a cost estimate"
+              }
+            },
+            "fields": {
+              "shipmentType": "Shipment Type",
+              "deliveryPriority": "Delivery Priority",
+              "pickupDate": "Pickup Date",
+              "deliveryDate": "Preferred Delivery Date",
+              "companyName": "Company Name",
+              "contactName": "Contact Name",
+              "addressLine1": "Address Line 1",
+              "addressLine2": "Address Line 2 (Optional)",
+              "city": "City",
+              "state": "State/Province",
+              "zip": "ZIP/Postal Code",
+              "phone": "Phone Number",
+              "email": "Email Address",
+              "preferredCarrier": "Preferred Carrier",
+              "serviceLevel": "Service Level",
+              "specialInstructions": "Special Instructions"
+            },
+            "placeholders": {
+              "pickupDate": "Select pickup date",
+              "deliveryDate": "Select delivery date",
+              "companyName": "Enter company name",
+              "contactName": "Enter contact name",
+              "addressLine1": "Enter street address",
+              "addressLine2": "Enter apartment, suite, etc.",
+              "city": "Enter city",
+              "state": "Select state",
+              "zip": "Enter ZIP code",
+              "phone": "Enter phone number",
+              "email": "Enter email address",
+              "selectCarrier": "Select carrier",
+              "selectService": "Select service",
+              "specialInstructions": "Enter any special handling instructions, delivery notes, or requirements..."
+            },
+            "shipmentTypes": {
+              "standardPackage": "Standard Package",
+              "documentEnvelope": "Document Envelope",
+              "freightPallet": "Freight/Pallet",
+              "bulkCargo": "Bulk Cargo"
+            },
+            "priority": {
+              "standard": {
+                "title": "Standard",
+                "description": "5-7 business days",
+                "price": "$15.99"
+              },
+              "express": {
+                "title": "Express",
+                "description": "2-3 business days",
+                "price": "$29.99"
+              },
+              "overnight": {
+                "title": "Overnight",
+                "description": "Next business day",
+                "price": "$49.99"
+              }
+            },
+            "packages": {
+              "itemLabel": "Item {{index}}",
+              "description": "Description",
+              "descriptionPlaceholder": "Enter item description",
+              "category": "Category",
+              "quantity": "Quantity",
+              "weight": "Weight (lbs)",
+              "value": "Value ($)",
+              "hazardous": "Hazardous",
+              "dimensions": "Dimensions (inches)",
+              "length": "Length",
+              "width": "Width",
+              "height": "Height",
+              "addItem": "Add Another Item",
+              "totalItems": "Total Items",
+              "totalWeight": "Total Weight",
+              "totalValue": "Total Value",
+              "weightValue": "{{weight}} lbs",
+              "currencyValue": "${{value}}"
+            },
+            "categories": {
+              "general": "General Merchandise",
+              "electronics": "Electronics",
+              "clothing": "Clothing",
+              "food": "Food & Beverage",
+              "documents": "Documents"
+            },
+            "carriers": {
+              "fedex": "FedEx",
+              "ups": "UPS",
+              "dhl": "DHL",
+              "usps": "USPS"
+            },
+            "serviceLevels": {
+              "ground": "Ground",
+              "express": "Express",
+              "overnight": "Overnight"
+            },
+            "services": {
+              "insuranceCoverage": "Insurance Coverage",
+              "insuranceCoverageDesc": "Protect your shipment against loss or damage",
+              "signatureRequired": "Signature Required",
+              "signatureRequiredDesc": "Require recipient signature upon delivery",
+              "fragileHandling": "Fragile Handling",
+              "fragileHandlingDesc": "Extra care for delicate items",
+              "temperatureControl": "Temperature Control",
+              "temperatureControlDesc": "Climate-controlled transport",
+              "infoBanner": "Additional services may affect shipping cost and delivery time. Review the cost estimate in the next step."
+            },
+            "review": {
+              "summary": "Shipment Summary",
+              "type": "Type",
+              "priority": "Priority",
+              "totalItems": "Total Items",
+              "totalWeight": "Total Weight",
+              "totalValue": "Total Value",
+              "route": "Route",
+              "from": "From",
+              "to": "To",
+              "services": "Special Services",
+              "noServices": "No special services selected.",
+              "costBreakdown": "Cost Breakdown",
+              "baseShipping": "Base Shipping",
+              "weightCharge": "Weight Charge",
+              "servicesCharge": "Services",
+              "totalCost": "Total Estimated Cost",
+              "recalculate": "Recalculate Estimate",
+              "estimateNote": "This is an estimate. Final cost may vary based on actual dimensions and carrier rates."
+            },
+            "actions": {
+              "create": "Create Shipment"
+            }
+          },
+          "table": {
+            "title": "Shipment List",
+            "entity": "shipments",
+            "columns": {
+              "id": "ID",
+              "customer": "Customer",
+              "origin": "Origin",
+              "destination": "Destination",
+              "departure": "Departure",
+              "eta": "ETA",
+              "status": "Status",
+              "type": "Type",
+              "priority": "Priority"
+            },
+            "status": {
+              "in_transit": "In Transit",
+              "pending": "Pending",
+              "delivered": "Delivered"
+            },
+            "type": {
+              "road": "Road",
+              "air": "Air",
+              "sea": "Sea"
+            },
+            "priority": {
+              "standard": "Standard",
+              "express": "Express",
+              "economy": "Economy"
+            },
+            "actions": {
+              "view": "View Details",
+              "edit": "Edit Shipment",
+              "duplicate": "Duplicate",
+              "delete": "Delete"
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search shipments...",
+              "status": "Status",
+              "allStatuses": "All statuses",
+              "type": "Type",
+              "allTypes": "All types",
+              "priority": "Priority",
+              "allPriorities": "All priorities"
+            }
+          }
         },
-        "destination": {
-          "title": "Destination Address",
-          "subtitle": "Enter the delivery location details"
-        },
-        "packages": {
-          "title": "Package Details",
-          "subtitle": "Add items to your shipment"
-        },
-        "services": {
-          "title": "Special Services & Options",
-          "subtitle": "Configure additional services for your shipment"
-        },
-        "review": {
-          "title": "Review & Cost Estimate",
-          "subtitle": "Review your shipment details and get a cost estimate"
+        "fleet": {
+          "vehicles": {
+            "form": {
+              "title": "Create Vehicle",
+              "steps": {
+                "main": "Vehicle Details"
+              },
+              "sections": {
+                "identity": {
+                  "title": "Vehicle Information",
+                  "subtitle": "Enter basic identification details for the vehicle"
+                },
+                "specs": {
+                  "title": "Specifications",
+                  "subtitle": "Configure type, capacity, and operational status"
+                }
+              },
+              "fields": {
+                "plateNumber": "License Plate",
+                "make": "Make",
+                "model": "Model",
+                "year": "Year",
+                "vehicleType": "Vehicle Type",
+                "capacityKg": "Capacity (kg)",
+                "status": "Status",
+                "notes": "Notes"
+              },
+              "placeholders": {
+                "plateNumber": "Enter license plate number",
+                "make": "Enter manufacturer",
+                "model": "Enter model name",
+                "year": "e.g. 2024",
+                "vehicleType": "Select vehicle type",
+                "capacityKg": "Enter max load capacity",
+                "status": "Select status",
+                "notes": "Optional notes about the vehicle..."
+              },
+              "vehicleTypes": {
+                "van": "Van",
+                "truck": "Truck",
+                "trailer": "Trailer"
+              },
+              "statuses": {
+                "active": "Active",
+                "maintenance": "In Maintenance",
+                "retired": "Retired"
+              },
+              "actions": {
+                "create": "Create Vehicle"
+              }
+            }
+          }
         }
-      },
-      "fields": {
-        "shipmentType": "Shipment Type",
-        "deliveryPriority": "Delivery Priority",
-        "pickupDate": "Pickup Date",
-        "deliveryDate": "Preferred Delivery Date",
-        "companyName": "Company Name",
-        "contactName": "Contact Name",
-        "addressLine1": "Address Line 1",
-        "addressLine2": "Address Line 2 (Optional)",
-        "city": "City",
-        "state": "State/Province",
-        "zip": "ZIP/Postal Code",
-        "phone": "Phone Number",
-        "email": "Email Address",
-        "preferredCarrier": "Preferred Carrier",
-        "serviceLevel": "Service Level",
-        "specialInstructions": "Special Instructions"
-      },
-      "placeholders": {
-        "pickupDate": "Select pickup date",
-        "deliveryDate": "Select delivery date",
-        "companyName": "Enter company name",
-        "contactName": "Enter contact name",
-        "addressLine1": "Enter street address",
-        "addressLine2": "Enter apartment, suite, etc.",
-        "city": "Enter city",
-        "state": "Select state",
-        "zip": "Enter ZIP code",
-        "phone": "Enter phone number",
-        "email": "Enter email address",
-        "selectCarrier": "Select carrier",
-        "selectService": "Select service",
-        "specialInstructions": "Enter any special handling instructions, delivery notes, or requirements..."
-      },
-      "shipmentTypes": {
-        "standardPackage": "Standard Package",
-        "documentEnvelope": "Document Envelope",
-        "freightPallet": "Freight/Pallet",
-        "bulkCargo": "Bulk Cargo"
-      },
-      "priority": {
-        "standard": {
-          "title": "Standard",
-          "description": "5-7 business days",
-          "price": "$15.99"
-        },
-        "express": {
-          "title": "Express",
-          "description": "2-3 business days",
-          "price": "$29.99"
-        },
-        "overnight": {
-          "title": "Overnight",
-          "description": "Next business day",
-          "price": "$49.99"
-        }
-      },
-      "packages": {
-        "itemLabel": "Item {{index}}",
-        "description": "Description",
-        "descriptionPlaceholder": "Enter item description",
-        "category": "Category",
-        "quantity": "Quantity",
-        "weight": "Weight (lbs)",
-        "value": "Value ($)",
-        "hazardous": "Hazardous",
-        "dimensions": "Dimensions (inches)",
-        "length": "Length",
-        "width": "Width",
-        "height": "Height",
-        "addItem": "Add Another Item",
-        "totalItems": "Total Items",
-        "totalWeight": "Total Weight",
-        "totalValue": "Total Value",
-        "weightValue": "{{weight}} lbs",
-        "currencyValue": "${{value}}"
-      },
-      "categories": {
-        "general": "General Merchandise",
-        "electronics": "Electronics",
-        "clothing": "Clothing",
-        "food": "Food & Beverage",
-        "documents": "Documents"
-      },
-      "carriers": {
-        "fedex": "FedEx",
-        "ups": "UPS",
-        "dhl": "DHL",
-        "usps": "USPS"
-      },
-      "serviceLevels": {
-        "ground": "Ground",
-        "express": "Express",
-        "overnight": "Overnight"
-      },
-      "services": {
-        "insuranceCoverage": "Insurance Coverage",
-        "insuranceCoverageDesc": "Protect your shipment against loss or damage",
-        "signatureRequired": "Signature Required",
-        "signatureRequiredDesc": "Require recipient signature upon delivery",
-        "fragileHandling": "Fragile Handling",
-        "fragileHandlingDesc": "Extra care for delicate items",
-        "temperatureControl": "Temperature Control",
-        "temperatureControlDesc": "Climate-controlled transport",
-        "infoBanner": "Additional services may affect shipping cost and delivery time. Review the cost estimate in the next step."
-      },
-      "review": {
-        "summary": "Shipment Summary",
-        "type": "Type",
-        "priority": "Priority",
-        "totalItems": "Total Items",
-        "totalWeight": "Total Weight",
-        "totalValue": "Total Value",
-        "route": "Route",
-        "from": "From",
-        "to": "To",
-        "services": "Special Services",
-        "noServices": "No special services selected.",
-        "costBreakdown": "Cost Breakdown",
-        "baseShipping": "Base Shipping",
-        "weightCharge": "Weight Charge",
-        "servicesCharge": "Services",
-        "totalCost": "Total Estimated Cost",
-        "recalculate": "Recalculate Estimate",
-        "estimateNote": "This is an estimate. Final cost may vary based on actual dimensions and carrier rates."
-      },
-      "actions": {
-        "create": "Create Shipment"
-      }
-    },
-    "createVehicle": {
-      "title": "Create Vehicle",
-      "steps": {
-        "main": "Vehicle Details"
-      },
-      "sections": {
-        "identity": {
-          "title": "Vehicle Information",
-          "subtitle": "Enter basic identification details for the vehicle"
-        },
-        "specs": {
-          "title": "Specifications",
-          "subtitle": "Configure type, capacity, and operational status"
-        }
-      },
-      "fields": {
-        "plateNumber": "License Plate",
-        "make": "Make",
-        "model": "Model",
-        "year": "Year",
-        "vehicleType": "Vehicle Type",
-        "capacityKg": "Capacity (kg)",
-        "status": "Status",
-        "notes": "Notes"
-      },
-      "placeholders": {
-        "plateNumber": "Enter license plate number",
-        "make": "Enter manufacturer",
-        "model": "Enter model name",
-        "year": "e.g. 2024",
-        "vehicleType": "Select vehicle type",
-        "capacityKg": "Enter max load capacity",
-        "status": "Select status",
-        "notes": "Optional notes about the vehicle..."
-      },
-      "vehicleTypes": {
-        "van": "Van",
-        "truck": "Truck",
-        "trailer": "Trailer"
-      },
-      "statuses": {
-        "active": "Active",
-        "maintenance": "In Maintenance",
-        "retired": "Retired"
-      },
-      "actions": {
-        "create": "Create Vehicle"
-      }
-    },
-    "adminVehicle": {
-      "titleCreate": "Add Vehicle",
-      "titleEdit": "Edit Vehicle",
-      "steps": {
-        "registration": "Registration & Document",
-        "owner": "Owner & User",
-        "identity": "Vehicle Identity",
-        "mass": "Mass & Capacity",
-        "engine": "Engine",
-        "registrationValidity": "Registration & Chip Data"
-      },
-      "sections": {
-        "document": {
-          "title": "Driving License (Front)",
-          "subtitle": "Registration mark, dates, and document identifiers"
-        },
-        "vlasnik": {
-          "title": "Owner Data (C.1)",
-          "subtitle": "Surname, first name, and residence or company seat"
-        },
-        "korisnik": {
-          "title": "User Data (C.3)",
-          "subtitle": "If the user differs from the owner"
-        },
-        "identity": {
-          "title": "Vehicle Identity (D / E / J / R)",
-          "subtitle": "Make, type, model, chassis number, category, and color"
-        },
-        "mass": {
-          "title": "Mass & Axles (F / G / L)",
-          "subtitle": "Permitted mass, empty mass, payload, and axle count"
-        },
-        "engine": {
-          "title": "Engine (P / Q)",
-          "subtitle": "Displacement, power, fuel type, engine number, power-to-mass ratio"
-        },
-        "validity": {
-          "title": "Registration Validity & Chip (H / K / S)",
-          "subtitle": "Registration expiry, homologation, seating, standing places, sale restriction, chip data"
-        }
-      },
-      "fields": {
-        "registarskaOznaka": "Registration Mark (A)",
-        "datumPrveRegistracije": "Date of First Registration (B)",
-        "datumIzdavanjaDozvole": "Date of License Issue (I)",
-        "brojDokumenta": "Document Number",
-        "serijskiBrojDozvole": "License Serial Number",
-        "vlasnikPrezime": "Owner Surname (C.1.1)",
-        "vlasnikIme": "Owner First Name (C.1.2)",
-        "vlasnikPrebivaliste": "Owner Residence / Seat (C.1.3)",
-        "korisnikPrezime": "User Surname (C.3.1)",
-        "korisnikIme": "User First Name (C.3.2)",
-        "korisnikPrebivaliste": "User Residence / Seat (C.3.3)",
-        "jmbgVlasnika": "Owner Personal ID (JMBG)",
-        "jmbgKorisnika": "User Personal ID (JMBG)",
-        "marka": "Vehicle Make (D.1)",
-        "tipVozila": "Vehicle Type (D.2)",
-        "komercijalnaOznaka": "Commercial Name / Model (D.3)",
-        "brojSasije": "Chassis Number (E)",
-        "vrstaVozila": "Vehicle Category (J)",
-        "boja": "Vehicle Color (R)",
-        "najvecaDozvoljenaMasa": "Maximum Permitted Mass (F.1)",
-        "masaVozila": "Vehicle Mass (G)",
-        "nosivostKg": "Payload Capacity (kg)",
-        "brojOsovina": "Number of Axles (L)",
-        "radnaZapremina": "Engine Displacement (P.1)",
-        "snagaKw": "Engine Power kW (P.2)",
-        "vrstaGoriva": "Fuel / Drive Type (P.3)",
-        "brojMotora": "Engine Number (P.5)",
-        "odnosSnagaMasa": "Power-to-Mass Ratio kW/kg (Q)",
-        "vazenjeRegistracije": "Registration Valid Until (H)",
-        "homologacijskaOznaka": "Homologation Mark (K)",
-        "brojMestaSedenje": "Seating Capacity (S.1)",
-        "brojMestaStajanje": "Standing Places (S.2)",
-        "zabranaOtudjenjaDo": "Sale Restriction Until",
-        "podaciNaCipu": "Chip Data"
-      },
-      "placeholders": {
-        "registarskaOznaka": "e.g. BG-123-AA",
-        "brojDokumenta": "Document number (bottom left)",
-        "serijskiBrojDozvole": "License serial (bottom right)",
-        "vlasnikPrezime": "Owner surname",
-        "vlasnikIme": "Owner first name",
-        "vlasnikPrebivaliste": "Address or company seat",
-        "korisnikPrezime": "User surname",
-        "korisnikIme": "User first name",
-        "korisnikPrebivaliste": "User address or seat",
-        "jmbgVlasnika": "13-digit personal ID",
-        "jmbgKorisnika": "13-digit personal ID",
-        "marka": "e.g. Mercedes-Benz",
-        "tipVozila": "Exact variant per technical docs",
-        "komercijalnaOznaka": "e.g. Sprinter",
-        "brojSasije": "17-character VIN",
-        "vrstaVozila": "Select category",
-        "boja": "Official registered color",
-        "najvecaDozvoljenaMasa": "kg",
-        "masaVozila": "Empty mass in kg",
-        "nosivostKg": "Max cargo weight in kg",
-        "brojOsovina": "Number of axles",
-        "radnaZapremina": "ccm",
-        "snagaKw": "kW",
-        "vrstaGoriva": "Select fuel type",
-        "brojMotora": "Engine identification number",
-        "odnosSnagaMasa": "kW/kg",
-        "homologacijskaOznaka": "Homologation code",
-        "brojMestaSedenje": "Including driver seat",
-        "brojMestaStajanje": "For buses and combi vehicles",
-        "podaciNaCipu": "Additional chip-encoded vehicle data"
-      },
-      "vrstaVozila": {
-        "putnicko": "Passenger",
-        "teretno": "Cargo",
-        "motocikl": "Motorcycle",
-        "autobus": "Bus",
-        "prikljucno": "Trailer",
-        "radno": "Work vehicle"
-      },
-      "vrstaGoriva": {
-        "benzin": "Petrol",
-        "dizel": "Diesel",
-        "gas": "LPG / CNG",
-        "elektricni": "Electric",
-        "hibrid": "Hybrid"
-      },
-      "actions": {
-        "create": "Create Vehicle",
-        "update": "Save Changes"
-      }
-    },
-    "registerCompany": {
-      "steps": {
-        "personal": "Personal details",
-        "company": "Company",
-        "location": "Location"
-      },
-      "sections": {
-        "contact": {
-          "title": "Contact information",
-          "subtitle": "Your personal details and login credentials"
-        },
-        "business": {
-          "title": "Company information",
-          "subtitle": "Details about your organization"
-        },
-        "address": {
-          "title": "Business address",
-          "subtitle": "Where your company is located"
-        }
-      },
-      "fields": {
-        "title": "Title",
-        "firstName": "First name",
-        "lastName": "Last name",
-        "email": "Email",
-        "password": "Password",
-        "passwordConfirm": "Confirm password",
-        "phone": "Phone",
-        "companyName": "Company name",
-        "vatId": "VAT ID",
-        "country": "Country",
-        "city": "City",
-        "postcode": "Postcode",
-        "address": "Address"
-      },
-      "titles": {
-        "mr": "Mr",
-        "ms": "Ms"
-      },
-      "countries": {
-        "BA": "Bosnia and Herzegovina",
-        "RS": "Serbia",
-        "HR": "Croatia",
-        "ME": "Montenegro",
-        "MK": "North Macedonia",
-        "AL": "Albania",
-        "SI": "Slovenia",
-        "DE": "Germany",
-        "AT": "Austria",
-        "IT": "Italy",
-        "FR": "France",
-        "NL": "Netherlands",
-        "BE": "Belgium",
-        "CH": "Switzerland",
-        "GB": "United Kingdom",
-        "PL": "Poland",
-        "CZ": "Czech Republic",
-        "HU": "Hungary",
-        "RO": "Romania",
-        "BG": "Bulgaria",
-        "GR": "Greece",
-        "ES": "Spain",
-        "PT": "Portugal",
-        "SE": "Sweden",
-        "DK": "Denmark"
-      },
-      "actions": {
-        "submit": "Submit registration"
       }
     }
   }

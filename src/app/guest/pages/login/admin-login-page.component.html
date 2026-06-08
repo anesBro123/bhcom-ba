@@ -1,9 +1,9 @@
 <div class="login login--admin">
   <div class="login__panel">
     <div class="login__card">
-      <span class="login__badge">{{ 'login.admin.badge' | translate }}</span>
-      <h1 class="login__title">{{ 'login.admin.title' | translate }}</h1>
-      <p class="login__subtitle">{{ 'login.admin.subtitle' | translate }}</p>
+      <span class="login__badge">{{ 'guest.login.admin.badge' | translate }}</span>
+      <h1 class="login__title">{{ 'guest.login.admin.title' | translate }}</h1>
+      <p class="login__subtitle">{{ 'guest.login.admin.subtitle' | translate }}</p>
 
       @if (errorKey(); as key) {
         <p class="login__error" role="alert">{{ key | translate }}</p>
@@ -19,16 +19,16 @@
 
       <footer class="auth-card__footer">
         <p class="auth-card__prompt">
-          {{ 'login.switchPortal.label' | translate }}
+          {{ 'guest.login.switchPortal.label' | translate }}
           <a [routerLink]="signInUrl" class="auth-card__action">
-            {{ 'login.switchPortal.action' | translate }}
+            {{ 'guest.login.switchPortal.action' | translate }}
           </a>
         </p>
 
         <p class="auth-card__prompt">
-          {{ 'login.createAccount.label' | translate }}
+          {{ 'guest.login.createAccount.label' | translate }}
           <a [routerLink]="registerUrl" class="auth-card__action">
-            {{ 'login.createAccount.action' | translate }}
+            {{ 'guest.login.createAccount.action' | translate }}
           </a>
         </p>
       </footer>

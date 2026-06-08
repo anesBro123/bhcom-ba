@@ -16,32 +16,32 @@ export default [
       {
         path: 'dashboard',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.admin.dashboard' },
+        data: { titleKey: 'portal.admin.pages.dashboard' },
       },
       {
         path: 'users',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.admin.users' },
+        data: { titleKey: 'portal.admin.pages.users' },
       },
       {
         path: 'settings',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'pages.admin.settings' },
+        data: { titleKey: 'portal.admin.pages.settings' },
       },
       {
         path: 'vehicles',
         component: VehicleTablePageComponent,
-        data: { titleKey: 'pages.admin.vehicles' },
+        data: { titleKey: 'portal.admin.pages.vehicles' },
       },
       {
         path: 'vehicles/create',
         component: VehicleFormPageComponent,
-        data: { titleKey: 'pages.admin.createVehicle' },
+        data: { titleKey: 'portal.admin.pages.createVehicle' },
       },
       {
         path: 'vehicles/:id/edit',
         component: VehicleFormPageComponent,
-        data: { titleKey: 'pages.admin.editVehicle' },
+        data: { titleKey: 'portal.admin.pages.editVehicle' },
       },
     ],
   },

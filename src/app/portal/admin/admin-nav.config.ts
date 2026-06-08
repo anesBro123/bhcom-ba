@@ -7,16 +7,16 @@ import { NavSection } from '../common/models/nav.model';
 
 export const ADMIN_NAV: NavSection[] = [
   {
-    titleKey: 'nav.admin.sections.vehicles',
+    titleKey: 'portal.admin.nav.sections.vehicles',
     items: [
       {
-        labelKey: 'nav.admin.allVehicles',
+        labelKey: 'portal.admin.nav.allVehicles',
         route: ADMIN_VEHICLES_URL,
         icon: LucideTruck,
         exact: true,
       },
       {
-        labelKey: 'nav.admin.createVehicle',
+        labelKey: 'portal.admin.nav.createVehicle',
         route: ADMIN_CREATE_VEHICLE_URL,
         icon: LucideSquarePlus,
       },

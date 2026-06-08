@@ -1,6 +1,6 @@
 <app-form-section
-  titleKey="forms.createShipment.sections.services.title"
-  subtitleKey="forms.createShipment.sections.services.subtitle"
+  titleKey="portal.employee.features.shipments.form.sections.services.title"
+  subtitleKey="portal.employee.features.shipments.form.sections.services.subtitle"
   [icon]="LucideShield"
 >
   <div class="services-layout">
@@ -26,10 +26,10 @@
 
     <div class="services-layout__selects">
       <div class="form-field">
-        <label class="form-label">{{ 'forms.createShipment.fields.preferredCarrier' | translate }}</label>
+        <label class="form-label">{{ 'portal.employee.features.shipments.form.fields.preferredCarrier' | translate }}</label>
         <div class="form-select-wrap">
           <select class="form-control form-control--select" [formControl]="$any(form().get('preferredCarrier'))">
-            <option value="">{{ 'forms.createShipment.placeholders.selectCarrier' | translate }}</option>
+            <option value="">{{ 'portal.employee.features.shipments.form.placeholders.selectCarrier' | translate }}</option>
             @for (carrier of carriers; track carrier.value) {
               <option [value]="carrier.value">{{ carrier.labelKey! | translate }}</option>
             }
@@ -41,10 +41,10 @@
       </div>
 
       <div class="form-field">
-        <label class="form-label">{{ 'forms.createShipment.fields.serviceLevel' | translate }}</label>
+        <label class="form-label">{{ 'portal.employee.features.shipments.form.fields.serviceLevel' | translate }}</label>
         <div class="form-select-wrap">
           <select class="form-control form-control--select" [formControl]="$any(form().get('serviceLevel'))">
-            <option value="">{{ 'forms.createShipment.placeholders.selectService' | translate }}</option>
+            <option value="">{{ 'portal.employee.features.shipments.form.placeholders.selectService' | translate }}</option>
             @for (level of serviceLevels; track level.value) {
               <option [value]="level.value">{{ level.labelKey! | translate }}</option>
             }
@@ -58,17 +58,17 @@
   </div>
 
   <div class="services-instructions">
-    <label class="form-label">{{ 'forms.createShipment.fields.specialInstructions' | translate }}</label>
+    <label class="form-label">{{ 'portal.employee.features.shipments.form.fields.specialInstructions' | translate }}</label>
     <textarea
       class="form-control form-control--textarea"
       rows="4"
       [formControl]="$any(form().get('specialInstructions'))"
-      [placeholder]="'forms.createShipment.placeholders.specialInstructions' | translate"
+      [placeholder]="'portal.employee.features.shipments.form.placeholders.specialInstructions' | translate"
     ></textarea>
   </div>
 
   <div class="services-info">
     <svg lucideInfo [size]="16" />
-    <p>{{ 'forms.createShipment.services.infoBanner' | translate }}</p>
+    <p>{{ 'portal.employee.features.shipments.form.services.infoBanner' | translate }}</p>
   </div>
 </app-form-section>

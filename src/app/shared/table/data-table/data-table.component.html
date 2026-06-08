@@ -15,7 +15,7 @@
     </header>
 
     @if (tableStore.loading()) {
-      <div class="data-table-card__state">{{ 'tables.common.loading' | translate }}</div>
+      <div class="data-table-card__state">{{ 'shared.table.common.loading' | translate }}</div>
     } @else if (tableStore.error()) {
       <div class="data-table-card__state data-table-card__state--error">
         {{ tableStore.error()! | translate }}
@@ -75,7 +75,7 @@
           </li>
         } @empty {
           <li class="data-table-row-card__empty">
-            {{ 'tables.common.empty' | translate }}
+            {{ 'shared.table.common.empty' | translate }}
           </li>
         }
       </ul>
@@ -177,7 +177,7 @@
                     (hasActions() ? 1 : 0)
                   "
                 >
-                  {{ 'tables.common.empty' | translate }}
+                  {{ 'shared.table.common.empty' | translate }}
                 </td>
               </tr>
             }

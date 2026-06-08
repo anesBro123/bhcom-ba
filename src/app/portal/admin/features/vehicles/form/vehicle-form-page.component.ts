@@ -39,8 +39,8 @@ export class VehicleFormPageComponent {
     return {
       ...AdminVehicleForm,
       titleKey: editing
-        ? 'forms.adminVehicle.titleEdit'
-        : 'forms.adminVehicle.titleCreate',
+        ? 'portal.admin.features.vehicles.form.titleEdit'
+        : 'portal.admin.features.vehicles.form.titleCreate',
       actions: {
         ...AdminVehicleForm.actions,
         submit: editing

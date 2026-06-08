@@ -7,7 +7,7 @@ export const EMPLOYEE_PORTAL_CONFIG: PortalConfig = {
   portalKind: 'employee',
   nav: EMPLOYEE_NAV,
   shell: {
-    brandSuffixKey: 'portal.employee.badge',
+    brandSuffixKey: 'portal.shell.employee.badge',
     homeUrl: EMPLOYEE_HOME_URL,
   },
 };

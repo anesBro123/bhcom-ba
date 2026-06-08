@@ -13,14 +13,14 @@ alwaysApply: false
 - Nav types: `portal/common/models/nav.model.ts`; configs: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
 - `PORTAL_CONFIG` provided on shell route in `employee.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
-- `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest topbar.
-- `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest topbar.
-- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No sidebar.
+- `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest shared.topbar.
+- `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest shared.topbar.
+- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No shared.sidebar.
 - Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
-- `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest topbar.
-- Profile icon opens **account menu** (`topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
+- `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
+- Profile icon opens **account menu** (`shared.topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
 
-## SidebarService (`portal/shell/sidebar.service.ts`)
+## SidebarService (`portal/shell/shared.sidebar.service.ts`)
 
 | API | Purpose |
 |-----|---------|
@@ -34,7 +34,7 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 - Topbar: `LucideMenu` → `openMobile()`.
 - Sidebar: `position: fixed`, slides in; brand row shows **X** (`closeMobile`), not panel collapse toggle.
 - `portal-shell`: backdrop button when `mobileOpen()`; single-column grid.
-- i18n: `topbar.openMenu`, `sidebar.close`, `sidebar.collapse` / `sidebar.expand`.
+- i18n: `shared.topbar.openMenu`, `shared.sidebar.close`, `shared.sidebar.collapse` / `shared.sidebar.expand`.
 
 ## Desktop sidebar
 

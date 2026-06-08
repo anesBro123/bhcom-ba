@@ -7,7 +7,7 @@ export const ADMIN_PORTAL_CONFIG: PortalConfig = {
   portalKind: 'admin',
   nav: ADMIN_NAV,
   shell: {
-    brandSuffixKey: 'portal.admin.badge',
+    brandSuffixKey: 'portal.shell.admin.badge',
     homeUrl: ADMIN_HOME_URL,
   },
 };

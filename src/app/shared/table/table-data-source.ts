@@ -26,7 +26,7 @@ export function bindTableDataSource<T>(
         load(query).pipe(
           catchError(() => {
             store.setLoading(false);
-            store.setError('tables.common.loadError');
+            store.setError('shared.table.common.loadError');
             return of(null);
           }),
         ),

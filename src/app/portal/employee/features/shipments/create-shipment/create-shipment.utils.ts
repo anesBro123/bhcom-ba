@@ -44,24 +44,24 @@ export function formatAddressLine(
 export function shipmentTypeLabelKey(type: string | undefined): string {
   switch (type) {
     case 'document_envelope':
-      return 'forms.createShipment.shipmentTypes.documentEnvelope';
+      return 'portal.employee.features.shipments.form.shipmentTypes.documentEnvelope';
     case 'freight_pallet':
-      return 'forms.createShipment.shipmentTypes.freightPallet';
+      return 'portal.employee.features.shipments.form.shipmentTypes.freightPallet';
     case 'bulk_cargo':
-      return 'forms.createShipment.shipmentTypes.bulkCargo';
+      return 'portal.employee.features.shipments.form.shipmentTypes.bulkCargo';
     default:
-      return 'forms.createShipment.shipmentTypes.standardPackage';
+      return 'portal.employee.features.shipments.form.shipmentTypes.standardPackage';
   }
 }
 
 export function priorityLabelKey(priority: string | undefined): string {
   switch (priority) {
     case 'express':
-      return 'forms.createShipment.priority.express.title';
+      return 'portal.employee.features.shipments.form.priority.express.title';
     case 'overnight':
-      return 'forms.createShipment.priority.overnight.title';
+      return 'portal.employee.features.shipments.form.priority.overnight.title';
     default:
-      return 'forms.createShipment.priority.standard.title';
+      return 'portal.employee.features.shipments.form.priority.standard.title';
   }
 }
 
@@ -80,9 +80,9 @@ export function packageTotals(value: Partial<CreateShipmentFormModel>): {
 
 export function selectedServicesLabels(value: Partial<CreateShipmentFormModel>): string[] {
   const labels: string[] = [];
-  if (value.insuranceCoverage) labels.push('forms.createShipment.services.insuranceCoverage');
-  if (value.signatureRequired) labels.push('forms.createShipment.services.signatureRequired');
-  if (value.fragileHandling) labels.push('forms.createShipment.services.fragileHandling');
-  if (value.temperatureControl) labels.push('forms.createShipment.services.temperatureControl');
+  if (value.insuranceCoverage) labels.push('portal.employee.features.shipments.form.services.insuranceCoverage');
+  if (value.signatureRequired) labels.push('portal.employee.features.shipments.form.services.signatureRequired');
+  if (value.fragileHandling) labels.push('portal.employee.features.shipments.form.services.fragileHandling');
+  if (value.temperatureControl) labels.push('portal.employee.features.shipments.form.services.temperatureControl');
   return labels;
 }

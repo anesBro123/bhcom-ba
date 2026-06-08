@@ -50,11 +50,11 @@ export class ShipmentsPageComponent {
     this.tableApi.loadMock(SHIPMENT_MOCK_DATA, query, ShipmentTable.filters);
 
   protected statusLabel(status: ShipmentStatus): string {
-    return `tables.shipments.status.${status}`;
+    return `portal.employee.features.shipments.table.status.${status}`;
   }
 
   protected typeLabel(type: ShipmentType): string {
-    return `tables.shipments.type.${type}`;
+    return `portal.employee.features.shipments.table.type.${type}`;
   }
 
   protected priorityLetter(priority: ShipmentPriority): string {
@@ -69,7 +69,7 @@ export class ShipmentsPageComponent {
   }
 
   protected priorityTitle(priority: ShipmentPriority): string {
-    return `tables.shipments.priority.${priority}`;
+    return `portal.employee.features.shipments.table.priority.${priority}`;
   }
 
   protected onRowAction(event: RowActionEvent<Shipment>): void {

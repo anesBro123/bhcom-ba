@@ -54,43 +54,43 @@ export const US_STATE_OPTIONS: SelectOption[] = [
 ];
 
 export const PACKAGE_CATEGORY_OPTIONS: SelectOption[] = [
-  { value: 'general', labelKey: 'forms.createShipment.categories.general' },
-  { value: 'electronics', labelKey: 'forms.createShipment.categories.electronics' },
-  { value: 'clothing', labelKey: 'forms.createShipment.categories.clothing' },
-  { value: 'food', labelKey: 'forms.createShipment.categories.food' },
-  { value: 'documents', labelKey: 'forms.createShipment.categories.documents' },
+  { value: 'general', labelKey: 'portal.employee.features.shipments.form.categories.general' },
+  { value: 'electronics', labelKey: 'portal.employee.features.shipments.form.categories.electronics' },
+  { value: 'clothing', labelKey: 'portal.employee.features.shipments.form.categories.clothing' },
+  { value: 'food', labelKey: 'portal.employee.features.shipments.form.categories.food' },
+  { value: 'documents', labelKey: 'portal.employee.features.shipments.form.categories.documents' },
 ];
 
 export const CARRIER_OPTIONS: SelectOption[] = [
-  { value: 'fedex', labelKey: 'forms.createShipment.carriers.fedex' },
-  { value: 'ups', labelKey: 'forms.createShipment.carriers.ups' },
-  { value: 'dhl', labelKey: 'forms.createShipment.carriers.dhl' },
-  { value: 'usps', labelKey: 'forms.createShipment.carriers.usps' },
+  { value: 'fedex', labelKey: 'portal.employee.features.shipments.form.carriers.fedex' },
+  { value: 'ups', labelKey: 'portal.employee.features.shipments.form.carriers.ups' },
+  { value: 'dhl', labelKey: 'portal.employee.features.shipments.form.carriers.dhl' },
+  { value: 'usps', labelKey: 'portal.employee.features.shipments.form.carriers.usps' },
 ];
 
 export const SERVICE_LEVEL_OPTIONS: SelectOption[] = [
-  { value: 'ground', labelKey: 'forms.createShipment.serviceLevels.ground' },
-  { value: 'express', labelKey: 'forms.createShipment.serviceLevels.express' },
-  { value: 'overnight', labelKey: 'forms.createShipment.serviceLevels.overnight' },
+  { value: 'ground', labelKey: 'portal.employee.features.shipments.form.serviceLevels.ground' },
+  { value: 'express', labelKey: 'portal.employee.features.shipments.form.serviceLevels.express' },
+  { value: 'overnight', labelKey: 'portal.employee.features.shipments.form.serviceLevels.overnight' },
 ];
 
 export const DELIVERY_PRIORITY_OPTIONS = [
   {
     value: 'standard' as const,
-    labelKey: 'forms.createShipment.priority.standard.title',
-    descriptionKey: 'forms.createShipment.priority.standard.description',
-    priceKey: 'forms.createShipment.priority.standard.price',
+    labelKey: 'portal.employee.features.shipments.form.priority.standard.title',
+    descriptionKey: 'portal.employee.features.shipments.form.priority.standard.description',
+    priceKey: 'portal.employee.features.shipments.form.priority.standard.price',
   },
   {
     value: 'express' as const,
-    labelKey: 'forms.createShipment.priority.express.title',
-    descriptionKey: 'forms.createShipment.priority.express.description',
-    priceKey: 'forms.createShipment.priority.express.price',
+    labelKey: 'portal.employee.features.shipments.form.priority.express.title',
+    descriptionKey: 'portal.employee.features.shipments.form.priority.express.description',
+    priceKey: 'portal.employee.features.shipments.form.priority.express.price',
   },
   {
     value: 'overnight' as const,
-    labelKey: 'forms.createShipment.priority.overnight.title',
-    descriptionKey: 'forms.createShipment.priority.overnight.description',
-    priceKey: 'forms.createShipment.priority.overnight.price',
+    labelKey: 'portal.employee.features.shipments.form.priority.overnight.title',
+    descriptionKey: 'portal.employee.features.shipments.form.priority.overnight.description',
+    priceKey: 'portal.employee.features.shipments.form.priority.overnight.price',
   },
 ];

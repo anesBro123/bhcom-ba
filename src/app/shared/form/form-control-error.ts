@@ -12,17 +12,17 @@ export const DEFAULT_ERROR_PRIORITY = [
 ] as const;
 
 export const DEFAULT_ERROR_KEYS: Record<string, string> = {
-  required: 'forms.common.errors.required',
-  email: 'forms.common.errors.email',
-  minlength: 'forms.common.errors.minLength',
-  maxlength: 'forms.common.errors.maxLength',
-  min: 'forms.common.errors.min',
-  max: 'forms.common.errors.max',
-  pattern: 'forms.common.errors.pattern',
-  passwordMismatch: 'forms.common.errors.passwordMismatch',
+  required: 'shared.form.common.errors.required',
+  email: 'shared.form.common.errors.email',
+  minlength: 'shared.form.common.errors.minLength',
+  maxlength: 'shared.form.common.errors.maxLength',
+  min: 'shared.form.common.errors.min',
+  max: 'shared.form.common.errors.max',
+  pattern: 'shared.form.common.errors.pattern',
+  passwordMismatch: 'shared.form.common.errors.passwordMismatch',
 };
 
-const FALLBACK_ERROR_KEY = 'forms.common.errors.invalid';
+const FALLBACK_ERROR_KEY = 'shared.form.common.errors.invalid';
 
 export function getControlErrorKey(
   control: AbstractControl,

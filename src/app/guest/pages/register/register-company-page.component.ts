@@ -62,7 +62,7 @@ export class RegisterCompanyPageComponent {
       },
       error: () => {
         this.submitting.set(false);
-        this.errorKey.set('register.error');
+        this.errorKey.set('guest.register.error');
       },
     });
   }

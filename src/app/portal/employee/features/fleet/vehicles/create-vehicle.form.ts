@@ -5,96 +5,96 @@ import { defineForm } from '../../../../../shared/form';
 import type { CreateVehicleFormModel } from './vehicle.model';
 
 const VEHICLE_TYPE_OPTIONS = [
-  { value: 'van', labelKey: 'forms.createVehicle.vehicleTypes.van' },
-  { value: 'truck', labelKey: 'forms.createVehicle.vehicleTypes.truck' },
-  { value: 'trailer', labelKey: 'forms.createVehicle.vehicleTypes.trailer' },
+  { value: 'van', labelKey: 'portal.employee.features.fleet.vehicles.form.vehicleTypes.van' },
+  { value: 'truck', labelKey: 'portal.employee.features.fleet.vehicles.form.vehicleTypes.truck' },
+  { value: 'trailer', labelKey: 'portal.employee.features.fleet.vehicles.form.vehicleTypes.trailer' },
 ] as const;
 
 const VEHICLE_STATUS_OPTIONS = [
-  { value: 'active', labelKey: 'forms.createVehicle.statuses.active' },
-  { value: 'maintenance', labelKey: 'forms.createVehicle.statuses.maintenance' },
-  { value: 'retired', labelKey: 'forms.createVehicle.statuses.retired' },
+  { value: 'active', labelKey: 'portal.employee.features.fleet.vehicles.form.statuses.active' },
+  { value: 'maintenance', labelKey: 'portal.employee.features.fleet.vehicles.form.statuses.maintenance' },
+  { value: 'retired', labelKey: 'portal.employee.features.fleet.vehicles.form.statuses.retired' },
 ] as const;
 
 export const CreateVehicleForm = defineForm<CreateVehicleFormModel>()({
   mode: 'single',
-  titleKey: 'forms.createVehicle.title',
+  titleKey: 'portal.employee.features.fleet.vehicles.form.title',
   steps: [
     {
       id: 'main',
-      titleKey: 'forms.createVehicle.steps.main',
+      titleKey: 'portal.employee.features.fleet.vehicles.form.steps.main',
       kind: 'fields',
       sections: [
         {
           id: 'identity',
-          titleKey: 'forms.createVehicle.sections.identity.title',
-          subtitleKey: 'forms.createVehicle.sections.identity.subtitle',
+          titleKey: 'portal.employee.features.fleet.vehicles.form.sections.identity.title',
+          subtitleKey: 'portal.employee.features.fleet.vehicles.form.sections.identity.subtitle',
           icon: LucideVan,
           fields: [
             {
               key: 'plateNumber',
               type: 'text',
-              labelKey: 'forms.createVehicle.fields.plateNumber',
-              placeholderKey: 'forms.createVehicle.placeholders.plateNumber',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.plateNumber',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.plateNumber',
               colSpan: 2,
             },
             {
               key: 'make',
               type: 'text',
-              labelKey: 'forms.createVehicle.fields.make',
-              placeholderKey: 'forms.createVehicle.placeholders.make',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.make',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.make',
               colSpan: 2,
             },
             {
               key: 'model',
               type: 'text',
-              labelKey: 'forms.createVehicle.fields.model',
-              placeholderKey: 'forms.createVehicle.placeholders.model',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.model',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.model',
               colSpan: 2,
             },
             {
               key: 'year',
               type: 'number',
-              labelKey: 'forms.createVehicle.fields.year',
-              placeholderKey: 'forms.createVehicle.placeholders.year',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.year',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.year',
               colSpan: 2,
             },
           ],
         },
         {
           id: 'specs',
-          titleKey: 'forms.createVehicle.sections.specs.title',
-          subtitleKey: 'forms.createVehicle.sections.specs.subtitle',
+          titleKey: 'portal.employee.features.fleet.vehicles.form.sections.specs.title',
+          subtitleKey: 'portal.employee.features.fleet.vehicles.form.sections.specs.subtitle',
           icon: LucideSettings,
           fields: [
             {
               key: 'vehicleType',
               type: 'select',
-              labelKey: 'forms.createVehicle.fields.vehicleType',
-              placeholderKey: 'forms.createVehicle.placeholders.vehicleType',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.vehicleType',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.vehicleType',
               colSpan: 2,
               options: [...VEHICLE_TYPE_OPTIONS],
             },
             {
               key: 'capacityKg',
               type: 'number',
-              labelKey: 'forms.createVehicle.fields.capacityKg',
-              placeholderKey: 'forms.createVehicle.placeholders.capacityKg',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.capacityKg',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.capacityKg',
               colSpan: 2,
             },
             {
               key: 'status',
               type: 'select',
-              labelKey: 'forms.createVehicle.fields.status',
-              placeholderKey: 'forms.createVehicle.placeholders.status',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.status',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.status',
               colSpan: 2,
               options: [...VEHICLE_STATUS_OPTIONS],
             },
             {
               key: 'notes',
               type: 'textarea',
-              labelKey: 'forms.createVehicle.fields.notes',
-              placeholderKey: 'forms.createVehicle.placeholders.notes',
+              labelKey: 'portal.employee.features.fleet.vehicles.form.fields.notes',
+              placeholderKey: 'portal.employee.features.fleet.vehicles.form.placeholders.notes',
               colSpan: 'full',
               rows: 4,
             },
@@ -104,6 +104,6 @@ export const CreateVehicleForm = defineForm<CreateVehicleFormModel>()({
     },
   ],
   actions: {
-    submit: { labelKey: 'forms.createVehicle.actions.create', icon: LucidePlus },
+    submit: { labelKey: 'portal.employee.features.fleet.vehicles.form.actions.create', icon: LucidePlus },
   },
 });

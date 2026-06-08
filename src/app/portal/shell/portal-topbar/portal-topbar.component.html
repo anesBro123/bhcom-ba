@@ -2,8 +2,8 @@
   <button
     type="button"
     class="topbar__menu-btn"
-    [attr.aria-label]="'topbar.openMenu' | translate"
-    [attr.title]="'topbar.openMenu' | translate"
+    [attr.aria-label]="'shared.topbar.openMenu' | translate"
+    [attr.title]="'shared.topbar.openMenu' | translate"
     (click)="sidebarService.openMobile()"
   >
     <svg lucideMenu [size]="22" />
@@ -17,7 +17,7 @@
     <button
       type="button"
       class="topbar__icon-btn topbar__icon-btn--badge"
-      [attr.aria-label]="'topbar.notifications' | translate"
+      [attr.aria-label]="'shared.topbar.notifications' | translate"
     >
       <svg lucideBell [size]="20" />
       <span class="topbar__badge">3</span>
@@ -29,7 +29,7 @@
       <button
         type="button"
         class="topbar__icon-btn"
-        [attr.aria-label]="'topbar.openAccountMenu' | translate"
+        [attr.aria-label]="'shared.topbar.openAccountMenu' | translate"
         [attr.aria-expanded]="accountMenuOpen()"
         aria-haspopup="menu"
         (click)="toggleAccountMenu()"
@@ -39,7 +39,7 @@
 
       @if (accountMenuOpen()) {
         <div class="topbar__account-menu" role="menu">
-          <p class="topbar__account-header">{{ 'topbar.account.title' | translate }}</p>
+          <p class="topbar__account-header">{{ 'shared.topbar.account.title' | translate }}</p>
           <div class="topbar__account-divider" role="separator"></div>
           <button
             type="button"
@@ -48,7 +48,7 @@
             (click)="onProfileClick()"
           >
             <svg lucideUser [size]="18" class="topbar__account-icon" />
-            <span>{{ 'topbar.account.profile' | translate }}</span>
+            <span>{{ 'shared.topbar.account.profile' | translate }}</span>
           </button>
           <button
             type="button"
@@ -57,7 +57,7 @@
             (click)="onSettingsClick()"
           >
             <svg lucideSettings [size]="18" class="topbar__account-icon" />
-            <span>{{ 'topbar.account.settings' | translate }}</span>
+            <span>{{ 'shared.topbar.account.settings' | translate }}</span>
           </button>
           <div class="topbar__account-divider" role="separator"></div>
           <button
@@ -67,7 +67,7 @@
             (click)="logout()"
           >
             <svg lucideLogOut [size]="18" class="topbar__account-icon" />
-            <span>{{ 'topbar.account.logout' | translate }}</span>
+            <span>{{ 'shared.topbar.account.logout' | translate }}</span>
           </button>
         </div>
       }

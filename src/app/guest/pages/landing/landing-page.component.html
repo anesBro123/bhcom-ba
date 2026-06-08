@@ -1,14 +1,14 @@
 <div class="landing">
   <section class="landing__hero">
     <div class="landing__hero-copy">
-      <h1 class="landing__title">{{ 'landing.hero.title' | translate }}</h1>
-      <p class="landing__subtitle">{{ 'landing.hero.subtitle' | translate }}</p>
+      <h1 class="landing__title">{{ 'guest.landing.hero.title' | translate }}</h1>
+      <p class="landing__subtitle">{{ 'guest.landing.hero.subtitle' | translate }}</p>
       <div class="landing__hero-actions">
         <a class="landing__btn landing__btn--primary" [routerLink]="signInUrl">
-          {{ 'landing.hero.ctaSignIn' | translate }}
+          {{ 'guest.landing.hero.ctaSignIn' | translate }}
         </a>
         <a class="landing__btn landing__btn--register" [routerLink]="registerUrl">
-          {{ 'landing.hero.ctaRegister' | translate }}
+          {{ 'guest.landing.hero.ctaRegister' | translate }}
         </a>
       </div>
     </div>
@@ -19,7 +19,7 @@
 
   <section class="landing__features" aria-labelledby="landing-features-title">
     <h2 id="landing-features-title" class="landing__section-title">
-      {{ 'landing.features.title' | translate }}
+      {{ 'guest.landing.features.title' | translate }}
     </h2>
     <ul class="landing__feature-grid">
       @for (feature of features; track feature.titleKey) {
@@ -48,22 +48,22 @@
 
   <section class="landing__portals" aria-labelledby="landing-portals-title">
     <h2 id="landing-portals-title" class="landing__section-title">
-      {{ 'landing.portals.title' | translate }}
+      {{ 'guest.landing.portals.title' | translate }}
     </h2>
-    <p class="landing__section-subtitle">{{ 'landing.portals.subtitle' | translate }}</p>
+    <p class="landing__section-subtitle">{{ 'guest.landing.portals.subtitle' | translate }}</p>
     <div class="landing__portal-grid">
       <app-portal-card
         portalKind="employee"
-        badgeKey="landing.portals.employee.badge"
-        titleKey="landing.portals.employee.title"
-        descriptionKey="landing.portals.employee.description"
+        badgeKey="guest.landing.portals.employee.badge"
+        titleKey="guest.landing.portals.employee.title"
+        descriptionKey="guest.landing.portals.employee.description"
         [route]="employeeLoginUrl"
       />
       <app-portal-card
         portalKind="admin"
-        badgeKey="landing.portals.admin.badge"
-        titleKey="landing.portals.admin.title"
-        descriptionKey="landing.portals.admin.description"
+        badgeKey="guest.landing.portals.admin.badge"
+        titleKey="guest.landing.portals.admin.title"
+        descriptionKey="guest.landing.portals.admin.description"
         [route]="adminLoginUrl"
       />
     </div>

@@ -40,7 +40,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | Portal | URL prefix | Routes file | Nav config | Features |
 |--------|------------|-------------|------------|----------|
 | Employee | `/` (e.g. `/dashboard`) | `portal/employee/employee.routes.ts` | `portal/employee/employee-nav.config.ts` | `portal/employee/features/**` (fleet, shipments) |
-| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | placeholders only — no `features/` yet |
+| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (vehicles) |
 
 ### Routing
 
@@ -97,7 +97,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `angular.mdc` | `src/**/*.{ts,html,scss}` |
 | `guest.mdc` | `src/app/guest/**` |
 | `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` |
-| `i18n.mdc` | TS/HTML + `public/assets/*.json` |
+| `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
 | `tables.mdc` | `shared/table/**`, `*.table.ts` |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |

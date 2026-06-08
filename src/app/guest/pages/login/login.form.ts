@@ -15,14 +15,14 @@ export const LoginForm = defineForm<LoginFormModel>()({
             {
               key: 'username',
               type: 'text',
-              labelKey: 'login.username',
+              labelKey: 'guest.login.username',
               autocomplete: 'username',
               colSpan: 'full',
             },
             {
               key: 'password',
               type: 'password',
-              labelKey: 'login.password',
+              labelKey: 'guest.login.password',
               autocomplete: 'current-password',
               colSpan: 'full',
             },
@@ -32,6 +32,6 @@ export const LoginForm = defineForm<LoginFormModel>()({
     },
   ],
   actions: {
-    submit: { labelKey: 'login.submit' },
+    submit: { labelKey: 'guest.login.submit' },
   },
 });

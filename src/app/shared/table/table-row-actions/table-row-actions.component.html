@@ -2,7 +2,7 @@
   <button
     type="button"
     class="table-row-actions__trigger"
-    [attr.aria-label]="'tables.common.actions' | translate"
+    [attr.aria-label]="'shared.table.common.actions' | translate"
     [attr.aria-expanded]="menuOpen()"
     aria-haspopup="menu"
     [disabled]="visibleActions().length === 0"
@@ -14,7 +14,7 @@
   @if (menuOpen()) {
     <div class="table-row-actions__menu" role="menu">
       <div class="table-row-actions__menu-header">
-        {{ 'tables.common.actionsMenu' | translate }}
+        {{ 'shared.table.common.actionsMenu' | translate }}
       </div>
 
       <ul class="table-row-actions__list">

@@ -34,7 +34,7 @@ export class VehicleTablePageComponent {
     this.vehicleService.list(query);
 
   protected vrstaVozilaLabel(vrsta: string): string {
-    return `forms.adminVehicle.vrstaVozila.${vrsta}`;
+    return `portal.admin.features.vehicles.form.vrstaVozila.${vrsta}`;
   }
 
   protected onRowAction(event: RowActionEvent<Vehicle>): void {
