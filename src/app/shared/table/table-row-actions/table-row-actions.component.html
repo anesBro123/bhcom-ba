@@ -1,5 +1,6 @@
 <div class="table-row-actions">
   <button
+    #trigger
     type="button"
     class="table-row-actions__trigger"
     [attr.aria-label]="'shared.table.common.actions' | translate"
@@ -12,7 +13,15 @@
   </button>
 
   @if (menuOpen()) {
-    <div class="table-row-actions__menu" role="menu">
+    <div
+      #menu
+      class="table-row-actions__menu"
+      [class.table-row-actions__menu--positioning]="!menuPositioned()"
+      [style.top]="menuStyle()?.['top']"
+      [style.left]="menuStyle()?.['left']"
+      [style.z-index]="menuStyle()?.['zIndex']"
+      role="menu"
+    >
       <div class="table-row-actions__menu-header">
         {{ 'shared.table.common.actionsMenu' | translate }}
       </div>
