@@ -1,7 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { filter, switchMap, take } from 'rxjs';
 
+import {ConfirmService } from '../../../../../shared/confirm';
 import { adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
 
 import {
@@ -24,6 +26,7 @@ import { VehicleTable } from './vehicle.table';
 })
 export class VehicleTablePageComponent {
   private readonly vehicleService = inject(AdminVehicleService);
+  private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = VehicleTable;
@@ -43,9 +46,20 @@ export class VehicleTablePageComponent {
         void this.router.navigateByUrl(adminEditVehicleUrl(event.row.id));
         break;
       case 'delete':
-        this.vehicleService.delete(event.row.id).subscribe({
-          next: () => this.refreshTable(),
-        });
+        this.confirmService
+          .confirm({
+            titleKey: 'portal.admin.features.vehicles.table.deleteConfirm.title',
+            messageKey: 'portal.admin.features.vehicles.table.deleteConfirm.message',
+            danger: true,
+          })
+          .pipe(
+            filter(Boolean),
+            take(1),
+            switchMap(() => this.vehicleService.delete(event.row.id)),
+          )
+          .subscribe({
+            next: () => this.refreshTable(),
+          });
         break;
     }
   }

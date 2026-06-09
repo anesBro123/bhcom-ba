@@ -12,8 +12,9 @@ alwaysApply: false
 4. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
 5. Mock data: `TableApiService.loadMock(data, query, table.filters)` until API exists.
 6. i18n: `titleKey`, column `titleKey`, action `labelKey` in table def.
+7. Destructive row actions (e.g. delete): confirm via `ConfirmService` from `shared/confirm` before calling the API — see `confirm.mdc`. Add `…table.deleteConfirm.title` / `…message` keys per feature; use `shared.confirm.common.*` for button labels.
 
-Do not rebuild pagination/filter/sort UI outside `DataTableComponent`.
+Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not use `window.confirm`.
 
 ## Mobile (≤768px)
 

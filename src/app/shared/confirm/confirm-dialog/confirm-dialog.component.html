@@ -1,0 +1,45 @@
+@if (confirmService.request(); as active) {
+  <div class="confirm-dialog" role="presentation">
+    <button
+      type="button"
+      class="confirm-dialog__backdrop"
+      [attr.aria-label]="active.options.cancelLabelKey | translate"
+      (click)="onBackdropClick()"
+    ></button>
+
+    <div
+      class="confirm-dialog__panel"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="'confirm-dialog-title'"
+      [attr.aria-describedby]="'confirm-dialog-message'"
+    >
+      <h2 id="confirm-dialog-title" class="confirm-dialog__title">
+        {{ active.options.titleKey | translate }}
+      </h2>
+
+      <p id="confirm-dialog-message" class="confirm-dialog__message">
+        {{ active.options.messageKey | translate: active.options.messageParams }}
+      </p>
+
+      <footer class="confirm-dialog__footer">
+        <button
+          type="button"
+          class="confirm-dialog__btn confirm-dialog__btn--secondary"
+          (click)="onCancel()"
+        >
+          {{ active.options.cancelLabelKey | translate }}
+        </button>
+
+        <button
+          type="button"
+          class="confirm-dialog__btn confirm-dialog__btn--primary"
+          [class.confirm-dialog__btn--danger]="active.options.danger"
+          (click)="onConfirm()"
+        >
+          {{ active.options.confirmLabelKey | translate }}
+        </button>
+      </footer>
+    </div>
+  </div>
+}

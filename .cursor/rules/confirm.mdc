@@ -1,0 +1,72 @@
+---
+description: Global confirmation dialog (ConfirmService)
+globs: src/app/shared/confirm/**,src/app/app.ts,src/app/app.html
+alwaysApply: false
+---
+
+# Confirmation dialog (`src/app/shared/confirm`)
+
+Global imperative confirmation modal for destructive or irreversible actions. Do not build ad-hoc `window.confirm` or duplicate modal markup in feature pages.
+
+## Structure
+
+| File | Role |
+|------|------|
+| `confirm.constants.ts` | `CONFIRM_CANCEL_LABEL_KEY`, `CONFIRM_CONFIRM_LABEL_KEY` |
+| `confirm.types.ts` | `ConfirmOptions` |
+| `confirm.service.ts` | `confirm(options): Observable<boolean>` |
+| `confirm-dialog/` | `ConfirmDialogComponent` — single host mounted in app root |
+| `index.ts` | Barrel |
+
+## Global host
+
+`app.html` mounts `<app-confirm-dialog />` once (alongside `<router-outlet />`). Feature pages only inject `ConfirmService`; no per-page dialog template.
+
+## API
+
+```typescript
+import { ConfirmService } from 'shared/confirm';
+import { filter, switchMap, take } from 'rxjs';
+
+this.confirmService
+  .confirm({
+    titleKey: '…',
+    messageKey: '…',
+    danger: true, // optional — red confirm button
+    messageParams: { name: '…' }, // optional ngx-translate interpolation
+    // confirmLabelKey / cancelLabelKey optional — see i18n below
+  })
+  .pipe(filter(Boolean), take(1), switchMap(() => this.api.delete(id)))
+  .subscribe({ next: () => this.refresh() });
+```
+
+- Returns `Observable<boolean>` — `true` on confirm, `false` on cancel, backdrop click, or Escape.
+- Only one dialog at a time; opening a new request dismisses the previous as cancelled.
+- Async work runs **after** the modal closes (no in-modal loading state).
+
+## i18n
+
+| Path | Use for |
+|------|---------|
+| `shared.confirm.common.cancel` | Default cancel button (do not duplicate per feature) |
+| `shared.confirm.common.confirm` | Default confirm button (do not duplicate per feature) |
+| `…features.<feature>.table.deleteConfirm.title` | Feature-specific dialog title |
+| `…features.<feature>.table.deleteConfirm.message` | Feature-specific dialog body |
+
+Callers pass **title + message only** in most cases. Override `confirmLabelKey` / `cancelLabelKey` only when shared defaults are wrong for that flow.
+
+## Styling
+
+Theme tokens in `src/styles.scss` (not `--bg-form-card`, which is translucent in dark mode):
+
+- `--bg-confirm-dialog`
+- `--border-confirm-dialog`
+- `--shadow-confirm-dialog`
+
+Dialog `z-index: 250` (above mobile sidebar `200`). Body scroll locked while open.
+
+## Example
+
+Delete confirmation: `portal/admin/features/vehicles/table/vehicle-table-page.component.ts` — `ConfirmService` before `AdminVehicleService.delete`.
+
+Do not use `window.confirm`. Do not add a second global dialog host.

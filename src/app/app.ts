@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ConfirmDialogComponent } from './shared/confirm';
 import { LanguageService } from './shared/core/i18n/language.service';
 import { ThemeService } from './shared/core/theme/theme.service';
 import { SidebarService } from './portal/shell/sidebar.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ConfirmDialogComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

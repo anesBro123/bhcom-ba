@@ -61,6 +61,12 @@
         "actions": "Akcije reda",
         "actionsMenu": "Akcije"
       }
+    },
+    "confirm": {
+      "common": {
+        "cancel": "Odustani",
+        "confirm": "Potvrdi"
+      }
     }
   },
   "guest": {
@@ -409,6 +415,10 @@
             "actions": {
               "edit": "Uredi vozilo",
               "delete": "Obriši"
+            },
+            "deleteConfirm": {
+              "title": "Obrisati vozilo?",
+              "message": "Ova radnja se ne može poništiti. Vozilo će biti trajno uklonjeno."
             },
             "filters": {
               "search": "Pretraga",

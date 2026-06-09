@@ -61,6 +61,12 @@
         "actions": "Row actions",
         "actionsMenu": "Actions"
       }
+    },
+    "confirm": {
+      "common": {
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
     }
   },
   "guest": {
@@ -409,6 +415,10 @@
             "actions": {
               "edit": "Edit Vehicle",
               "delete": "Delete"
+            },
+            "deleteConfirm": {
+              "title": "Delete vehicle?",
+              "message": "This action cannot be undone. The vehicle will be permanently removed."
             },
             "filters": {
               "search": "Search",

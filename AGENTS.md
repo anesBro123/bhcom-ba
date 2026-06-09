@@ -1,12 +1,12 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **employee** portals. Before implementing UI, check `.cursor/rules/` (especially `forms.mdc` / `tables.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **employee** portals. Before implementing UI, check `.cursor/rules/` (especially `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
 ```
 src/app/
-├── shared/          # auth, i18n, theme, constants/, form/, table/, ui/
+├── shared/          # auth, i18n, theme, constants/, form/, table/, confirm/, ui/
 ├── guest/           # public routes, shell, guards, login/register pages
 └── portal/          # authenticated shell, configs, features, guards
     ├── common/      # models, PORTAL_CONFIG barrel (nav + portal-config)
@@ -23,7 +23,7 @@ Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreat
 
 | Folder | Meaning |
 |--------|---------|
-| `shared/` | Used by **both** guest and portal (auth, i18n, theme, form/table frameworks, shared UI) |
+| `shared/` | Used by **both** guest and portal (auth, i18n, theme, form/table/confirm frameworks, shared UI) |
 | `guest/` | Public / unauthenticated routes, shell, guards |
 | `portal/` | Authenticated employee + admin (shell, configs, features) |
 
@@ -87,7 +87,8 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - **App URLs:** `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`
-- **Shared UI frameworks:** `shared/form/`, `shared/table/`
+- **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
+- **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker)
 
 ## Cursor rules
@@ -102,6 +103,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
 | `tables.mdc` | `shared/table/**`, `*.table.ts` |
+| `confirm.mdc` | `shared/confirm/**`, destructive-action flows |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
 
 ## Responsive conventions

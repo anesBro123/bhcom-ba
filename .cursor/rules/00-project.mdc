@@ -13,7 +13,7 @@ Only three top-level folders — no `core/`, `features/`, or `layout/`:
 
 | Folder | Role |
 |--------|------|
-| `shared/` | Auth, i18n, theme, `constants/`, `form/`, `table/`, `ui/` — used by guest and portal |
+| `shared/` | Auth, i18n, theme, `constants/`, `form/`, `table/`, `confirm/`, `ui/` — used by guest and portal |
 | `guest/` | Public routes, guest shell, guest guards, login/register pages |
 | `portal/` | Authenticated shell, configs, guards, features, `pages/page-placeholder/` |
 
@@ -51,7 +51,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `PortalTopbarComponent`, `shared.sidebar.service.ts`
 - Sidebar nav: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
 - Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
-- Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`)
+- Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`); Confirm: `shared/confirm/` (`ConfirmService`, global `ConfirmDialogComponent` in `app.html`)
 - Features: `portal/employee/features/` (fleet, shipments); `portal/admin/features/` (vehicles)
 - Placeholder pages: `portal/pages/page-placeholder/page-placeholder.component.ts`
 - i18n: `public/assets/en.json` + `bh.json`
@@ -77,5 +77,6 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Stepper (strict + free edit): `portal/admin/features/vehicles/form/` — `[stepperNavigation]="isEdit() ? 'free' : 'strict'"`
 - Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `shared/form/form.utils.ts` — see `forms.mdc`
 - Table page: `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
+- Delete confirmation: `portal/admin/features/vehicles/table/vehicle-table-page.component.ts` + `shared/confirm/` — see `confirm.mdc`
 - Guest login: `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
