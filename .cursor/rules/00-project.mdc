@@ -72,11 +72,12 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 
 ## References for patterns
 
+- **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/` layout; see `portal-feature.mdc`
 - Single-step form: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
 - Stepper (strict): `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
 - Stepper (strict + free edit): `portal/admin/features/vehicles/form/` — `[stepperNavigation]="isEdit() ? 'free' : 'strict'"`
 - Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `shared/form/form.utils.ts` — see `forms.mdc`
-- Table page: `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
-- Delete confirmation: `portal/admin/features/vehicles/table/vehicle-table-page.component.ts` + `shared/confirm/` — see `confirm.mdc`
+- Table page (mock loader): `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
+- Table page (service loader + delete): `portal/admin/features/vehicles/table/` — see `portal-feature.mdc`, `confirm.mdc`
 - Guest login: `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)

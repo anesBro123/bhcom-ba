@@ -1,0 +1,110 @@
+---
+description: Portal CRUD feature layout — admin vehicles reference
+globs: src/app/portal/**/features/**
+alwaysApply: false
+---
+
+# Portal feature (CRUD)
+
+**Canonical reference:** `portal/admin/features/vehicles/` — follow this layout for new admin list + create + edit features.
+
+Employee features may use a flatter layout (e.g. `shipments/`) or domain nesting (e.g. `fleet/vehicles/`) when the flow is create-only or table-only; still reuse the same data / form / table patterns below.
+
+## Folder layout
+
+```
+features/<entity>/
+  data/
+    <entity>.model.ts        # FormModel + Entity (Entity = FormModel & { id })
+    <entity>.constants.ts    # HTTP API path + select options ({ value, labelKey })
+    <entity>.mock-data.ts    # seed rows until API exists
+    <entity>.service.ts      # CRUD + list(TableQuery)
+  form/
+    <entity>.form.ts         # defineForm (see forms.mdc)
+    <entity>-form-page.component.{ts,html,scss}
+  table/
+    <entity>.table.ts        # defineTable (see tables.mdc)
+    <entity>-table-page.component.{ts,html,scss}
+```
+
+## data/
+
+| File | Role |
+|------|------|
+| `*.model.ts` | `EntityFormModel` interface; `Entity extends EntityFormModel` with `id`; union types for enums |
+| `*.constants.ts` | `ADMIN_<ENTITY>_API` (HTTP only — not app URLs); option arrays reused by form + table filters |
+| `*.mock-data.ts` | `ENTITY_MOCK_DATA: Entity[]` |
+| `*.service.ts` | `@Injectable({ providedIn: 'root' })`; in-memory `store` from mock; `list` applies `TableQuery` filters/sort/pagination using the table def's `filters`; `getById`, `create`, `update`, `delete` with `delay()` until API |
+
+Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock store for `HttpClient` later — keep the same method signatures.
+
+## Routes + nav + URLs
+
+1. **`shared/constants/app-urls.ts`** — list URL, create URL, `adminEdit<Entity>Url(id)` builder (see `app-urls.mdc`).
+2. **`admin.routes.ts`** (or `employee.routes.ts`) — three children under `PortalShellComponent`:
+   - `<entity>` → table page, `data: { titleKey: 'portal.<portal>.pages.<entity>' }`
+   - `<entity>/create` → form page
+   - `<entity>/:id/edit` → **same** form component
+3. **`admin-nav.config.ts`** — section with list item (`exact: true`) + create item; `route` from `app-urls.ts`.
+
+Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:id/edit`); only absolute URLs go in `app-urls.ts`.
+
+## Form page (`form/<entity>-form-page.component.ts`)
+
+- `FormBuilder` group mirrors every field key; validators on the group, not only in the def.
+- `vehicleId` signal from `route.snapshot.paramMap`; `isEdit = computed(() => vehicleId() !== null)`.
+- `formDef` computed — swap `titleKey` and submit action for create vs edit (`AdminVehicleFormEditActions` pattern).
+- `ngOnInit`: if `:id`, `getById` → `patchValue` (strip `id`); error → `navigateByUrl` back to list URL.
+- `onSubmit`: guard `submitting` signal; `getRawValue() as FormModel`; create vs update; success → list URL.
+- Template: single `<app-form-page>` with `[definition]`, `[formGroup]`, `[submitDisabled]`, `(submit)`.
+- Stepper create + edit: `[stepperNavigation]="isEdit() ? 'free' : 'strict'"` (see `forms.mdc`).
+
+## Table page (`table/<entity>-table-page.component.ts`)
+
+- `protected readonly table = EntityTable`; `TableLoader` → `service.list(query)`.
+- Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
+- Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
+- After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
+
+```typescript
+// Delete flow (abbreviated)
+this.confirmService.confirm({ titleKey, messageKey, danger: true })
+  .pipe(filter(Boolean), take(1), switchMap(() => this.service.delete(id)))
+  .subscribe({ next: () => this.refreshTable() });
+```
+
+## Table def (`table/<entity>.table.ts`)
+
+- `endpoint` from `*.constants.ts` (future HTTP).
+- `trackBy: 'id'`; `defaultSort`; `mobile.primary` on the main identifier column.
+- `actions.items`: `edit` + `delete` (`danger: true`); handle IDs in the page, not in the def.
+- Reuse form option `labelKey`s in filter `options` where enums overlap.
+
+## i18n
+
+Namespace: `portal.<admin|employee>.features.<entity>.{form|table}.*`
+
+- Route titles: `portal.<portal>.pages.*`
+- Nav: `portal.<portal>.nav.*`
+- Delete dialog: `…table.deleteConfirm.title` / `…message`; buttons use `shared.confirm.common.*`
+
+Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
+
+## Do not
+
+- Cross-import `portal/admin/features/**` ↔ `portal/employee/features/**`.
+- Hardcode app paths — use `app-urls.ts`.
+- Use `window.confirm` or per-page dialog markup — use `ConfirmService`.
+- Add `*.spec.ts` files.
+- Rebuild table/form chrome outside `DataTableComponent` / `FormPageComponent`.
+
+## Related rules
+
+| Area | Rule |
+|------|------|
+| New page checklist | `new-page.mdc` |
+| Forms / stepper | `forms.mdc` |
+| Tables / mobile cards | `tables.mdc` |
+| Delete confirmation | `confirm.mdc` |
+| Route URLs | `app-urls.mdc` |
+| Translation keys | `i18n.mdc` |

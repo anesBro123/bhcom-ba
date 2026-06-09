@@ -1,6 +1,6 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **employee** portals. Before implementing UI, check `.cursor/rules/` (especially `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **employee** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
@@ -76,11 +76,12 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 ## Quick entry points
 
+- **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
 - **Placeholder page:** `src/app/portal/pages/page-placeholder/`
 - **Single-step form:** `portal/employee/features/fleet/vehicles/`
-- **Table example:** `portal/employee/features/shipments/`
+- **Table (mock loader):** `portal/employee/features/shipments/`
 - **Stepper (strict):** `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
 - **Stepper (strict + free edit):** `portal/admin/features/vehicles/form/` — `stepperNavigation` input on `FormPageComponent`
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` (`StepperNavigationMode`, `canNavigateToStep`, visited + valid pill state)
@@ -104,6 +105,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
 | `tables.mdc` | `shared/table/**`, `*.table.ts` |
 | `confirm.mdc` | `shared/confirm/**`, destructive-action flows |
+| `portal-feature.mdc` | `portal/**/features/**` — CRUD layout (vehicles reference) |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
 
 ## Responsive conventions
