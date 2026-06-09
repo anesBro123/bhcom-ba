@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
@@ -13,6 +13,9 @@ import { SidebarService } from '../sidebar.service';
 
 @Component({
   selector: 'portal-sidebar',
+  host: {
+    '[class.sidebar--mobile-open]': 'sidebarService.mobileOpen()',
+  },
   imports: [
     RouterLink,
     RouterLinkActive,
@@ -30,11 +33,6 @@ export class PortalSidebarComponent {
   protected readonly sidebarService = inject(SidebarService);
   protected readonly portal = inject(PORTAL_CONFIG);
   protected readonly navSections = this.portal.nav;
-
-  @HostBinding('class.sidebar--mobile-open')
-  protected get mobileOpenClass(): boolean {
-    return this.sidebarService.mobileOpen();
-  }
 
   @HostListener('document:keydown.escape')
   protected onEscape(): void {

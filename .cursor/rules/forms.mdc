@@ -15,4 +15,53 @@ alwaysApply: false
 7. Submit: `form.getRawValue() as Model` (validators on `FormGroup`, not only in def). Pass `[submitDisabled]` to `app-form-page` during async submit (parent owns the signal).
 8. Field errors: built-in widgets use `app-form-field-error` (reads `control.errors` with priority order). Optional `errorKeys` on `FieldDef` overrides i18n keys for custom validators. Custom `appFormField` templates may import `FormFieldErrorComponent` from the form barrel.
 
-Extend field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc duplicate inputs on standard portal.employee.pages.
+## Stepper (`mode: 'stepper'`)
+
+Rendered by `FormStepperComponent` inside `FormPageComponent` when `steps.length > 1`. Column layout: one progress segment + pill label per step (labels centered under segments).
+
+### `stepperNavigation` on `FormPageComponent`
+
+| Mode | Default | Use |
+|------|---------|-----|
+| `strict` | yes | Create / onboarding — forward jumps require valid current step **and** valid intermediate steps |
+| `free` | no | Edit — after current step validates, user may jump to any step; visited invalid steps show error styling on pills |
+
+Pass from the feature page when needed, e.g. `[stepperNavigation]="isEdit() ? 'free' : 'strict'"` (`portal/admin/features/vehicles/form/vehicle-form-page.component.html`).
+
+### Click / navigation behavior
+
+- All non-active step pills are buttons (locked style is visual only in `strict`).
+- Step click **always validates the current step first** (same as Next) — shows field errors if invalid.
+- `strict` forward skip over invalid intermediate → navigates to first blocking step and marks its fields touched.
+- Previous / Next unchanged; `stepChange` output emits `{ from, to }`.
+
+### Completed / error pill state
+
+- **Completed** (green check): step is **visited**, **not current**, and `isStepValid()` — stays when user navigates backward.
+- **Error** on pill: visited, not current, and invalid (both modes).
+- **Visited** set tracked in `FormPageComponent` (`visitedSteps`); updated on every navigation.
+- Progress bar fill uses **current** step index; completed checks use visited + valid.
+
+### Validation helpers (`form.utils.ts`)
+
+- `validateStepControls(form, step, value, { markTouched? })` — default `markTouched: true`
+- `isStepValid` — no touch (for computed pill state)
+- `canNavigateToStep(..., mode: StepperNavigationMode)` — `'strict' | 'free'`
+
+### Submit
+
+Stepper forms validate **all** steps on submit (not only the current step).
+
+### i18n / theme
+
+- Keys: `shared.form.common.stepOf`, `percentComplete`, `stepLocked`
+- Step `titleKey` on pills should stay short; section headers carry full titles.
+- Completed pill tokens in `src/styles.scss`: `--text-form-step-complete`, `--bg-form-step-complete-marker`, `--bg-form-step-complete-pill`, `--border-form-step-complete`
+
+### Examples
+
+- Stepper create: `portal/employee/features/shipments/create-shipment/`
+- Stepper strict + free edit: `portal/admin/features/vehicles/form/`
+- Guest stepper: `guest/pages/register/`
+
+Extend field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc duplicate inputs on standard portal pages.

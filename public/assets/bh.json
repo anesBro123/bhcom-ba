@@ -35,6 +35,7 @@
         "next": "Sljedeće",
         "stepOf": "Korak {{current}} od {{total}}",
         "percentComplete": "{{percent}}% završeno",
+        "stepLocked": "Prvo dovršite prethodne korake",
         "fieldRequired": "Ovo polje je obavezno",
         "errors": {
           "required": "Ovo polje je obavezno",
@@ -269,12 +270,12 @@
             "titleCreate": "Dodaj vozilo",
             "titleEdit": "Uredi vozilo",
             "steps": {
-              "registration": "Registracija i dokument",
-              "owner": "Vlasnik i korisnik",
-              "identity": "Identitet vozila",
-              "mass": "Masa i nosivost",
+              "registration": "Registracija",
+              "owner": "Vlasnik",
+              "identity": "Vozilo",
+              "mass": "Masa",
               "engine": "Motor",
-              "registrationValidity": "Registracija i podaci sa čipa"
+              "registrationValidity": "Čip"
             },
             "sections": {
               "document": {

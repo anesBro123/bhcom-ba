@@ -11,6 +11,10 @@
         [steps]="definition().steps"
         [stepIndex]="formStore.stepIndex()"
         [progressPercent]="formStore.progressPercent()"
+        [clickableSteps]="stepClickable()"
+        [stepCompleted]="stepCompleted()"
+        [stepErrors]="stepErrors()"
+        (stepSelect)="onStepClick($event)"
       />
     </div>
 

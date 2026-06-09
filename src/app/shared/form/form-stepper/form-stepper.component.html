@@ -9,21 +9,72 @@
     }}</span>
   </div>
 
-  <div class="form-stepper__bar" role="progressbar" [attr.aria-valuenow]="progressPercent()">
-    <div class="form-stepper__bar-fill" [style.width.%]="progressPercent()"></div>
-  </div>
-
-  <nav class="form-stepper__labels" aria-label="Form steps">
+  <nav
+    #stepsNav
+    class="form-stepper__columns"
+    aria-label="Form steps"
+    role="progressbar"
+    [attr.aria-valuenow]="progressPercent()"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
     @for (step of steps(); track step.id; let index = $index) {
       @if (step.titleKey) {
-        <span
-          class="form-stepper__label"
-          [class.form-stepper__label--active]="index === stepIndex()"
-          [class.form-stepper__label--completed]="index < stepIndex()"
-          [class.form-stepper__label--inactive]="index > stepIndex()"
-        >
-          {{ step.titleKey | translate }}
-        </span>
+        <div class="form-stepper__column" [attr.data-step-index]="index">
+          <div
+            class="form-stepper__segment"
+            [class.form-stepper__segment--filled]="index <= stepIndex()"
+          ></div>
+
+          <div class="form-stepper__step">
+            @if (isActive(index)) {
+              <span
+                class="form-stepper__pill form-stepper__pill--active"
+                [class.form-stepper__pill--error]="hasError(index)"
+                aria-current="step"
+                [title]="step.titleKey | translate"
+              >
+                <span class="form-stepper__marker" aria-hidden="true">{{ index + 1 }}</span>
+                @if (hasError(index)) {
+                  <span class="form-stepper__error-dot" aria-hidden="true"></span>
+                }
+                <span class="form-stepper__title">{{ step.titleKey | translate }}</span>
+              </span>
+            } @else {
+              <button
+                type="button"
+                class="form-stepper__pill"
+                [class.form-stepper__pill--completed]="isCompleted(index)"
+                [class.form-stepper__pill--upcoming]="!isCompleted(index)"
+                [class.form-stepper__pill--locked]="!isClickable(index)"
+                [class.form-stepper__pill--error]="hasError(index)"
+                [attr.aria-label]="step.titleKey | translate"
+                [title]="
+                  isClickable(index)
+                    ? (step.titleKey | translate)
+                    : ('shared.form.common.stepLocked' | translate)
+                "
+                (click)="stepSelect.emit(index)"
+              >
+                <span
+                  class="form-stepper__marker"
+                  [class.form-stepper__marker--complete]="showCheck(index)"
+                  aria-hidden="true"
+                >
+                  @if (showCheck(index)) {
+                    <svg lucideCheck [size]="markerIconSize" />
+                  } @else {
+                    {{ index + 1 }}
+                  }
+                </span>
+                @if (hasError(index)) {
+                  <span class="form-stepper__error-dot" aria-hidden="true"></span>
+                }
+                <span class="form-stepper__title">{{ step.titleKey | translate }}</span>
+              </button>
+            }
+          </div>
+        </div>
       }
     }
   </nav>

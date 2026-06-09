@@ -31,7 +31,7 @@ portal.employee.features.<domain>.<feature>.* — employee feature (form, table)
 |------|---------|
 | `shared.sidebar.*` | Portal sidebar chrome |
 | `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
-| `shared.form.common.*` | Form stepper footer, field errors |
+| `shared.form.common.*` | Form footer (previous/next/submit), stepper meta (`stepOf`, `percentComplete`, `stepLocked`), field errors |
 | `shared.table.common.*` | Table loading, empty, pagination, row actions |
 
 ### Guest (`guest.*`)

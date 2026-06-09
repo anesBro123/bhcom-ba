@@ -14,7 +14,7 @@ src/app/
     ├── pages/       # PagePlaceholderComponent
     ├── guards/      # portalMatchGuard
     ├── employee/    # routes, nav, config, features/
-    └── admin/       # routes, nav, config (no features/ yet)
+    └── admin/       # routes, nav, config, features/ (vehicles)
 ```
 
 Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreate them.
@@ -79,9 +79,11 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
 - **Placeholder page:** `src/app/portal/pages/page-placeholder/`
-- **Form example:** `portal/employee/features/fleet/vehicles/`
+- **Single-step form:** `portal/employee/features/fleet/vehicles/`
 - **Table example:** `portal/employee/features/shipments/`
-- **Stepper form:** `portal/employee/features/shipments/create-shipment/`
+- **Stepper (strict):** `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
+- **Stepper (strict + free edit):** `portal/admin/features/vehicles/form/` — `stepperNavigation` input on `FormPageComponent`
+- **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` (`StepperNavigationMode`, `canNavigateToStep`, visited + valid pill state)
 - **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - **App URLs:** `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`

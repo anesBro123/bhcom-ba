@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
@@ -21,7 +21,7 @@ import { AdminVehicleService } from '../data/vehicle.service';
   templateUrl: './vehicle-form-page.component.html',
   styleUrl: './vehicle-form-page.component.scss',
 })
-export class VehicleFormPageComponent {
+export class VehicleFormPageComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -50,23 +50,25 @@ export class VehicleFormPageComponent {
     };
   });
 
-  constructor() {
+  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.vehicleId.set(id);
-      this.vehicleService
-        .getById(id)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: (vehicle) => {
-            const { id: _id, ...formValue } = vehicle;
-            this.form.patchValue(formValue);
-          },
-          error: () => {
-            void this.router.navigateByUrl(ADMIN_VEHICLES_URL);
-          },
-        });
+    if (!id) {
+      return;
     }
+
+    this.vehicleId.set(id);
+    this.vehicleService
+      .getById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (vehicle) => {
+          const { id: _id, ...formValue } = vehicle;
+          queueMicrotask(() => this.form.patchValue(formValue));
+        },
+        error: () => {
+          void this.router.navigateByUrl(ADMIN_VEHICLES_URL);
+        },
+      });
   }
 
   protected onSubmit(): void {

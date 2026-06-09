@@ -52,7 +52,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Sidebar nav: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
 - Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`)
-- Features: `portal/employee/features/` (fleet, shipments); `portal/admin/features/` — not created yet (placeholders only)
+- Features: `portal/employee/features/` (fleet, shipments); `portal/admin/features/` (vehicles)
 - Placeholder pages: `portal/pages/page-placeholder/page-placeholder.component.ts`
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
@@ -72,8 +72,10 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 
 ## References for patterns
 
-- Form page: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
-- Stepper: `portal/employee/features/shipments/create-shipment/`
+- Single-step form: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
+- Stepper (strict): `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
+- Stepper (strict + free edit): `portal/admin/features/vehicles/form/` — `[stepperNavigation]="isEdit() ? 'free' : 'strict'"`
+- Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `shared/form/form.utils.ts` — see `forms.mdc`
 - Table page: `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
 - Guest login: `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)

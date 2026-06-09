@@ -14,72 +14,163 @@
   color: var(--text-muted);
 }
 
-.form-stepper__bar {
-  height: 6px;
+.form-stepper__columns {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.125rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.form-stepper__column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.form-stepper__segment {
+  width: 100%;
+  height: 4px;
   border-radius: 999px;
   background: var(--bg-form-progress-track);
-  overflow: hidden;
+  transition: background-color 0.2s ease;
+
+  &--filled {
+    background: var(--bg-form-progress-fill);
+  }
 }
 
-.form-stepper__bar-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--bg-form-progress-fill);
-  transition: width 0.2s ease;
-}
-
-.form-stepper__labels {
+.form-stepper__step {
   display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-stepper__pill {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.875rem;
-}
-
-.form-stepper__label {
-  font-size: 0.875rem;
-  white-space: nowrap;
-}
-
-.form-stepper__label--active {
+  justify-content: center;
+  gap: 0.25rem;
+  max-width: 100%;
+  padding: 0.3125rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.25;
   color: var(--text-form-step-active);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.form-stepper__pill--active {
+  background: var(--bg-form-progress-fill);
+  color: var(--text-form-btn-primary);
   font-weight: 600;
 }
 
-.form-stepper__label--completed {
-  color: var(--text-form-step-active);
-  font-weight: 400;
+.form-stepper__pill--completed {
+  cursor: pointer;
+  color: var(--text-form-step-complete);
+  border-color: var(--border-form-step-complete);
+  background: var(--bg-form-step-complete-pill);
+
+  &:hover {
+    border-color: var(--bg-form-step-complete-marker);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bg-form-step-complete-marker);
+    outline-offset: 2px;
+  }
 }
 
-.form-stepper__label--inactive {
+.form-stepper__pill--upcoming {
   color: var(--text-form-step-inactive);
-  font-weight: 400;
+}
+
+.form-stepper__pill--locked {
+  cursor: pointer;
+  opacity: 0.55;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.form-stepper__pill--error {
+  border-color: var(--text-form-error);
+  color: var(--text-form-error);
+
+  &.form-stepper__pill--active {
+    background: color-mix(in srgb, var(--text-form-error) 12%, var(--bg-form-progress-fill));
+    color: var(--text-form-error);
+  }
+}
+
+.form-stepper__marker {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+
+  &--complete {
+    background: var(--bg-form-step-complete-marker);
+    color: var(--text-form-step-complete-marker);
+  }
+}
+
+.form-stepper__pill--active .form-stepper__marker {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.form-stepper__error-dot {
+  flex-shrink: 0;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: var(--text-form-error);
+}
+
+.form-stepper__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 900px) {
-  .form-stepper__labels {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0.75rem 1.25rem;
+  .form-stepper__pill {
+    font-size: 0.6875rem;
+    padding-inline: 0.375rem;
   }
 }
 
 @include below-md {
-  .form-stepper__labels {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 0.75rem 1rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  .form-stepper__column {
+    flex: 0 0 auto;
+    min-width: 4.25rem;
   }
 
-  .form-stepper__label {
-    flex-shrink: 0;
-    font-size: 0.8125rem;
+  .form-stepper__title {
+    display: none;
+  }
+
+  .form-stepper__pill {
+    padding: 0.375rem;
   }
 }

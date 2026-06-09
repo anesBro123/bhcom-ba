@@ -31,11 +31,16 @@ export function getVisibleFields<T extends object>(
   return [...(fields ?? [])].filter((field) => !(field.hidden?.(value) ?? false));
 }
 
+export type StepperNavigationMode = 'strict' | 'free';
+
 export function validateStepControls<T extends object>(
   form: FormGroup,
   step: FormStepDef<T>,
   value: Partial<T>,
+  options: { markTouched?: boolean } = {},
 ): boolean {
+  const markTouched = options.markTouched ?? true;
+
   if (step.validate) {
     return step.validate(form);
   }
@@ -57,7 +62,9 @@ export function validateStepControls<T extends object>(
         continue;
       }
 
-      control.markAsTouched();
+      if (markTouched) {
+        control.markAsTouched();
+      }
 
       if (field.disabled?.(value)) {
         continue;
@@ -70,6 +77,49 @@ export function validateStepControls<T extends object>(
   }
 
   return valid;
+}
+
+export function isStepValid<T extends object>(
+  form: FormGroup,
+  step: FormStepDef<T>,
+  value: Partial<T>,
+): boolean {
+  return validateStepControls(form, step, value, { markTouched: false });
+}
+
+export function canNavigateToStep<T extends object>(
+  form: FormGroup,
+  steps: readonly FormStepDef<T>[],
+  currentIndex: number,
+  targetIndex: number,
+  value: Partial<T>,
+  mode: StepperNavigationMode,
+): boolean {
+  if (targetIndex === currentIndex) {
+    return false;
+  }
+
+  if (mode === 'free') {
+    return true;
+  }
+
+  const currentStep = steps[currentIndex];
+  if (!currentStep || !isStepValid(form, currentStep, value)) {
+    return false;
+  }
+
+  if (targetIndex < currentIndex) {
+    return true;
+  }
+
+  for (let index = currentIndex + 1; index < targetIndex; index++) {
+    const step = steps[index];
+    if (!step || !isStepValid(form, step, value)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export function applyFieldDisabledState<T extends object>(

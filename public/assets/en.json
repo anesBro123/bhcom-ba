@@ -35,6 +35,7 @@
         "next": "Next",
         "stepOf": "Step {{current}} of {{total}}",
         "percentComplete": "{{percent}}% Complete",
+        "stepLocked": "Complete previous steps first",
         "fieldRequired": "This field is required",
         "errors": {
           "required": "This field is required",
@@ -269,12 +270,12 @@
             "titleCreate": "Add Vehicle",
             "titleEdit": "Edit Vehicle",
             "steps": {
-              "registration": "Registration & Document",
-              "owner": "Owner & User",
-              "identity": "Vehicle Identity",
-              "mass": "Mass & Capacity",
+              "registration": "Registration",
+              "owner": "Owner",
+              "identity": "Vehicle",
+              "mass": "Mass",
               "engine": "Engine",
-              "registrationValidity": "Registration & Chip Data"
+              "registrationValidity": "Chip data"
             },
             "sections": {
               "document": {

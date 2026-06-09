@@ -30,8 +30,11 @@ import { FormStore } from '../form.store';
 import {
   applyFieldDisabledState,
   buildFieldTemplateKey,
+  canNavigateToStep,
   getVisibleFields,
+  isStepValid,
   validateStepControls,
+  type StepperNavigationMode,
 } from '../form.utils';
 import type {
   FormDefinition,
@@ -58,6 +61,7 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   definition = input.required<FormDefinition<T>>();
   formGroup = input.required<FormGroup>();
   submitDisabled = input(false);
+  stepperNavigation = input<StepperNavigationMode>('strict');
 
   submit = output<void>();
   stepChange = output<{ from: number; to: number }>();
@@ -75,6 +79,7 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
 
   protected formStore!: FormStore<T>;
   protected readonly formValue = signal<Partial<T>>({});
+  private readonly visitedSteps = signal<ReadonlySet<number>>(new Set([0]));
   protected readonly fieldTemplateMap = signal(new Map<string, TemplateRef<FormFieldContext<T>>>());
   protected readonly stepTemplateMap = signal(new Map<string, TemplateRef<FormStepContext<T>>>());
   protected readonly sectionTemplateMap = signal(
@@ -102,6 +107,57 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
     return fieldSections.length === 1;
   });
 
+  protected readonly stepClickable = computed(() => {
+    if (!this.formStore) {
+      return [];
+    }
+
+    const steps = this.definition().steps;
+    const currentIndex = this.formStore.stepIndex();
+    const value = this.formValue();
+    const mode = this.stepperNavigation();
+
+    return steps.map((_, index) =>
+      canNavigateToStep(this.formGroup(), steps, currentIndex, index, value, mode),
+    );
+  });
+
+  protected readonly stepCompleted = computed(() => {
+    if (!this.formStore) {
+      return [];
+    }
+
+    const currentIndex = this.formStore.stepIndex();
+    const visited = this.visitedSteps();
+    const form = this.formGroup();
+    const value = this.formValue();
+
+    return this.definition().steps.map(
+      (step, index) =>
+        index !== currentIndex &&
+        visited.has(index) &&
+        isStepValid(form, step, value),
+    );
+  });
+
+  protected readonly stepErrors = computed(() => {
+    if (!this.formStore) {
+      return [];
+    }
+
+    const currentIndex = this.formStore.stepIndex();
+    const visited = this.visitedSteps();
+    const form = this.formGroup();
+    const value = this.formValue();
+
+    return this.definition().steps.map(
+      (step, index) =>
+        index !== currentIndex &&
+        visited.has(index) &&
+        !isStepValid(form, step, value),
+    );
+  });
+
   ngOnInit(): void {
     this.formStore = new FormStore(this.definition());
     this.syncFormValue();
@@ -127,8 +183,12 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
 
   protected onPrevious(): void {
     const from = this.formStore.stepIndex();
-    this.formStore.previous();
-    this.stepChange.emit({ from, to: this.formStore.stepIndex() });
+    const to = from - 1;
+    if (to < 0) {
+      return;
+    }
+
+    this.navigateToStep(from, to);
   }
 
   protected onNext(): void {
@@ -137,16 +197,58 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
     }
 
     const from = this.formStore.stepIndex();
-    this.formStore.next();
-    this.stepChange.emit({ from, to: this.formStore.stepIndex() });
+    const to = from + 1;
+    if (to >= this.definition().steps.length) {
+      return;
+    }
+
+    this.navigateToStep(from, to);
   }
 
   protected onSubmit(): void {
-    if (!this.validateCurrentStep()) {
+    if (!this.validateAllSteps()) {
       return;
     }
 
     this.submit.emit();
+  }
+
+  protected onStepClick(targetIndex: number): void {
+    if (!this.formStore || targetIndex === this.formStore.stepIndex()) {
+      return;
+    }
+
+    if (!this.validateCurrentStep()) {
+      return;
+    }
+
+    const steps = this.definition().steps;
+    const currentIndex = this.formStore.stepIndex();
+    const value = this.formValue();
+    const mode = this.stepperNavigation();
+    const form = this.formGroup();
+
+    if (
+      !canNavigateToStep(form, steps, currentIndex, targetIndex, value, mode) &&
+      mode === 'strict' &&
+      targetIndex > currentIndex
+    ) {
+      for (let index = currentIndex + 1; index < targetIndex; index++) {
+        const step = steps[index];
+        if (step && !isStepValid(form, step, value)) {
+          validateStepControls(form, step, value);
+          this.navigateToStep(currentIndex, index);
+          return;
+        }
+      }
+      return;
+    }
+
+    if (!canNavigateToStep(form, steps, currentIndex, targetIndex, value, mode)) {
+      return;
+    }
+
+    this.navigateToStep(currentIndex, targetIndex);
   }
 
   protected fieldTemplate(
@@ -195,8 +297,42 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
     return section.slots?.includes('footer') ?? false;
   }
 
+  private navigateToStep(from: number, to: number): void {
+    this.markVisited(from, to);
+    this.formStore.goTo(to);
+    this.stepChange.emit({ from, to });
+    this.applyDisabledState();
+  }
+
+  private markVisited(...indices: number[]): void {
+    this.visitedSteps.update((current) => {
+      const next = new Set(current);
+      for (const index of indices) {
+        next.add(index);
+      }
+      return next;
+    });
+  }
+
   private validateCurrentStep(): boolean {
     return validateStepControls(this.formGroup(), this.currentStep(), this.formValue());
+  }
+
+  private validateAllSteps(): boolean {
+    if (!this.isStepper()) {
+      return this.validateCurrentStep();
+    }
+
+    const form = this.formGroup();
+    const value = this.formValue();
+
+    for (const step of this.definition().steps) {
+      if (!validateStepControls(form, step, value)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private syncFormValue(): void {
