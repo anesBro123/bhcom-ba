@@ -40,14 +40,14 @@ Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock st
 
 ## Routes + nav + URLs
 
-1. **`shared/constants/app-urls.ts`** — list URL, create URL, `adminEdit<Entity>Url(id)` builder (see `app-urls.mdc`).
+1. **`shared/constants/admin-urls.ts`** — list URL, create URL, `adminEdit<Entity>Url(id)` builder (re-exported by `app-urls.ts`; see `app-urls.mdc`).
 2. **`admin.routes.ts`** (or `employee.routes.ts`) — three children under `PortalShellComponent`:
    - `<entity>` → table page, `data: { titleKey: 'portal.<portal>.pages.<entity>' }`
    - `<entity>/create` → form page
    - `<entity>/:id/edit` → **same** form component
 3. **`admin-nav.config.ts`** — section with list item (`exact: true`) + create item; `route` from `app-urls.ts`.
 
-Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:id/edit`); only absolute URLs go in `app-urls.ts`.
+Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:id/edit`); only absolute URLs go in the domain URL files (`admin-urls.ts` for admin CRUD).
 
 ## Form page (`form/<entity>-form-page.component.ts`)
 

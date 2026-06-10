@@ -46,7 +46,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 - Root routes: `src/app/app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`.
 - Guest routes: `src/app/guest/guest.routes.ts` — two `GuestShellComponent` trees (root + `admin` prefix); landing, sign-in, login, register.
-- URL constants: `shared/constants/app-urls.ts` — **never hardcode route paths**; add new URLs here first (see `.cursor/rules/app-urls.mdc`).
+- URL constants: `shared/constants/guest-urls.ts`, `employee-urls.ts`, `admin-urls.ts` (barrel: `app-urls.ts`) — **never hardcode route paths**; add new URLs to the domain file first (see `.cursor/rules/app-urls.mdc`).
 
 | Guest path | Purpose |
 |------------|---------|
@@ -87,7 +87,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` (`StepperNavigationMode`, `canNavigateToStep`, visited + valid pill state)
 - **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
-- **App URLs:** `shared/constants/app-urls.ts`, `shared/constants/portal-kind.type.ts`
+- **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `employee-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker)

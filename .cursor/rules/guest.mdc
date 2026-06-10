@@ -36,6 +36,6 @@ Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) a
 
 ## Constants & imports
 
-- App URLs: `shared/constants/app-urls.ts` (`LANDING_URL`, login/register/home paths, `portalHomeUrl()`)
+- App URLs: `shared/constants/guest-urls.ts` (`LANDING_URL`, login/register paths); import via `app-urls.ts` barrel (`portalHomeUrl()` lives there)
 - Auth: `shared/core/auth/auth.service.ts`
 - Guest imports `shared/**` only — do **not** import portal configs, features, or shell

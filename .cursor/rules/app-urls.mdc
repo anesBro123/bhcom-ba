@@ -4,22 +4,31 @@ globs: src/app/**/*.{ts,html},src/app/**/*.routes.ts
 alwaysApply: true
 ---
 
-# App URLs (`shared/constants/app-urls.ts`)
+# App URLs (`shared/constants/`)
 
-All **application route paths** must come from `shared/constants/app-urls.ts`. Do not hardcode path strings like `'/admin/vehicles'` or `'/dashboard'` in components, nav configs, portal configs, guards, or templates.
+All **application route paths** must come from the URL constants under `shared/constants/`. Do not hardcode path strings like `'/admin/vehicles'` or `'/dashboard'` in components, nav configs, portal configs, guards, or templates.
+
+## File layout
+
+| File | Contents |
+|------|----------|
+| `guest-urls.ts` | Public routes: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL` |
+| `employee-urls.ts` | Employee portal routes: `EMPLOYEE_HOME_URL`, … |
+| `admin-urls.ts` | Admin portal routes: `ADMIN_HOME_URL`, list/create URLs, `adminEdit<Entity>Url(id)` builders |
+| `app-urls.ts` | **Barrel** — re-exports all domain files + `portalHomeUrl()` |
 
 ## Rules
 
-1. **Add new routes here first** — export a `*_URL` constant (or a small builder like `adminEditVehicleUrl(id)`).
-2. **Import from `shared/constants/app-urls.ts`** in guest, portal, and shared code that navigates or links.
+1. **Add new routes to the correct domain file first** — export a `*_URL` constant (or a small builder like `adminEditVehicleUrl(id)`).
+2. **Import from `shared/constants/app-urls.ts`** in guest, portal, and shared code that navigates or links (barrel keeps one entry point).
 3. **Portal shell home** — `PortalConfig.shell.homeUrl` uses `ADMIN_HOME_URL` / `EMPLOYEE_HOME_URL`, not literals.
 4. **Nav `route` fields** — use constants, not string literals.
 5. **Router navigation** — prefer `router.navigateByUrl(CONST)` or `router.navigateByUrl(builder(id))`.
 
-## Not in this file
+## Not in these files
 
 - **HTTP API paths** (e.g. `/api/admin/vehicles`) — colocate in feature `*.constants.ts` or `*.config.ts`.
-- **Angular route `path` segments** in `*.routes.ts` (relative segments like `vehicles`, `:id/edit`) — only full absolute app URLs belong in `app-urls.ts`.
+- **Angular route `path` segments** in `*.routes.ts` (relative segments like `vehicles`, `:id/edit`) — only full absolute app URLs belong here.
 
 ## Examples
 
@@ -29,7 +38,7 @@ homeUrl: '/admin/dashboard',
 route: '/admin/vehicles/create',
 this.router.navigate(['/admin/vehicles']);
 
-// ✅ GOOD
+// ✅ GOOD — import via barrel
 import { ADMIN_HOME_URL, ADMIN_CREATE_VEHICLE_URL, ADMIN_VEHICLES_URL } from '../../shared/constants/app-urls';
 
 homeUrl: ADMIN_HOME_URL,
@@ -37,6 +46,21 @@ route: ADMIN_CREATE_VEHICLE_URL,
 this.router.navigateByUrl(ADMIN_VEHICLES_URL);
 ```
 
-## Current exports
+```typescript
+// ✅ GOOD — add new admin CRUD URLs to admin-urls.ts (auto-exported by barrel)
+// admin-urls.ts
+export const ADMIN_PARTS_URL = '/admin/parts';
+export function adminEditPartUrl(id: string): string {
+  return `${ADMIN_PARTS_URL}/${id}/edit`;
+}
+```
 
-`LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`, `EMPLOYEE_HOME_URL`, `ADMIN_HOME_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `portalHomeUrl()`, `adminEditVehicleUrl()`.
+## Current exports (via `app-urls.ts` barrel)
+
+Guest: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`.
+
+Employee: `EMPLOYEE_HOME_URL`.
+
+Admin: `ADMIN_HOME_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `ADMIN_EMPLOYEES_URL`, `ADMIN_CREATE_EMPLOYEE_URL`, `ADMIN_WAREHOUSES_URL`, `ADMIN_CREATE_WAREHOUSE_URL`, `adminEditVehicleUrl()`, `adminEditEmployeeUrl()`, `adminEditWarehouseUrl()`.
+
+Cross-portal: `portalHomeUrl()`.

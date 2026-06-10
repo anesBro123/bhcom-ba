@@ -11,7 +11,7 @@ alwaysApply: false
 Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/features/vehicles/`.
 
 1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or employee equivalent).
-2. Add URLs to `shared/constants/app-urls.ts` (list, create, `editUrl(id)`).
+2. Add URLs to `shared/constants/admin-urls.ts` (or `employee-urls.ts` for employee features): list, create, `editUrl(id)`.
 3. Register three routes in `admin.routes.ts`: list, `create`, `:id/edit` (same form component for create + edit).
 4. Add nav section (list + create) in `admin-nav.config.ts` with `route` from `app-urls.ts`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
