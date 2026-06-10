@@ -257,10 +257,13 @@
     "admin": {
       "nav": {
         "sections": {
-          "vehicles": "VEHICLES"
+          "vehicles": "VEHICLES",
+          "warehouses": "WAREHOUSES"
         },
         "allVehicles": "All Vehicles",
-        "createVehicle": "Add Vehicle"
+        "createVehicle": "Add Vehicle",
+        "allWarehouses": "All Warehouses",
+        "createWarehouse": "Add Warehouse"
       },
       "pages": {
         "dashboard": "Admin Dashboard",
@@ -268,7 +271,10 @@
         "settings": "System Settings",
         "vehicles": "All Vehicles",
         "createVehicle": "Add Vehicle",
-        "editVehicle": "Edit Vehicle"
+        "editVehicle": "Edit Vehicle",
+        "warehouses": "All Warehouses",
+        "createWarehouse": "Add Warehouse",
+        "editWarehouse": "Edit Warehouse"
       },
       "features": {
         "vehicles": {
@@ -425,6 +431,95 @@
               "searchPlaceholder": "Search by plate, VIN, make, model...",
               "vrstaVozila": "Vehicle Category",
               "allVrste": "All categories"
+            }
+          }
+        },
+        "warehouses": {
+          "form": {
+            "titleCreate": "Add Warehouse",
+            "titleEdit": "Edit Warehouse",
+            "steps": {
+              "identity": "Identity",
+              "capacity": "Capacity",
+              "facilities": "Facilities"
+            },
+            "sections": {
+              "identity": {
+                "title": "Warehouse Identity",
+                "subtitle": "Name and warehouse type"
+              },
+              "location": {
+                "title": "Location",
+                "subtitle": "Street address, city, and country"
+              },
+              "capacity": {
+                "title": "Capacity & Layout",
+                "subtitle": "Floor area, height, floors, and rack count"
+              },
+              "facilities": {
+                "title": "Facilities & Security",
+                "subtitle": "Enclosure, cameras, ramp, and physical security"
+              }
+            },
+            "fields": {
+              "name": "Warehouse Name",
+              "address": "Address",
+              "city": "City",
+              "country": "Country",
+              "capacityM2": "Capacity (m²)",
+              "type": "Warehouse Type",
+              "height": "Height (m)",
+              "enclosed": "Enclosed",
+              "cameras": "Cameras",
+              "ramp": "Ramp",
+              "physicalSecurity": "Physical Security",
+              "floorCount": "Number of Floors",
+              "rackCount": "Number of Racks"
+            },
+            "placeholders": {
+              "name": "e.g. Central Distribution Hub",
+              "address": "Street and number",
+              "city": "e.g. Sarajevo",
+              "country": "e.g. Bosnia and Herzegovina",
+              "capacityM2": "Square meters",
+              "type": "Select type",
+              "height": "Meters",
+              "floorCount": "Number of floors",
+              "rackCount": "Number of racks"
+            },
+            "warehouseType": {
+              "open": "Open",
+              "closed": "Closed"
+            },
+            "actions": {
+              "create": "Create Warehouse",
+              "update": "Save Changes"
+            }
+          },
+          "table": {
+            "title": "Warehouse List",
+            "entity": "warehouses",
+            "columns": {
+              "name": "Name",
+              "city": "City",
+              "capacityM2": "Capacity (m²)",
+              "type": "Type",
+              "floorCount": "Floors",
+              "rackCount": "Racks"
+            },
+            "actions": {
+              "edit": "Edit Warehouse",
+              "delete": "Delete"
+            },
+            "deleteConfirm": {
+              "title": "Delete warehouse?",
+              "message": "This action cannot be undone. The warehouse will be permanently removed."
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search by name, address, city, country...",
+              "type": "Warehouse Type",
+              "allTypes": "All types"
             }
           }
         }

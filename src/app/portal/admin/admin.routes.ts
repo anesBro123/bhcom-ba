@@ -5,6 +5,8 @@ import { PagePlaceholderComponent } from '../pages/page-placeholder/page-placeho
 import { ADMIN_PORTAL_CONFIG } from './admin-portal.config';
 import { VehicleFormPageComponent } from './features/vehicles/form/vehicle-form-page.component';
 import { VehicleTablePageComponent } from './features/vehicles/table/vehicle-table-page.component';
+import { WarehouseFormPageComponent } from './features/warehouses/form/warehouse-form-page.component';
+import { WarehouseTablePageComponent } from './features/warehouses/table/warehouse-table-page.component';
 
 export default [
   {
@@ -42,6 +44,21 @@ export default [
         path: 'vehicles/:id/edit',
         component: VehicleFormPageComponent,
         data: { titleKey: 'portal.admin.pages.editVehicle' },
+      },
+      {
+        path: 'warehouses',
+        component: WarehouseTablePageComponent,
+        data: { titleKey: 'portal.admin.pages.warehouses' },
+      },
+      {
+        path: 'warehouses/create',
+        component: WarehouseFormPageComponent,
+        data: { titleKey: 'portal.admin.pages.createWarehouse' },
+      },
+      {
+        path: 'warehouses/:id/edit',
+        component: WarehouseFormPageComponent,
+        data: { titleKey: 'portal.admin.pages.editWarehouse' },
       },
     ],
   },

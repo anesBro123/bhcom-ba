@@ -1,7 +1,9 @@
-import { LucideSquarePlus, LucideTruck } from '@lucide/angular';
+import { LucideSquarePlus, LucideTruck, LucideWarehouse } from '@lucide/angular';
 import {
   ADMIN_CREATE_VEHICLE_URL,
+  ADMIN_CREATE_WAREHOUSE_URL,
   ADMIN_VEHICLES_URL,
+  ADMIN_WAREHOUSES_URL,
 } from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
 
@@ -18,6 +20,22 @@ export const ADMIN_NAV: NavSection[] = [
       {
         labelKey: 'portal.admin.nav.createVehicle',
         route: ADMIN_CREATE_VEHICLE_URL,
+        icon: LucideSquarePlus,
+      },
+    ],
+  },
+  {
+    titleKey: 'portal.admin.nav.sections.warehouses',
+    items: [
+      {
+        labelKey: 'portal.admin.nav.allWarehouses',
+        route: ADMIN_WAREHOUSES_URL,
+        icon: LucideWarehouse,
+        exact: true,
+      },
+      {
+        labelKey: 'portal.admin.nav.createWarehouse',
+        route: ADMIN_CREATE_WAREHOUSE_URL,
         icon: LucideSquarePlus,
       },
     ],

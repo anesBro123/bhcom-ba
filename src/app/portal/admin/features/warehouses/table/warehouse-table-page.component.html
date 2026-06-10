@@ -1,0 +1,7 @@
+@if (tableMounted()) {
+  <app-data-table [definition]="table" [loader]="loadWarehouses" (rowAction)="onRowAction($event)">
+    <ng-template [appTableCell]="typeKey" let-row>
+      <span>{{ warehouseTypeLabel(row.type) | translate }}</span>
+    </ng-template>
+  </app-data-table>
+}

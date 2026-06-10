@@ -1,0 +1,7 @@
+<app-form-page
+  [definition]="formDef()"
+  [formGroup]="form"
+  [submitDisabled]="submitting()"
+  [stepperNavigation]="isEdit() ? 'free' : 'strict'"
+  (submit)="onSubmit()"
+/>

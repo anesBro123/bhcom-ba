@@ -257,10 +257,13 @@
     "admin": {
       "nav": {
         "sections": {
-          "vehicles": "VOZILA"
+          "vehicles": "VOZILA",
+          "warehouses": "SKLADIŠTA"
         },
         "allVehicles": "Sva vozila",
-        "createVehicle": "Dodaj vozilo"
+        "createVehicle": "Dodaj vozilo",
+        "allWarehouses": "Sva skladišta",
+        "createWarehouse": "Dodaj skladište"
       },
       "pages": {
         "dashboard": "Admin kontrolna tabla",
@@ -268,7 +271,10 @@
         "settings": "Sistemske postavke",
         "vehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
-        "editVehicle": "Uredi vozilo"
+        "editVehicle": "Uredi vozilo",
+        "warehouses": "Sva skladišta",
+        "createWarehouse": "Dodaj skladište",
+        "editWarehouse": "Uredi skladište"
       },
       "features": {
         "vehicles": {
@@ -425,6 +431,95 @@
               "searchPlaceholder": "Pretraži po tablici, šasiji, marki, modelu...",
               "vrstaVozila": "Vrsta vozila",
               "allVrste": "Sve vrste"
+            }
+          }
+        },
+        "warehouses": {
+          "form": {
+            "titleCreate": "Dodaj skladište",
+            "titleEdit": "Uredi skladište",
+            "steps": {
+              "identity": "Identitet",
+              "capacity": "Kapacitet",
+              "facilities": "Objekti"
+            },
+            "sections": {
+              "identity": {
+                "title": "Identitet skladišta",
+                "subtitle": "Naziv i tip skladišta"
+              },
+              "location": {
+                "title": "Lokacija",
+                "subtitle": "Adresa, grad i država"
+              },
+              "capacity": {
+                "title": "Kapacitet i raspored",
+                "subtitle": "Površina, visina, spratovi i broj regala"
+              },
+              "facilities": {
+                "title": "Objekti i sigurnost",
+                "subtitle": "Zatvorenost, kamere, rampa i fizička zaštita"
+              }
+            },
+            "fields": {
+              "name": "Naziv skladišta",
+              "address": "Adresa",
+              "city": "Grad",
+              "country": "Država",
+              "capacityM2": "Kapacitet (m²)",
+              "type": "Tip skladišta",
+              "height": "Visina (m)",
+              "enclosed": "Ograđen",
+              "cameras": "Kamere",
+              "ramp": "Rampa",
+              "physicalSecurity": "Fizička zaštita",
+              "floorCount": "Broj spratova",
+              "rackCount": "Broj regala"
+            },
+            "placeholders": {
+              "name": "npr. Centralno distributivno skladište",
+              "address": "Ulica i broj",
+              "city": "npr. Sarajevo",
+              "country": "npr. Bosna i Hercegovina",
+              "capacityM2": "Kvadratni metri",
+              "type": "Odaberite tip",
+              "height": "Metri",
+              "floorCount": "Broj spratova",
+              "rackCount": "Broj regala"
+            },
+            "warehouseType": {
+              "open": "Otvoreno",
+              "closed": "Zatvoreno"
+            },
+            "actions": {
+              "create": "Kreiraj skladište",
+              "update": "Sačuvaj izmjene"
+            }
+          },
+          "table": {
+            "title": "Lista skladišta",
+            "entity": "skladišta",
+            "columns": {
+              "name": "Naziv",
+              "city": "Grad",
+              "capacityM2": "Kapacitet (m²)",
+              "type": "Tip",
+              "floorCount": "Spratovi",
+              "rackCount": "Regali"
+            },
+            "actions": {
+              "edit": "Uredi skladište",
+              "delete": "Obriši"
+            },
+            "deleteConfirm": {
+              "title": "Obrisati skladište?",
+              "message": "Ova radnja se ne može poništiti. Skladište će biti trajno uklonjeno."
+            },
+            "filters": {
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži po nazivu, adresi, gradu, državi...",
+              "type": "Tip skladišta",
+              "allTypes": "Svi tipovi"
             }
           }
         }
