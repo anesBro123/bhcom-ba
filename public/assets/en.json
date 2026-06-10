@@ -257,9 +257,12 @@
     "admin": {
       "nav": {
         "sections": {
+          "users": "USERS",
           "vehicles": "VEHICLES",
           "warehouses": "WAREHOUSES"
         },
+        "allEmployees": "All Employees",
+        "createEmployee": "Add Employee",
         "allVehicles": "All Vehicles",
         "createVehicle": "Add Vehicle",
         "allWarehouses": "All Warehouses",
@@ -267,8 +270,10 @@
       },
       "pages": {
         "dashboard": "Admin Dashboard",
-        "users": "User Management",
         "settings": "System Settings",
+        "employees": "All Employees",
+        "createEmployee": "Add Employee",
+        "editEmployee": "Edit Employee",
         "vehicles": "All Vehicles",
         "createVehicle": "Add Vehicle",
         "editVehicle": "Edit Vehicle",
@@ -277,6 +282,79 @@
         "editWarehouse": "Edit Warehouse"
       },
       "features": {
+        "employees": {
+          "form": {
+            "titleCreate": "Add Employee",
+            "titleEdit": "Edit Employee",
+            "steps": {
+              "profile": "Profile",
+              "contact": "Contact",
+              "permissions": "Permissions"
+            },
+            "sections": {
+              "personal": {
+                "title": "Personal Information",
+                "subtitle": "Name, date of birth, and personal ID"
+              },
+              "contactInfo": {
+                "title": "Contact Details",
+                "subtitle": "Email address and phone number"
+              },
+              "permissions": {
+                "title": "Access Permissions",
+                "subtitle": "Control what this employee can create and accept"
+              }
+            },
+            "fields": {
+              "firstName": "First Name",
+              "lastName": "Last Name",
+              "email": "Email",
+              "phone": "Phone",
+              "dateOfBirth": "Date of Birth",
+              "jmbg": "Personal ID (JMBG)",
+              "canCreateShipment": "Can Create Shipment",
+              "canAcceptShipment": "Can Accept Shipment",
+              "canCreateRoute": "Can Create Route",
+              "canAcceptRoute": "Can Accept Route"
+            },
+            "placeholders": {
+              "firstName": "e.g. Amir",
+              "lastName": "e.g. Hadžić",
+              "email": "e.g. amir@example.com",
+              "phone": "e.g. +387 61 123 456",
+              "dateOfBirth": "Select date",
+              "jmbg": "13-digit personal ID"
+            },
+            "actions": {
+              "create": "Create Employee",
+              "update": "Save Changes"
+            }
+          },
+          "table": {
+            "title": "Employee List",
+            "entity": "employees",
+            "columns": {
+              "firstName": "First Name",
+              "lastName": "Last Name",
+              "email": "Email",
+              "phone": "Phone",
+              "dateOfBirth": "Date of Birth",
+              "jmbg": "JMBG"
+            },
+            "actions": {
+              "edit": "Edit Employee",
+              "delete": "Delete"
+            },
+            "deleteConfirm": {
+              "title": "Delete employee?",
+              "message": "This action cannot be undone. The employee will be permanently removed."
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search by name, email, phone, JMBG..."
+            }
+          }
+        },
         "vehicles": {
           "form": {
             "titleCreate": "Add Vehicle",

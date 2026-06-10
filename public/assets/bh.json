@@ -257,9 +257,12 @@
     "admin": {
       "nav": {
         "sections": {
+          "users": "KORISNICI",
           "vehicles": "VOZILA",
           "warehouses": "SKLADIŠTA"
         },
+        "allEmployees": "Svi zaposlenici",
+        "createEmployee": "Dodaj zaposlenika",
         "allVehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
         "allWarehouses": "Sva skladišta",
@@ -267,8 +270,10 @@
       },
       "pages": {
         "dashboard": "Admin kontrolna tabla",
-        "users": "Upravljanje korisnicima",
         "settings": "Sistemske postavke",
+        "employees": "Svi zaposlenici",
+        "createEmployee": "Dodaj zaposlenika",
+        "editEmployee": "Uredi zaposlenika",
         "vehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
         "editVehicle": "Uredi vozilo",
@@ -277,6 +282,79 @@
         "editWarehouse": "Uredi skladište"
       },
       "features": {
+        "employees": {
+          "form": {
+            "titleCreate": "Dodaj zaposlenika",
+            "titleEdit": "Uredi zaposlenika",
+            "steps": {
+              "profile": "Profil",
+              "contact": "Kontakt",
+              "permissions": "Dozvole"
+            },
+            "sections": {
+              "personal": {
+                "title": "Lični podaci",
+                "subtitle": "Ime, datum rođenja i JMBG"
+              },
+              "contactInfo": {
+                "title": "Kontakt podaci",
+                "subtitle": "Email adresa i broj telefona"
+              },
+              "permissions": {
+                "title": "Pristupne dozvole",
+                "subtitle": "Kontrolišite šta zaposlenik može kreirati i prihvatiti"
+              }
+            },
+            "fields": {
+              "firstName": "Ime",
+              "lastName": "Prezime",
+              "email": "Email",
+              "phone": "Telefon",
+              "dateOfBirth": "Datum rođenja",
+              "jmbg": "JMBG",
+              "canCreateShipment": "Može kreirati pošiljku",
+              "canAcceptShipment": "Može prihvatiti pošiljku",
+              "canCreateRoute": "Može kreirati rutu",
+              "canAcceptRoute": "Može prihvatiti rutu"
+            },
+            "placeholders": {
+              "firstName": "npr. Amir",
+              "lastName": "npr. Hadžić",
+              "email": "npr. amir@example.com",
+              "phone": "npr. +387 61 123 456",
+              "dateOfBirth": "Odaberite datum",
+              "jmbg": "13-cifreni JMBG"
+            },
+            "actions": {
+              "create": "Kreiraj zaposlenika",
+              "update": "Sačuvaj izmjene"
+            }
+          },
+          "table": {
+            "title": "Lista zaposlenika",
+            "entity": "zaposlenici",
+            "columns": {
+              "firstName": "Ime",
+              "lastName": "Prezime",
+              "email": "Email",
+              "phone": "Telefon",
+              "dateOfBirth": "Datum rođenja",
+              "jmbg": "JMBG"
+            },
+            "actions": {
+              "edit": "Uredi zaposlenika",
+              "delete": "Obriši"
+            },
+            "deleteConfirm": {
+              "title": "Obrisati zaposlenika?",
+              "message": "Ova radnja se ne može poništiti. Zaposlenik će biti trajno uklonjen."
+            },
+            "filters": {
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži po imenu, emailu, telefonu, JMBG..."
+            }
+          }
+        },
         "vehicles": {
           "form": {
             "titleCreate": "Dodaj vozilo",
