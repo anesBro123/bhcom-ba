@@ -15,6 +15,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 3. Register three routes in `admin.routes.ts`: list, `create`, `:id/edit` (same form component for create + edit).
 4. Add nav section (list + create) in `admin-nav.config.ts` with `route` from `app-urls.ts`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
+6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
 
 ## Portal feature (other shapes)
 

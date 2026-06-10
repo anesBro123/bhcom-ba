@@ -2,6 +2,7 @@
   [definition]="formDef()"
   [formGroup]="form"
   [submitDisabled]="submitting()"
-  [stepperNavigation]="isEdit() ? 'free' : 'strict'"
+  [stepperMode]="isEdit() ? 'edit' : 'create'"
+  [stepperDataReady]="stepperDataReady()"
   (submit)="onSubmit()"
 />

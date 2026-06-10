@@ -30,4 +30,7 @@ export type {
   FormStepIdsOf,
   RadioOption,
   SelectOption,
+  StepperMode,
+  ValidationState,
 } from './form.types';
+export type { StepValidationOptions } from './form.utils';

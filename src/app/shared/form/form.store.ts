@@ -5,9 +5,6 @@ import type { FormDefinition, FormStepDef } from './form.types';
 export class FormStore<T extends object> {
   readonly stepIndex: WritableSignal<number>;
   readonly totalSteps: number;
-  readonly progressPercent = computed(() =>
-    Math.round(((this.stepIndex() + 1) / this.totalSteps) * 100),
-  );
   readonly currentStep = computed(
     () => this.definition.steps[this.stepIndex()] as FormStepDef<T>,
   );

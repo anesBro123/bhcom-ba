@@ -74,9 +74,9 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/` layout; see `portal-feature.mdc`
 - Single-step form: `portal/employee/features/fleet/vehicles/create-vehicle-page.*` + `create-vehicle.form.ts`
-- Stepper (strict): `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
-- Stepper (strict + free edit): `portal/admin/features/vehicles/form/` — `[stepperNavigation]="isEdit() ? 'free' : 'strict'"`
-- Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `shared/form/form.utils.ts` — see `forms.mdc`
+- Stepper create-only: `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
+- Stepper create + edit: `portal/admin/features/vehicles/form/` — `[stepperMode]` + `[stepperDataReady]`
+- Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `form.utils.ts` (`ValidationState`, free navigation, mobile chip rail) — see `forms.mdc`
 - Table page (mock loader): `portal/employee/features/shipments/shipments-page.*` + `shipment.table.ts`
 - Table page (service loader + delete): `portal/admin/features/vehicles/table/` — see `portal-feature.mdc`, `confirm.mdc`
 - Guest login: `guest/pages/login/employee-login-page.*`, `admin-login-page.*`

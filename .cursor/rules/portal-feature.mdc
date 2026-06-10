@@ -52,12 +52,25 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 ## Form page (`form/<entity>-form-page.component.ts`)
 
 - `FormBuilder` group mirrors every field key; validators on the group, not only in the def.
-- `vehicleId` signal from `route.snapshot.paramMap`; `isEdit = computed(() => vehicleId() !== null)`.
-- `formDef` computed — swap `titleKey` and submit action for create vs edit (`AdminVehicleFormEditActions` pattern).
-- `ngOnInit`: if `:id`, `getById` → `patchValue` (strip `id`); error → `navigateByUrl` back to list URL.
-- `onSubmit`: guard `submitting` signal; `getRawValue() as FormModel`; create vs update; success → list URL.
-- Template: single `<app-form-page>` with `[definition]`, `[formGroup]`, `[submitDisabled]`, `(submit)`.
-- Stepper create + edit: `[stepperNavigation]="isEdit() ? 'free' : 'strict'"` (see `forms.mdc`).
+- `entityId` signal from `route.snapshot.paramMap`; `isEdit = computed(() => entityId() !== null)`.
+- `stepperDataReady = signal(false)` — `true` on create init; after edit `patchValue` in `queueMicrotask`.
+- `formDef` computed — swap `titleKey` and submit action for create vs edit (`*FormEditActions` pattern).
+- `ngOnInit`: no `:id` → `stepperDataReady.set(true)`; with `:id` → `getById` → `patchValue` (strip `id`) → `stepperDataReady.set(true)`; load error → `navigateByUrl` list URL.
+- `onSubmit`: guard `submitting`; `getRawValue() as FormModel`; create vs update; success → list URL. Do not re-validate — `FormPageComponent` already did.
+- Template:
+
+```html
+<app-form-page
+  [definition]="formDef()"
+  [formGroup]="form"
+  [submitDisabled]="submitting()"
+  [stepperMode]="isEdit() ? 'edit' : 'create'"
+  [stepperDataReady]="stepperDataReady()"
+  (submit)="onSubmit()"
+/>
+```
+
+- Stepper UX (free navigation, `ValidationState` pills, submit-only enforcement, mobile layout): see `forms.mdc` — do not implement in the feature page.
 
 ## Table page (`table/<entity>-table-page.component.ts`)
 

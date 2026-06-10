@@ -31,6 +31,7 @@ export class VehicleFormPageComponent implements OnInit {
   protected readonly form = this.buildForm();
   protected readonly submitting = signal(false);
   protected readonly vehicleId = signal<string | null>(null);
+  protected readonly stepperDataReady = signal(false);
 
   protected readonly isEdit = computed(() => this.vehicleId() !== null);
 
@@ -53,6 +54,7 @@ export class VehicleFormPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
+      this.stepperDataReady.set(true);
       return;
     }
 
@@ -63,7 +65,10 @@ export class VehicleFormPageComponent implements OnInit {
       .subscribe({
         next: (vehicle) => {
           const { id: _id, ...formValue } = vehicle;
-          queueMicrotask(() => this.form.patchValue(formValue));
+          queueMicrotask(() => {
+            this.form.patchValue(formValue);
+            this.stepperDataReady.set(true);
+          });
         },
         error: () => {
           void this.router.navigateByUrl(ADMIN_VEHICLES_URL);

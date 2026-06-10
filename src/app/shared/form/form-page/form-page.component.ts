@@ -4,6 +4,7 @@ import {
   Component,
   ContentChildren,
   DestroyRef,
+  effect,
   OnInit,
   QueryList,
   TemplateRef,
@@ -30,17 +31,18 @@ import { FormStore } from '../form.store';
 import {
   applyFieldDisabledState,
   buildFieldTemplateKey,
-  canNavigateToStep,
   getVisibleFields,
   isStepValid,
-  validateStepControls,
-  type StepperNavigationMode,
+  resolveStepValidationState,
+  runStepValidation,
 } from '../form.utils';
 import type {
   FormDefinition,
   FormFieldContext,
   FormSectionContext,
   FormStepContext,
+  StepperMode,
+  ValidationState,
 } from '../form.types';
 
 @Component({
@@ -61,7 +63,8 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   definition = input.required<FormDefinition<T>>();
   formGroup = input.required<FormGroup>();
   submitDisabled = input(false);
-  stepperNavigation = input<StepperNavigationMode>('strict');
+  stepperMode = input<StepperMode>('create');
+  stepperDataReady = input(false);
 
   submit = output<void>();
   stepChange = output<{ from: number; to: number }>();
@@ -79,7 +82,9 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
 
   protected formStore!: FormStore<T>;
   protected readonly formValue = signal<Partial<T>>({});
-  private readonly visitedSteps = signal<ReadonlySet<number>>(new Set([0]));
+  private readonly engagedSteps = signal<ReadonlySet<number>>(new Set([0]));
+  private readonly stepOutcomes = signal<ReadonlyMap<number, 'valid' | 'invalid'>>(new Map());
+  private readonly editValidated = signal(false);
   protected readonly fieldTemplateMap = signal(new Map<string, TemplateRef<FormFieldContext<T>>>());
   protected readonly stepTemplateMap = signal(new Map<string, TemplateRef<FormStepContext<T>>>());
   protected readonly sectionTemplateMap = signal(
@@ -107,56 +112,49 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
     return fieldSections.length === 1;
   });
 
-  protected readonly stepClickable = computed(() => {
+  protected readonly stepValidationStates = computed((): ValidationState[] => {
     if (!this.formStore) {
       return [];
     }
 
-    const steps = this.definition().steps;
-    const currentIndex = this.formStore.stepIndex();
-    const value = this.formValue();
-    const mode = this.stepperNavigation();
-
-    return steps.map((_, index) =>
-      canNavigateToStep(this.formGroup(), steps, currentIndex, index, value, mode),
-    );
-  });
-
-  protected readonly stepCompleted = computed(() => {
-    if (!this.formStore) {
-      return [];
-    }
-
-    const currentIndex = this.formStore.stepIndex();
-    const visited = this.visitedSteps();
     const form = this.formGroup();
     const value = this.formValue();
-
-    return this.definition().steps.map(
-      (step, index) =>
-        index !== currentIndex &&
-        visited.has(index) &&
-        isStepValid(form, step, value),
-    );
-  });
-
-  protected readonly stepErrors = computed(() => {
-    if (!this.formStore) {
-      return [];
-    }
-
     const currentIndex = this.formStore.stepIndex();
-    const visited = this.visitedSteps();
-    const form = this.formGroup();
-    const value = this.formValue();
+    const engaged = this.engagedSteps();
+    const outcomes = this.stepOutcomes();
+    const mode = this.stepperMode();
+    const editValidated = this.editValidated();
 
-    return this.definition().steps.map(
-      (step, index) =>
-        index !== currentIndex &&
-        visited.has(index) &&
-        !isStepValid(form, step, value),
+    return this.definition().steps.map((step, index) =>
+      resolveStepValidationState(form, step, index, currentIndex, value, {
+        mode,
+        engagedSteps: engaged,
+        stepOutcomes: outcomes,
+        editValidated,
+      }),
     );
   });
+
+  constructor() {
+    effect(() => {
+      const mode = this.stepperMode();
+      const ready = this.stepperDataReady();
+
+      if (mode !== 'edit' || !ready || this.editValidated() || !this.formStore) {
+        return;
+      }
+
+      this.validateAllSteps({ markTouched: false, recordOutcomes: true });
+      const allIndices = new Set(this.definition().steps.map((_, index) => index));
+      this.engagedSteps.set(allIndices);
+      this.editValidated.set(true);
+
+      const currentIndex = this.formStore.stepIndex();
+      if (this.isStepKnownInvalid(currentIndex)) {
+        this.validateStep(currentIndex, { markTouched: true });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.formStore = new FormStore(this.definition());
@@ -192,10 +190,6 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   }
 
   protected onNext(): void {
-    if (!this.validateCurrentStep()) {
-      return;
-    }
-
     const from = this.formStore.stepIndex();
     const to = from + 1;
     if (to >= this.definition().steps.length) {
@@ -206,7 +200,7 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   }
 
   protected onSubmit(): void {
-    if (!this.validateAllSteps()) {
+    if (!this.validateAllSteps({ markTouched: true, recordOutcomes: true, navigateToFirstInvalid: true })) {
       return;
     }
 
@@ -218,37 +212,7 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
       return;
     }
 
-    if (!this.validateCurrentStep()) {
-      return;
-    }
-
-    const steps = this.definition().steps;
-    const currentIndex = this.formStore.stepIndex();
-    const value = this.formValue();
-    const mode = this.stepperNavigation();
-    const form = this.formGroup();
-
-    if (
-      !canNavigateToStep(form, steps, currentIndex, targetIndex, value, mode) &&
-      mode === 'strict' &&
-      targetIndex > currentIndex
-    ) {
-      for (let index = currentIndex + 1; index < targetIndex; index++) {
-        const step = steps[index];
-        if (step && !isStepValid(form, step, value)) {
-          validateStepControls(form, step, value);
-          this.navigateToStep(currentIndex, index);
-          return;
-        }
-      }
-      return;
-    }
-
-    if (!canNavigateToStep(form, steps, currentIndex, targetIndex, value, mode)) {
-      return;
-    }
-
-    this.navigateToStep(currentIndex, targetIndex);
+    this.navigateToStep(this.formStore.stepIndex(), targetIndex);
   }
 
   protected fieldTemplate(
@@ -298,41 +262,103 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   }
 
   private navigateToStep(from: number, to: number): void {
-    this.markVisited(from, to);
+    this.validateStep(from, { recordOutcome: true });
+    this.engageStep(to);
     this.formStore.goTo(to);
     this.stepChange.emit({ from, to });
     this.applyDisabledState();
+
+    if (this.isStepKnownInvalid(to)) {
+      this.validateStep(to, { markTouched: true });
+    }
   }
 
-  private markVisited(...indices: number[]): void {
-    this.visitedSteps.update((current) => {
+  private engageStep(index: number): void {
+    this.engagedSteps.update((current) => {
       const next = new Set(current);
-      for (const index of indices) {
-        next.add(index);
-      }
+      next.add(index);
       return next;
     });
   }
 
-  private validateCurrentStep(): boolean {
-    return validateStepControls(this.formGroup(), this.currentStep(), this.formValue());
-  }
-
-  private validateAllSteps(): boolean {
-    if (!this.isStepper()) {
-      return this.validateCurrentStep();
+  private validateStep(
+    index: number,
+    options: { markTouched?: boolean; recordOutcome?: boolean } = {},
+  ): boolean {
+    const step = this.definition().steps[index];
+    if (!step) {
+      return true;
     }
 
-    const form = this.formGroup();
-    const value = this.formValue();
+    const valid = runStepValidation(this.formGroup(), step, this.formValue(), {
+      markTouched: options.markTouched ?? false,
+    });
 
-    for (const step of this.definition().steps) {
-      if (!validateStepControls(form, step, value)) {
-        return false;
+    if (options.recordOutcome) {
+      this.stepOutcomes.update((current) => {
+        const next = new Map(current);
+        next.set(index, valid ? 'valid' : 'invalid');
+        return next;
+      });
+    }
+
+    return valid;
+  }
+
+  private isStepKnownInvalid(index: number): boolean {
+    if (this.stepOutcomes().get(index) === 'invalid') {
+      return true;
+    }
+
+    if (!this.editValidated()) {
+      return false;
+    }
+
+    const step = this.definition().steps[index];
+    return !!step && !isStepValid(this.formGroup(), step, this.formValue());
+  }
+
+  private validateAllSteps(
+    options: {
+      markTouched?: boolean;
+      recordOutcomes?: boolean;
+      navigateToFirstInvalid?: boolean;
+    } = {},
+  ): boolean {
+    const markTouched = options.markTouched ?? true;
+    const recordOutcomes = options.recordOutcomes ?? false;
+    const navigateToFirstInvalid = options.navigateToFirstInvalid ?? false;
+
+    if (!this.isStepper()) {
+      return this.validateStep(this.formStore.stepIndex(), { markTouched });
+    }
+
+    const steps = this.definition().steps;
+    let allValid = true;
+    let firstInvalidIndex: number | null = null;
+
+    for (let index = 0; index < steps.length; index++) {
+      const valid = this.validateStep(index, { markTouched, recordOutcome: recordOutcomes });
+
+      if (!valid) {
+        allValid = false;
+        if (firstInvalidIndex === null) {
+          firstInvalidIndex = index;
+        }
       }
     }
 
-    return true;
+    if (!allValid && navigateToFirstInvalid && firstInvalidIndex !== null) {
+      const from = this.formStore.stepIndex();
+      if (from !== firstInvalidIndex) {
+        this.engageStep(firstInvalidIndex);
+        this.formStore.goTo(firstInvalidIndex);
+        this.stepChange.emit({ from, to: firstInvalidIndex });
+        this.applyDisabledState();
+      }
+    }
+
+    return allValid;
   }
 
   private syncFormValue(): void {

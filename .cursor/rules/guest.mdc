@@ -32,7 +32,7 @@ Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) a
 - `landing/` — marketing hero + feature cards
 - `sign-in/` — portal picker (login URLs from `shared/constants/app-urls.ts`)
 - `login/` — split pages (`employee-login-page`, `admin-login-page`); shared `login.form.ts`, `login.model.ts`, `login-page.component.scss`; accent via `.login--employee` / `.login--admin` on page root
-- `register/` — company registration: `register-company-page`, `register-company.form.ts`, `register-company.model.ts`, `register-company.service.ts` (stub), `register-company.config.ts` (API path), `register-company.constants.ts` (select options)
+- `register/` — company registration stepper (`mode: 'stepper'`): `register-company-page`, `register-company.form.ts`, `register-company.model.ts`, `register-company.service.ts` (stub), `register-company.config.ts` (API path), `register-company.constants.ts` (select options). Create-only — no `stepperMode` / `stepperDataReady` bindings; see `forms.mdc`.
 
 ## Constants & imports
 

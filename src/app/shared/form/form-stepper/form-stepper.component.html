@@ -1,23 +1,9 @@
 <div class="form-stepper">
-  <div class="form-stepper__meta">
-    <span>{{
-      'shared.form.common.stepOf'
-        | translate: { current: stepIndex() + 1, total: steps().length }
-    }}</span>
-    <span>{{
-      'shared.form.common.percentComplete' | translate: { percent: progressPercent() }
-    }}</span>
-  </div>
+  @if (currentStepTitleKey(); as titleKey) {
+    <p class="form-stepper__current-title" aria-live="polite">{{ titleKey | translate }}</p>
+  }
 
-  <nav
-    #stepsNav
-    class="form-stepper__columns"
-    aria-label="Form steps"
-    role="progressbar"
-    [attr.aria-valuenow]="progressPercent()"
-    aria-valuemin="0"
-    aria-valuemax="100"
-  >
+  <nav #stepsNav class="form-stepper__columns" aria-label="Form steps">
     @for (step of steps(); track step.id; let index = $index) {
       @if (step.titleKey) {
         <div class="form-stepper__column" [attr.data-step-index]="index">
@@ -30,46 +16,81 @@
             @if (isActive(index)) {
               <span
                 class="form-stepper__pill form-stepper__pill--active"
-                [class.form-stepper__pill--error]="hasError(index)"
+                [class.form-stepper__pill--valid]="validationState(index) === 'valid'"
+                [class.form-stepper__pill--in-progress]="validationState(index) === 'inProgress'"
+                [class.form-stepper__pill--invalid]="validationState(index) === 'invalid'"
                 aria-current="step"
+                [attr.aria-label]="
+                  (step.titleKey | translate) + ', ' + (validationStateKey(index) | translate)
+                "
                 [title]="step.titleKey | translate"
               >
-                <span class="form-stepper__marker" aria-hidden="true">{{ index + 1 }}</span>
-                @if (hasError(index)) {
-                  <span class="form-stepper__error-dot" aria-hidden="true"></span>
-                }
+                <span class="form-stepper__marker-wrap">
+                  <span class="form-stepper__marker" aria-hidden="true">{{ index + 1 }}</span>
+                  <span
+                    class="form-stepper__status"
+                    [class.form-stepper__status--not-started]="validationState(index) === 'notStarted'"
+                    [class.form-stepper__status--in-progress]="validationState(index) === 'inProgress'"
+                    [class.form-stepper__status--valid]="validationState(index) === 'valid'"
+                    [class.form-stepper__status--invalid]="validationState(index) === 'invalid'"
+                    aria-hidden="true"
+                  >
+                    @switch (validationState(index)) {
+                      @case ('notStarted') {
+                        <svg lucideCircle [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('inProgress') {
+                        <svg lucidePencil [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('valid') {
+                        <svg lucideCheck [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('invalid') {
+                        <svg lucideTriangleAlert [size]="statusIconSizeFor(index)" />
+                      }
+                    }
+                  </span>
+                </span>
                 <span class="form-stepper__title">{{ step.titleKey | translate }}</span>
               </span>
             } @else {
               <button
                 type="button"
                 class="form-stepper__pill"
-                [class.form-stepper__pill--completed]="isCompleted(index)"
-                [class.form-stepper__pill--upcoming]="!isCompleted(index)"
-                [class.form-stepper__pill--locked]="!isClickable(index)"
-                [class.form-stepper__pill--error]="hasError(index)"
-                [attr.aria-label]="step.titleKey | translate"
-                [title]="
-                  isClickable(index)
-                    ? (step.titleKey | translate)
-                    : ('shared.form.common.stepLocked' | translate)
+                [class.form-stepper__pill--invalid]="validationState(index) === 'invalid'"
+                [class.form-stepper__pill--valid]="validationState(index) === 'valid'"
+                [attr.aria-label]="
+                  (step.titleKey | translate) + ', ' + (validationStateKey(index) | translate)
                 "
+                [title]="step.titleKey | translate"
                 (click)="stepSelect.emit(index)"
               >
-                <span
-                  class="form-stepper__marker"
-                  [class.form-stepper__marker--complete]="showCheck(index)"
-                  aria-hidden="true"
-                >
-                  @if (showCheck(index)) {
-                    <svg lucideCheck [size]="markerIconSize" />
-                  } @else {
-                    {{ index + 1 }}
-                  }
+                <span class="form-stepper__marker-wrap">
+                  <span class="form-stepper__marker" aria-hidden="true">{{ index + 1 }}</span>
+                  <span
+                    class="form-stepper__status"
+                    [class.form-stepper__status--not-started]="validationState(index) === 'notStarted'"
+                    [class.form-stepper__status--in-progress]="validationState(index) === 'inProgress'"
+                    [class.form-stepper__status--valid]="validationState(index) === 'valid'"
+                    [class.form-stepper__status--invalid]="validationState(index) === 'invalid'"
+                    aria-hidden="true"
+                  >
+                    @switch (validationState(index)) {
+                      @case ('notStarted') {
+                        <svg lucideCircle [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('inProgress') {
+                        <svg lucidePencil [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('valid') {
+                        <svg lucideCheck [size]="statusIconSizeFor(index)" />
+                      }
+                      @case ('invalid') {
+                        <svg lucideTriangleAlert [size]="statusIconSizeFor(index)" />
+                      }
+                    }
+                  </span>
                 </span>
-                @if (hasError(index)) {
-                  <span class="form-stepper__error-dot" aria-hidden="true"></span>
-                }
                 <span class="form-stepper__title">{{ step.titleKey | translate }}</span>
               </button>
             }

@@ -6,62 +6,199 @@ alwaysApply: false
 
 # Forms (`src/app/shared/form`)
 
-1. Model: `*.model.ts` interface for form value.
-2. Definition: `export const X = defineForm<Model>()({ mode: 'single'|'stepper', steps: [...] })`.
-3. Page: `FormBuilder` group mirrors field keys; pass `[definition]` + `[form]` to `FormPageComponent`.
-4. Options: `{ value, labelKey }`; field types: text, email, tel, number, date, password, textarea, select, radio, checkbox, toggle, custom. Optional `autocomplete` on `FieldDef`.
-5. Optional `titleKey` / `subtitleKey` on sections and steps — header/labels omitted when unset.
-6. Custom blocks: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` directives in page HTML.
-7. Submit: `form.getRawValue() as Model` (validators on `FormGroup`, not only in def). Pass `[submitDisabled]` to `app-form-page` during async submit (parent owns the signal).
-8. Field errors: built-in widgets use `app-form-field-error` (reads `control.errors` with priority order). Optional `errorKeys` on `FieldDef` overrides i18n keys for custom validators. Custom `appFormField` templates may import `FormFieldErrorComponent` from the form barrel.
+Declarative form framework used by guest pages, portal features, and shared login flows. **Do not** rebuild form chrome (stepper, footer, sections, field widgets) on feature pages — use `FormPageComponent`.
+
+## File map
+
+| Path | Role |
+|------|------|
+| `define-form.ts` | `defineForm()`, `formFieldKey` / `formSectionKey` / `formStepKey` |
+| `form.types.ts` | `FormDefinition`, `FieldDef`, `ValidationState`, `StepperMode` |
+| `form.utils.ts` | `runStepValidation`, `validateStepControls`, `isStepValid`, `resolveStepValidationState` |
+| `form.store.ts` | Step index, next/previous/goTo |
+| `form-page/` | Orchestrator: `validateStep` write-path, stepper state, navigation |
+| `form-stepper/` | Progress segments + step pills (desktop + mobile layouts) |
+| `form-footer/` | Previous / Next / Submit |
+| `form-section/`, `form-grid/`, `form-field-renderer/` | Section chrome + field widgets |
+| `index.ts` | Barrel — import feature pages from here |
+
+## Feature checklist (new form)
+
+1. **Model** — `*.model.ts` interface for form value (`Entity extends FormModel & { id }` for CRUD).
+2. **Definition** — `export const X = defineForm<Model>()({ mode: 'single' | 'stepper', steps: [...] })` in `*.form.ts`.
+3. **Page** — `FormBuilder` group mirrors every field key; validators on the `FormGroup`, not only in the def.
+4. **Template** — `<app-form-page [definition] [formGroup] [submitDisabled] (submit)>`; add stepper inputs when needed (below).
+5. **i18n** — keys under feature namespace + `shared.form.common.*` for chrome; both `en.json` and `bh.json`.
+
+## `FormPageComponent` API
+
+| Input / output | Type | Default | Use |
+|----------------|------|---------|-----|
+| `definition` | `FormDefinition<T>` | required | From `defineForm` |
+| `formGroup` | `FormGroup` | required | Built in page component |
+| `submitDisabled` | `boolean` | `false` | Bind `submitting()` during async save |
+| `stepperMode` | `'create' \| 'edit'` | `'create'` | Stepper validation init (see below) |
+| `stepperDataReady` | `boolean` | `false` | Set `true` after create init or edit `patchValue` |
+| `submit` | output | — | Fires only after framework validates all steps |
+| `stepChange` | `{ from, to }` | — | Optional tracking |
+
+Custom content: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` directives in page HTML.
+
+Field types: text, email, tel, number, date, password, textarea, select, radio, checkbox, toggle, custom. Options: `{ value, labelKey }`. Optional `autocomplete`, `hidden`, `disabled`, `errorKeys` on `FieldDef`.
+
+Submit in page handler: `form.getRawValue() as Model` — framework already validated before `(submit)` fires.
+
+## Single-step (`mode: 'single'`)
+
+One step in `steps` (or only step rendered without stepper chrome). Examples:
+
+- `portal/employee/features/fleet/vehicles/`
+- `guest/pages/login/`
+
+Template:
+
+```html
+<app-form-page [definition]="formDef" [formGroup]="form" (submit)="onSubmit()" />
+```
 
 ## Stepper (`mode: 'stepper'`)
 
-Rendered by `FormStepperComponent` inside `FormPageComponent` when `steps.length > 1`. Column layout: one progress segment + pill label per step (labels centered under segments).
+Rendered when `steps.length > 1`. Layout: segment bar + numbered pills with validation status icons + step labels (desktop).
 
-### `stepperNavigation` on `FormPageComponent`
+### Create vs edit (`stepperMode` + `stepperDataReady`)
 
-| Mode | Default | Use |
-|------|---------|-----|
-| `strict` | yes | Create / onboarding — forward jumps require valid current step **and** valid intermediate steps |
-| `free` | no | Edit — after current step validates, user may jump to any step; visited invalid steps show error styling on pills |
+| Mode | Initial pill states | When validation runs |
+|------|---------------------|----------------------|
+| **create** | Step 0 `inProgress`, others `notStarted` | On **leave** step + on **submit** |
+| **edit** | All steps `valid` / `invalid` immediately after data load | Live while editing; full re-check on submit |
 
-Pass from the feature page when needed, e.g. `[stepperNavigation]="isEdit() ? 'free' : 'strict'"` (`portal/admin/features/vehicles/form/vehicle-form-page.component.html`).
+**Create-only** steppers (shipments, guest register): defaults suffice — no bindings needed.
 
-### Click / navigation behavior
+**Create + edit** (admin CRUD): wire both inputs + `stepperDataReady` signal:
 
-- All non-active step pills are buttons (locked style is visual only in `strict`).
-- Step click **always validates the current step first** (same as Next) — shows field errors if invalid.
-- `strict` forward skip over invalid intermediate → navigates to first blocking step and marks its fields touched.
-- Previous / Next unchanged; `stepChange` output emits `{ from, to }`.
+```typescript
+protected readonly stepperDataReady = signal(false);
 
-### Completed / error pill state
+ngOnInit(): void {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (!id) {
+    this.stepperDataReady.set(true); // create — ready immediately
+    return;
+  }
+  this.entityId.set(id);
+  this.service.getById(id).subscribe({
+    next: (entity) => {
+      const { id: _id, ...formValue } = entity;
+      queueMicrotask(() => {
+        this.form.patchValue(formValue);
+        this.stepperDataReady.set(true); // edit — after patch
+      });
+    },
+    error: () => void this.router.navigateByUrl(LIST_URL),
+  });
+}
+```
 
-- **Completed** (green check): step is **visited**, **not current**, and `isStepValid()` — stays when user navigates backward.
-- **Error** on pill: visited, not current, and invalid (both modes).
-- **Visited** set tracked in `FormPageComponent` (`visitedSteps`); updated on every navigation.
-- Progress bar fill uses **current** step index; completed checks use visited + valid.
+```html
+<app-form-page
+  [definition]="formDef()"
+  [formGroup]="form"
+  [submitDisabled]="submitting()"
+  [stepperMode]="isEdit() ? 'edit' : 'create'"
+  [stepperDataReady]="stepperDataReady()"
+  (submit)="onSubmit()"
+/>
+```
 
-### Validation helpers (`form.utils.ts`)
+Reference: `portal/admin/features/vehicles/form/`.
 
-- `validateStepControls(form, step, value, { markTouched? })` — default `markTouched: true`
-- `isStepValid` — no touch (for computed pill state)
-- `canNavigateToStep(..., mode: StepperNavigationMode)` — `'strict' | 'free'`
+### Navigation
+
+- **Free navigation always** — pill click, Previous, and Next are never blocked by validation.
+- Leaving a step records its outcome (`valid` / `invalid`); untouched steps stay `notStarted`.
+- Segment bar fill = current step index (independent of validation).
+
+### Validation state (`ValidationState`)
+
+| State | Meaning | Indicator |
+|-------|---------|-----------|
+| `notStarted` | Never opened | ○ |
+| `inProgress` | Open, not yet valid | ✎ |
+| `valid` | Validated successfully | ✓ |
+| `invalid` | Has errors | ⚠ |
+
+- Step **number** always visible in marker; status icon is separate (badge on mobile).
+- **Active** highlight is independent of validation — active fill follows state (neutral / green tint / red tint).
+
+### Centralized step validation (stepper + fields)
+
+**Read path** (no side effects): `isStepValid` → `resolveStepValidationState` → `stepValidationStates` computed (pill display).
+
+**Write path** (single entry in `FormPageComponent.validateStep`): always calls `runStepValidation` on all fields in the step, then optionally:
+
+| Option | Effect |
+|--------|--------|
+| `recordOutcome: true` | Updates `stepOutcomes` (`valid` / `invalid`) for pills |
+| `markTouched: true` | Marks step fields touched so inline errors render |
+
+| Event | `recordOutcome` | `markTouched` |
+|-------|-----------------|---------------|
+| Leave step | yes | no |
+| Enter known-invalid step | no | yes |
+| Submit (all steps) | yes | yes |
+| Edit init (all steps) | yes | no |
+| Edit init (current step if invalid) | no | yes |
+
+Opening a step the stepper has marked `invalid` shows field-level errors matching the pill.
 
 ### Submit
 
-Stepper forms validate **all** steps on submit (not only the current step).
+Framework validates **all** steps via `validateStep` (`markTouched: true`, `recordOutcome: true`), navigates to first invalid step on failure, then emits `submit` only when all pass. Page `onSubmit` should guard `submitting` only — not re-validate.
+
+### Stepper UI (desktop)
+
+- No step counter or percent-complete meta row.
+- Pills: number + status icon + short `titleKey` label.
+- Active pill: validation-tinted fill (`--bg-form-step-active-pill` / `-valid` / `-invalid`).
+
+### Stepper UI (mobile ≤768px)
+
+- **Current section title** — active step `titleKey` only (`aria-live="polite"`).
+- Segment bar unchanged.
+- **Chip rail** — 44×44px targets; titles hidden; status as badge on number circle.
+- Horizontal scroll + snap; active chip auto-centers; edge fade on rail.
+- Detection: `MOBILE_MEDIA_QUERY` in `FormStepperComponent` (same as `DataTableComponent`).
+
+### Validation helpers (`form.utils.ts`)
+
+- `runStepValidation(form, step, value, { markTouched? })` — preferred step check; default `markTouched: false`
+- `validateStepControls(...)` — low-level primitive (all step fields)
+- `isStepValid` — read-only; delegates to `runStepValidation` without touch
+- `resolveStepValidationState(...)` — per-step pill state from engaged steps + outcomes
 
 ### i18n / theme
 
-- Keys: `shared.form.common.stepOf`, `percentComplete`, `stepLocked`
-- Step `titleKey` on pills should stay short; section headers carry full titles.
-- Completed pill tokens in `src/styles.scss`: `--text-form-step-complete`, `--bg-form-step-complete-marker`, `--bg-form-step-complete-pill`, `--border-form-step-complete`
+- `shared.form.common.previous` / `next` — footer
+- `shared.form.common.validationState.*` — pill aria-labels
+- `shared.form.common.errors.*` — field errors
+- Step `titleKey` on pills: keep short; section headers carry full titles.
+- Stepper tokens in `src/styles.scss`: `--bg-form-step-active-pill`, `--bg-form-step-active-valid`, `--bg-form-step-active-invalid`, `--border-form-step-active`, `--border-form-step-active-valid`, `--border-form-step-active-invalid`, `--text-form-step-active-neutral`, plus complete/error/inactive tokens.
 
-### Examples
+## Examples by shape
 
-- Stepper create: `portal/employee/features/shipments/create-shipment/`
-- Stepper strict + free edit: `portal/admin/features/vehicles/form/`
-- Guest stepper: `guest/pages/register/`
+| Shape | Reference |
+|-------|-----------|
+| Single-step create | `portal/employee/features/fleet/vehicles/` |
+| Stepper create-only | `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/` |
+| Stepper create + edit (CRUD) | `portal/admin/features/vehicles/form/` |
+| Guest login (single) | `guest/pages/login/` |
 
-Extend field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc duplicate inputs on standard portal pages.
+## Do not
+
+- Add per-step `validate` in the def unless truly custom — prefer `FormGroup` validators.
+- Block navigation in feature pages — framework handles stepper UX.
+- Use removed APIs: `stepperNavigation`, `strict` / `free` modes, `stepOf`, `percentComplete`.
+- Rebuild stepper, footer, or field widgets outside `shared/form/`.
+- Add `*.spec.ts` unless explicitly requested.
+
+Extend new field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc on feature pages.

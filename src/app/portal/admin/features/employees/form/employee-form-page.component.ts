@@ -31,6 +31,7 @@ export class EmployeeFormPageComponent implements OnInit {
   protected readonly form = this.buildForm();
   protected readonly submitting = signal(false);
   protected readonly employeeId = signal<string | null>(null);
+  protected readonly stepperDataReady = signal(false);
 
   protected readonly isEdit = computed(() => this.employeeId() !== null);
 
@@ -53,6 +54,7 @@ export class EmployeeFormPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
+      this.stepperDataReady.set(true);
       return;
     }
 
@@ -63,7 +65,10 @@ export class EmployeeFormPageComponent implements OnInit {
       .subscribe({
         next: (employee) => {
           const { id: _id, ...formValue } = employee;
-          queueMicrotask(() => this.form.patchValue(formValue));
+          queueMicrotask(() => {
+            this.form.patchValue(formValue);
+            this.stepperDataReady.set(true);
+          });
         },
         error: () => {
           void this.router.navigateByUrl(ADMIN_EMPLOYEES_URL);

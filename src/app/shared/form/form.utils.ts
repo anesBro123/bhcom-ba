@@ -1,6 +1,12 @@
 import type { FormGroup } from '@angular/forms';
 
-import type { FieldDef, FormSectionDef, FormStepDef } from './form.types';
+import type {
+  FieldDef,
+  FormSectionDef,
+  FormStepDef,
+  StepperMode,
+  ValidationState,
+} from './form.types';
 
 export function buildFieldTemplateKey(stepId: string, sectionId: string, fieldKey: string): string {
   return `${stepId}:${sectionId}:${fieldKey}`;
@@ -31,7 +37,9 @@ export function getVisibleFields<T extends object>(
   return [...(fields ?? [])].filter((field) => !(field.hidden?.(value) ?? false));
 }
 
-export type StepperNavigationMode = 'strict' | 'free';
+export type StepValidationOptions = {
+  markTouched?: boolean;
+};
 
 export function validateStepControls<T extends object>(
   form: FormGroup,
@@ -79,47 +87,62 @@ export function validateStepControls<T extends object>(
   return valid;
 }
 
+export function runStepValidation<T extends object>(
+  form: FormGroup,
+  step: FormStepDef<T>,
+  value: Partial<T>,
+  options: StepValidationOptions = {},
+): boolean {
+  return validateStepControls(form, step, value, {
+    markTouched: options.markTouched ?? false,
+  });
+}
+
 export function isStepValid<T extends object>(
   form: FormGroup,
   step: FormStepDef<T>,
   value: Partial<T>,
 ): boolean {
-  return validateStepControls(form, step, value, { markTouched: false });
+  return runStepValidation(form, step, value, { markTouched: false });
 }
 
-export function canNavigateToStep<T extends object>(
+export function resolveStepValidationState<T extends object>(
   form: FormGroup,
-  steps: readonly FormStepDef<T>[],
+  step: FormStepDef<T>,
+  index: number,
   currentIndex: number,
-  targetIndex: number,
   value: Partial<T>,
-  mode: StepperNavigationMode,
-): boolean {
-  if (targetIndex === currentIndex) {
-    return false;
+  options: {
+    mode: StepperMode;
+    engagedSteps: ReadonlySet<number>;
+    stepOutcomes: ReadonlyMap<number, 'valid' | 'invalid'>;
+    editValidated: boolean;
+  },
+): ValidationState {
+  const { mode, engagedSteps, stepOutcomes, editValidated } = options;
+  const valid = isStepValid(form, step, value);
+
+  if (mode === 'edit' && editValidated) {
+    return valid ? 'valid' : 'invalid';
   }
 
-  if (mode === 'free') {
-    return true;
+  if (!engagedSteps.has(index)) {
+    return 'notStarted';
   }
 
-  const currentStep = steps[currentIndex];
-  if (!currentStep || !isStepValid(form, currentStep, value)) {
-    return false;
-  }
-
-  if (targetIndex < currentIndex) {
-    return true;
-  }
-
-  for (let index = currentIndex + 1; index < targetIndex; index++) {
-    const step = steps[index];
-    if (!step || !isStepValid(form, step, value)) {
-      return false;
+  if (index === currentIndex) {
+    if (valid) {
+      return 'valid';
     }
+
+    if (stepOutcomes.get(index) === 'invalid') {
+      return 'invalid';
+    }
+
+    return 'inProgress';
   }
 
-  return true;
+  return stepOutcomes.get(index) ?? 'notStarted';
 }
 
 export function applyFieldDisabledState<T extends object>(

@@ -83,8 +83,8 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Single-step form:** `portal/employee/features/fleet/vehicles/`
 - **Table (mock loader):** `portal/employee/features/shipments/`
 - **Stepper (strict):** `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
-- **Stepper (strict + free edit):** `portal/admin/features/vehicles/form/` — `stepperNavigation` input on `FormPageComponent`
-- **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` (`StepperNavigationMode`, `canNavigateToStep`, visited + valid pill state)
+- **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
+- **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
 - **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `employee-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`

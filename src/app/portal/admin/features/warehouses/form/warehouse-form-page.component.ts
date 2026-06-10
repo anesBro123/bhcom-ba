@@ -31,6 +31,7 @@ export class WarehouseFormPageComponent implements OnInit {
   protected readonly form = this.buildForm();
   protected readonly submitting = signal(false);
   protected readonly warehouseId = signal<string | null>(null);
+  protected readonly stepperDataReady = signal(false);
 
   protected readonly isEdit = computed(() => this.warehouseId() !== null);
 
@@ -53,6 +54,7 @@ export class WarehouseFormPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
+      this.stepperDataReady.set(true);
       return;
     }
 
@@ -63,7 +65,10 @@ export class WarehouseFormPageComponent implements OnInit {
       .subscribe({
         next: (warehouse) => {
           const { id: _id, ...formValue } = warehouse;
-          queueMicrotask(() => this.form.patchValue(formValue));
+          queueMicrotask(() => {
+            this.form.patchValue(formValue);
+            this.stepperDataReady.set(true);
+          });
         },
         error: () => {
           void this.router.navigateByUrl(ADMIN_WAREHOUSES_URL);

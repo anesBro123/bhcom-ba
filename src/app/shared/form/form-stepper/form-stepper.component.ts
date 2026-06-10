@@ -1,54 +1,88 @@
-import { Component, ElementRef, effect, input, output, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  ElementRef,
+  effect,
+  inject,
+  input,
+  output,
+  PLATFORM_ID,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LucideCheck } from '@lucide/angular';
+import { LucideCheck, LucideCircle, LucidePencil, LucideTriangleAlert } from '@lucide/angular';
 
-import type { FormStepDef } from '../form.types';
+import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
+import type { FormStepDef, ValidationState } from '../form.types';
 
 @Component({
   selector: 'app-form-stepper',
-  imports: [TranslatePipe, LucideCheck],
+  imports: [TranslatePipe, LucideCheck, LucideCircle, LucidePencil, LucideTriangleAlert],
   templateUrl: './form-stepper.component.html',
   styleUrl: './form-stepper.component.scss',
 })
 export class FormStepperComponent<T extends object> {
   readonly steps = input.required<readonly FormStepDef<T>[]>();
   readonly stepIndex = input.required<number>();
-  readonly progressPercent = input.required<number>();
-  readonly clickableSteps = input<boolean[]>([]);
-  readonly stepCompleted = input<boolean[]>([]);
-  readonly stepErrors = input<boolean[]>([]);
+  readonly stepValidationStates = input<ValidationState[]>([]);
 
   readonly stepSelect = output<number>();
 
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly stepsNav = viewChild<ElementRef<HTMLElement>>('stepsNav');
 
-  protected readonly markerIconSize = 12;
+  private mediaQuery: MediaQueryList | null = null;
+
+  protected readonly isMobileLayout = signal(false);
+  protected readonly statusIconSize = 12;
 
   constructor() {
+    afterNextRender(() => {
+      if (!isPlatformBrowser(this.platformId)) {
+        return;
+      }
+
+      this.mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+      const updateLayout = (): void => {
+        this.isMobileLayout.set(this.mediaQuery?.matches ?? false);
+      };
+
+      updateLayout();
+      this.mediaQuery.addEventListener('change', updateLayout);
+
+      this.destroyRef.onDestroy(() => {
+        this.mediaQuery?.removeEventListener('change', updateLayout);
+      });
+    });
+
     effect(() => {
       const index = this.stepIndex();
       requestAnimationFrame(() => this.scrollStepIntoView(index));
     });
   }
 
-  protected isCompleted(index: number): boolean {
-    return this.stepCompleted()[index] ?? false;
-  }
-
   protected isActive(index: number): boolean {
     return index === this.stepIndex();
   }
 
-  protected isClickable(index: number): boolean {
-    return this.clickableSteps()[index] ?? false;
+  protected validationState(index: number): ValidationState {
+    return this.stepValidationStates()[index] ?? 'notStarted';
   }
 
-  protected hasError(index: number): boolean {
-    return this.stepErrors()[index] ?? false;
+  protected validationStateKey(index: number): string {
+    return `shared.form.common.validationState.${this.validationState(index)}`;
   }
 
-  protected showCheck(index: number): boolean {
-    return this.isCompleted(index) && !this.hasError(index);
+  protected currentStepTitleKey(): string | undefined {
+    return this.steps()[this.stepIndex()]?.titleKey;
+  }
+
+  protected statusIconSizeFor(index: number): number {
+    return this.isMobileLayout() ? 9 : this.statusIconSize;
   }
 
   private scrollStepIntoView(index: number): void {

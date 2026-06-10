@@ -10,10 +10,7 @@
       <app-form-stepper
         [steps]="definition().steps"
         [stepIndex]="formStore.stepIndex()"
-        [progressPercent]="formStore.progressPercent()"
-        [clickableSteps]="stepClickable()"
-        [stepCompleted]="stepCompleted()"
-        [stepErrors]="stepErrors()"
+        [stepValidationStates]="stepValidationStates()"
         (stepSelect)="onStepClick($event)"
       />
     </div>

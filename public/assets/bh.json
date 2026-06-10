@@ -33,9 +33,12 @@
       "common": {
         "previous": "Prethodno",
         "next": "Sljedeće",
-        "stepOf": "Korak {{current}} od {{total}}",
-        "percentComplete": "{{percent}}% završeno",
-        "stepLocked": "Prvo dovršite prethodne korake",
+        "validationState": {
+          "notStarted": "Nije započeto",
+          "inProgress": "U toku",
+          "valid": "Ispravno",
+          "invalid": "Ima grešaka"
+        },
         "fieldRequired": "Ovo polje je obavezno",
         "errors": {
           "required": "Ovo polje je obavezno",

@@ -3,6 +3,10 @@ import type { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 export type FormMode = 'single' | 'stepper';
 
+export type ValidationState = 'notStarted' | 'inProgress' | 'valid' | 'invalid';
+
+export type StepperMode = 'create' | 'edit';
+
 export type FieldType =
   | 'text'
   | 'email'
