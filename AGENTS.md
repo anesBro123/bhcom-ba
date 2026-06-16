@@ -90,7 +90,8 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card)
+- **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; use in dashboard metric grids (not shell chrome)
 
 ## Cursor rules
 

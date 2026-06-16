@@ -98,6 +98,16 @@
   --bg-form-radio-card: rgba(255, 255, 255, 0.02);
   --border-form-radio-card: rgba(255, 255, 255, 0.12);
   --border-form-radio-card-active: rgba(255, 255, 255, 0.32);
+  --metric-variant-default-bg: rgba(255, 255, 255, 0.08);
+  --metric-variant-default-icon: #cbd5e1;
+  --metric-variant-success-bg: color-mix(in srgb, #22c55e 18%, transparent);
+  --metric-variant-success-icon: #4ade80;
+  --metric-variant-warning-bg: color-mix(in srgb, #f59e0b 18%, transparent);
+  --metric-variant-warning-icon: #fbbf24;
+  --metric-variant-danger-bg: color-mix(in srgb, #ef4444 18%, transparent);
+  --metric-variant-danger-icon: #f87171;
+  --metric-variant-info-bg: color-mix(in srgb, #3b82f6 18%, transparent);
+  --metric-variant-info-icon: #60a5fa;
 }
 
 [data-sidebar-collapsed] {
@@ -191,6 +201,16 @@
   --bg-form-radio-card: #ffffff;
   --border-form-radio-card: rgba(0, 0, 0, 0.12);
   --border-form-radio-card-active: rgba(0, 0, 0, 0.32);
+  --metric-variant-default-bg: #f1f5f9;
+  --metric-variant-default-icon: #64748b;
+  --metric-variant-success-bg: color-mix(in srgb, #22c55e 14%, #ffffff);
+  --metric-variant-success-icon: #16a34a;
+  --metric-variant-warning-bg: color-mix(in srgb, #f59e0b 14%, #ffffff);
+  --metric-variant-warning-icon: #d97706;
+  --metric-variant-danger-bg: color-mix(in srgb, #ef4444 14%, #ffffff);
+  --metric-variant-danger-icon: #dc2626;
+  --metric-variant-info-bg: color-mix(in srgb, #3b82f6 14%, #ffffff);
+  --metric-variant-info-icon: #2563eb;
 }
 
 *,

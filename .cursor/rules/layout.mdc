@@ -18,6 +18,7 @@ alwaysApply: false
 - **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No shared.sidebar.
 - Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
+- `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). Content widget — not shell chrome. Import by direct path; parent owns i18n keys and grid layout.
 - Profile icon opens **account menu** (`shared.topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
 
 ## SidebarService (`portal/shell/shared.sidebar.service.ts`)

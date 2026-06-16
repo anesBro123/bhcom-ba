@@ -26,6 +26,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 5. Table-only (no service yet): `TableApiService.loadMock` — see `portal/user/features/shipments/`.
 6. Create-only single-step form: `portal/user/features/fleet/vehicles/`.
 7. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
+8. Dashboard overview: feature folder `portal/{user|admin}/features/dashboard/`; KPI row via `<app-metric-card>` from `shared/ui/metric-card/` in a CSS grid (3-col desktop, 1-col mobile — mirror `landing__feature-grid`); i18n under `portal.<portal>.features.dashboard.metrics.*`; do not rebuild stat cards ad hoc on feature pages.
 
 ## Guest page
 
