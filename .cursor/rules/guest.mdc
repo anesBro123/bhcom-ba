@@ -16,7 +16,7 @@ Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) a
 |------|------|-------|-------|
 | `/` | `LandingPageComponent` | `guestGuard` | `data: { showFooter: true, showNavActions: true }` |
 | `/sign-in` | `SignInPageComponent` | `guestGuard` | Portal picker cards; `data: { showNavActions: true }` |
-| `/login` | `EmployeeLoginPageComponent` | `guestGuard` | Employee login |
+| `/login` | `UserLoginPageComponent` | `guestGuard` | User login |
 | `/admin/login` | `AdminLoginPageComponent` | `guestGuard` | Admin login |
 | `/register` | `RegisterCompanyPageComponent` | `guestGuard` | Company registration |
 
@@ -25,13 +25,13 @@ Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) a
 - `GuestShellComponent` — reads deepest route `data.showFooter` / `data.showNavActions`
 - `GuestTopbarComponent` — brand, language/theme pickers (`shared/ui/`), conditional nav actions
 - `GuestFooterComponent` — landing footer links
-- `PortalCardComponent` — employee/admin portal cards on sign-in page
+- `PortalCardComponent` — user/admin portal cards on sign-in page
 
 ## Pages (`guest/pages/`)
 
 - `landing/` — marketing hero + feature cards
 - `sign-in/` — portal picker (login URLs from `shared/constants/app-urls.ts`)
-- `login/` — split pages (`employee-login-page`, `admin-login-page`); shared `login.form.ts`, `login.model.ts`, `login-page.component.scss`; accent via `.login--employee` / `.login--admin` on page root
+- `login/` — split pages (`user-login-page`, `admin-login-page`); shared `login.form.ts`, `login.model.ts`, `login-page.component.scss`; accent via `.login--user` / `.login--admin` on page root
 - `register/` — company registration stepper (`mode: 'stepper'`): `register-company-page`, `register-company.form.ts`, `register-company.model.ts`, `register-company.service.ts` (stub), `register-company.config.ts` (API path), `register-company.constants.ts` (select options). Create-only — no `stepperMode` / `stepperDataReady` bindings; see `forms.mdc`.
 
 ## Constants & imports

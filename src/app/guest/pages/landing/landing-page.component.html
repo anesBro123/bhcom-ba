@@ -25,7 +25,7 @@
       @for (feature of features; track feature.titleKey) {
         <li
           class="landing__feature-card"
-          [class.landing__feature-card--employee]="feature.accent === 'employee'"
+          [class.landing__feature-card--user]="feature.accent === 'user'"
           [class.landing__feature-card--admin]="feature.accent === 'admin'"
         >
           @switch (feature.icon) {
@@ -53,11 +53,11 @@
     <p class="landing__section-subtitle">{{ 'guest.landing.portals.subtitle' | translate }}</p>
     <div class="landing__portal-grid">
       <app-portal-card
-        portalKind="employee"
-        badgeKey="guest.landing.portals.employee.badge"
-        titleKey="guest.landing.portals.employee.title"
-        descriptionKey="guest.landing.portals.employee.description"
-        [route]="employeeLoginUrl"
+        portalKind="user"
+        badgeKey="guest.landing.portals.user.badge"
+        titleKey="guest.landing.portals.user.title"
+        descriptionKey="guest.landing.portals.user.description"
+        [route]="userLoginUrl"
       />
       <app-portal-card
         portalKind="admin"

@@ -1,35 +1,35 @@
-// Portal accent colors (employee green, admin blue). Single source of truth for guest + portal UI.
+// Portal accent colors (user green, admin blue). Single source of truth for guest + portal UI.
 // Semantic tokens (--portal-accent-*) are global; --portal-accent is scoped per portal host class.
 
 :root {
-  --portal-accent-employee: #059669;
+  --portal-accent-user: #059669;
   --portal-accent-admin: #2563eb;
-  --portal-accent-employee-soft: rgb(5 150 105 / 0.2);
+  --portal-accent-user-soft: rgb(5 150 105 / 0.2);
   --portal-accent-admin-soft: rgb(37 99 235 / 0.25);
 }
 
 [data-theme='dark'] {
-  --portal-accent-employee: #34d399;
+  --portal-accent-user: #34d399;
   --portal-accent-admin: #60a5fa;
-  --portal-accent-employee-soft: rgb(52 211 153 / 0.2);
+  --portal-accent-user-soft: rgb(52 211 153 / 0.2);
   --portal-accent-admin-soft: rgb(96 165 250 / 0.25);
 }
 
-.portal-employee,
-.login--employee {
-  --portal-accent: var(--portal-accent-employee);
+.portal-user,
+.login--user {
+  --portal-accent: var(--portal-accent-user);
   --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
   --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
   --portal-accent-focus-ring: 0 0 0 3px rgb(5 150 105 / 0.25);
 }
 
-[data-theme='dark'] .portal-employee,
-[data-theme='dark'] .login--employee {
+[data-theme='dark'] .portal-user,
+[data-theme='dark'] .login--user {
   --portal-accent-focus-ring: 0 0 0 3px rgb(52 211 153 / 0.2);
 }
 
-.portal-card--employee {
-  --portal-accent: var(--portal-accent-employee);
+.portal-card--user {
+  --portal-accent: var(--portal-accent-user);
   --portal-accent-muted: color-mix(in srgb, var(--portal-accent) 70%, var(--text-muted));
   --portal-accent-nav-bg: color-mix(in srgb, var(--portal-accent) 12%, transparent);
 }

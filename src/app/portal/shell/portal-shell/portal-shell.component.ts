@@ -18,6 +18,6 @@ export class PortalShellComponent {
 
   @HostBinding('class')
   protected get portalHostClass(): string {
-    return this.portalConfig.portalKind === 'admin' ? 'portal-admin' : 'portal-employee';
+    return this.portalConfig.portalKind === 'admin' ? 'portal-admin' : 'portal-user';
   }
 }

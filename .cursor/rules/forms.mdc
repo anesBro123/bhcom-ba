@@ -52,7 +52,7 @@ Submit in page handler: `form.getRawValue() as Model` — framework already vali
 
 One step in `steps` (or only step rendered without stepper chrome). Examples:
 
-- `portal/employee/features/fleet/vehicles/`
+- `portal/user/features/fleet/vehicles/`
 - `guest/pages/login/`
 
 Template:
@@ -188,8 +188,8 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 
 | Shape | Reference |
 |-------|-----------|
-| Single-step create | `portal/employee/features/fleet/vehicles/` |
-| Stepper create-only | `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/` |
+| Single-step create | `portal/user/features/fleet/vehicles/` |
+| Stepper create-only | `portal/user/features/shipments/create-shipment/`, `guest/pages/register/` |
 | Stepper create + edit (CRUD) | `portal/admin/features/vehicles/form/` |
 | Guest login (single) | `guest/pages/login/` |
 

@@ -108,16 +108,16 @@
       },
       "portals": {
         "title": "Izaberite portal",
-        "subtitle": "Zaposlenici i administratori organizacije koriste odvojene portale za prijavu.",
-        "employee": {
-          "badge": "Portal zaposlenika",
-          "title": "Za zaposlenike",
-          "description": "Prijavite se za dnevne operacije — pošiljke, flota, narudžbe i izvještaji."
-        },
+        "subtitle": "Korisnici i administratori organizacije koriste odvojene portale za prijavu.",
         "admin": {
           "badge": "Admin portal",
           "title": "Za administratore organizacije",
           "description": "Prijavite se za upravljanje kompanijom, korisnicima i konfiguracijom platforme."
+        },
+        "user": {
+          "badge": "Portal korisnika",
+          "title": "Za korisnike",
+          "description": "Prijavite se za dnevne operacije — pošiljke, flota, narudžbe i izvještaji."
         }
       }
     },
@@ -125,15 +125,15 @@
       "title": "Prijava na BHCOM",
       "subtitle": "Izaberite portal koji odgovara vašoj ulozi.",
       "portals": {
-        "employee": {
-          "badge": "Portal zaposlenika",
-          "title": "Prijava zaposlenika",
-          "description": "Pristupite radnom prostoru za pošiljke, flotu i dnevne operacije."
-        },
         "admin": {
           "badge": "Admin portal",
           "title": "Prijava administratora",
           "description": "Upravljajte organizacijom, korisnicima i postavkama platforme."
+        },
+        "user": {
+          "badge": "Portal korisnika",
+          "title": "Prijava korisnika",
+          "description": "Pristupite radnom prostoru za pošiljke, flotu i dnevne operacije."
         }
       }
     },
@@ -142,11 +142,6 @@
         "badge": "Admin portal",
         "title": "Prijava administratora",
         "subtitle": "Prijavite se za upravljanje platformom"
-      },
-      "employee": {
-        "badge": "Portal zaposlenika",
-        "title": "Prijava zaposlenika",
-        "subtitle": "Prijavite se za pristup radnom prostoru"
       },
       "username": "Korisničko ime",
       "password": "Lozinka",
@@ -159,6 +154,11 @@
       "createAccount": {
         "label": "Nova organizacija?",
         "action": "Registracija"
+      },
+      "user": {
+        "badge": "Portal korisnika",
+        "title": "Prijava korisnika",
+        "subtitle": "Prijavite se za pristup radnom prostoru"
       }
     },
     "register": {
@@ -253,8 +253,8 @@
       "admin": {
         "badge": "ADMIN"
       },
-      "employee": {
-        "badge": "ZAPOSLENIK"
+      "user": {
+        "badge": "KORISNIK"
       }
     },
     "admin": {
@@ -264,100 +264,27 @@
           "vehicles": "VOZILA",
           "warehouses": "SKLADIŠTA"
         },
-        "allEmployees": "Svi zaposlenici",
-        "createEmployee": "Dodaj zaposlenika",
         "allVehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
         "allWarehouses": "Sva skladišta",
-        "createWarehouse": "Dodaj skladište"
+        "createWarehouse": "Dodaj skladište",
+        "allUsers": "Svi korisnici",
+        "createUser": "Dodaj korisnika"
       },
       "pages": {
         "dashboard": "Admin kontrolna tabla",
         "settings": "Sistemske postavke",
-        "employees": "Svi zaposlenici",
-        "createEmployee": "Dodaj zaposlenika",
-        "editEmployee": "Uredi zaposlenika",
         "vehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
         "editVehicle": "Uredi vozilo",
         "warehouses": "Sva skladišta",
         "createWarehouse": "Dodaj skladište",
-        "editWarehouse": "Uredi skladište"
+        "editWarehouse": "Uredi skladište",
+        "users": "Svi korisnici",
+        "createUser": "Dodaj korisnika",
+        "editUser": "Uredi korisnika"
       },
       "features": {
-        "employees": {
-          "form": {
-            "titleCreate": "Dodaj zaposlenika",
-            "titleEdit": "Uredi zaposlenika",
-            "steps": {
-              "profile": "Profil",
-              "contact": "Kontakt",
-              "permissions": "Dozvole"
-            },
-            "sections": {
-              "personal": {
-                "title": "Lični podaci",
-                "subtitle": "Ime, datum rođenja i JMBG"
-              },
-              "contactInfo": {
-                "title": "Kontakt podaci",
-                "subtitle": "Email adresa i broj telefona"
-              },
-              "permissions": {
-                "title": "Pristupne dozvole",
-                "subtitle": "Kontrolišite šta zaposlenik može kreirati i prihvatiti"
-              }
-            },
-            "fields": {
-              "firstName": "Ime",
-              "lastName": "Prezime",
-              "email": "Email",
-              "phone": "Telefon",
-              "dateOfBirth": "Datum rođenja",
-              "jmbg": "JMBG",
-              "canCreateShipment": "Može kreirati pošiljku",
-              "canAcceptShipment": "Može prihvatiti pošiljku",
-              "canCreateRoute": "Može kreirati rutu",
-              "canAcceptRoute": "Može prihvatiti rutu"
-            },
-            "placeholders": {
-              "firstName": "npr. Amir",
-              "lastName": "npr. Hadžić",
-              "email": "npr. amir@example.com",
-              "phone": "npr. +387 61 123 456",
-              "dateOfBirth": "Odaberite datum",
-              "jmbg": "13-cifreni JMBG"
-            },
-            "actions": {
-              "create": "Kreiraj zaposlenika",
-              "update": "Sačuvaj izmjene"
-            }
-          },
-          "table": {
-            "title": "Lista zaposlenika",
-            "entity": "zaposlenici",
-            "columns": {
-              "firstName": "Ime",
-              "lastName": "Prezime",
-              "email": "Email",
-              "phone": "Telefon",
-              "dateOfBirth": "Datum rođenja",
-              "jmbg": "JMBG"
-            },
-            "actions": {
-              "edit": "Uredi zaposlenika",
-              "delete": "Obriši"
-            },
-            "deleteConfirm": {
-              "title": "Obrisati zaposlenika?",
-              "message": "Ova radnja se ne može poništiti. Zaposlenik će biti trajno uklonjen."
-            },
-            "filters": {
-              "search": "Pretraga",
-              "searchPlaceholder": "Pretraži po imenu, emailu, telefonu, JMBG..."
-            }
-          }
-        },
         "vehicles": {
           "form": {
             "titleCreate": "Dodaj vozilo",
@@ -603,10 +530,83 @@
               "allTypes": "Svi tipovi"
             }
           }
+        },
+        "users": {
+          "form": {
+            "titleCreate": "Dodaj korisnika",
+            "titleEdit": "Uredi korisnika",
+            "steps": {
+              "profile": "Profil",
+              "contact": "Kontakt",
+              "permissions": "Dozvole"
+            },
+            "sections": {
+              "personal": {
+                "title": "Lični podaci",
+                "subtitle": "Ime, datum rođenja i JMBG"
+              },
+              "contactInfo": {
+                "title": "Kontakt podaci",
+                "subtitle": "Email adresa i broj telefona"
+              },
+              "permissions": {
+                "title": "Pristupne dozvole",
+                "subtitle": "Kontrolišite šta korisnik može kreirati i prihvatiti"
+              }
+            },
+            "fields": {
+              "firstName": "Ime",
+              "lastName": "Prezime",
+              "email": "Email",
+              "phone": "Telefon",
+              "dateOfBirth": "Datum rođenja",
+              "jmbg": "JMBG",
+              "canCreateShipment": "Može kreirati pošiljku",
+              "canAcceptShipment": "Može prihvatiti pošiljku",
+              "canCreateRoute": "Može kreirati rutu",
+              "canAcceptRoute": "Može prihvatiti rutu"
+            },
+            "placeholders": {
+              "firstName": "npr. Amir",
+              "lastName": "npr. Hadžić",
+              "email": "npr. amir@example.com",
+              "phone": "npr. +387 61 123 456",
+              "dateOfBirth": "Odaberite datum",
+              "jmbg": "13-cifreni JMBG"
+            },
+            "actions": {
+              "create": "Kreiraj korisnika",
+              "update": "Sačuvaj izmjene"
+            }
+          },
+          "table": {
+            "title": "Lista korisnika",
+            "entity": "korisnici",
+            "columns": {
+              "firstName": "Ime",
+              "lastName": "Prezime",
+              "email": "Email",
+              "phone": "Telefon",
+              "dateOfBirth": "Datum rođenja",
+              "jmbg": "JMBG"
+            },
+            "actions": {
+              "edit": "Uredi korisnika",
+              "delete": "Obriši"
+            },
+            "deleteConfirm": {
+              "title": "Obrisati korisnika?",
+              "message": "Ova radnja se ne može poništiti. Korisnik će biti trajno uklonjen."
+            },
+            "filters": {
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži po imenu, emailu, telefonu, JMBG..."
+            }
+          }
         }
       }
     },
-    "employee": {
+    "user": {
       "nav": {
         "sections": {
           "dashboard": "KONTROLNA TABLA",

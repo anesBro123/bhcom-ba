@@ -8,7 +8,7 @@ alwaysApply: false
 
 - All user-visible strings via translation keys (`labelKey`, `titleKey`, `| translate`).
 - Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json` (single file per language).
-- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.employee.features.shipments.table.status.${status}'`).
+- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.user.features.shipments.table.status.${status}'`).
 - Do not embed English prose in templates when a key exists or should exist.
 
 ## Key tree (mirrors `src/app/` layers)
@@ -16,13 +16,13 @@ alwaysApply: false
 ```
 shared.*                          — shell chrome + form/table/confirm frameworks
 guest.*                           — public pages (landing, sign-in, login, register)
-portal.shell.{admin|employee}.*   — portal badge in sidebar brand
+portal.shell.{admin|user}.*   — portal badge in sidebar brand
 portal.admin.nav.*                — admin sidebar
 portal.admin.pages.*              — admin route titleKey
 portal.admin.features.<feature>.* — admin feature (form, table)
-portal.employee.nav.*             — employee sidebar
-portal.employee.pages.*           — employee route titleKey
-portal.employee.features.<domain>.<feature>.* — employee feature (form, table)
+portal.user.nav.*             — user sidebar
+portal.user.pages.*           — user route titleKey
+portal.user.features.<domain>.<feature>.* — user feature (form, table)
 ```
 
 ### Shared (`shared.*`)
@@ -41,7 +41,7 @@ portal.employee.features.<domain>.<feature>.* — employee feature (form, table)
 |------|---------|
 | `guest.landing.*` | Landing page |
 | `guest.signIn.*` | Portal picker |
-| `guest.login.*` | Employee + admin login pages |
+| `guest.login.*` | User + admin login pages |
 | `guest.register.*` | Company registration page chrome |
 | `guest.register.form.*` | Register company stepper form |
 | `guest.topbar.*`, `guest.footer.*` | Guest shell |
@@ -56,20 +56,20 @@ portal.admin.nav.allVehicles
 portal.admin.pages.vehicles
 ```
 
-### Portal employee feature example
+### Portal user feature example
 
 ```
-portal.employee.features.shipments.form.steps.type
-portal.employee.features.shipments.table.columns.id
-portal.employee.features.fleet.vehicles.form.fields.plateNumber
-portal.employee.nav.allShipments
-portal.employee.pages.allShipments
+portal.user.features.shipments.form.steps.type
+portal.user.features.shipments.table.columns.id
+portal.user.features.fleet.vehicles.form.fields.plateNumber
+portal.user.nav.allShipments
+portal.user.pages.allShipments
 ```
 
 ## Rules for new keys
 
 1. **Do not** add feature strings under legacy roots (`forms.*`, `tables.*`, top-level `nav.*`, `pages.*`, `landing.*`, `login.*`).
-2. **Admin vs employee** — always under `portal.admin` or `portal.employee` (never cross-import keys).
+2. **Admin vs user** — always under `portal.admin` or `portal.user` (never cross-import keys).
 3. **Form defs** (`*.form.ts`) — keys under `…features.<feature>.form.*`.
 4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*`; use `shared.table.common.*` for shared table chrome. Destructive row actions: add `…table.deleteConfirm.title` / `…message` in the feature namespace; button labels use `shared.confirm.common.*` (see `confirm.mdc`).
 5. **Route `data.titleKey`** — `portal.<portal>.pages.<pageId>`.

@@ -1,0 +1,74 @@
+<app-form-section
+  titleKey="portal.user.features.shipments.form.sections.services.title"
+  subtitleKey="portal.user.features.shipments.form.sections.services.subtitle"
+  [icon]="LucideShield"
+>
+  <div class="services-layout">
+    <div class="services-layout__toggles">
+      @for (toggle of toggles; track toggle.key) {
+        <div class="form-toggle-row">
+          <div class="form-toggle-row__content">
+            <span class="form-toggle-row__label">{{ toggle.labelKey | translate }}</span>
+            <span class="form-toggle-row__description">{{ toggle.descriptionKey | translate }}</span>
+          </div>
+          <label class="form-toggle">
+            <input
+              class="form-toggle__input"
+              type="checkbox"
+              [formControl]="$any(form().get(toggle.key))"
+            />
+            <span class="form-toggle__track"></span>
+            <span class="form-toggle__thumb"></span>
+          </label>
+        </div>
+      }
+    </div>
+
+    <div class="services-layout__selects">
+      <div class="form-field">
+        <label class="form-label">{{ 'portal.user.features.shipments.form.fields.preferredCarrier' | translate }}</label>
+        <div class="form-select-wrap">
+          <select class="form-control form-control--select" [formControl]="$any(form().get('preferredCarrier'))">
+            <option value="">{{ 'portal.user.features.shipments.form.placeholders.selectCarrier' | translate }}</option>
+            @for (carrier of carriers; track carrier.value) {
+              <option [value]="carrier.value">{{ carrier.labelKey! | translate }}</option>
+            }
+          </select>
+          <span class="form-select-wrap__chevron">
+            <svg lucideChevronDown [size]="16" />
+          </span>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">{{ 'portal.user.features.shipments.form.fields.serviceLevel' | translate }}</label>
+        <div class="form-select-wrap">
+          <select class="form-control form-control--select" [formControl]="$any(form().get('serviceLevel'))">
+            <option value="">{{ 'portal.user.features.shipments.form.placeholders.selectService' | translate }}</option>
+            @for (level of serviceLevels; track level.value) {
+              <option [value]="level.value">{{ level.labelKey! | translate }}</option>
+            }
+          </select>
+          <span class="form-select-wrap__chevron">
+            <svg lucideChevronDown [size]="16" />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="services-instructions">
+    <label class="form-label">{{ 'portal.user.features.shipments.form.fields.specialInstructions' | translate }}</label>
+    <textarea
+      class="form-control form-control--textarea"
+      rows="4"
+      [formControl]="$any(form().get('specialInstructions'))"
+      [placeholder]="'portal.user.features.shipments.form.placeholders.specialInstructions' | translate"
+    ></textarea>
+  </div>
+
+  <div class="services-info">
+    <svg lucideInfo [size]="16" />
+    <p>{{ 'portal.user.features.shipments.form.services.infoBanner' | translate }}</p>
+  </div>
+</app-form-section>

@@ -1,0 +1,30 @@
+<div class="login login--user">
+  <div class="login__panel">
+    <div class="login__card">
+      <span class="login__badge">{{ 'guest.login.user.badge' | translate }}</span>
+      <h1 class="login__title">{{ 'guest.login.user.title' | translate }}</h1>
+      <p class="login__subtitle">{{ 'guest.login.user.subtitle' | translate }}</p>
+
+      @if (errorKey(); as key) {
+        <p class="login__error" role="alert">{{ key | translate }}</p>
+      }
+
+      <app-form-page
+        class="login__form"
+        [definition]="formDef"
+        [formGroup]="form"
+        [submitDisabled]="submitting()"
+        (submit)="onSubmit()"
+      />
+
+      <footer class="auth-card__footer">
+        <p class="auth-card__prompt">
+          {{ 'guest.login.switchPortal.label' | translate }}
+          <a [routerLink]="signInUrl" class="auth-card__action">
+            {{ 'guest.login.switchPortal.action' | translate }}
+          </a>
+        </p>
+      </footer>
+    </div>
+  </div>
+</div>

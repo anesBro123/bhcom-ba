@@ -1,1 +1,1 @@
-export type PortalKind = 'admin' | 'employee';
+export type PortalKind = 'admin' | 'user';

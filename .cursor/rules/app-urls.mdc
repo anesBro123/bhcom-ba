@@ -12,8 +12,8 @@ All **application route paths** must come from the URL constants under `shared/c
 
 | File | Contents |
 |------|----------|
-| `guest-urls.ts` | Public routes: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL` |
-| `employee-urls.ts` | Employee portal routes: `EMPLOYEE_HOME_URL`, … |
+| `guest-urls.ts` | Public routes: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `USER_LOGIN_URL`, `ADMIN_LOGIN_URL` |
+| `user-urls.ts` | User portal routes: `USER_HOME_URL`, … |
 | `admin-urls.ts` | Admin portal routes: `ADMIN_HOME_URL`, list/create URLs, `adminEdit<Entity>Url(id)` builders |
 | `app-urls.ts` | **Barrel** — re-exports all domain files + `portalHomeUrl()` |
 
@@ -21,7 +21,7 @@ All **application route paths** must come from the URL constants under `shared/c
 
 1. **Add new routes to the correct domain file first** — export a `*_URL` constant (or a small builder like `adminEditVehicleUrl(id)`).
 2. **Import from `shared/constants/app-urls.ts`** in guest, portal, and shared code that navigates or links (barrel keeps one entry point).
-3. **Portal shell home** — `PortalConfig.shell.homeUrl` uses `ADMIN_HOME_URL` / `EMPLOYEE_HOME_URL`, not literals.
+3. **Portal shell home** — `PortalConfig.shell.homeUrl` uses `ADMIN_HOME_URL` / `USER_HOME_URL`, not literals.
 4. **Nav `route` fields** — use constants, not string literals.
 5. **Router navigation** — prefer `router.navigateByUrl(CONST)` or `router.navigateByUrl(builder(id))`.
 
@@ -57,10 +57,10 @@ export function adminEditPartUrl(id: string): string {
 
 ## Current exports (via `app-urls.ts` barrel)
 
-Guest: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `EMPLOYEE_LOGIN_URL`, `ADMIN_LOGIN_URL`.
+Guest: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `USER_LOGIN_URL`, `ADMIN_LOGIN_URL`.
 
-Employee: `EMPLOYEE_HOME_URL`.
+User: `USER_HOME_URL`.
 
-Admin: `ADMIN_HOME_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `ADMIN_EMPLOYEES_URL`, `ADMIN_CREATE_EMPLOYEE_URL`, `ADMIN_WAREHOUSES_URL`, `ADMIN_CREATE_WAREHOUSE_URL`, `adminEditVehicleUrl()`, `adminEditEmployeeUrl()`, `adminEditWarehouseUrl()`.
+Admin: `ADMIN_HOME_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `ADMIN_USERS_URL`, `ADMIN_CREATE_USER_URL`, `ADMIN_WAREHOUSES_URL`, `ADMIN_CREATE_WAREHOUSE_URL`, `adminEditVehicleUrl()`, `adminEditUserUrl()`, `adminEditWarehouseUrl()`.
 
 Cross-portal: `portalHomeUrl()`.

@@ -3,8 +3,8 @@ import { PORTAL_CONFIG } from '../common/models/portal-config.model';
 import { PortalShellComponent } from '../shell/portal-shell/portal-shell.component';
 import { PagePlaceholderComponent } from '../pages/page-placeholder/page-placeholder.component';
 import { ADMIN_PORTAL_CONFIG } from './admin-portal.config';
-import { EmployeeFormPageComponent } from './features/employees/form/employee-form-page.component';
-import { EmployeeTablePageComponent } from './features/employees/table/employee-table-page.component';
+import { UserFormPageComponent } from './features/users/form/user-form-page.component';
+import { UserTablePageComponent } from './features/users/table/user-table-page.component';
 import { VehicleFormPageComponent } from './features/vehicles/form/vehicle-form-page.component';
 import { VehicleTablePageComponent } from './features/vehicles/table/vehicle-table-page.component';
 import { WarehouseFormPageComponent } from './features/warehouses/form/warehouse-form-page.component';
@@ -28,19 +28,19 @@ export default [
         data: { titleKey: 'portal.admin.pages.settings' },
       },
       {
-        path: 'employees',
-        component: EmployeeTablePageComponent,
-        data: { titleKey: 'portal.admin.pages.employees' },
+        path: 'users',
+        component: UserTablePageComponent,
+        data: { titleKey: 'portal.admin.pages.users' },
       },
       {
-        path: 'employees/create',
-        component: EmployeeFormPageComponent,
-        data: { titleKey: 'portal.admin.pages.createEmployee' },
+        path: 'users/create',
+        component: UserFormPageComponent,
+        data: { titleKey: 'portal.admin.pages.createUser' },
       },
       {
-        path: 'employees/:id/edit',
-        component: EmployeeFormPageComponent,
-        data: { titleKey: 'portal.admin.pages.editEmployee' },
+        path: 'users/:id/edit',
+        component: UserFormPageComponent,
+        data: { titleKey: 'portal.admin.pages.editUser' },
       },
       {
         path: 'vehicles',

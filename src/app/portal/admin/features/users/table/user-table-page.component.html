@@ -1,0 +1,3 @@
+@if (tableMounted()) {
+  <app-data-table [definition]="table" [loader]="loadUsers" (rowAction)="onRowAction($event)" />
+}

@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canMatch: [portalMatchGuard('employee')],
-    loadChildren: () => import('./portal/employee/employee.routes'),
+    canMatch: [portalMatchGuard('user')],
+    loadChildren: () => import('./portal/user/user.routes'),
   },
 ];

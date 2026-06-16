@@ -8,7 +8,7 @@ alwaysApply: false
 
 **Canonical reference:** `portal/admin/features/vehicles/` — follow this layout for new admin list + create + edit features.
 
-Employee features may use a flatter layout (e.g. `shipments/`) or domain nesting (e.g. `fleet/vehicles/`) when the flow is create-only or table-only; still reuse the same data / form / table patterns below.
+User features may use a flatter layout (e.g. `shipments/`) or domain nesting (e.g. `fleet/vehicles/`) when the flow is create-only or table-only; still reuse the same data / form / table patterns below.
 
 ## Folder layout
 
@@ -41,7 +41,7 @@ Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock st
 ## Routes + nav + URLs
 
 1. **`shared/constants/admin-urls.ts`** — list URL, create URL, `adminEdit<Entity>Url(id)` builder (re-exported by `app-urls.ts`; see `app-urls.mdc`).
-2. **`admin.routes.ts`** (or `employee.routes.ts`) — three children under `PortalShellComponent`:
+2. **`admin.routes.ts`** (or `user.routes.ts`) — three children under `PortalShellComponent`:
    - `<entity>` → table page, `data: { titleKey: 'portal.<portal>.pages.<entity>' }`
    - `<entity>/create` → form page
    - `<entity>/:id/edit` → **same** form component
@@ -95,7 +95,7 @@ this.confirmService.confirm({ titleKey, messageKey, danger: true })
 
 ## i18n
 
-Namespace: `portal.<admin|employee>.features.<entity>.{form|table}.*`
+Namespace: `portal.<admin|user>.features.<entity>.{form|table}.*`
 
 - Route titles: `portal.<portal>.pages.*`
 - Nav: `portal.<portal>.nav.*`
@@ -105,7 +105,7 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 
 ## Do not
 
-- Cross-import `portal/admin/features/**` ↔ `portal/employee/features/**`.
+- Cross-import `portal/admin/features/**` ↔ `portal/user/features/**`.
 - Hardcode app paths — use `app-urls.ts`.
 - Use `window.confirm` or per-page dialog markup — use `ConfirmService`.
 - Add `*.spec.ts` files.

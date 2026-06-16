@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './guards/guest.guard';
 import { AdminLoginPageComponent } from './pages/login/admin-login-page.component';
-import { EmployeeLoginPageComponent } from './pages/login/employee-login-page.component';
+import { UserLoginPageComponent } from './pages/login/user-login-page.component';
 import { LandingPageComponent } from './pages/landing/landing-page.component';
 import { RegisterCompanyPageComponent } from './pages/register/register-company-page.component';
 import { SignInPageComponent } from './pages/sign-in/sign-in-page.component';
@@ -27,7 +27,7 @@ export default [
       },
       {
         path: 'login',
-        component: EmployeeLoginPageComponent,
+        component: UserLoginPageComponent,
         canActivate: [guestGuard],
       },
       {

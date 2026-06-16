@@ -1,6 +1,6 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **employee** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
@@ -13,7 +13,7 @@ src/app/
     ├── shell/       # PortalShell, sidebar, topbar, SidebarService
     ├── pages/       # PagePlaceholderComponent
     ├── guards/      # portalMatchGuard
-    ├── employee/    # routes, nav, config, features/
+    ├── user/    # routes, nav, config, features/
     └── admin/       # routes, nav, config, features/ (vehicles)
 ```
 
@@ -25,7 +25,7 @@ Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreat
 |--------|---------|
 | `shared/` | Used by **both** guest and portal (auth, i18n, theme, form/table/confirm frameworks, shared UI) |
 | `guest/` | Public / unauthenticated routes, shell, guards |
-| `portal/` | Authenticated employee + admin (shell, configs, features) |
+| `portal/` | Authenticated user + admin (shell, configs, features) |
 
 Guest may import from `shared/**` only for URLs and auth. Do **not** import portal configs, features, or shell from guest.
 
@@ -39,20 +39,20 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 | Portal | URL prefix | Routes file | Nav config | Features |
 |--------|------------|-------------|------------|----------|
-| Employee | `/` (e.g. `/dashboard`) | `portal/employee/employee.routes.ts` | `portal/employee/employee-nav.config.ts` | `portal/employee/features/**` (fleet, shipments) |
+| User | `/` (e.g. `/dashboard`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (fleet, shipments) |
 | Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (vehicles) |
 
 ### Routing
 
 - Root routes: `src/app/app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`.
 - Guest routes: `src/app/guest/guest.routes.ts` — two `GuestShellComponent` trees (root + `admin` prefix); landing, sign-in, login, register.
-- URL constants: `shared/constants/guest-urls.ts`, `employee-urls.ts`, `admin-urls.ts` (barrel: `app-urls.ts`) — **never hardcode route paths**; add new URLs to the domain file first (see `.cursor/rules/app-urls.mdc`).
+- URL constants: `shared/constants/guest-urls.ts`, `user-urls.ts`, `admin-urls.ts` (barrel: `app-urls.ts`) — **never hardcode route paths**; add new URLs to the domain file first (see `.cursor/rules/app-urls.mdc`).
 
 | Guest path | Purpose |
 |------------|---------|
 | `/` | Landing |
 | `/sign-in` | Portal picker |
-| `/login` | Employee login |
+| `/login` | User login |
 | `/admin/login` | Admin login |
 | `/register` | Company registration |
 
@@ -66,12 +66,12 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session`); `PortalKind` in `shared/constants/portal-kind.type.ts`; stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`.
 - Portal shell injects `PORTAL_CONFIG` only (not `AuthService` for nav).
 
-**Do not** import `portal/admin/features/**` from employee routes or vice versa. Both may use `shared/**`.
+**Do not** import `portal/admin/features/**` from user routes or vice versa. Both may use `shared/**`.
 
 ## HTTP services
 
-- Feature API: colocate `*.service.ts` with the feature under `portal/{employee|admin}/features/<domain>/`.
-- Portal-wide (2+ features): `portal/{employee|admin}/data/`.
+- Feature API: colocate `*.service.ts` with the feature under `portal/{user|admin}/features/<domain>/`.
+- Portal-wide (2+ features): `portal/{user|admin}/data/`.
 - App infra: `shared/core/`.
 
 ## Quick entry points
@@ -80,14 +80,14 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
 - **Placeholder page:** `src/app/portal/pages/page-placeholder/`
-- **Single-step form:** `portal/employee/features/fleet/vehicles/`
-- **Table (mock loader):** `portal/employee/features/shipments/`
-- **Stepper (strict):** `portal/employee/features/shipments/create-shipment/`, `guest/pages/register/`
+- **Single-step form:** `portal/user/features/fleet/vehicles/`
+- **Table (mock loader):** `portal/user/features/shipments/`
+- **Stepper (strict):** `portal/user/features/shipments/create-shipment/`, `guest/pages/register/`
 - **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
-- **Guest login:** `guest/pages/login/employee-login-page.*`, `admin-login-page.*`
+- **Guest login:** `guest/pages/login/user-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
-- **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `employee-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
+- **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker)

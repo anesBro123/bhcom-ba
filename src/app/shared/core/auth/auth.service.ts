@@ -14,8 +14,8 @@ export class AuthService {
   readonly token = computed(() => this._session()?.accessToken ?? null);
   readonly user = computed(() => this._session()?.user ?? null);
 
-  loginEmployee(credentials: { username: string; password: string }): Observable<Session> {
-    return this.loginStub('employee', credentials);
+  loginUser(credentials: { username: string; password: string }): Observable<Session> {
+    return this.loginStub('user', credentials);
   }
 
   loginAdmin(credentials: { username: string; password: string }): Observable<Session> {
@@ -54,16 +54,18 @@ export class AuthService {
       if (!raw) {
         return null;
       }
-      const parsed = JSON.parse(raw) as Session & { portal?: PortalKind };
-      const portalKind = parsed.portalKind ?? parsed.portal;
-      if (
-        parsed?.accessToken &&
-        (portalKind === 'admin' || portalKind === 'employee') &&
-        parsed.user
-      ) {
-        return { accessToken: parsed.accessToken, portalKind, user: parsed.user };
+      const parsed = JSON.parse(raw) as Session & { portal?: string; portalKind?: string };
+      const rawKind = String(parsed.portalKind ?? parsed.portal ?? '');
+      const portalKind: PortalKind | null =
+        rawKind === 'employee' || rawKind === 'user'
+          ? 'user'
+          : rawKind === 'admin'
+            ? 'admin'
+            : null;
+      if (!portalKind || !parsed?.accessToken || !parsed.user) {
+        return null;
       }
-      return null;
+      return { accessToken: parsed.accessToken, portalKind, user: parsed.user };
     } catch {
       return null;
     }

@@ -10,8 +10,8 @@ alwaysApply: false
 
 Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/features/vehicles/`.
 
-1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or employee equivalent).
-2. Add URLs to `shared/constants/admin-urls.ts` (or `employee-urls.ts` for employee features): list, create, `editUrl(id)`.
+1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or user equivalent).
+2. Add URLs to `shared/constants/admin-urls.ts` (or `user-urls.ts` for user features): list, create, `editUrl(id)`.
 3. Register three routes in `admin.routes.ts`: list, `create`, `:id/edit` (same form component for create + edit).
 4. Add nav section (list + create) in `admin-nav.config.ts` with `route` from `app-urls.ts`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
@@ -19,13 +19,13 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 
 ## Portal feature (other shapes)
 
-1. Feature folder: `portal/employee/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
-2. Register route in `employee.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
-3. If in sidebar: add `NavItem` in `employee-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`).
-4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.employee.pages.*' }` (admin: `portal.admin.pages.*`).
-5. Table-only (no service yet): `TableApiService.loadMock` — see `portal/employee/features/shipments/`.
-6. Create-only single-step form: `portal/employee/features/fleet/vehicles/`.
-7. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{employee|admin}/data/` when shared within one portal.
+1. Feature folder: `portal/user/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
+2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
+3. If in sidebar: add `NavItem` in `user-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`).
+4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.user.pages.*' }` (admin: `portal.admin.pages.*`).
+5. Table-only (no service yet): `TableApiService.loadMock` — see `portal/user/features/shipments/`.
+6. Create-only single-step form: `portal/user/features/fleet/vehicles/`.
+7. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
 
 ## Guest page
 
@@ -37,4 +37,4 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 
 **No `*.spec.ts`** — do not add unit tests for new pages or components.
 
-Do not import admin features from employee routes or vice versa.
+Do not import admin features from user routes or vice versa.

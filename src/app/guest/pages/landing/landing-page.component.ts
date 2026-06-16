@@ -9,7 +9,7 @@ import {
 import {
   ADMIN_LOGIN_URL,
   COMPANY_REGISTER_URL,
-  EMPLOYEE_LOGIN_URL,
+  USER_LOGIN_URL,
   SIGN_IN_URL,
 } from '../../../shared/constants/app-urls';
 import { PortalCardComponent } from '../../shell/portal-card/portal-card.component';
@@ -23,13 +23,13 @@ import { PortalCardComponent } from '../../shell/portal-card/portal-card.compone
 export class LandingPageComponent {
   protected readonly signInUrl = SIGN_IN_URL;
   protected readonly registerUrl = COMPANY_REGISTER_URL;
-  protected readonly employeeLoginUrl = EMPLOYEE_LOGIN_URL;
+  protected readonly userLoginUrl = USER_LOGIN_URL;
   protected readonly adminLoginUrl = ADMIN_LOGIN_URL;
 
   protected readonly features = [
     {
       icon: 'truck',
-      accent: 'employee',
+      accent: 'user',
       titleKey: 'guest.landing.features.fleet.title',
       descriptionKey: 'guest.landing.features.fleet.description',
     },

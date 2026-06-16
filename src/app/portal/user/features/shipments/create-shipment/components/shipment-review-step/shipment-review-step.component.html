@@ -1,0 +1,112 @@
+<div class="review-step">
+  <div class="review-step__main">
+    <app-form-section
+      titleKey="portal.user.features.shipments.form.sections.review.title"
+      subtitleKey="portal.user.features.shipments.form.sections.review.subtitle"
+      [icon]="LucideCalculator"
+    >
+      <div class="review-sections">
+        <section class="review-block">
+          <h3 class="review-block__title">{{ 'portal.user.features.shipments.form.review.summary' | translate }}</h3>
+          <dl class="review-dl">
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.type' | translate }}</dt>
+              <dd>{{ typeLabelKey() | translate }}</dd>
+            </div>
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.priority' | translate }}</dt>
+              <dd>{{ priorityLabel() | translate }}</dd>
+            </div>
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.totalItems' | translate }}</dt>
+              <dd>{{ totals().totalItems }}</dd>
+            </div>
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.totalWeight' | translate }}</dt>
+              <dd>{{
+                'portal.user.features.shipments.form.packages.weightValue'
+                  | translate: { weight: totals().totalWeight.toFixed(1) }
+              }}</dd>
+            </div>
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.totalValue' | translate }}</dt>
+              <dd>{{
+                'portal.user.features.shipments.form.packages.currencyValue'
+                  | translate: { value: totals().totalValue.toFixed(2) }
+              }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="review-block">
+          <h3 class="review-block__title">{{ 'portal.user.features.shipments.form.review.route' | translate }}</h3>
+          <dl class="review-dl">
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.from' | translate }}</dt>
+              <dd>
+                <span class="review-dl__primary">{{ value().originCompany || '—' }}</span>
+                <span class="review-dl__secondary">{{ originLine() }}</span>
+              </dd>
+            </div>
+            <div class="review-dl__row">
+              <dt>{{ 'portal.user.features.shipments.form.review.to' | translate }}</dt>
+              <dd>
+                <span class="review-dl__primary">{{ value().destinationCompany || '—' }}</span>
+                <span class="review-dl__secondary">{{ destinationLine() }}</span>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="review-block">
+          <h3 class="review-block__title">{{ 'portal.user.features.shipments.form.review.services' | translate }}</h3>
+          @if (services().length > 0) {
+            <ul class="review-services">
+              @for (serviceKey of services(); track serviceKey) {
+                <li>{{ serviceKey | translate }}</li>
+              }
+            </ul>
+          } @else {
+            <p class="review-block__empty">{{ 'portal.user.features.shipments.form.review.noServices' | translate }}</p>
+          }
+        </section>
+      </div>
+    </app-form-section>
+  </div>
+
+  <aside class="review-step__sidebar">
+    <div class="cost-card">
+      <h3 class="cost-card__title">{{ 'portal.user.features.shipments.form.review.costBreakdown' | translate }}</h3>
+      <dl class="cost-card__lines">
+        <div class="cost-card__line">
+          <dt>{{ 'portal.user.features.shipments.form.review.baseShipping' | translate }}</dt>
+          <dd>{{ cost().baseShipping | currency: 'USD' }}</dd>
+        </div>
+        <div class="cost-card__line">
+          <dt>{{ 'portal.user.features.shipments.form.review.weightCharge' | translate }}</dt>
+          <dd>{{ cost().weightCharge | currency: 'USD' }}</dd>
+        </div>
+        @if (cost().servicesCharge > 0) {
+          <div class="cost-card__line">
+            <dt>{{ 'portal.user.features.shipments.form.review.servicesCharge' | translate }}</dt>
+            <dd>{{ cost().servicesCharge | currency: 'USD' }}</dd>
+          </div>
+        }
+        <div class="cost-card__line cost-card__line--total">
+          <dt>{{ 'portal.user.features.shipments.form.review.totalCost' | translate }}</dt>
+          <dd>{{ cost().total | currency: 'USD' }}</dd>
+        </div>
+      </dl>
+
+      <button type="button" class="cost-card__recalculate" (click)="recalculate()">
+        <svg lucideCalculator [size]="16" />
+        <span>{{ 'portal.user.features.shipments.form.review.recalculate' | translate }}</span>
+      </button>
+    </div>
+
+    <div class="review-info">
+      <svg lucideInfo [size]="16" />
+      <p>{{ 'portal.user.features.shipments.form.review.estimateNote' | translate }}</p>
+    </div>
+  </aside>
+</div>

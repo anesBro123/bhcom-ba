@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   ADMIN_LOGIN_URL,
-  EMPLOYEE_LOGIN_URL,
+  USER_LOGIN_URL,
   LANDING_URL,
 } from '../../../shared/constants/app-urls';
 import { PortalCardComponent } from '../../shell/portal-card/portal-card.component';
@@ -16,6 +16,6 @@ import { PortalCardComponent } from '../../shell/portal-card/portal-card.compone
 })
 export class SignInPageComponent {
   protected readonly landingUrl = LANDING_URL;
-  protected readonly employeeLoginUrl = EMPLOYEE_LOGIN_URL;
+  protected readonly userLoginUrl = USER_LOGIN_URL;
   protected readonly adminLoginUrl = ADMIN_LOGIN_URL;
 }

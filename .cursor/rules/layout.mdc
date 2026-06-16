@@ -10,8 +10,8 @@ alwaysApply: false
 
 - `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
 - `PortalSidebarComponent` (`portal-sidebar`) — brand row (BHCOM + portal suffix from `PORTAL_CONFIG`), collapsible nav (desktop), drawer (mobile).
-- Nav types: `portal/common/models/nav.model.ts`; configs: `portal/employee/employee-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
-- `PORTAL_CONFIG` provided on shell route in `employee.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
+- Nav types: `portal/common/models/nav.model.ts`; configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
+- `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
 - `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest shared.topbar.
 - `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest shared.topbar.
@@ -45,4 +45,4 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
 - Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
-- **Portal accent:** `PortalShellComponent` host class `portal-employee` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--employee` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
+- **Portal accent:** `PortalShellComponent` host class `portal-user` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--user` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
