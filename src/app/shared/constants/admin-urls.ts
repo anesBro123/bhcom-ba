@@ -1,4 +1,5 @@
 export const ADMIN_HOME_URL = '/admin/dashboard';
+export const ADMIN_SETTINGS_URL = '/admin/settings';
 export const ADMIN_VEHICLES_URL = '/admin/vehicles';
 export const ADMIN_CREATE_VEHICLE_URL = '/admin/vehicles/create';
 export const ADMIN_USERS_URL = '/admin/users';

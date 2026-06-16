@@ -1,0 +1,7 @@
+<a class="quick-action-card" [routerLink]="route()">
+  <span class="quick-action-card__icon">
+    <ng-container *ngComponentOutlet="icon(); inputs: iconInputs" />
+  </span>
+  <h3 class="quick-action-card__title">{{ titleKey() | translate }}</h3>
+  <p class="quick-action-card__description">{{ descriptionKey() | translate }}</p>
+</a>

@@ -18,7 +18,8 @@ alwaysApply: false
 - **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No shared.sidebar.
 - Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
-- `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). Content widget — not shell chrome. Import by direct path; parent owns i18n keys and grid layout.
+- `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). Content widget — not shell chrome. Import by direct path; parent owns i18n keys, grid layout, and optional `routerLink` wrapper for clickable tiles.
+- `QuickActionCardComponent` (`shared/ui/quick-action-card/`) — dashboard/portal action tile: `titleKey`, `descriptionKey`, `route`, `icon` (`LucideIcon`). Renders as `<a routerLink>` with centered monochrome icon (`--text-secondary`, ~22px), title, and description. No colored icon badge or accent top border. Import by direct path; parent owns grid layout.
 - Profile icon opens **account menu** (`shared.topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
 
 ## SidebarService (`portal/shell/shared.sidebar.service.ts`)

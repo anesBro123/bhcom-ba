@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PORTAL_CONFIG } from '../common/models/portal-config.model';
 import { PortalShellComponent } from '../shell/portal-shell/portal-shell.component';
 import { PagePlaceholderComponent } from '../pages/page-placeholder/page-placeholder.component';
+import { AdminDashboardPageComponent } from './features/dashboard/admin-dashboard-page.component';
 import { ADMIN_PORTAL_CONFIG } from './admin-portal.config';
 import { UserFormPageComponent } from './features/users/form/user-form-page.component';
 import { UserTablePageComponent } from './features/users/table/user-table-page.component';
@@ -19,7 +20,7 @@ export default [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        component: PagePlaceholderComponent,
+        component: AdminDashboardPageComponent,
         data: { titleKey: 'portal.admin.pages.dashboard' },
       },
       {

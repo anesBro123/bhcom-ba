@@ -52,9 +52,16 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 portal.admin.features.vehicles.form.fields.marka
 portal.admin.features.vehicles.table.columns.marka
 portal.admin.features.vehicles.table.deleteConfirm.title
+portal.admin.features.dashboard.metrics.users.title
+portal.admin.features.dashboard.quickActions.title
+portal.admin.features.dashboard.actions.allUsers.description
 portal.admin.nav.allVehicles
+portal.admin.nav.sections.dashboard
+portal.admin.nav.overview
 portal.admin.pages.vehicles
 ```
+
+Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-action card titles; add `…dashboard.actions.*.description` only for helper text.
 
 ### Portal user feature example
 

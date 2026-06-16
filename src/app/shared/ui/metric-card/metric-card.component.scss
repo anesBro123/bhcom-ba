@@ -1,5 +1,9 @@
 @use 'styles/breakpoints' as *;
 
+:host {
+  display: block;
+}
+
 .metric-card {
   display: flex;
   flex-direction: column;
@@ -8,6 +12,15 @@
   border: 1px solid var(--border-form-card);
   border-radius: var(--radius-form-card);
   background: var(--bg-form-card);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+:host-context(a:hover) .metric-card,
+:host-context(a:focus-visible) .metric-card {
+  border-color: var(--text-muted);
+  box-shadow: var(--shadow-table-actions-menu);
 }
 
 .metric-card__header {

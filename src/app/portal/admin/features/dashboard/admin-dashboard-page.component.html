@@ -1,0 +1,50 @@
+<h1 class="page-title">{{ 'portal.admin.pages.dashboard' | translate }}</h1>
+
+<div class="admin-dashboard">
+  <section
+    class="admin-dashboard__metrics"
+    [attr.aria-label]="'portal.admin.features.dashboard.metrics.ariaLabel' | translate"
+  >
+    @for (metric of metrics; track metric.route) {
+      <a [routerLink]="metric.route" class="admin-dashboard__metric-link">
+        <app-metric-card
+          [titleKey]="metric.titleKey"
+          [value]="metricValue(metric.countKey)"
+          [subtitleKey]="metric.subtitleKey"
+          [icon]="metric.icon"
+          [variant]="metric.variant"
+        />
+      </a>
+    }
+  </section>
+
+  <section class="admin-dashboard__quick-actions">
+    <div class="admin-dashboard__quick-actions-panel">
+      <h2 class="admin-dashboard__section-title">
+        {{ 'portal.admin.features.dashboard.quickActions.title' | translate }}
+      </h2>
+      <div class="admin-dashboard__action-grid">
+        @for (group of entityActionGroups; track group[0].route) {
+          <div class="admin-dashboard__action-column">
+            @for (action of group; track action.route) {
+              <app-quick-action-card
+                [titleKey]="action.titleKey"
+                [descriptionKey]="action.descriptionKey"
+                [route]="action.route"
+                [icon]="action.icon"
+              />
+            }
+          </div>
+        }
+      </div>
+      <div class="admin-dashboard__settings-row">
+        <app-quick-action-card
+          [titleKey]="settingsAction.titleKey"
+          [descriptionKey]="settingsAction.descriptionKey"
+          [route]="settingsAction.route"
+          [icon]="settingsAction.icon"
+        />
+      </div>
+    </div>
+  </section>
+</div>

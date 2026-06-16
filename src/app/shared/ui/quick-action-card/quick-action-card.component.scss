@@ -1,0 +1,51 @@
+.quick-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  height: 100%;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--border-form-card);
+  border-radius: var(--radius-form-card);
+  background: var(--bg-form-card);
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    border-color: var(--text-muted);
+    box-shadow: var(--shadow-table-actions-menu);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--portal-accent, #2563eb);
+    outline-offset: 2px;
+  }
+}
+
+.quick-action-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.quick-action-card__title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.quick-action-card__description {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}

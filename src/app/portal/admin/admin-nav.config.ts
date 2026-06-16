@@ -1,8 +1,9 @@
-import { LucideSquarePlus, LucideTruck, LucideUsers, LucideWarehouse } from '@lucide/angular';
+import { LucideLayoutGrid, LucideSquarePlus, LucideTruck, LucideUsers, LucideWarehouse } from '@lucide/angular';
 import {
   ADMIN_CREATE_USER_URL,
   ADMIN_CREATE_VEHICLE_URL,
   ADMIN_CREATE_WAREHOUSE_URL,
+  ADMIN_HOME_URL,
   ADMIN_USERS_URL,
   ADMIN_VEHICLES_URL,
   ADMIN_WAREHOUSES_URL,
@@ -10,6 +11,17 @@ import {
 import { NavSection } from '../common/models/nav.model';
 
 export const ADMIN_NAV: NavSection[] = [
+  {
+    titleKey: 'portal.admin.nav.sections.dashboard',
+    items: [
+      {
+        labelKey: 'portal.admin.nav.overview',
+        route: ADMIN_HOME_URL,
+        icon: LucideLayoutGrid,
+        exact: true,
+      },
+    ],
+  },
   {
     titleKey: 'portal.admin.nav.sections.users',
     items: [

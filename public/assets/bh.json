@@ -260,10 +260,12 @@
     "admin": {
       "nav": {
         "sections": {
+          "dashboard": "KONTROLNA TABLA",
           "users": "KORISNICI",
           "vehicles": "VOZILA",
           "warehouses": "SKLADIŠTA"
         },
+        "overview": "Pregled",
         "allVehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
         "allWarehouses": "Sva skladišta",
@@ -285,6 +287,49 @@
         "editUser": "Uredi korisnika"
       },
       "features": {
+        "dashboard": {
+          "metrics": {
+            "ariaLabel": "Ključne metrike",
+            "users": {
+              "title": "Korisnici",
+              "subtitle": "Registrovani nalozi"
+            },
+            "vehicles": {
+              "title": "Vozila",
+              "subtitle": "Vozila u floti"
+            },
+            "warehouses": {
+              "title": "Skladišta",
+              "subtitle": "Aktivna skladišta"
+            }
+          },
+          "quickActions": {
+            "title": "Brze akcije"
+          },
+          "actions": {
+            "allUsers": {
+              "description": "Pregledajte i upravljajte svim korisničkim nalozima"
+            },
+            "allVehicles": {
+              "description": "Pregledajte kompletan registar vozila"
+            },
+            "allWarehouses": {
+              "description": "Pregledajte lokacije i detalje skladišta"
+            },
+            "createUser": {
+              "description": "Registrujte novi korisnički nalog"
+            },
+            "createVehicle": {
+              "description": "Dodajte novo vozilo u flotu"
+            },
+            "createWarehouse": {
+              "description": "Registrujte novo skladište"
+            },
+            "settings": {
+              "description": "Konfigurišite sistemske postavke"
+            }
+          }
+        },
         "vehicles": {
           "form": {
             "titleCreate": "Dodaj vozilo",

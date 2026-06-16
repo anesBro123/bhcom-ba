@@ -52,11 +52,11 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Sidebar nav: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts`)
 - Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`); Confirm: `shared/confirm/` (`ConfirmService`, global `ConfirmDialogComponent` in `app.html`)
-- Features: `portal/user/features/` (fleet, shipments); `portal/admin/features/` (vehicles)
+- Features: `portal/user/features/` (fleet, shipments); `portal/admin/features/` (dashboard, users, vehicles, warehouses)
 - Placeholder pages: `portal/pages/page-placeholder/page-placeholder.component.ts`
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card (dashboard KPI display; Lucide icon + variant tint)
+- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card
 
 ## Auth routing (guards)
 
@@ -82,4 +82,6 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Table page (service loader + delete): `portal/admin/features/vehicles/table/` — see `portal-feature.mdc`, `confirm.mdc`
 - Guest login: `guest/pages/login/user-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
-- Dashboard KPI card: `shared/ui/metric-card/` — `MetricCardComponent` for title + value + subtitle stats
+- Dashboard KPI card: `shared/ui/metric-card/` — `MetricCardComponent` for title + value + subtitle stats; parent wraps in `routerLink` when tile should navigate
+- Dashboard action tile: `shared/ui/quick-action-card/` — `QuickActionCardComponent` for portal quick-action grids (monochrome icon, `routerLink`)
+- Admin dashboard (reference): `portal/admin/features/dashboard/` — `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`; admin nav has Dashboard section (`ADMIN_HOME_URL`, `LucideLayoutGrid`)

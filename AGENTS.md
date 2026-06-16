@@ -14,7 +14,7 @@ src/app/
     ├── pages/       # PagePlaceholderComponent
     ├── guards/      # portalMatchGuard
     ├── user/    # routes, nav, config, features/
-    └── admin/       # routes, nav, config, features/ (vehicles)
+    └── admin/       # routes, nav, config, features/ (dashboard, users, vehicles, warehouses)
 ```
 
 Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreate them.
@@ -40,7 +40,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | Portal | URL prefix | Routes file | Nav config | Features |
 |--------|------------|-------------|------------|----------|
 | User | `/` (e.g. `/dashboard`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (fleet, shipments) |
-| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (vehicles) |
+| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (dashboard, users, vehicles, warehouses) |
 
 ### Routing
 
@@ -77,6 +77,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 ## Quick entry points
 
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
+- **Admin dashboard:** `portal/admin/features/dashboard/` — KPI row (`app-metric-card`, counts via `AdminDashboardService`) + Quick Actions (`app-quick-action-card`, grouped browse/create columns + settings row); see `new-page.mdc`, `layout.mdc`
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
 - **Placeholder page:** `src/app/portal/pages/page-placeholder/`
@@ -90,8 +91,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card)
-- **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; use in dashboard metric grids (not shell chrome)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card)
+- **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
+- **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
 
 ## Cursor rules
 

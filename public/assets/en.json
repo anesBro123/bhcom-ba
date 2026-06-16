@@ -260,10 +260,12 @@
     "admin": {
       "nav": {
         "sections": {
+          "dashboard": "DASHBOARD",
           "users": "USERS",
           "vehicles": "VEHICLES",
           "warehouses": "WAREHOUSES"
         },
+        "overview": "Overview",
         "allVehicles": "All Vehicles",
         "createVehicle": "Add Vehicle",
         "allWarehouses": "All Warehouses",
@@ -285,6 +287,49 @@
         "editUser": "Edit User"
       },
       "features": {
+        "dashboard": {
+          "metrics": {
+            "ariaLabel": "Key metrics",
+            "users": {
+              "title": "Users",
+              "subtitle": "Registered accounts"
+            },
+            "vehicles": {
+              "title": "Vehicles",
+              "subtitle": "Fleet vehicles"
+            },
+            "warehouses": {
+              "title": "Warehouses",
+              "subtitle": "Active warehouses"
+            }
+          },
+          "quickActions": {
+            "title": "Quick Actions"
+          },
+          "actions": {
+            "allUsers": {
+              "description": "View and manage all user accounts"
+            },
+            "allVehicles": {
+              "description": "Browse the full vehicle registry"
+            },
+            "allWarehouses": {
+              "description": "View warehouse locations and details"
+            },
+            "createUser": {
+              "description": "Register a new user account"
+            },
+            "createVehicle": {
+              "description": "Add a new vehicle to the fleet"
+            },
+            "createWarehouse": {
+              "description": "Register a new warehouse"
+            },
+            "settings": {
+              "description": "Configure system preferences"
+            }
+          }
+        },
         "vehicles": {
           "form": {
             "titleCreate": "Add Vehicle",
