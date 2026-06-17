@@ -40,6 +40,8 @@ export class VehicleTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = VehicleTable;
+  protected readonly pageTitleKey = 'portal.admin.pages.vehicles.title';
+  protected readonly pageSubtitleKey = 'portal.admin.pages.vehicles.subtitle';
   protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
   protected readonly vrstaVozilaKey = tableCellKey(VehicleTable, 'vrstaVozila');

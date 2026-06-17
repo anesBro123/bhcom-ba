@@ -7,7 +7,6 @@ import { ADMIN_VEHICLES_API } from '../data/vehicle.constants';
 
 export const VehicleTable = defineTable<Vehicle>()({
   endpoint: ADMIN_VEHICLES_API,
-  titleKey: 'portal.admin.features.vehicles.table.title',
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.vehicles.table.entity',
   defaultPageSize: 10,

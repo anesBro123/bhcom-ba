@@ -6,7 +6,6 @@ import type { Shipment } from './shipment.model';
 
 export const ShipmentTable = defineTable<Shipment>()({
   endpoint: '/api/shipments',
-  titleKey: 'portal.user.features.shipments.table.title',
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.user.features.shipments.table.entity',
   defaultPageSize: 5,

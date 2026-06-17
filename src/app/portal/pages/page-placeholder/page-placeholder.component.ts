@@ -11,4 +11,5 @@ import { PageTitleComponent } from '../../../shared/ui/page-title/page-title.com
 export class PagePlaceholderComponent {
   private readonly route = inject(ActivatedRoute);
   protected readonly titleKey = this.route.snapshot.data['titleKey'] as string;
+  protected readonly subtitleKey = this.route.snapshot.data['subtitleKey'] as string;
 }

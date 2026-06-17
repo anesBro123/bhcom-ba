@@ -274,17 +274,50 @@
         "createUser": "Dodaj korisnika"
       },
       "pages": {
-        "dashboard": "Admin kontrolna tabla",
-        "settings": "Sistemske postavke",
-        "vehicles": "Sva vozila",
-        "createVehicle": "Dodaj vozilo",
-        "editVehicle": "Uredi vozilo",
-        "warehouses": "Sva skladišta",
-        "createWarehouse": "Dodaj skladište",
-        "editWarehouse": "Uredi skladište",
-        "users": "Svi korisnici",
-        "createUser": "Dodaj korisnika",
-        "editUser": "Uredi korisnika"
+        "dashboard": {
+          "title": "Admin kontrolna tabla",
+          "subtitle": "Pratite korisnike, vozila i skladišta na jednom mjestu."
+        },
+        "settings": {
+          "title": "Sistemske postavke",
+          "subtitle": "Konfigurišite postavke platforme i operativne zadane vrijednosti."
+        },
+        "vehicles": {
+          "title": "Sva vozila",
+          "subtitle": "Pregledajte, pretražujte i upravljajte registrovanim vozilima flote."
+        },
+        "createVehicle": {
+          "title": "Dodaj vozilo",
+          "subtitle": "Slijedite korake ispod da registrujete novo vozilo u floti."
+        },
+        "editVehicle": {
+          "title": "Uredi vozilo",
+          "subtitle": "Ažurirajte podatke o registraciji i vozilu za ovaj zapis."
+        },
+        "warehouses": {
+          "title": "Sva skladišta",
+          "subtitle": "Pregledajte i upravljajte lokacijama, kapacitetom i objektima skladišta."
+        },
+        "createWarehouse": {
+          "title": "Dodaj skladište",
+          "subtitle": "Slijedite korake ispod da registrujete novu lokaciju skladišta."
+        },
+        "editWarehouse": {
+          "title": "Uredi skladište",
+          "subtitle": "Ažurirajte lokaciju, kapacitet i detalje objekata za ovo skladište."
+        },
+        "users": {
+          "title": "Svi korisnici",
+          "subtitle": "Pretražujte i upravljajte korisničkim računima i pristupnim dozvolama."
+        },
+        "createUser": {
+          "title": "Dodaj korisnika",
+          "subtitle": "Slijedite korake ispod da kreirate novi korisnički račun."
+        },
+        "editUser": {
+          "title": "Uredi korisnika",
+          "subtitle": "Ažurirajte profil, kontakt podatke i dozvole za ovog korisnika."
+        }
       },
       "features": {
         "dashboard": {
@@ -334,6 +367,8 @@
           "form": {
             "titleCreate": "Dodaj vozilo",
             "titleEdit": "Uredi vozilo",
+            "subtitleCreate": "Slijedite korake ispod da registrujete novo vozilo u floti.",
+            "subtitleEdit": "Ažurirajte podatke o registraciji i vozilu za ovaj zapis.",
             "steps": {
               "registration": "Registracija",
               "owner": "Vlasnik",
@@ -462,6 +497,7 @@
           },
           "table": {
             "title": "Lista vozila",
+            "subtitle": "Pretražujte, sortirajte i upravljajte svim registrovanim vozilima flote.",
             "entity": "vozila",
             "columns": {
               "registarskaOznaka": "Registarska oznaka",
@@ -491,6 +527,8 @@
           "form": {
             "titleCreate": "Dodaj skladište",
             "titleEdit": "Uredi skladište",
+            "subtitleCreate": "Slijedite korake ispod da registrujete novu lokaciju skladišta.",
+            "subtitleEdit": "Ažurirajte lokaciju, kapacitet i detalje objekata za ovo skladište.",
             "steps": {
               "identity": "Identitet",
               "capacity": "Kapacitet",
@@ -551,6 +589,7 @@
           },
           "table": {
             "title": "Lista skladišta",
+            "subtitle": "Pregledajte kapacitet, lokaciju i detalje objekata za svako skladište.",
             "entity": "skladišta",
             "columns": {
               "name": "Naziv",
@@ -580,6 +619,8 @@
           "form": {
             "titleCreate": "Dodaj korisnika",
             "titleEdit": "Uredi korisnika",
+            "subtitleCreate": "Slijedite korake ispod da kreirate novi korisnički račun.",
+            "subtitleEdit": "Ažurirajte profil, kontakt podatke i dozvole za ovog korisnika.",
             "steps": {
               "profile": "Profil",
               "contact": "Kontakt",
@@ -626,6 +667,7 @@
           },
           "table": {
             "title": "Lista korisnika",
+            "subtitle": "Pretražujte i upravljajte korisničkim računima i pristupnim dozvolama.",
             "entity": "korisnici",
             "columns": {
               "firstName": "Ime",
@@ -685,28 +727,94 @@
         "fleetEfficiency": "Efikasnost flote"
       },
       "pages": {
-        "dashboardOverview": "Pregled kontrolne table",
-        "liveMap": "Mapa pošiljki uživo",
-        "fleetStatus": "Status flote",
-        "allShipments": "Sve pošiljke",
-        "trackShipment": "Prati pošiljku",
-        "createShipment": "Kreiraj pošiljku",
-        "delayedShipments": "Odgođene pošiljke",
-        "vehicleList": "Lista vozila",
-        "createVehicle": "Dodaj vozilo",
-        "maintenanceLogs": "Evidencija održavanja",
-        "driverAssignments": "Dodjele vozača",
-        "vendorDirectory": "Imenik prodavaca",
-        "addVendor": "Dodaj prodavca",
-        "clientsList": "Lista klijenata",
-        "clientFeedback": "Povratne informacije klijenata",
-        "allOrders": "Sve narudžbe",
-        "scheduledDeliveries": "Zakazane isporuke",
-        "returns": "Povrati",
-        "cancellations": "Otkazivanja",
-        "deliveryPerformance": "Performanse isporuke",
-        "revenueAnalysis": "Analiza prihoda",
-        "fleetEfficiency": "Efikasnost flote"
+        "dashboardOverview": {
+          "title": "Pregled kontrolne table",
+          "subtitle": "Dobrodošli nazad! Evo šta se dešava u vašim logističkim operacijama."
+        },
+        "liveMap": {
+          "title": "Mapa pošiljki uživo",
+          "subtitle": "Pratite aktivne pošiljke na mapi u realnom vremenu."
+        },
+        "fleetStatus": {
+          "title": "Status flote",
+          "subtitle": "Pratite dostupnost vozila, dodjele i operativno stanje."
+        },
+        "allShipments": {
+          "title": "Sve pošiljke",
+          "subtitle": "Pregledajte i filtrirajte sve pošiljke u vašoj mreži."
+        },
+        "trackShipment": {
+          "title": "Prati pošiljku",
+          "subtitle": "Pronađite pošiljku po ID-u ili broju za praćenje i status uživo."
+        },
+        "createShipment": {
+          "title": "Kreiraj novu pošiljku",
+          "subtitle": "Slijedite korake ispod da kreirate i zakazete pošiljku."
+        },
+        "delayedShipments": {
+          "title": "Odgođene pošiljke",
+          "subtitle": "Pregledajte pošiljke koje kasne i zahtijevaju pažnju."
+        },
+        "vehicleList": {
+          "title": "Lista vozila",
+          "subtitle": "Pregledajte i upravljajte vozilima dodijeljenim vašoj floti."
+        },
+        "createVehicle": {
+          "title": "Dodaj vozilo",
+          "subtitle": "Dodajte novo vozilo u flotu sa identifikacijom i specifikacijama."
+        },
+        "maintenanceLogs": {
+          "title": "Evidencija održavanja",
+          "subtitle": "Pregledajte historiju servisa i nadolazeće održavanje vozila."
+        },
+        "driverAssignments": {
+          "title": "Dodjele vozača",
+          "subtitle": "Upravljajte dodjelom vozača vozilima i rutama."
+        },
+        "vendorDirectory": {
+          "title": "Imenik prodavaca",
+          "subtitle": "Pregledajte prijevoznike, dobavljače i partnerske organizacije."
+        },
+        "addVendor": {
+          "title": "Dodaj prodavca",
+          "subtitle": "Registrujte novog prodavca ili logističkog partnera u imeniku."
+        },
+        "clientsList": {
+          "title": "Lista klijenata",
+          "subtitle": "Pregledajte korisničke račune i aktivnost pošiljki."
+        },
+        "clientFeedback": {
+          "title": "Povratne informacije klijenata",
+          "subtitle": "Pregledajte ocjene i komentare klijenata o završenim isporukama."
+        },
+        "allOrders": {
+          "title": "Sve narudžbe",
+          "subtitle": "Pregledajte sve narudžbe i njihov trenutni status ispunjenja."
+        },
+        "scheduledDeliveries": {
+          "title": "Zakazane isporuke",
+          "subtitle": "Pregledajte nadolazeće isporuke planirane za odabrani period."
+        },
+        "returns": {
+          "title": "Povrati",
+          "subtitle": "Pratite povratne pošiljke i zahtjeve za obrnutu logistiku."
+        },
+        "cancellations": {
+          "title": "Otkazivanja",
+          "subtitle": "Pregledajte otkazane narudžbe i pošiljke sa razlozima otkazivanja."
+        },
+        "deliveryPerformance": {
+          "title": "Performanse isporuke",
+          "subtitle": "Analizirajte stope isporuke na vrijeme i usklađenost sa SLA-om."
+        },
+        "revenueAnalysis": {
+          "title": "Analiza prihoda",
+          "subtitle": "Istražite trendove prihoda, marže i naplatu po periodima."
+        },
+        "fleetEfficiency": {
+          "title": "Efikasnost flote",
+          "subtitle": "Mjerite iskorištenost, prazne kilometre i trošak po kilometru."
+        }
       },
       "features": {
         "shipments": {
@@ -876,6 +984,7 @@
           },
           "table": {
             "title": "Lista pošiljki",
+            "subtitle": "Pratite status, rute i prioritete svih aktivnih i završenih pošiljki.",
             "entity": "pošiljki",
             "columns": {
               "id": "ID",
@@ -925,6 +1034,7 @@
           "vehicles": {
             "form": {
               "title": "Dodaj vozilo",
+              "subtitle": "Dodajte novo vozilo u flotu sa identifikacijom i specifikacijama.",
               "steps": {
                 "main": "Detalji vozila"
               },

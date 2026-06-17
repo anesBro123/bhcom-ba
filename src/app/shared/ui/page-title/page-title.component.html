@@ -1,1 +1,6 @@
-<h1 class="page-title">{{ titleKey() | translate }}</h1>
+<div class="page-title-block">
+  <h1 class="page-title">{{ titleKey() | translate }}</h1>
+  @if (subtitleKey()) {
+    <p class="page-title__subtitle">{{ subtitleKey() | translate }}</p>
+  }
+</div>

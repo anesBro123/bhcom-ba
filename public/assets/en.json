@@ -274,17 +274,50 @@
         "createUser": "Add User"
       },
       "pages": {
-        "dashboard": "Admin Dashboard",
-        "settings": "System Settings",
-        "vehicles": "All Vehicles",
-        "createVehicle": "Add Vehicle",
-        "editVehicle": "Edit Vehicle",
-        "warehouses": "All Warehouses",
-        "createWarehouse": "Add Warehouse",
-        "editWarehouse": "Edit Warehouse",
-        "users": "All Users",
-        "createUser": "Add User",
-        "editUser": "Edit User"
+        "dashboard": {
+          "title": "Admin Dashboard",
+          "subtitle": "Monitor users, vehicles, and warehouses at a glance."
+        },
+        "settings": {
+          "title": "System Settings",
+          "subtitle": "Configure platform preferences and operational defaults."
+        },
+        "vehicles": {
+          "title": "All Vehicles",
+          "subtitle": "Browse, search, and manage registered fleet vehicles."
+        },
+        "createVehicle": {
+          "title": "Add Vehicle",
+          "subtitle": "Follow the steps below to register a new vehicle in the fleet."
+        },
+        "editVehicle": {
+          "title": "Edit Vehicle",
+          "subtitle": "Update registration details and vehicle data for this record."
+        },
+        "warehouses": {
+          "title": "All Warehouses",
+          "subtitle": "View and manage warehouse locations, capacity, and facilities."
+        },
+        "createWarehouse": {
+          "title": "Add Warehouse",
+          "subtitle": "Follow the steps below to register a new warehouse location."
+        },
+        "editWarehouse": {
+          "title": "Edit Warehouse",
+          "subtitle": "Update location, capacity, and facility details for this warehouse."
+        },
+        "users": {
+          "title": "All Users",
+          "subtitle": "Search and manage user accounts and access permissions."
+        },
+        "createUser": {
+          "title": "Add User",
+          "subtitle": "Follow the steps below to create a new user account."
+        },
+        "editUser": {
+          "title": "Edit User",
+          "subtitle": "Update profile, contact details, and permissions for this user."
+        }
       },
       "features": {
         "dashboard": {
@@ -334,6 +367,8 @@
           "form": {
             "titleCreate": "Add Vehicle",
             "titleEdit": "Edit Vehicle",
+            "subtitleCreate": "Follow the steps below to register a new vehicle in the fleet.",
+            "subtitleEdit": "Update registration details and vehicle data for this record.",
             "steps": {
               "registration": "Registration",
               "owner": "Owner",
@@ -462,6 +497,7 @@
           },
           "table": {
             "title": "Vehicle List",
+            "subtitle": "Search, sort, and manage all registered fleet vehicles.",
             "entity": "vehicles",
             "columns": {
               "registarskaOznaka": "Registration Mark",
@@ -491,6 +527,8 @@
           "form": {
             "titleCreate": "Add Warehouse",
             "titleEdit": "Edit Warehouse",
+            "subtitleCreate": "Follow the steps below to register a new warehouse location.",
+            "subtitleEdit": "Update location, capacity, and facility details for this warehouse.",
             "steps": {
               "identity": "Identity",
               "capacity": "Capacity",
@@ -551,6 +589,7 @@
           },
           "table": {
             "title": "Warehouse List",
+            "subtitle": "View capacity, location, and facility details for each warehouse.",
             "entity": "warehouses",
             "columns": {
               "name": "Name",
@@ -580,6 +619,8 @@
           "form": {
             "titleCreate": "Add User",
             "titleEdit": "Edit User",
+            "subtitleCreate": "Follow the steps below to create a new user account.",
+            "subtitleEdit": "Update profile, contact details, and permissions for this user.",
             "steps": {
               "profile": "Profile",
               "contact": "Contact",
@@ -626,6 +667,7 @@
           },
           "table": {
             "title": "User List",
+            "subtitle": "Search and manage user accounts and access permissions.",
             "entity": "users",
             "columns": {
               "firstName": "First Name",
@@ -685,28 +727,94 @@
         "fleetEfficiency": "Fleet Efficiency"
       },
       "pages": {
-        "dashboardOverview": "Dashboard Overview",
-        "liveMap": "Live Shipment Map",
-        "fleetStatus": "Fleet Status",
-        "allShipments": "All Shipments",
-        "trackShipment": "Track Shipment",
-        "createShipment": "Create Shipment",
-        "delayedShipments": "Delayed Shipments",
-        "vehicleList": "Vehicle List",
-        "createVehicle": "Create Vehicle",
-        "maintenanceLogs": "Maintenance Logs",
-        "driverAssignments": "Driver Assignments",
-        "vendorDirectory": "Vendor Directory",
-        "addVendor": "Add Vendor",
-        "clientsList": "Clients List",
-        "clientFeedback": "Client Feedback",
-        "allOrders": "All Orders",
-        "scheduledDeliveries": "Scheduled Deliveries",
-        "returns": "Returns",
-        "cancellations": "Cancellations",
-        "deliveryPerformance": "Delivery Performance",
-        "revenueAnalysis": "Revenue Analysis",
-        "fleetEfficiency": "Fleet Efficiency"
+        "dashboardOverview": {
+          "title": "Dashboard Overview",
+          "subtitle": "Welcome back! Here's what's happening with your logistics operations."
+        },
+        "liveMap": {
+          "title": "Live Shipment Map",
+          "subtitle": "Track active shipments on a real-time map view."
+        },
+        "fleetStatus": {
+          "title": "Fleet Status",
+          "subtitle": "Monitor vehicle availability, assignments, and operational health."
+        },
+        "allShipments": {
+          "title": "All Shipments",
+          "subtitle": "Browse and filter all shipments across your network."
+        },
+        "trackShipment": {
+          "title": "Track Shipment",
+          "subtitle": "Look up a shipment by ID or tracking number for live status."
+        },
+        "createShipment": {
+          "title": "Create New Shipment",
+          "subtitle": "Follow the steps below to create and schedule your shipment."
+        },
+        "delayedShipments": {
+          "title": "Delayed Shipments",
+          "subtitle": "Review shipments that are behind schedule and need attention."
+        },
+        "vehicleList": {
+          "title": "Vehicle List",
+          "subtitle": "View and manage vehicles assigned to your fleet."
+        },
+        "createVehicle": {
+          "title": "Create Vehicle",
+          "subtitle": "Add a new vehicle to your fleet with identification and specs."
+        },
+        "maintenanceLogs": {
+          "title": "Maintenance Logs",
+          "subtitle": "Review service history and upcoming maintenance for fleet vehicles."
+        },
+        "driverAssignments": {
+          "title": "Driver Assignments",
+          "subtitle": "Manage which drivers are assigned to which vehicles and routes."
+        },
+        "vendorDirectory": {
+          "title": "Vendor Directory",
+          "subtitle": "Browse carriers, suppliers, and partner organizations."
+        },
+        "addVendor": {
+          "title": "Add Vendor",
+          "subtitle": "Register a new vendor or logistics partner in the directory."
+        },
+        "clientsList": {
+          "title": "Clients List",
+          "subtitle": "View customer accounts and their shipment activity."
+        },
+        "clientFeedback": {
+          "title": "Client Feedback",
+          "subtitle": "Review ratings and comments from customers on completed deliveries."
+        },
+        "allOrders": {
+          "title": "All Orders",
+          "subtitle": "Browse all orders and their current fulfillment status."
+        },
+        "scheduledDeliveries": {
+          "title": "Scheduled Deliveries",
+          "subtitle": "View upcoming deliveries planned for the selected period."
+        },
+        "returns": {
+          "title": "Returns",
+          "subtitle": "Track return shipments and reverse logistics requests."
+        },
+        "cancellations": {
+          "title": "Cancellations",
+          "subtitle": "Review cancelled orders and shipments with reason codes."
+        },
+        "deliveryPerformance": {
+          "title": "Delivery Performance",
+          "subtitle": "Analyze on-time delivery rates and SLA compliance over time."
+        },
+        "revenueAnalysis": {
+          "title": "Revenue Analysis",
+          "subtitle": "Explore revenue trends, margins, and billing by period."
+        },
+        "fleetEfficiency": {
+          "title": "Fleet Efficiency",
+          "subtitle": "Measure utilization, empty miles, and cost per kilometer."
+        }
       },
       "features": {
         "shipments": {
@@ -876,6 +984,7 @@
           },
           "table": {
             "title": "Shipment List",
+            "subtitle": "Track status, routes, and priorities for all active and completed shipments.",
             "entity": "shipments",
             "columns": {
               "id": "ID",
@@ -925,6 +1034,7 @@
           "vehicles": {
             "form": {
               "title": "Create Vehicle",
+              "subtitle": "Add a new vehicle to your fleet with identification and specifications.",
               "steps": {
                 "main": "Vehicle Details"
               },

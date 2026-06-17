@@ -1,4 +1,4 @@
-<app-page-title [titleKey]="pageTitleKey" />
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
 
 <app-form-page [definition]="formDef" [formGroup]="form" (submit)="onCreate()">
   <ng-template [appFormField]="priorityFieldKey" let-control="control">

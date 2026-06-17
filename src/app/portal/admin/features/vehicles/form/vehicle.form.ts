@@ -16,7 +16,6 @@ import type { VehicleFormModel } from '../data/vehicle.model';
 
 export const AdminVehicleForm = defineForm<VehicleFormModel>()({
   mode: 'stepper',
-  titleKey: 'portal.admin.features.vehicles.form.titleCreate',
   steps: [
     {
       id: 'registration',

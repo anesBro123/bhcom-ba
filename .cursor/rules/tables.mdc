@@ -13,7 +13,7 @@ alwaysApply: false
 5. **Create CTA (required on list pages with a create route):** `PageHeaderComponent` + `PrimaryActionLinkComponent` composed with `PageTitleComponent` — **not** inside `DataTableComponent` or `PageTitleComponent`. Parent page owns `createUrl` + `createLabelKey`. Reference: `portal/admin/features/vehicles/table/vehicle-table-page.component.*`. Skip CTA only when the list has no create flow (read-only).
 6. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
 7. Mock data: `TableApiService.loadMock(data, query, table.filters)` until API exists.
-8. i18n: `titleKey`, column `titleKey`, action `labelKey` in table def.
+8. i18n: column `titleKey`, action `labelKey` in table def. Page header copy (`title` + `subtitle`) lives under `portal.*.pages.*` on the page component — not in `*.table.ts`.
 9. Destructive row actions (e.g. delete): confirm via `ConfirmService` from `shared/confirm` before calling the API — see `confirm.mdc`. Add `…table.deleteConfirm.title` / `…message` keys per feature; use `shared.confirm.common.*` for button labels.
 
 Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not use `window.confirm`.

@@ -1,4 +1,4 @@
-<app-page-title [titleKey]="table.titleKey" />
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
 
 <app-data-table [definition]="table" [loader]="loadShipments" (rowAction)="onRowAction($event)">
   <ng-template [appTableCell]="idKey" let-row>

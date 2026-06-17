@@ -43,6 +43,8 @@ export class ShipmentsPageComponent {
   private readonly tableApi = inject(TableApiService);
 
   protected readonly table = ShipmentTable;
+  protected readonly pageTitleKey = 'portal.user.pages.allShipments.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.allShipments.subtitle';
   protected readonly idKey = tableCellKey(ShipmentTable, 'id');
   protected readonly statusKey = tableCellKey(ShipmentTable, 'status');
   protected readonly typeKey = tableCellKey(ShipmentTable, 'type');

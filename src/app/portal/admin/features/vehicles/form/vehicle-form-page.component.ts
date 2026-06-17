@@ -38,8 +38,14 @@ export class VehicleFormPageComponent implements OnInit {
 
   protected readonly pageTitleKey = computed(() =>
     this.isEdit()
-      ? 'portal.admin.features.vehicles.form.titleEdit'
-      : 'portal.admin.features.vehicles.form.titleCreate',
+      ? 'portal.admin.pages.editVehicle.title'
+      : 'portal.admin.pages.createVehicle.title',
+  );
+
+  protected readonly pageSubtitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.pages.editVehicle.subtitle'
+      : 'portal.admin.pages.createVehicle.subtitle',
   );
 
   protected readonly formDef = computed(() => {

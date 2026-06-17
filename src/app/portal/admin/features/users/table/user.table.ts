@@ -7,7 +7,6 @@ import { ADMIN_USERS_API } from '../data/user.constants';
 
 export const UserTable = defineTable<User>()({
   endpoint: ADMIN_USERS_API,
-  titleKey: 'portal.admin.features.users.table.title',
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.users.table.entity',
   defaultPageSize: 10,

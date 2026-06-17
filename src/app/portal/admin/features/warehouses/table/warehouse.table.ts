@@ -7,7 +7,6 @@ import { ADMIN_WAREHOUSES_API, WAREHOUSE_TYPE_OPTIONS } from '../data/warehouse.
 
 export const WarehouseTable = defineTable<Warehouse>()({
   endpoint: ADMIN_WAREHOUSES_API,
-  titleKey: 'portal.admin.features.warehouses.table.title',
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.warehouses.table.entity',
   defaultPageSize: 10,

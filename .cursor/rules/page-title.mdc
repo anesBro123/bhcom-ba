@@ -6,7 +6,9 @@ alwaysApply: false
 
 # Portal page title (`PageTitleComponent`)
 
-Canonical top-level heading for **portal shell pages** (dashboard, table, form, placeholder). Renders an `h1` above page content on the shell background — **not** inside table/form cards.
+Canonical top-level heading for **portal shell pages** (dashboard, table, form, placeholder). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
+
+**Page titles and subtitles live on the page component** (or route `data` for placeholders) — **not** in `*.table.ts` or `*.form.ts`. Use `portal.<portal>.pages.*` keys only.
 
 ## Component
 
@@ -14,7 +16,7 @@ Canonical top-level heading for **portal shell pages** (dashboard, table, form, 
 |------|-------|
 | Path | `shared/ui/page-title/page-title.component.ts` |
 | Selector | `app-page-title` |
-| Input | `titleKey` (required i18n key string) |
+| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**) |
 | Import | Direct path — no barrel; add to page component `imports: [PageTitleComponent]` |
 
 ```typescript
@@ -22,22 +24,51 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 ```
 
 ```html
-<app-page-title [titleKey]="table.titleKey" />
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
 ```
 
-Static key (no binding): `<app-page-title titleKey="portal.admin.pages.dashboard" />`
+Static keys:
+
+```html
+<app-page-title
+  titleKey="portal.admin.pages.dashboard.title"
+  subtitleKey="portal.admin.pages.dashboard.subtitle"
+/>
+```
+
+## Subtitle copy (UX)
+
+- Explain what the user can do on the page — do not repeat the title.
+- List pages: search, filter, or manage context.
+- Stepper forms: mention the guided flow (e.g. *"Follow the steps below to create and schedule your shipment"*).
+- Create vs edit: use different subtitles when it helps.
+
+## i18n key sources
+
+All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitle`**.
+
+`portal.*.pages.*` entries in `en.json` / `bh.json` are **objects** `{ "title": "…", "subtitle": "…" }`, not flat strings.
+
+| Page type | Page TS keys | i18n example |
+|-----------|--------------|--------------|
+| Table list | `pageTitleKey` / `pageSubtitleKey` constants | `portal.admin.pages.vehicles.title` |
+| Form create | `pageTitleKey` / `pageSubtitleKey` constants or computed | `portal.admin.pages.createUser.title` |
+| Form edit | computed from `isEdit()` | `portal.admin.pages.editUser.title` |
+| Dashboard | static in template | `portal.admin.pages.dashboard.title` |
+| Placeholder | route `data.titleKey` + `data.subtitleKey` | `portal.user.pages.liveMap.title` |
 
 ## Where to render
 
 **Page templates only** — first element above content (table card, form stepper, dashboard sections, etc.).
 
-| Page type | `titleKey` source | Example |
-|-----------|-------------------|---------|
-| Table list (with create route) | `*.table.ts` → `table.titleKey` + `PageHeaderComponent` + `PrimaryActionLinkComponent` | See **Title-row create CTA** below |
-| Table list (read-only) | `*.table.ts` → `table.titleKey` | `<app-page-title [titleKey]="table.titleKey" />` only |
-| Form create/edit | `pageTitleKey` computed or `formDef.titleKey` | `<app-page-title [titleKey]="pageTitleKey()" />` |
-| Dashboard / custom | `portal.<portal>.pages.*` | `<app-page-title titleKey="portal.admin.pages.dashboard" />` |
-| Placeholder | route `data.titleKey` | `<app-page-title [titleKey]="titleKey" />` |
+| Page type | Keys on page component | Example |
+|-----------|------------------------|---------|
+| Table list (with create route) | `pageTitleKey` + `pageSubtitleKey` + `PageHeaderComponent` + `PrimaryActionLinkComponent` | See **Title-row create CTA** below |
+| Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />` |
+| Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed | `<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />` |
+| Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` constants | Same as table list |
+| Dashboard / custom | static `portal.<portal>.pages.*.title` + `.subtitle` | See static-keys example above |
+| Placeholder | route `data.titleKey` + `data.subtitleKey` | `<app-page-title [titleKey]="titleKey" [subtitleKey]="subtitleKey" />` |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
 
@@ -47,7 +78,7 @@ Table pages with `tableMounted` remount: place the title row **outside** the `@i
 
 ```html
 <app-page-header>
-  <app-page-title [titleKey]="table.titleKey" />
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
   <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
 </app-page-header>
 
@@ -56,7 +87,7 @@ Table pages with `tableMounted` remount: place the title row **outside** the `@i
 }
 ```
 
-**Page component (parent owns route + label):**
+**Page component (parent owns route, title, subtitle, and CTA label):**
 
 ```typescript
 import { PageHeaderComponent } from '…/shared/ui/page-header/page-header.component';
@@ -64,6 +95,8 @@ import { PageTitleComponent } from '…/shared/ui/page-title/page-title.componen
 import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
 import { ADMIN_CREATE_VEHICLE_URL } from '…/shared/constants/app-urls';
 
+protected readonly pageTitleKey = 'portal.admin.pages.vehicles.title';
+protected readonly pageSubtitleKey = 'portal.admin.pages.vehicles.subtitle';
 protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
 protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
 
@@ -78,7 +111,9 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 
 ## Do not
 
+- Put page `titleKey` / `subtitleKey` on `TableDefinition` or `FormDefinition` — pages own header copy.
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
+- Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.

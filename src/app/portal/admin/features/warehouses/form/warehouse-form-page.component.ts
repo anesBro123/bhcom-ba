@@ -38,8 +38,14 @@ export class WarehouseFormPageComponent implements OnInit {
 
   protected readonly pageTitleKey = computed(() =>
     this.isEdit()
-      ? 'portal.admin.features.warehouses.form.titleEdit'
-      : 'portal.admin.features.warehouses.form.titleCreate',
+      ? 'portal.admin.pages.editWarehouse.title'
+      : 'portal.admin.pages.createWarehouse.title',
+  );
+
+  protected readonly pageSubtitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.pages.editWarehouse.subtitle'
+      : 'portal.admin.pages.createWarehouse.subtitle',
   );
 
   protected readonly formDef = computed(() => {

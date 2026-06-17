@@ -70,7 +70,7 @@ export const ADMIN_DASHBOARD_ENTITY_ACTION_GROUPS: AdminDashboardAction[][] = [
 ];
 
 export const ADMIN_DASHBOARD_SETTINGS_ACTION: AdminDashboardAction = {
-  titleKey: 'portal.admin.pages.settings',
+  titleKey: 'portal.admin.pages.settings.title',
   descriptionKey: 'portal.admin.features.dashboard.actions.settings.description',
   route: ADMIN_SETTINGS_URL,
   icon: LucideSettings,

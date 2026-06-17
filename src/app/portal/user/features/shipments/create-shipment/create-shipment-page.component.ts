@@ -45,7 +45,8 @@ export class CreateShipmentPageComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly formDef = CreateShipmentForm;
-  protected readonly pageTitleKey = 'portal.user.pages.createShipment';
+  protected readonly pageTitleKey = 'portal.user.pages.createShipment.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.createShipment.subtitle';
   protected readonly form = this.buildForm();
 
   protected readonly priorityFieldKey = formFieldKey(

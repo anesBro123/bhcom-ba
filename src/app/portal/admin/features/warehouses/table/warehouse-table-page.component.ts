@@ -40,6 +40,8 @@ export class WarehouseTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = WarehouseTable;
+  protected readonly pageTitleKey = 'portal.admin.pages.warehouses.title';
+  protected readonly pageSubtitleKey = 'portal.admin.pages.warehouses.subtitle';
   protected readonly createUrl = ADMIN_CREATE_WAREHOUSE_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createWarehouse';
   protected readonly typeKey = tableCellKey(WarehouseTable, 'type');

@@ -35,6 +35,8 @@ export class UserTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = UserTable;
+  protected readonly pageTitleKey = 'portal.admin.pages.users.title';
+  protected readonly pageSubtitleKey = 'portal.admin.pages.users.subtitle';
   protected readonly createUrl = ADMIN_CREATE_USER_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createUser';
   protected readonly tableMounted = signal(true);

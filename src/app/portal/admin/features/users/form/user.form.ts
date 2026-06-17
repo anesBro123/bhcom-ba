@@ -6,7 +6,6 @@ import type { UserFormModel } from '../data/user.model';
 
 export const AdminUserForm = defineForm<UserFormModel>()({
   mode: 'stepper',
-  titleKey: 'portal.admin.features.users.form.titleCreate',
   steps: [
     {
       id: 'profile',

@@ -94,7 +94,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
-- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` input; place at top of every portal page template above table/form/dashboard content; import by direct path into page `imports`; see `page-title.mdc`. Not for guest pages. `DataTableComponent` / `FormPageComponent` do not render page titles.
+- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` + `subtitleKey` on the **page component** (`pageTitleKey` / `pageSubtitleKey` from `portal.*.pages.*`); not on `TableDefinition` or `FormDefinition`. See `page-title.mdc`.
 - **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
 
 ## Cursor rules

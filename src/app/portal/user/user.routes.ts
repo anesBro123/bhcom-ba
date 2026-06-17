@@ -17,17 +17,26 @@ export default [
       {
         path: 'dashboard',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.dashboardOverview' },
+        data: {
+          titleKey: 'portal.user.pages.dashboardOverview.title',
+          subtitleKey: 'portal.user.pages.dashboardOverview.subtitle',
+        },
       },
       {
         path: 'dashboard/live-map',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.liveMap' },
+        data: {
+          titleKey: 'portal.user.pages.liveMap.title',
+          subtitleKey: 'portal.user.pages.liveMap.subtitle',
+        },
       },
       {
         path: 'dashboard/fleet-status',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.fleetStatus' },
+        data: {
+          titleKey: 'portal.user.pages.fleetStatus.title',
+          subtitleKey: 'portal.user.pages.fleetStatus.subtitle',
+        },
       },
       {
         path: 'shipments',
@@ -36,7 +45,10 @@ export default [
       {
         path: 'shipments/track',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.trackShipment' },
+        data: {
+          titleKey: 'portal.user.pages.trackShipment.title',
+          subtitleKey: 'portal.user.pages.trackShipment.subtitle',
+        },
       },
       {
         path: 'shipments/create',
@@ -45,12 +57,18 @@ export default [
       {
         path: 'shipments/delayed',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.delayedShipments' },
+        data: {
+          titleKey: 'portal.user.pages.delayedShipments.title',
+          subtitleKey: 'portal.user.pages.delayedShipments.subtitle',
+        },
       },
       {
         path: 'fleet/vehicles',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.vehicleList' },
+        data: {
+          titleKey: 'portal.user.pages.vehicleList.title',
+          subtitleKey: 'portal.user.pages.vehicleList.subtitle',
+        },
       },
       {
         path: 'fleet/vehicles/create',
@@ -59,67 +77,106 @@ export default [
       {
         path: 'fleet/maintenance',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.maintenanceLogs' },
+        data: {
+          titleKey: 'portal.user.pages.maintenanceLogs.title',
+          subtitleKey: 'portal.user.pages.maintenanceLogs.subtitle',
+        },
       },
       {
         path: 'fleet/drivers',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.driverAssignments' },
+        data: {
+          titleKey: 'portal.user.pages.driverAssignments.title',
+          subtitleKey: 'portal.user.pages.driverAssignments.subtitle',
+        },
       },
       {
         path: 'vendors',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.vendorDirectory' },
+        data: {
+          titleKey: 'portal.user.pages.vendorDirectory.title',
+          subtitleKey: 'portal.user.pages.vendorDirectory.subtitle',
+        },
       },
       {
         path: 'vendors/add',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.addVendor' },
+        data: {
+          titleKey: 'portal.user.pages.addVendor.title',
+          subtitleKey: 'portal.user.pages.addVendor.subtitle',
+        },
       },
       {
         path: 'clients',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.clientsList' },
+        data: {
+          titleKey: 'portal.user.pages.clientsList.title',
+          subtitleKey: 'portal.user.pages.clientsList.subtitle',
+        },
       },
       {
         path: 'clients/feedback',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.clientFeedback' },
+        data: {
+          titleKey: 'portal.user.pages.clientFeedback.title',
+          subtitleKey: 'portal.user.pages.clientFeedback.subtitle',
+        },
       },
       {
         path: 'orders',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.allOrders' },
+        data: {
+          titleKey: 'portal.user.pages.allOrders.title',
+          subtitleKey: 'portal.user.pages.allOrders.subtitle',
+        },
       },
       {
         path: 'orders/scheduled',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.scheduledDeliveries' },
+        data: {
+          titleKey: 'portal.user.pages.scheduledDeliveries.title',
+          subtitleKey: 'portal.user.pages.scheduledDeliveries.subtitle',
+        },
       },
       {
         path: 'orders/returns',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.returns' },
+        data: {
+          titleKey: 'portal.user.pages.returns.title',
+          subtitleKey: 'portal.user.pages.returns.subtitle',
+        },
       },
       {
         path: 'orders/cancellations',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.cancellations' },
+        data: {
+          titleKey: 'portal.user.pages.cancellations.title',
+          subtitleKey: 'portal.user.pages.cancellations.subtitle',
+        },
       },
       {
         path: 'reports/delivery-performance',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.deliveryPerformance' },
+        data: {
+          titleKey: 'portal.user.pages.deliveryPerformance.title',
+          subtitleKey: 'portal.user.pages.deliveryPerformance.subtitle',
+        },
       },
       {
         path: 'reports/revenue',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.revenueAnalysis' },
+        data: {
+          titleKey: 'portal.user.pages.revenueAnalysis.title',
+          subtitleKey: 'portal.user.pages.revenueAnalysis.subtitle',
+        },
       },
       {
         path: 'reports/fleet-efficiency',
         component: PagePlaceholderComponent,
-        data: { titleKey: 'portal.user.pages.fleetEfficiency' },
+        data: {
+          titleKey: 'portal.user.pages.fleetEfficiency.title',
+          subtitleKey: 'portal.user.pages.fleetEfficiency.subtitle',
+        },
       },
     ],
   },

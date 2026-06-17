@@ -22,6 +22,8 @@ export class CreateVehiclePageComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly formDef = CreateVehicleForm;
+  protected readonly pageTitleKey = 'portal.user.pages.createVehicle.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.createVehicle.subtitle';
   protected readonly form = this.buildForm();
 
   protected onCreate(): void {

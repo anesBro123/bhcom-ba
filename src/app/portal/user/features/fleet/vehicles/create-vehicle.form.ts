@@ -18,7 +18,6 @@ const VEHICLE_STATUS_OPTIONS = [
 
 export const CreateVehicleForm = defineForm<CreateVehicleFormModel>()({
   mode: 'single',
-  titleKey: 'portal.user.features.fleet.vehicles.form.title',
   steps: [
     {
       id: 'main',

@@ -42,7 +42,7 @@ Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock st
 
 1. **`shared/constants/admin-urls.ts`** — list URL, create URL, `adminEdit<Entity>Url(id)` builder (re-exported by `app-urls.ts`; see `app-urls.mdc`).
 2. **`admin.routes.ts`** (or `user.routes.ts`) — three children under `PortalShellComponent`:
-   - `<entity>` → table page, `data: { titleKey: 'portal.<portal>.pages.<entity>' }`
+   - `<entity>` → table page, `data: { titleKey: 'portal.<portal>.pages.<entity>.title' }`
    - `<entity>/create` → form page
    - `<entity>/:id/edit` → **same** form component
 3. **`admin-nav.config.ts`** — section with list item (`exact: true`) + create item; `route` from `app-urls.ts`.
@@ -54,13 +54,13 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - `FormBuilder` group mirrors every field key; validators on the group, not only in the def.
 - `entityId` signal from `route.snapshot.paramMap`; `isEdit = computed(() => entityId() !== null)`.
 - `stepperDataReady = signal(false)` — `true` on create init; after edit `patchValue` in `queueMicrotask`.
-- `formDef` computed — swap `titleKey` and submit action for create vs edit (`*FormEditActions` pattern).
+- `formDef` computed — swap submit action for create vs edit (`*FormEditActions` pattern).
 - `ngOnInit`: no `:id` → `stepperDataReady.set(true)`; with `:id` → `getById` → `patchValue` (strip `id`) → `stepperDataReady.set(true)`; load error → `navigateByUrl` list URL.
 - `onSubmit`: guard `submitting`; `getRawValue() as FormModel`; create vs update; success → list URL. Do not re-validate — `FormPageComponent` already did.
 - Template:
 
 ```html
-<app-page-title [titleKey]="pageTitleKey()" />
+<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />
 <app-form-page
   [definition]="formDef()"
   [formGroup]="form"
@@ -71,7 +71,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 />
 ```
 
-- `pageTitleKey` computed — swap create vs edit title keys; do not rely on `FormPageComponent` for page title.
+- `pageTitleKey` / `pageSubtitleKey` computed — swap create vs edit `portal.<portal>.pages.*` keys; do not rely on `FormPageComponent` or `FormDefinition` for page title.
 
 - Stepper UX (free navigation, `ValidationState` pills, submit-only enforcement, mobile layout): see `forms.mdc` — do not implement in the feature page.
 
@@ -82,7 +82,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 ```html
 <app-page-header>
-  <app-page-title [titleKey]="table.titleKey" />
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
   <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
 </app-page-header>
 
@@ -97,6 +97,8 @@ import { PageTitleComponent } from '…/shared/ui/page-title/page-title.componen
 import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
 import { ADMIN_CREATE_ENTITY_URL } from '…/shared/constants/app-urls';
 
+protected readonly pageTitleKey = 'portal.admin.pages.<entity>.title';
+protected readonly pageSubtitleKey = 'portal.admin.pages.<entity>.subtitle';
 protected readonly createUrl = ADMIN_CREATE_ENTITY_URL;
 protected readonly createLabelKey = 'portal.admin.nav.createEntity';
 

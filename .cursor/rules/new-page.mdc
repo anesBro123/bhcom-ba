@@ -16,7 +16,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 4. Add nav section (list + create) in `admin-nav.config.ts` with `route` from `app-urls.ts`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
 6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
-7. **Page title:** import `PageTitleComponent` from `shared/ui/page-title/`; above content. Table → `table.titleKey` inside `app-page-header`; form → `pageTitleKey` or `formDef.titleKey`; dashboard/placeholder → `portal.*.pages.*`. See **`page-title.mdc`**.
+7. **Page title:** import `PageTitleComponent` from `shared/ui/page-title/`; above content with **title + subtitle** from `portal.*.pages.*` on the page component (`pageTitleKey` / `pageSubtitleKey`). Table/form defs do **not** carry page header keys. See **`page-title.mdc`**.
 8. **Table create CTA (required):** compose `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent`. Page TS: `createUrl` from `app-urls.ts`, `createLabelKey` from `portal.<portal>.nav.create*`. Reference: `portal/admin/features/vehicles/table/`.
 
 ## Portal feature (other shapes)
@@ -24,7 +24,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 1. Feature folder: `portal/user/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
 2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
 3. If in sidebar: add `NavItem` in `user-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`).
-4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.user.pages.*' }` (admin: `portal.admin.pages.*`).
+4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.user.pages.*.title', subtitleKey: 'portal.user.pages.*.subtitle' }` (admin: `portal.admin.pages.*`).
 5. Table-only (no service yet): `TableApiService.loadMock` — see `portal/user/features/shipments/`.
 6. Create-only single-step form: `portal/user/features/fleet/vehicles/`.
 7. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.

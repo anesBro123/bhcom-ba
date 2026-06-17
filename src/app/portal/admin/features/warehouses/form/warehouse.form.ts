@@ -14,7 +14,6 @@ import type { WarehouseFormModel } from '../data/warehouse.model';
 
 export const AdminWarehouseForm = defineForm<WarehouseFormModel>()({
   mode: 'stepper',
-  titleKey: 'portal.admin.features.warehouses.form.titleCreate',
   steps: [
     {
       id: 'identity',

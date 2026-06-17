@@ -38,8 +38,14 @@ export class UserFormPageComponent implements OnInit {
 
   protected readonly pageTitleKey = computed(() =>
     this.isEdit()
-      ? 'portal.admin.features.users.form.titleEdit'
-      : 'portal.admin.features.users.form.titleCreate',
+      ? 'portal.admin.pages.editUser.title'
+      : 'portal.admin.pages.createUser.title',
+  );
+
+  protected readonly pageSubtitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.pages.editUser.subtitle'
+      : 'portal.admin.pages.createUser.subtitle',
   );
 
   protected readonly formDef = computed(() => {

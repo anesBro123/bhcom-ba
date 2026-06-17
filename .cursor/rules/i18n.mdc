@@ -18,10 +18,10 @@ shared.*                          — shell chrome + form/table/confirm framewor
 guest.*                           — public pages (landing, sign-in, login, register)
 portal.shell.{admin|user}.*   — portal badge in sidebar brand
 portal.admin.nav.*                — admin sidebar
-portal.admin.pages.*              — admin route titleKey
+portal.admin.pages.*              — admin route page header ({ title, subtitle })
 portal.admin.features.<feature>.* — admin feature (form, table)
 portal.user.nav.*             — user sidebar
-portal.user.pages.*           — user route titleKey
+portal.user.pages.*           — user route page header ({ title, subtitle })
 portal.user.features.<domain>.<feature>.* — user feature (form, table)
 ```
 
@@ -58,7 +58,9 @@ portal.admin.features.dashboard.actions.allUsers.description
 portal.admin.nav.allVehicles
 portal.admin.nav.sections.dashboard
 portal.admin.nav.overview
-portal.admin.pages.vehicles
+portal.admin.pages.vehicles.title
+portal.admin.pages.vehicles.subtitle
+portal.admin.pages.createVehicle.title
 ```
 
 Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-action card titles; add `…dashboard.actions.*.description` only for helper text.
@@ -70,7 +72,8 @@ portal.user.features.shipments.form.steps.type
 portal.user.features.shipments.table.columns.id
 portal.user.features.fleet.vehicles.form.fields.plateNumber
 portal.user.nav.allShipments
-portal.user.pages.allShipments
+portal.user.pages.allShipments.title
+portal.user.pages.allShipments.subtitle
 ```
 
 ## Rules for new keys
@@ -78,10 +81,11 @@ portal.user.pages.allShipments
 1. **Do not** add feature strings under legacy roots (`forms.*`, `tables.*`, top-level `nav.*`, `pages.*`, `landing.*`, `login.*`).
 2. **Admin vs user** — always under `portal.admin` or `portal.user` (never cross-import keys).
 3. **Form defs** (`*.form.ts`) — keys under `…features.<feature>.form.*`.
-4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*`; use `shared.table.common.*` for shared table chrome. Destructive row actions: add `…table.deleteConfirm.title` / `…message` in the feature namespace; button labels use `shared.confirm.common.*` (see `confirm.mdc`).
-5. **Route `data.titleKey`** — `portal.<portal>.pages.<pageId>`.
-6. **Nav `labelKey`** — `portal.<portal>.nav.<itemId>`.
-7. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).
+4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*` including `title` + `subtitle`; use `shared.table.common.*` for shared table chrome. Destructive row actions: add `…table.deleteConfirm.title` / `…message` in the feature namespace; button labels use `shared.confirm.common.*` (see `confirm.mdc`).
+5. **Route `data`** — `titleKey: 'portal.<portal>.pages.<pageId>.title'`; placeholder routes also set `subtitleKey: 'portal.<portal>.pages.<pageId>.subtitle'`.
+6. **Page subtitles** — every portal page needs a subtitle under `portal.*.pages.<id>.subtitle`. Page components own `pageTitleKey` / `pageSubtitleKey` — not table or form defs. Write helpful UX copy — do not repeat the title.
+7. **Nav `labelKey`** — `portal.<portal>.nav.<itemId>`.
+8. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).
 
 ## Files
 

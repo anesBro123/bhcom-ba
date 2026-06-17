@@ -9,4 +9,5 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class PageTitleComponent {
   readonly titleKey = input.required<string>();
+  readonly subtitleKey = input<string>();
 }

@@ -60,7 +60,6 @@ export interface RowActionEvent<T> {
 
 export interface TableDefinition<T> {
   endpoint: string;
-  titleKey: string;
   summaryKey: string;
   entityKey: string;
   defaultPageSize?: number;

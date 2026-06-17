@@ -77,7 +77,6 @@ export interface FormActionsDef {
 
 export interface FormDefinition<T> {
   mode: FormMode;
-  titleKey?: string;
   steps: readonly FormStepDef<T>[];
   actions: FormActionsDef;
   gridCols?: number;
