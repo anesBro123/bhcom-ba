@@ -15,7 +15,7 @@ export const STORAGE_MOCK_DATA: Storage[] = [
     id: 'storage-002',
     warehouseId: 'wh-002',
     warehouseLabel: 'North Yard Storage — Banja Luka',
-    availableFrom: '2026-06-15',
+    availableFrom: '2026-06-17',
     availableTo: '2026-08-15',
     spaceM2: 1200,
     description: 'Open yard space for bulk goods.',

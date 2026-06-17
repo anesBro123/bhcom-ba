@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormPageComponent } from '../../../../../shared/form';
 import { USER_CARGO_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import { notPastDateValidator } from '../../../../../shared/utils/date-input';
 
 import type { CargoFormModel } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
@@ -102,7 +103,7 @@ export class CargoFormPageComponent implements OnInit {
     return this.fb.group({
       origin: ['', Validators.required],
       destination: ['', Validators.required],
-      neededByDate: ['', Validators.required],
+      neededByDate: ['', [Validators.required, notPastDateValidator()]],
       size: ['', Validators.required],
       weightKg: [null as number | null, Validators.required],
       cargoType: ['pallet', Validators.required],

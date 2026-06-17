@@ -14,6 +14,8 @@
         type="date"
         [formControl]="$any(control())"
         [attr.autocomplete]="field().autocomplete ?? null"
+        [attr.min]="resolvedMinDate()"
+        [attr.max]="resolvedMaxDate()"
         [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
       />
     </div>

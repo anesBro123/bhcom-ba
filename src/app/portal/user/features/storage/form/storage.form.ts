@@ -40,6 +40,7 @@ export const StorageForm = defineForm<StorageFormModel>()({
               type: 'date',
               labelKey: 'portal.user.features.storage.form.fields.availableFrom',
               placeholderKey: 'portal.user.features.storage.form.placeholders.availableFrom',
+              minDate: 'today',
               colSpan: 2,
             },
             {
@@ -47,6 +48,7 @@ export const StorageForm = defineForm<StorageFormModel>()({
               type: 'date',
               labelKey: 'portal.user.features.storage.form.fields.availableTo',
               placeholderKey: 'portal.user.features.storage.form.placeholders.availableTo',
+              minDate: (value) => value.availableFrom || 'today',
               colSpan: 2,
             },
             {

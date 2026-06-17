@@ -49,6 +49,8 @@
           "max": "Must be at most {{max}}",
           "pattern": "Invalid format",
           "passwordMismatch": "Passwords do not match",
+          "dateRange": "End date must be on or after the start date",
+          "minDate": "Date must be today or in the future",
           "invalid": "This value is invalid"
         }
       }
@@ -802,21 +804,23 @@
               },
               "details": {
                 "title": "Additional Details",
-                "subtitle": "Add a transport date and optional notes for colleagues"
+                "subtitle": "Add optional notes for colleagues"
               }
             },
             "fields": {
               "vehicleId": "Company Vehicle",
               "origin": "Origin",
               "destination": "Destination",
-              "transportDate": "Transport Date",
+              "transportStartDate": "Transport Start Date",
+              "transportEndDate": "Transport End Date",
               "description": "Description"
             },
             "placeholders": {
               "vehicleId": "Select a company vehicle",
               "origin": "Enter starting point",
               "destination": "Enter destination",
-              "transportDate": "Select transport date",
+              "transportStartDate": "Select start date",
+              "transportEndDate": "Select end date",
               "description": "Optional notes about available cargo space..."
             },
             "actions": {
@@ -830,7 +834,8 @@
               "route": "Route",
               "destination": "Destination",
               "vehicle": "Vehicle",
-              "transportDate": "Transport Date",
+              "transportStartDate": "Start Date",
+              "transportEndDate": "End Date",
               "description": "Description"
             },
             "actions": {

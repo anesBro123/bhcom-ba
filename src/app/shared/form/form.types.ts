@@ -24,6 +24,12 @@ export type FieldType =
 
 export type ColSpan = 1 | 2 | 3 | 4 | 5 | 'full';
 
+export type DateInputBoundValue = string | 'today';
+
+export type DateInputBound<T> =
+  | DateInputBoundValue
+  | ((value: Partial<T>) => DateInputBoundValue | undefined);
+
 export interface SelectOption {
   value: string;
   labelKey?: string;
@@ -48,6 +54,8 @@ export interface FieldDef<T, K extends keyof T & string = keyof T & string> {
   disabled?: (value: Partial<T>) => boolean;
   options?: SelectOption[] | RadioOption[];
   rows?: number;
+  minDate?: DateInputBound<T>;
+  maxDate?: DateInputBound<T>;
   validators?: ValidatorFn[];
   errorKeys?: Partial<Record<string, string>>;
 }

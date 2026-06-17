@@ -11,6 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormPageComponent } from '../../../../../shared/form';
 import { USER_ROUTES_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import {
+  endDateOnOrAfterStartValidator,
+  notPastDateValidator,
+} from '../../../../../shared/utils/date-input';
 import { CompanyVehicleService } from '../../../data/company-vehicle.service';
 
 import type { RouteFormModel } from '../data/route.model';
@@ -64,6 +68,11 @@ export class RouteFormPageComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((options) => this.vehicleOptions.set(options));
 
+    this.form
+      .get('transportStartDate')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.form.get('transportEndDate')?.updateValueAndValidity({ emitEvent: false }));
+
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       return;
@@ -113,7 +122,8 @@ export class RouteFormPageComponent implements OnInit {
       vehicleId: ['', Validators.required],
       origin: ['', Validators.required],
       destination: ['', Validators.required],
-      transportDate: ['', Validators.required],
+      transportStartDate: ['', [Validators.required, notPastDateValidator()]],
+      transportEndDate: ['', [Validators.required, endDateOnOrAfterStartValidator('transportStartDate')]],
       description: [''],
     });
   }

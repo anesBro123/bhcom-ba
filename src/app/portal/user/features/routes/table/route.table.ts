@@ -10,7 +10,7 @@ export const RouteTable = defineTable<Route>()({
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.user.features.routes.table.entity',
   defaultPageSize: 10,
-  defaultSort: { field: 'transportDate', direction: 'desc' },
+  defaultSort: { field: 'transportStartDate', direction: 'desc' },
   trackBy: 'id',
   columns: [
     {
@@ -33,8 +33,15 @@ export const RouteTable = defineTable<Route>()({
       width: '14rem',
     },
     {
-      key: 'transportDate',
-      titleKey: 'portal.user.features.routes.table.columns.transportDate',
+      key: 'transportStartDate',
+      titleKey: 'portal.user.features.routes.table.columns.transportStartDate',
+      sortable: true,
+      format: 'date',
+      width: '10rem',
+    },
+    {
+      key: 'transportEndDate',
+      titleKey: 'portal.user.features.routes.table.columns.transportEndDate',
       sortable: true,
       format: 'date',
       width: '10rem',

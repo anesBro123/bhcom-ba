@@ -49,6 +49,8 @@
           "max": "Mora biti najviše {{max}}",
           "pattern": "Neispravan format",
           "passwordMismatch": "Lozinke se ne podudaraju",
+          "dateRange": "Završni datum mora biti isti ili nakon početnog datuma",
+          "minDate": "Datum mora biti današnji ili u budućnosti",
           "invalid": "Ova vrijednost nije ispravna"
         }
       }
@@ -802,21 +804,23 @@
               },
               "details": {
                 "title": "Dodatni detalji",
-                "subtitle": "Dodajte datum transporta i opcione napomene"
+                "subtitle": "Dodajte opcione napomene za kolege"
               }
             },
             "fields": {
               "vehicleId": "Vozilo kompanije",
               "origin": "Polazište",
               "destination": "Odredište",
-              "transportDate": "Datum transporta",
+              "transportStartDate": "Datum početka transporta",
+              "transportEndDate": "Datum završetka transporta",
               "description": "Opis"
             },
             "placeholders": {
               "vehicleId": "Odaberite vozilo kompanije",
               "origin": "Unesite polazište",
               "destination": "Unesite odredište",
-              "transportDate": "Odaberite datum transporta",
+              "transportStartDate": "Odaberite početni datum",
+              "transportEndDate": "Odaberite završni datum",
               "description": "Opcione napomene o dostupnom prostoru..."
             },
             "actions": {
@@ -830,7 +834,8 @@
               "route": "Ruta",
               "destination": "Odredište",
               "vehicle": "Vozilo",
-              "transportDate": "Datum transporta",
+              "transportStartDate": "Početni datum",
+              "transportEndDate": "Završni datum",
               "description": "Opis"
             },
             "actions": {

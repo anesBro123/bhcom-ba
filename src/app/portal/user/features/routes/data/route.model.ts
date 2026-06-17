@@ -2,7 +2,8 @@ export interface RouteFormModel {
   vehicleId: string;
   origin: string;
   destination: string;
-  transportDate: string;
+  transportStartDate: string;
+  transportEndDate: string;
   description: string;
 }
 

@@ -41,6 +41,7 @@ export const CargoForm = defineForm<CargoFormModel>()({
               type: 'date',
               labelKey: 'portal.user.features.cargo.form.fields.neededByDate',
               placeholderKey: 'portal.user.features.cargo.form.placeholders.neededByDate',
+              minDate: 'today',
               colSpan: 2,
             },
           ],

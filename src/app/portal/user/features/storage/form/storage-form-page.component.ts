@@ -1,11 +1,9 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormPageComponent } from '../../../../../shared/form';
 import { USER_STORAGE_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import {
+  endDateOnOrAfterStartValidator,
+  notPastDateValidator,
+} from '../../../../../shared/utils/date-input';
 import { CompanyWarehouseService } from '../../../data/company-warehouse.service';
 
 import type { StorageFormModel } from '../data/storage.model';
@@ -66,6 +68,11 @@ export class StorageFormPageComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((options) => this.warehouseOptions.set(options));
 
+    this.form
+      .get('availableFrom')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.form.get('availableTo')?.updateValueAndValidity({ emitEvent: false }));
+
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       return;
@@ -111,26 +118,12 @@ export class StorageFormPageComponent implements OnInit {
   }
 
   private buildForm(): FormGroup {
-    return this.fb.group(
-      {
-        warehouseId: ['', Validators.required],
-        availableFrom: ['', Validators.required],
-        availableTo: ['', Validators.required],
-        spaceM2: [null as number | null, Validators.required],
-        description: [''],
-      },
-      { validators: storageDateRangeValidator },
-    );
+    return this.fb.group({
+      warehouseId: ['', Validators.required],
+      availableFrom: ['', [Validators.required, notPastDateValidator()]],
+      availableTo: ['', [Validators.required, endDateOnOrAfterStartValidator('availableFrom')]],
+      spaceM2: [null as number | null, Validators.required],
+      description: [''],
+    });
   }
-}
-
-function storageDateRangeValidator(group: AbstractControl): ValidationErrors | null {
-  const from = group.get('availableFrom')?.value as string | null;
-  const to = group.get('availableTo')?.value as string | null;
-
-  if (from && to && to < from) {
-    return { dateRange: true };
-  }
-
-  return null;
 }

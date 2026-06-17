@@ -9,6 +9,8 @@ export const DEFAULT_ERROR_PRIORITY = [
   'max',
   'pattern',
   'passwordMismatch',
+  'dateRange',
+  'minDate',
 ] as const;
 
 export const DEFAULT_ERROR_KEYS: Record<string, string> = {
@@ -20,6 +22,8 @@ export const DEFAULT_ERROR_KEYS: Record<string, string> = {
   max: 'shared.form.common.errors.max',
   pattern: 'shared.form.common.errors.pattern',
   passwordMismatch: 'shared.form.common.errors.passwordMismatch',
+  dateRange: 'shared.form.common.errors.dateRange',
+  minDate: 'shared.form.common.errors.minDate',
 };
 
 const FALLBACK_ERROR_KEY = 'shared.form.common.errors.invalid';
