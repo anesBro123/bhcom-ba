@@ -1,0 +1,8 @@
+<span
+  class="route-display"
+  [attr.aria-label]="'shared.route.fromTo' | translate: { origin: origin(), destination: destination() }"
+>
+  <span class="route-display__origin">{{ origin() }}</span>
+  <span class="route-display__arrow" aria-hidden="true">→</span>
+  <span class="route-display__destination">{{ destination() }}</span>
+</span>

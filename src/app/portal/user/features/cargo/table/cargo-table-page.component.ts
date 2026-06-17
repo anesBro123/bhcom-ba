@@ -8,7 +8,7 @@ import { USER_CREATE_CARGO_URL, userEditCargoUrl } from '../../../../../shared/c
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
-import { RouteEndpointsComponent } from '../../../../../shared/ui/route-endpoints/route-endpoints.component';
+import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -27,7 +27,7 @@ import { CargoTable, cargoRouteCellKey, cargoTypeCellKey } from './cargo.table';
     DataTableComponent,
     TableCellTemplateDirective,
     TranslatePipe,
-    RouteEndpointsComponent,
+    RouteDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,

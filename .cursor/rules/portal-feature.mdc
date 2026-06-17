@@ -82,7 +82,7 @@ Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`.
 - **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
 - **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`
 - **Dynamic select options:** `buildRouteForm(vehicleOptions)` pattern — clone form def, inject loaded options into `vehicleId` field
-- **Table:** `app-route-endpoints` custom cell for origin → destination — see `tables.mdc`
+- **Table:** `app-route-display` custom cell for origin → destination — see `tables.mdc`
 - **Portal data:** `portal/user/data/company-vehicle.service.ts`, `company-warehouse.service.ts` for cross-feature selects
 
 ## Table page (`table/<entity>-table-page.component.ts`)
@@ -118,7 +118,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 ```
 
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
-- Route pair cells: `RouteEndpointsComponent` — see `tables.mdc`.
+- Route pair cells: `RouteDisplayComponent` — see `tables.mdc`.
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
 

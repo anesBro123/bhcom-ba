@@ -10,7 +10,7 @@ import {
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
-import { RouteEndpointsComponent } from '../../../../../shared/ui/route-endpoints/route-endpoints.component';
+import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
 import {
   DataTableComponent,
@@ -29,7 +29,7 @@ import { RouteTable, routeCellKey, vehicleCellKey } from './route.table';
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
-    RouteEndpointsComponent,
+    RouteDisplayComponent,
     VehicleDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,

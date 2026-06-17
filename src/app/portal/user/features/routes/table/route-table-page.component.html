@@ -10,7 +10,7 @@
     (rowAction)="onRowAction($event)"
   >
     <ng-template [appTableCell]="routeKey" let-row>
-      <app-route-endpoints [origin]="row.origin" [destination]="row.destination" />
+      <app-route-display [origin]="row.origin" [destination]="row.destination" />
     </ng-template>
     <ng-template [appTableCell]="vehicleKey" let-row>
       <app-vehicle-display [name]="row.vehicleName" [plate]="row.vehiclePlate" />

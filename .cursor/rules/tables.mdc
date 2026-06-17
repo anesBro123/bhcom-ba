@@ -12,7 +12,7 @@ alwaysApply: false
 4. **Page title row:** `PageTitleComponent` in the **page template** above `<app-data-table>`. See `page-title.mdc`. `DataTableComponent` does not render page titles.
 5. **Create CTA (required on list pages with a create route):** `PageHeaderComponent` + `PrimaryActionLinkComponent` composed with `PageTitleComponent` — **not** inside `DataTableComponent` or `PageTitleComponent`. Parent page owns `createUrl` + `createLabelKey`. Reference: `portal/admin/features/vehicles/table/vehicle-table-page.component.*`. Skip CTA only when the list has no create flow (read-only).
 6. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
-7. **Route pair cell:** use `RouteEndpointsComponent` (`app-route-endpoints`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/routes/table/`, `portal/user/features/cargo/table/`.
+7. **Route pair cell:** use `RouteDisplayComponent` (`app-route-display`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/routes/table/`, `portal/user/features/cargo/table/`.
 8. Mock data: feature `*.service.ts` with in-memory store from `*.mock-data.ts` until API exists — see `portal/admin/features/vehicles/data/`.
 9. i18n: column `titleKey`, action `labelKey` in table def. Page header copy (`title` + `subtitle` + `pageIcon`) lives on the page component — not in `*.table.ts`.
 10. Destructive row actions (e.g. delete): confirm via `ConfirmService` from `shared/confirm` before calling the API — see `confirm.mdc`. Add `…table.deleteConfirm.title` / `…message` keys per feature; use `shared.confirm.common.*` for button labels.
@@ -29,7 +29,7 @@ Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not us
   - `mobile.hidden: true` — omit from card body only.
 - Filters, pagination, selection, and row actions work the same on mobile.
 
-## Route endpoints custom cell
+## Route display custom cell
 
 When a column shows origin → destination:
 
@@ -42,11 +42,11 @@ export const routeCellKey = tableCellKey(RouteTable, 'origin');
 
 ```html
 <ng-template [appTableCell]="routeKey" let-row>
-  <app-route-endpoints [origin]="row.origin" [destination]="row.destination" />
+  <app-route-display [origin]="row.origin" [destination]="row.destination" />
 </ng-template>
 ```
 
-Page `imports`: `RouteEndpointsComponent` from `shared/ui/route-endpoints/route-endpoints.component.ts`.
+Page `imports`: `RouteDisplayComponent` from `shared/ui/route-display/route-display.component.ts`.
 
 ## Vehicle display custom cell
 

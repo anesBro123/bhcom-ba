@@ -33,7 +33,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, pagination, row actions |
-| `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteEndpointsComponent`) |
+| `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 

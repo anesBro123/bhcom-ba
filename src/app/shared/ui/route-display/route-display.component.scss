@@ -2,14 +2,14 @@
   display: inline;
 }
 
-.route-endpoints {
+.route-display {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.375rem;
 }
 
-.route-endpoints__arrow {
+.route-display__arrow {
   color: var(--text-muted);
   flex-shrink: 0;
 }
