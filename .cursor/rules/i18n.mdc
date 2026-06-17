@@ -8,7 +8,7 @@ alwaysApply: false
 
 - All user-visible strings via translation keys (`labelKey`, `titleKey`, `| translate`).
 - Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json` (single file per language).
-- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.user.features.shipments.table.status.${status}'`).
+- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.user.features.cargo.table.cargoTypes.${type}'`).
 - Do not embed English prose in templates when a key exists or should exist.
 
 ## Key tree (mirrors `src/app/` layers)
@@ -68,12 +68,12 @@ Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-acti
 ### Portal user feature example
 
 ```
-portal.user.features.shipments.form.steps.type
-portal.user.features.shipments.table.columns.id
-portal.user.features.fleet.vehicles.form.fields.plateNumber
-portal.user.nav.allShipments
-portal.user.pages.allShipments.title
-portal.user.pages.allShipments.subtitle
+portal.user.features.routes.form.fields.origin
+portal.user.features.routes.table.columns.route
+portal.user.features.cargo.table.columns.origin
+portal.user.nav.allRoutes
+portal.user.pages.routes.title
+portal.user.pages.routes.subtitle
 ```
 
 ## Rules for new keys
@@ -82,7 +82,7 @@ portal.user.pages.allShipments.subtitle
 2. **Admin vs user** — always under `portal.admin` or `portal.user` (never cross-import keys).
 3. **Form defs** (`*.form.ts`) — keys under `…features.<feature>.form.*`.
 4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*` including `title` + `subtitle`; use `shared.table.common.*` for shared table chrome. Destructive row actions: add `…table.deleteConfirm.title` / `…message` in the feature namespace; button labels use `shared.confirm.common.*` (see `confirm.mdc`).
-5. **Route `data`** — `titleKey: 'portal.<portal>.pages.<pageId>.title'`; placeholder routes also set `subtitleKey: 'portal.<portal>.pages.<pageId>.subtitle'`.
+5. **Route `data`** — `titleKey: 'portal.<portal>.pages.<pageId>.title'` (optional; page templates usually own title keys via `PageTitleComponent`).
 6. **Page subtitles** — every portal page needs a subtitle under `portal.*.pages.<id>.subtitle`. Page components own `pageTitleKey` / `pageSubtitleKey` — not table or form defs. Write helpful UX copy — do not repeat the title.
 7. **Nav `labelKey`** — `portal.<portal>.nav.<itemId>`.
 8. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).

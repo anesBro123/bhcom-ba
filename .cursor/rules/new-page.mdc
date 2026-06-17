@@ -24,18 +24,17 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 1. Feature folder: `portal/user/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
 2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
 3. If in sidebar: add `NavItem` in `user-nav.config.ts` or `admin-nav.config.ts` with matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`).
-4. Placeholder only: `portal/pages/page-placeholder/page-placeholder.component.ts` + `data: { titleKey: 'portal.user.pages.*.title', subtitleKey: 'portal.user.pages.*.subtitle' }` (admin: `portal.admin.pages.*`).
-5. Table-only (no service yet): `TableApiService.loadMock` — see `portal/user/features/shipments/`.
-6. Create-only single-step form: `portal/user/features/fleet/vehicles/`.
-7. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
-8. **Dashboard overview** — feature folder `portal/{user|admin}/features/dashboard/`:
+4. **Stub / title-only page:** dedicated feature page with static `PageTitleComponent` keys — see `portal/admin/features/settings/`.
+5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/routes/table/`.
+6. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
    - **Admin (implemented):** `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`
    - **KPI row:** `<app-metric-card>` in a 3-col desktop / 1-col mobile grid; wrap each card in `<a routerLink>` for navigation; counts from existing entity services via `list()` → `total` (or dedicated dashboard service with `forkJoin`); show `—` while loading; prefer `variant="default"` for neutral icons
    - **Quick actions:** `<app-quick-action-card>` from `shared/ui/quick-action-card/`; monochrome Lucide icons (same as sidebar); reuse nav `titleKey`s + `portal.<portal>.features.dashboard.actions.*.description` for subtitles
    - **Admin layout:** 3 entity columns (browse + create stacked per entity); settings action alone on its own row below
    - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL` + `LucideLayoutGrid` (`exact: true`)
    - **i18n:** `portal.<portal>.features.dashboard.metrics.*`, `…quickActions.title`, `…actions.*.description`; add `portal.admin.nav.sections.dashboard` + `portal.admin.nav.overview` for admin
-   - User dashboard still placeholder — mirror admin pattern when implemented
+   - **User (implemented):** `user-dashboard-page.*`, `user-dashboard.actions.config.ts`, `data/user-dashboard.service.ts`
+7. **Dashboard overview** — feature folder `portal/{user|admin}/features/dashboard/`:
 
 ## Guest page
 

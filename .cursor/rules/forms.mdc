@@ -54,7 +54,6 @@ Submit in page handler: `form.getRawValue() as Model` — framework already vali
 
 One step in `steps` (or only step rendered without stepper chrome). Examples:
 
-- `portal/user/features/fleet/vehicles/`
 - `guest/pages/login/`
 
 Template:
@@ -74,7 +73,7 @@ Rendered when `steps.length > 1`. Layout: segment bar + numbered pills with vali
 | **create** | Step 0 `inProgress`, others `notStarted` | On **leave** step + on **submit** |
 | **edit** | All steps `valid` / `invalid` immediately after data load | Live while editing; full re-check on submit |
 
-**Create-only** steppers (shipments, guest register): defaults suffice — no bindings needed.
+**Create-only** steppers (guest register): defaults suffice — no bindings needed.
 
 **Create + edit** (admin CRUD): wire both inputs + `stepperDataReady` signal:
 
@@ -190,8 +189,7 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 
 | Shape | Reference |
 |-------|-----------|
-| Single-step create | `portal/user/features/fleet/vehicles/` |
-| Stepper create-only | `portal/user/features/shipments/create-shipment/`, `guest/pages/register/` |
+| Stepper create-only | `guest/pages/register/` |
 | Stepper create + edit (CRUD) | `portal/admin/features/vehicles/form/` |
 | Guest login (single) | `guest/pages/login/` |
 

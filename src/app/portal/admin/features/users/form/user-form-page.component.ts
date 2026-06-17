@@ -117,8 +117,6 @@ export class UserFormPageComponent implements OnInit {
       phone: [''],
       dateOfBirth: [''],
       jmbg: [''],
-      canCreateShipment: [false],
-      canAcceptShipment: [false],
       canCreateRoute: [false],
       canAcceptRoute: [false],
     });

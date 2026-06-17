@@ -647,8 +647,6 @@
               "phone": "Telefon",
               "dateOfBirth": "Datum rođenja",
               "jmbg": "JMBG",
-              "canCreateShipment": "Može kreirati pošiljku",
-              "canAcceptShipment": "Može prihvatiti pošiljku",
               "canCreateRoute": "Može kreirati rutu",
               "canAcceptRoute": "Može prihvatiti rutu"
             },

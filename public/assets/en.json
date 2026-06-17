@@ -647,8 +647,6 @@
               "phone": "Phone",
               "dateOfBirth": "Date of Birth",
               "jmbg": "Personal ID (JMBG)",
-              "canCreateShipment": "Can Create Shipment",
-              "canAcceptShipment": "Can Accept Shipment",
               "canCreateRoute": "Can Create Route",
               "canAcceptRoute": "Can Accept Route"
             },

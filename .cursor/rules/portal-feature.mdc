@@ -8,7 +8,7 @@ alwaysApply: false
 
 **Canonical reference:** `portal/admin/features/vehicles/` — follow this layout for new admin list + create + edit features.
 
-User features may use a flatter layout (e.g. `shipments/`) or domain nesting (e.g. `fleet/vehicles/`) when the flow is create-only or table-only; still reuse the same data / form / table patterns below.
+User features follow the same `data/` / `form/` / `table/` layout — reference: `portal/user/features/routes/`.
 
 ## Folder layout
 

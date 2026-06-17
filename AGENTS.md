@@ -11,9 +11,8 @@ src/app/
 └── portal/          # authenticated shell, configs, features, guards
     ├── common/      # models, PORTAL_CONFIG barrel (nav + portal-config)
     ├── shell/       # PortalShell, sidebar, topbar, SidebarService
-    ├── pages/       # PagePlaceholderComponent
     ├── guards/      # portalMatchGuard
-    ├── user/    # routes, nav, config, features/
+    ├── user/        # routes, nav, config, features/
     └── admin/       # routes, nav, config, features/ (dashboard, users, vehicles, warehouses)
 ```
 
@@ -39,8 +38,8 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 | Portal | URL prefix | Routes file | Nav config | Features |
 |--------|------------|-------------|------------|----------|
-| User | `/` (e.g. `/dashboard`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (fleet, shipments) |
-| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (dashboard, users, vehicles, warehouses) |
+| User | `/` (e.g. `/dashboard`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (dashboard, routes, cargo, storage) |
+| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (dashboard, settings, users, vehicles, warehouses) |
 
 ### Routing
 
@@ -80,11 +79,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Admin dashboard:** `portal/admin/features/dashboard/` — KPI row (`app-metric-card`, counts via `AdminDashboardService`) + Quick Actions (`app-quick-action-card`, grouped browse/create columns + settings row); see `new-page.mdc`, `layout.mdc`
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
-- **Placeholder page:** `src/app/portal/pages/page-placeholder/`
-- **Single-step form:** `portal/user/features/fleet/vehicles/`
-- **Table (mock loader):** `portal/user/features/shipments/`
-- **Stepper (strict):** `portal/user/features/shipments/create-shipment/`, `guest/pages/register/`
+- **User CRUD (reference):** `portal/user/features/routes/` — `data/`, `form/`, `table/`; list + create + edit
 - **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
+- **Stepper (create-only):** `guest/pages/register/`
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
 - **Guest login:** `guest/pages/login/user-login-page.*`, `admin-login-page.*`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)

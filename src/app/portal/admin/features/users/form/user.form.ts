@@ -91,18 +91,6 @@ export const AdminUserForm = defineForm<UserFormModel>()({
           icon: LucideShield,
           fields: [
             {
-              key: 'canCreateShipment',
-              type: 'toggle',
-              labelKey: 'portal.admin.features.users.form.fields.canCreateShipment',
-              colSpan: 2,
-            },
-            {
-              key: 'canAcceptShipment',
-              type: 'toggle',
-              labelKey: 'portal.admin.features.users.form.fields.canAcceptShipment',
-              colSpan: 2,
-            },
-            {
               key: 'canCreateRoute',
               type: 'toggle',
               labelKey: 'portal.admin.features.users.form.fields.canCreateRoute',

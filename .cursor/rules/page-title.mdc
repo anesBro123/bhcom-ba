@@ -1,14 +1,14 @@
 ---
 description: Portal page title — PageTitleComponent
-globs: src/app/portal/**/features/**,src/app/portal/pages/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**
+globs: src/app/portal/**/features/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**
 alwaysApply: false
 ---
 
 # Portal page title (`PageTitleComponent`)
 
-Canonical top-level heading for **portal shell pages** (dashboard, table, form, placeholder). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
+Canonical top-level heading for **portal shell pages** (dashboard, table, form, settings). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
 
-**Page titles and subtitles live on the page component** (or route `data` for placeholders) — **not** in `*.table.ts` or `*.form.ts`. Use `portal.<portal>.pages.*` keys only.
+**Page titles and subtitles live on the page component** — **not** in `*.table.ts` or `*.form.ts`. Use `portal.<portal>.pages.*` keys only.
 
 ## Component
 
@@ -54,8 +54,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Table list | `pageTitleKey` / `pageSubtitleKey` constants | `portal.admin.pages.vehicles.title` |
 | Form create | `pageTitleKey` / `pageSubtitleKey` constants or computed | `portal.admin.pages.createUser.title` |
 | Form edit | computed from `isEdit()` | `portal.admin.pages.editUser.title` |
-| Dashboard | static in template | `portal.admin.pages.dashboard.title` |
-| Placeholder | route `data.titleKey` + `data.subtitleKey` | `portal.user.pages.liveMap.title` |
+| Dashboard / settings | static in template | `portal.admin.pages.dashboard.title` |
 
 ## Where to render
 
@@ -67,8 +66,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />` |
 | Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed | `<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />` |
 | Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` constants | Same as table list |
-| Dashboard / custom | static `portal.<portal>.pages.*.title` + `.subtitle` | See static-keys example above |
-| Placeholder | route `data.titleKey` + `data.subtitleKey` | `<app-page-title [titleKey]="titleKey" [subtitleKey]="subtitleKey" />` |
+| Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` | See static-keys example above |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
 
@@ -124,6 +122,6 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 - Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
 - Form (create/edit): `portal/admin/features/users/form/user-form-page.component.*`
 - Dashboard: `portal/admin/features/dashboard/admin-dashboard-page.component.*`
-- Placeholder: `portal/pages/page-placeholder/page-placeholder.component.*`
+- Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
 
 Related: `layout.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

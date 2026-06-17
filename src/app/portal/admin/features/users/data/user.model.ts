@@ -5,8 +5,6 @@ export interface UserFormModel {
   phone: string;
   dateOfBirth: string;
   jmbg: string;
-  canCreateShipment: boolean;
-  canAcceptShipment: boolean;
   canCreateRoute: boolean;
   canAcceptRoute: boolean;
 }

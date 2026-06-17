@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { PORTAL_CONFIG } from '../common/models/portal-config.model';
 import { PortalShellComponent } from '../shell/portal-shell/portal-shell.component';
-import { PagePlaceholderComponent } from '../pages/page-placeholder/page-placeholder.component';
 import { AdminDashboardPageComponent } from './features/dashboard/admin-dashboard-page.component';
+import { AdminSettingsPageComponent } from './features/settings/admin-settings-page.component';
 import { ADMIN_PORTAL_CONFIG } from './admin-portal.config';
 import { UserFormPageComponent } from './features/users/form/user-form-page.component';
 import { UserTablePageComponent } from './features/users/table/user-table-page.component';
@@ -25,11 +25,8 @@ export default [
       },
       {
         path: 'settings',
-        component: PagePlaceholderComponent,
-        data: {
-          titleKey: 'portal.admin.pages.settings.title',
-          subtitleKey: 'portal.admin.pages.settings.subtitle',
-        },
+        component: AdminSettingsPageComponent,
+        data: { titleKey: 'portal.admin.pages.settings.title' },
       },
       {
         path: 'users',
