@@ -21,10 +21,10 @@ import {
 import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { StorageTable, storageStatusCellKey } from './storage.table';
+import { StorageMyTable, storageMyStatusCellKey } from './storage-my.table';
 
 @Component({
-  selector: 'app-storage-table-page',
+  selector: 'app-storage-my-table-page',
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
@@ -33,27 +33,36 @@ import { StorageTable, storageStatusCellKey } from './storage.table';
     PageTitleComponent,
     PrimaryActionLinkComponent,
   ],
-  templateUrl: './storage-table-page.component.html',
-  styleUrl: './storage-table-page.component.scss',
+  templateUrl: './storage-my-table-page.component.html',
 })
-export class StorageTablePageComponent {
+export class StorageMyTablePageComponent {
   private readonly storageService = inject(UserStorageService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
-  protected readonly table = StorageTable;
-  protected readonly pageTitleKey = 'portal.user.pages.storage.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.storage.subtitle';
+  protected readonly table = StorageMyTable;
+  protected readonly pageTitleKey = 'portal.user.pages.myStorage.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.myStorage.subtitle';
   protected readonly pageIcon = UserPageIcons.storage;
   protected readonly createUrl = USER_CREATE_STORAGE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postStorage';
-  protected readonly statusKey = storageStatusCellKey;
+  protected readonly statusKey = storageMyStatusCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadStorage: TableLoader<Storage> = (query) => this.storageService.list(query);
+  protected readonly loadStorage: TableLoader<Storage> = (query) =>
+    this.storageService.listMine(query);
 
   protected onRowAction(event: RowActionEvent<Storage>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.confirmService
+          .confirm({
+            titleKey: 'portal.user.features.storage.table.viewDetailsComingSoon.title',
+            messageKey: 'portal.user.features.storage.table.viewDetailsComingSoon.message',
+          })
+          .pipe(take(1))
+          .subscribe();
+        break;
       case 'edit':
         void this.router.navigateByUrl(userEditStorageUrl(event.row.id));
         break;

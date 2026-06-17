@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
+import { AuthService } from '../../../../../shared/core/auth/auth.service';
+import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
 import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
 import { STORAGE_MOCK_DATA } from './storage.mock-data';
 import type { Storage, StorageFormModel } from './storage.model';
-import { StorageTable } from '../table/storage.table';
+import { StorageAllTable } from '../table-all/storage-all.table';
+import { StorageMyTable } from '../table-my/storage-my.table';
 
 export interface StorageCreatePayload extends StorageFormModel {
   warehouseLabel: string;
@@ -13,10 +16,23 @@ export interface StorageCreatePayload extends StorageFormModel {
 
 @Injectable({ providedIn: 'root' })
 export class UserStorageService {
+  private readonly authService = inject(AuthService);
   private readonly store: Storage[] = structuredClone(STORAGE_MOCK_DATA);
 
-  list(query: TableQuery): Observable<PaginatedResponse<Storage>> {
-    return of(this.paginate(this.applyQuery([...this.store], query), query)).pipe(delay(200));
+  listMine(query: TableQuery): Observable<PaginatedResponse<Storage>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, StorageMyTable.filters), query)).pipe(
+      delay(200),
+    );
+  }
+
+  listAll(query: TableQuery): Observable<PaginatedResponse<Storage>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, StorageAllTable.filters), query)).pipe(
+      delay(200),
+    );
   }
 
   getById(id: string): Observable<Storage> {
@@ -29,10 +45,13 @@ export class UserStorageService {
   }
 
   create(payload: StorageCreatePayload): Observable<Storage> {
+    const user = this.authService.user()!;
     const item: Storage = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
       status: 'open',
+      companyId: user.companyId,
+      publisherId: user.id,
       ...payload,
     };
     this.store.unshift(item);
@@ -63,9 +82,12 @@ export class UserStorageService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(items: Storage[], query: TableQuery): Storage[] {
+  private applyQuery(
+    items: Storage[],
+    query: TableQuery,
+    filters: FilterDef<Storage>[] | undefined,
+  ): Storage[] {
     let result = items;
-    const filters = StorageTable.filters as FilterDef<Storage>[] | undefined;
 
     for (const [key, value] of Object.entries(query.filters)) {
       if (value === null || value === undefined || value === '') {

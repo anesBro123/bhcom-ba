@@ -1,11 +1,11 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucideSend } from '@lucide/angular';
 
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_ROUTES_API } from '../data/route.constants';
 import type { Route } from '../data/route.model';
 
-export const RouteTable = defineTable<Route>()({
+export const RouteAllTable = defineTable<Route>()({
   endpoint: USER_ROUTES_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.user.features.routes.table.entity',
@@ -59,12 +59,15 @@ export const RouteTable = defineTable<Route>()({
   actions: {
     width: '3.5rem',
     items: [
-      { id: 'edit', labelKey: 'portal.user.features.routes.table.actions.edit', icon: LucidePencil },
       {
-        id: 'delete',
-        labelKey: 'portal.user.features.routes.table.actions.delete',
-        icon: LucideTrash,
-        danger: true,
+        id: 'viewDetails',
+        labelKey: 'portal.user.features.routes.table.actions.viewDetails',
+        icon: LucideEye,
+      },
+      {
+        id: 'sendRequest',
+        labelKey: 'portal.user.features.routes.table.actions.sendRequest',
+        icon: LucideSend,
       },
     ],
   },
@@ -80,6 +83,6 @@ export const RouteTable = defineTable<Route>()({
   ],
 });
 
-export const routeCellKey = tableCellKey(RouteTable, 'origin');
-export const statusCellKey = tableCellKey(RouteTable, 'status');
-export const vehicleCellKey = tableCellKey(RouteTable, 'vehiclePlate');
+export const routeAllCellKey = tableCellKey(RouteAllTable, 'origin');
+export const routeAllStatusCellKey = tableCellKey(RouteAllTable, 'status');
+export const routeAllVehicleCellKey = tableCellKey(RouteAllTable, 'vehiclePlate');

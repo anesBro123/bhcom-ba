@@ -15,4 +15,6 @@ export interface Route extends RouteFormModel {
   vehicleName: string;
   status: UserEntityStatus;
   publishedAt: string;
+  companyId: string;
+  publisherId: string;
 }

@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_ROUTES_URL } from '../../../../../shared/constants/app-urls';
+import { USER_MY_ROUTES_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
   endDateOnOrAfterStartValidator,
@@ -97,7 +97,7 @@ export class RouteFormPageComponent implements OnInit {
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
-          void this.router.navigateByUrl(USER_ROUTES_URL);
+          void this.router.navigateByUrl(USER_MY_ROUTES_URL);
         },
       });
   }
@@ -120,7 +120,7 @@ export class RouteFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_ROUTES_URL);
+        void this.router.navigateByUrl(USER_MY_ROUTES_URL);
       },
       error: () => {
         this.submitting.set(false);

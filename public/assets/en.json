@@ -715,10 +715,13 @@
         },
         "overview": "Overview",
         "allRoutes": "All Routes",
+        "myRoutes": "My Routes",
         "postRoute": "Post Route",
         "allCargo": "All Cargo",
+        "myCargo": "My Cargo",
         "postCargo": "Post Cargo",
         "allStorage": "All Storage",
+        "myStorage": "My Storage",
         "postStorage": "Post Storage"
       },
       "pages": {
@@ -729,6 +732,14 @@
         "routes": {
           "title": "Routes",
           "subtitle": "Browse and manage routes you have published for colleagues to request cargo space."
+        },
+        "allRoutes": {
+          "title": "All Routes",
+          "subtitle": "Browse routes published by other companies and send transport requests."
+        },
+        "myRoutes": {
+          "title": "My Routes",
+          "subtitle": "Manage your company's published routes — view, edit, or remove listings."
         },
         "createRoute": {
           "title": "Post Route",
@@ -742,6 +753,14 @@
           "title": "Cargo",
           "subtitle": "Browse and manage cargo you have published to find transport."
         },
+        "allCargo": {
+          "title": "All Cargo",
+          "subtitle": "Browse cargo published by other companies and send transport requests."
+        },
+        "myCargo": {
+          "title": "My Cargo",
+          "subtitle": "Manage your company's published cargo — view, edit, or remove listings."
+        },
         "createCargo": {
           "title": "Post Cargo",
           "subtitle": "Describe goods that need transport so colleagues can match them to available routes."
@@ -753,6 +772,14 @@
         "storage": {
           "title": "Storage",
           "subtitle": "Browse and manage warehouse space you have published for rent."
+        },
+        "allStorage": {
+          "title": "All Storage",
+          "subtitle": "Browse warehouse space published by other companies and send rental requests."
+        },
+        "myStorage": {
+          "title": "My Storage",
+          "subtitle": "Manage your company's published warehouse space — view, edit, or remove listings."
         },
         "createStorage": {
           "title": "Post Storage",
@@ -785,19 +812,28 @@
           },
           "actions": {
             "allRoutes": {
-              "description": "View all routes you have published with company vehicles."
+              "description": "Browse routes published by other companies."
+            },
+            "myRoutes": {
+              "description": "Manage your company's published routes."
             },
             "postRoute": {
               "description": "Publish a new route and vehicle for others to request cargo space."
             },
             "allCargo": {
-              "description": "View all cargo you have published."
+              "description": "Browse cargo published by other companies."
+            },
+            "myCargo": {
+              "description": "Manage your company's published cargo."
             },
             "postCargo": {
               "description": "Publish cargo that needs transport on a specific route and date."
             },
             "allStorage": {
-              "description": "View all warehouse space you have published."
+              "description": "Browse warehouse space published by other companies."
+            },
+            "myStorage": {
+              "description": "Manage your company's published warehouse space."
             },
             "postStorage": {
               "description": "Publish available warehouse space for a date range."
@@ -851,6 +887,8 @@
               "description": "Description"
             },
             "actions": {
+              "viewDetails": "View Details",
+              "sendRequest": "Send Request",
               "edit": "Edit",
               "delete": "Delete"
             },
@@ -861,6 +899,14 @@
             "deleteConfirm": {
               "title": "Delete route?",
               "message": "This will permanently remove the published route. This action cannot be undone."
+            },
+            "sendRequestConfirm": {
+              "title": "Send request?",
+              "message": "Your request will be sent to the route publisher. This is a preview — the request API is not yet connected."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Details coming soon",
+              "message": "A dedicated details view for this route will be available in a future update."
             }
           }
         },
@@ -920,6 +966,8 @@
               "neededByDate": "Needed By"
             },
             "actions": {
+              "viewDetails": "View Details",
+              "sendRequest": "Send Request",
               "edit": "Edit",
               "delete": "Delete"
             },
@@ -932,6 +980,14 @@
             "deleteConfirm": {
               "title": "Delete cargo?",
               "message": "This will permanently remove the published cargo. This action cannot be undone."
+            },
+            "sendRequestConfirm": {
+              "title": "Send request?",
+              "message": "Your request will be sent to the cargo publisher. This is a preview — the request API is not yet connected."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Details coming soon",
+              "message": "A dedicated details view for this cargo will be available in a future update."
             }
           }
         },
@@ -980,6 +1036,8 @@
               "description": "Description"
             },
             "actions": {
+              "viewDetails": "View Details",
+              "sendRequest": "Send Request",
               "edit": "Edit",
               "delete": "Delete"
             },
@@ -990,6 +1048,14 @@
             "deleteConfirm": {
               "title": "Delete storage?",
               "message": "This will permanently remove the published storage. This action cannot be undone."
+            },
+            "sendRequestConfirm": {
+              "title": "Send request?",
+              "message": "Your request will be sent to the storage publisher. This is a preview — the request API is not yet connected."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Details coming soon",
+              "message": "A dedicated details view for this storage will be available in a future update."
             }
           }
         }

@@ -4,6 +4,7 @@ export interface AuthUser {
   id: string;
   username: string;
   displayName: string;
+  companyId: string;
 }
 
 export interface Session {

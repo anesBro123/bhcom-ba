@@ -715,10 +715,13 @@
         },
         "overview": "Pregled",
         "allRoutes": "Sve rute",
+        "myRoutes": "Moje rute",
         "postRoute": "Objavi rutu",
         "allCargo": "Sav teret",
+        "myCargo": "Moj teret",
         "postCargo": "Objavi teret",
         "allStorage": "Sva skladišta",
+        "myStorage": "Moja skladišta",
         "postStorage": "Objavi skladište"
       },
       "pages": {
@@ -729,6 +732,14 @@
         "routes": {
           "title": "Rute",
           "subtitle": "Pregledajte i upravljajte rutama koje ste objavili za zahtjeve za transport tereta."
+        },
+        "allRoutes": {
+          "title": "Sve rute",
+          "subtitle": "Pregledajte rute objavljene od drugih kompanija i pošaljite zahtjeve za transport."
+        },
+        "myRoutes": {
+          "title": "Moje rute",
+          "subtitle": "Upravljajte rutama vaše kompanije — pregledajte, uredite ili uklonite oglase."
         },
         "createRoute": {
           "title": "Objavi rutu",
@@ -742,6 +753,14 @@
           "title": "Teret",
           "subtitle": "Pregledajte i upravljajte teretom koji ste objavili."
         },
+        "allCargo": {
+          "title": "Sav teret",
+          "subtitle": "Pregledajte teret objavljen od drugih kompanija i pošaljite zahtjeve za transport."
+        },
+        "myCargo": {
+          "title": "Moj teret",
+          "subtitle": "Upravljajte teretom vaše kompanije — pregledajte, uredite ili uklonite oglase."
+        },
         "createCargo": {
           "title": "Objavi teret",
           "subtitle": "Opišite robu koja treba transport kako bi kolege mogle pronaći odgovarajuću rutu."
@@ -753,6 +772,14 @@
         "storage": {
           "title": "Skladište",
           "subtitle": "Pregledajte i upravljajte skladišnim prostorom koji ste objavili."
+        },
+        "allStorage": {
+          "title": "Sva skladišta",
+          "subtitle": "Pregledajte skladišni prostor objavljen od drugih kompanija i pošaljite zahtjeve za najam."
+        },
+        "myStorage": {
+          "title": "Moja skladišta",
+          "subtitle": "Upravljajte skladišnim prostorom vaše kompanije — pregledajte, uredite ili uklonite oglase."
         },
         "createStorage": {
           "title": "Objavi skladište",
@@ -785,19 +812,28 @@
           },
           "actions": {
             "allRoutes": {
-              "description": "Pregledajte sve rute koje ste objavili sa vozilima kompanije."
+              "description": "Pregledajte rute objavljene od drugih kompanija."
+            },
+            "myRoutes": {
+              "description": "Upravljajte rutama objavljenim od vaše kompanije."
             },
             "postRoute": {
               "description": "Objavite novu rutu i vozilo za zahtjeve transporta tereta."
             },
             "allCargo": {
-              "description": "Pregledajte sav teret koji ste objavili."
+              "description": "Pregledajte teret objavljen od drugih kompanija."
+            },
+            "myCargo": {
+              "description": "Upravljajte teretom objavljenim od vaše kompanije."
             },
             "postCargo": {
               "description": "Objavite teret koji treba transport do određenog datuma."
             },
             "allStorage": {
-              "description": "Pregledajte sav skladišni prostor koji ste objavili."
+              "description": "Pregledajte skladišni prostor objavljen od drugih kompanija."
+            },
+            "myStorage": {
+              "description": "Upravljajte skladišnim prostorom objavljenim od vaše kompanije."
             },
             "postStorage": {
               "description": "Objavite dostupan skladišni prostor za period."
@@ -851,6 +887,8 @@
               "description": "Opis"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
+              "sendRequest": "Pošalji zahtjev",
               "edit": "Uredi",
               "delete": "Obriši"
             },
@@ -861,6 +899,14 @@
             "deleteConfirm": {
               "title": "Obrisati rutu?",
               "message": "Ovo će trajno ukloniti objavljenu rutu. Ova radnja se ne može poništiti."
+            },
+            "sendRequestConfirm": {
+              "title": "Poslati zahtjev?",
+              "message": "Vaš zahtjev će biti poslan izdavaocu rute. Ovo je pregled — API za zahtjeve još nije povezan."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Detalji uskoro dostupni",
+              "message": "Poseban prikaz detalja za ovu rutu bit će dostupan u budućoj verziji."
             }
           }
         },
@@ -920,6 +966,8 @@
               "neededByDate": "Potrebno do"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
+              "sendRequest": "Pošalji zahtjev",
               "edit": "Uredi",
               "delete": "Obriši"
             },
@@ -932,6 +980,14 @@
             "deleteConfirm": {
               "title": "Obrisati teret?",
               "message": "Ovo će trajno ukloniti objavljeni teret. Ova radnja se ne može poništiti."
+            },
+            "sendRequestConfirm": {
+              "title": "Poslati zahtjev?",
+              "message": "Vaš zahtjev će biti poslan izdavaocu tereta. Ovo je pregled — API za zahtjeve još nije povezan."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Detalji uskoro dostupni",
+              "message": "Poseban prikaz detalja za ovaj teret bit će dostupan u budućoj verziji."
             }
           }
         },
@@ -980,6 +1036,8 @@
               "description": "Opis"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
+              "sendRequest": "Pošalji zahtjev",
               "edit": "Uredi",
               "delete": "Obriši"
             },
@@ -990,6 +1048,14 @@
             "deleteConfirm": {
               "title": "Obrisati skladište?",
               "message": "Ovo će trajno ukloniti objavljeno skladište. Ova radnja se ne može poništiti."
+            },
+            "sendRequestConfirm": {
+              "title": "Poslati zahtjev?",
+              "message": "Vaš zahtjev će biti poslan izdavaocu skladišta. Ovo je pregled — API za zahtjeve još nije povezan."
+            },
+            "viewDetailsComingSoon": {
+              "title": "Detalji uskoro dostupni",
+              "message": "Poseban prikaz detalja za ovo skladište bit će dostupan u budućoj verziji."
             }
           }
         }

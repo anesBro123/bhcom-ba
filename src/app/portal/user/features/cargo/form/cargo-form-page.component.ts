@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_CARGO_URL } from '../../../../../shared/constants/app-urls';
+import { USER_MY_CARGO_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { notPastDateValidator } from '../../../../../shared/utils/date-input';
 
@@ -74,7 +74,7 @@ export class CargoFormPageComponent implements OnInit {
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
-          void this.router.navigateByUrl(USER_CARGO_URL);
+          void this.router.navigateByUrl(USER_MY_CARGO_URL);
         },
       });
   }
@@ -94,7 +94,7 @@ export class CargoFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_CARGO_URL);
+        void this.router.navigateByUrl(USER_MY_CARGO_URL);
       },
       error: () => {
         this.submitting.set(false);

@@ -5,9 +5,9 @@ import { LucideMap, LucidePackage, LucideWarehouse } from '@lucide/angular';
 import type { LucideIcon } from '@lucide/angular';
 
 import {
-  USER_CARGO_URL,
-  USER_ROUTES_URL,
-  USER_STORAGE_URL,
+  USER_MY_CARGO_URL,
+  USER_MY_ROUTES_URL,
+  USER_MY_STORAGE_URL,
 } from '../../../../shared/constants/app-urls';
 import { MetricCardComponent, type MetricCardVariant } from '../../../../shared/ui/metric-card/metric-card.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
@@ -41,7 +41,7 @@ export class UserDashboardPageComponent implements OnInit {
     {
       titleKey: 'portal.user.features.dashboard.metrics.routes.title',
       subtitleKey: 'portal.user.features.dashboard.metrics.routes.subtitle',
-      route: USER_ROUTES_URL,
+      route: USER_MY_ROUTES_URL,
       icon: LucideMap,
       variant: 'default',
       countKey: 'routes',
@@ -49,7 +49,7 @@ export class UserDashboardPageComponent implements OnInit {
     {
       titleKey: 'portal.user.features.dashboard.metrics.cargo.title',
       subtitleKey: 'portal.user.features.dashboard.metrics.cargo.subtitle',
-      route: USER_CARGO_URL,
+      route: USER_MY_CARGO_URL,
       icon: LucidePackage,
       variant: 'default',
       countKey: 'cargo',
@@ -57,7 +57,7 @@ export class UserDashboardPageComponent implements OnInit {
     {
       titleKey: 'portal.user.features.dashboard.metrics.storage.title',
       subtitleKey: 'portal.user.features.dashboard.metrics.storage.subtitle',
-      route: USER_STORAGE_URL,
+      route: USER_MY_STORAGE_URL,
       icon: LucideWarehouse,
       variant: 'default',
       countKey: 'storage',

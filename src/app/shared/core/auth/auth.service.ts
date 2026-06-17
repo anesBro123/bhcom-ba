@@ -1,6 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import type { PortalKind } from '../../constants/portal-kind.type';
+import { DEMO_COMPANY_ID } from '../../constants/user-list-scope';
 import { Session } from './auth.model';
 import { AUTH_STORAGE_KEY } from './auth.config';
 
@@ -38,6 +39,7 @@ export class AuthService {
         id: `${portalKind}-${credentials.username}`,
         username: credentials.username,
         displayName: credentials.username,
+        companyId: portalKind === 'user' ? DEMO_COMPANY_ID : 'admin-org',
       },
     };
     return of(session).pipe(tap((s) => this.persistSession(s)));
@@ -65,7 +67,11 @@ export class AuthService {
       if (!portalKind || !parsed?.accessToken || !parsed.user) {
         return null;
       }
-      return { accessToken: parsed.accessToken, portalKind, user: parsed.user };
+      const user = {
+        ...parsed.user,
+        companyId: parsed.user.companyId ?? DEMO_COMPANY_ID,
+      };
+      return { accessToken: parsed.accessToken, portalKind, user };
     } catch {
       return null;
     }

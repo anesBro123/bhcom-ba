@@ -16,4 +16,6 @@ export interface Cargo extends CargoFormModel {
   id: string;
   status: UserEntityStatus;
   publishedAt: string;
+  companyId: string;
+  publisherId: string;
 }

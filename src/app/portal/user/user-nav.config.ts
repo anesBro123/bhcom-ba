@@ -5,6 +5,9 @@ import {
   USER_CREATE_ROUTE_URL,
   USER_CREATE_STORAGE_URL,
   USER_HOME_URL,
+  USER_MY_CARGO_URL,
+  USER_MY_ROUTES_URL,
+  USER_MY_STORAGE_URL,
   USER_ROUTES_URL,
   USER_STORAGE_URL,
 } from '../../shared/constants/app-urls';
@@ -33,6 +36,12 @@ export const USER_NAV: NavSection[] = [
         exact: true,
       },
       {
+        labelKey: 'portal.user.nav.myRoutes',
+        route: USER_MY_ROUTES_URL,
+        icon: UserPageIcons.routes,
+        exact: true,
+      },
+      {
         labelKey: 'portal.user.nav.postRoute',
         route: USER_CREATE_ROUTE_URL,
         icon: LucideSquarePlus,
@@ -49,6 +58,12 @@ export const USER_NAV: NavSection[] = [
         exact: true,
       },
       {
+        labelKey: 'portal.user.nav.myCargo',
+        route: USER_MY_CARGO_URL,
+        icon: UserPageIcons.cargo,
+        exact: true,
+      },
+      {
         labelKey: 'portal.user.nav.postCargo',
         route: USER_CREATE_CARGO_URL,
         icon: LucideSquarePlus,
@@ -61,6 +76,12 @@ export const USER_NAV: NavSection[] = [
       {
         labelKey: 'portal.user.nav.allStorage',
         route: USER_STORAGE_URL,
+        icon: UserPageIcons.storage,
+        exact: true,
+      },
+      {
+        labelKey: 'portal.user.nav.myStorage',
+        route: USER_MY_STORAGE_URL,
         icon: UserPageIcons.storage,
         exact: true,
       },

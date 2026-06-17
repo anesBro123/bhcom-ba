@@ -23,10 +23,15 @@ import {
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { RouteTable, routeCellKey, statusCellKey, vehicleCellKey } from './route.table';
+import {
+  RouteMyTable,
+  routeMyCellKey,
+  routeMyStatusCellKey,
+  routeMyVehicleCellKey,
+} from './route-my.table';
 
 @Component({
-  selector: 'app-route-table-page',
+  selector: 'app-route-my-table-page',
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
@@ -37,29 +42,37 @@ import { RouteTable, routeCellKey, statusCellKey, vehicleCellKey } from './route
     PageTitleComponent,
     PrimaryActionLinkComponent,
   ],
-  templateUrl: './route-table-page.component.html',
-  styleUrl: './route-table-page.component.scss',
+  templateUrl: './route-my-table-page.component.html',
 })
-export class RouteTablePageComponent {
+export class RouteMyTablePageComponent {
   private readonly routeService = inject(UserRouteService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
-  protected readonly table = RouteTable;
-  protected readonly pageTitleKey = 'portal.user.pages.routes.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.routes.subtitle';
+  protected readonly table = RouteMyTable;
+  protected readonly pageTitleKey = 'portal.user.pages.myRoutes.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.myRoutes.subtitle';
   protected readonly pageIcon = UserPageIcons.routes;
   protected readonly createUrl = USER_CREATE_ROUTE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postRoute';
-  protected readonly routeKey = routeCellKey;
-  protected readonly statusKey = statusCellKey;
-  protected readonly vehicleKey = vehicleCellKey;
+  protected readonly routeKey = routeMyCellKey;
+  protected readonly statusKey = routeMyStatusCellKey;
+  protected readonly vehicleKey = routeMyVehicleCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.list(query);
+  protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.listMine(query);
 
   protected onRowAction(event: RowActionEvent<Route>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.confirmService
+          .confirm({
+            titleKey: 'portal.user.features.routes.table.viewDetailsComingSoon.title',
+            messageKey: 'portal.user.features.routes.table.viewDetailsComingSoon.message',
+          })
+          .pipe(take(1))
+          .subscribe();
+        break;
       case 'edit':
         void this.router.navigateByUrl(userEditRouteUrl(event.row.id));
         break;

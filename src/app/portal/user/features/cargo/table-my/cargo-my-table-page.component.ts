@@ -20,40 +20,44 @@ import {
 import type { Cargo } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { CargoTable, cargoRouteCellKey, cargoStatusCellKey, cargoTypeCellKey } from './cargo.table';
+import {
+  CargoMyTable,
+  cargoMyRouteCellKey,
+  cargoMyStatusCellKey,
+  cargoMyTypeCellKey,
+} from './cargo-my.table';
 
 @Component({
-  selector: 'app-cargo-table-page',
+  selector: 'app-cargo-my-table-page',
   imports: [
     DataTableComponent,
-  TableCellTemplateDirective,
-  TranslatePipe,
-  RouteDisplayComponent,
-  StatusBadgeComponent,
-  PageHeaderComponent,
+    TableCellTemplateDirective,
+    TranslatePipe,
+    RouteDisplayComponent,
+    StatusBadgeComponent,
+    PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
   ],
-  templateUrl: './cargo-table-page.component.html',
-  styleUrl: './cargo-table-page.component.scss',
+  templateUrl: './cargo-my-table-page.component.html',
 })
-export class CargoTablePageComponent {
+export class CargoMyTablePageComponent {
   private readonly cargoService = inject(UserCargoService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
-  protected readonly table = CargoTable;
-  protected readonly pageTitleKey = 'portal.user.pages.cargo.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.cargo.subtitle';
+  protected readonly table = CargoMyTable;
+  protected readonly pageTitleKey = 'portal.user.pages.myCargo.title';
+  protected readonly pageSubtitleKey = 'portal.user.pages.myCargo.subtitle';
   protected readonly pageIcon = UserPageIcons.cargo;
   protected readonly createUrl = USER_CREATE_CARGO_URL;
   protected readonly createLabelKey = 'portal.user.nav.postCargo';
-  protected readonly routeKey = cargoRouteCellKey;
-  protected readonly statusKey = cargoStatusCellKey;
-  protected readonly cargoTypeKey = cargoTypeCellKey;
+  protected readonly routeKey = cargoMyRouteCellKey;
+  protected readonly statusKey = cargoMyStatusCellKey;
+  protected readonly cargoTypeKey = cargoMyTypeCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadCargo: TableLoader<Cargo> = (query) => this.cargoService.list(query);
+  protected readonly loadCargo: TableLoader<Cargo> = (query) => this.cargoService.listMine(query);
 
   protected cargoTypeLabel(type: string): string {
     return `portal.user.features.cargo.form.cargoTypes.${type}`;
@@ -61,6 +65,15 @@ export class CargoTablePageComponent {
 
   protected onRowAction(event: RowActionEvent<Cargo>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.confirmService
+          .confirm({
+            titleKey: 'portal.user.features.cargo.table.viewDetailsComingSoon.title',
+            messageKey: 'portal.user.features.cargo.table.viewDetailsComingSoon.message',
+          })
+          .pipe(take(1))
+          .subscribe();
+        break;
       case 'edit':
         void this.router.navigateByUrl(userEditCargoUrl(event.row.id));
         break;

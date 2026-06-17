@@ -1,11 +1,11 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_CARGO_API, CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
 import type { Cargo } from '../data/cargo.model';
 
-export const CargoTable = defineTable<Cargo>()({
+export const CargoMyTable = defineTable<Cargo>()({
   endpoint: USER_CARGO_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.user.features.cargo.table.entity',
@@ -54,6 +54,11 @@ export const CargoTable = defineTable<Cargo>()({
   actions: {
     width: '3.5rem',
     items: [
+      {
+        id: 'viewDetails',
+        labelKey: 'portal.user.features.cargo.table.actions.viewDetails',
+        icon: LucideEye,
+      },
       { id: 'edit', labelKey: 'portal.user.features.cargo.table.actions.edit', icon: LucidePencil },
       {
         id: 'delete',
@@ -82,6 +87,6 @@ export const CargoTable = defineTable<Cargo>()({
   ],
 });
 
-export const cargoTypeCellKey = tableCellKey(CargoTable, 'cargoType');
-export const cargoRouteCellKey = tableCellKey(CargoTable, 'origin');
-export const cargoStatusCellKey = tableCellKey(CargoTable, 'status');
+export const cargoMyTypeCellKey = tableCellKey(CargoMyTable, 'cargoType');
+export const cargoMyRouteCellKey = tableCellKey(CargoMyTable, 'origin');
+export const cargoMyStatusCellKey = tableCellKey(CargoMyTable, 'status');

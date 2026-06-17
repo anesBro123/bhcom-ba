@@ -13,4 +13,6 @@ export interface Storage extends StorageFormModel {
   warehouseLabel: string;
   status: UserEntityStatus;
   publishedAt: string;
+  companyId: string;
+  publisherId: string;
 }

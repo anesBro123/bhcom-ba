@@ -1,18 +1,34 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
+import { AuthService } from '../../../../../shared/core/auth/auth.service';
+import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
 import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
 import { CARGO_MOCK_DATA } from './cargo.mock-data';
 import type { Cargo, CargoFormModel } from './cargo.model';
-import { CargoTable } from '../table/cargo.table';
+import { CargoAllTable } from '../table-all/cargo-all.table';
+import { CargoMyTable } from '../table-my/cargo-my.table';
 
 @Injectable({ providedIn: 'root' })
 export class UserCargoService {
+  private readonly authService = inject(AuthService);
   private readonly store: Cargo[] = structuredClone(CARGO_MOCK_DATA);
 
-  list(query: TableQuery): Observable<PaginatedResponse<Cargo>> {
-    return of(this.paginate(this.applyQuery([...this.store], query), query)).pipe(delay(200));
+  listMine(query: TableQuery): Observable<PaginatedResponse<Cargo>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, CargoMyTable.filters), query)).pipe(
+      delay(200),
+    );
+  }
+
+  listAll(query: TableQuery): Observable<PaginatedResponse<Cargo>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, CargoAllTable.filters), query)).pipe(
+      delay(200),
+    );
   }
 
   getById(id: string): Observable<Cargo> {
@@ -25,10 +41,13 @@ export class UserCargoService {
   }
 
   create(payload: CargoFormModel): Observable<Cargo> {
+    const user = this.authService.user()!;
     const item: Cargo = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
       status: 'open',
+      companyId: user.companyId,
+      publisherId: user.id,
       ...payload,
     };
     this.store.unshift(item);
@@ -59,9 +78,12 @@ export class UserCargoService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(items: Cargo[], query: TableQuery): Cargo[] {
+  private applyQuery(
+    items: Cargo[],
+    query: TableQuery,
+    filters: FilterDef<Cargo>[] | undefined,
+  ): Cargo[] {
     let result = items;
-    const filters = CargoTable.filters as FilterDef<Cargo>[] | undefined;
 
     for (const [key, value] of Object.entries(query.filters)) {
       if (value === null || value === undefined || value === '') {

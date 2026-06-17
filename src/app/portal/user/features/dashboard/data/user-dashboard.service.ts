@@ -28,9 +28,9 @@ export class UserDashboardService {
 
   getCounts(): Observable<UserDashboardCounts> {
     return forkJoin({
-      routes: this.routeService.list(COUNT_QUERY).pipe(map((response) => response.total)),
-      cargo: this.cargoService.list(COUNT_QUERY).pipe(map((response) => response.total)),
-      storage: this.storageService.list(COUNT_QUERY).pipe(map((response) => response.total)),
+      routes: this.routeService.listMine(COUNT_QUERY).pipe(map((response) => response.total)),
+      cargo: this.cargoService.listMine(COUNT_QUERY).pipe(map((response) => response.total)),
+      storage: this.storageService.listMine(COUNT_QUERY).pipe(map((response) => response.total)),
     });
   }
 }

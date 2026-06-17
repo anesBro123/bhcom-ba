@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_STORAGE_URL } from '../../../../../shared/constants/app-urls';
+import { USER_MY_STORAGE_URL } from '../../../../../shared/constants/app-urls';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
   endDateOnOrAfterStartValidator,
@@ -91,7 +91,7 @@ export class StorageFormPageComponent implements OnInit {
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
-          void this.router.navigateByUrl(USER_STORAGE_URL);
+          void this.router.navigateByUrl(USER_MY_STORAGE_URL);
         },
       });
   }
@@ -112,7 +112,7 @@ export class StorageFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_STORAGE_URL);
+        void this.router.navigateByUrl(USER_MY_STORAGE_URL);
       },
       error: () => {
         this.submitting.set(false);

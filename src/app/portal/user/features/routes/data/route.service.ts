@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
+import { AuthService } from '../../../../../shared/core/auth/auth.service';
+import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
 import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
 import { ROUTE_MOCK_DATA } from './route.mock-data';
 import type { Route, RouteFormModel } from './route.model';
-import { RouteTable } from '../table/route.table';
+import { RouteAllTable } from '../table-all/route-all.table';
+import { RouteMyTable } from '../table-my/route-my.table';
 
 export interface RouteCreatePayload extends RouteFormModel {
   vehiclePlate: string;
@@ -14,10 +17,23 @@ export interface RouteCreatePayload extends RouteFormModel {
 
 @Injectable({ providedIn: 'root' })
 export class UserRouteService {
+  private readonly authService = inject(AuthService);
   private readonly store: Route[] = structuredClone(ROUTE_MOCK_DATA);
 
-  list(query: TableQuery): Observable<PaginatedResponse<Route>> {
-    return of(this.paginate(this.applyQuery([...this.store], query), query)).pipe(delay(200));
+  listMine(query: TableQuery): Observable<PaginatedResponse<Route>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, RouteMyTable.filters), query)).pipe(
+      delay(200),
+    );
+  }
+
+  listAll(query: TableQuery): Observable<PaginatedResponse<Route>> {
+    const companyId = this.authService.user()!.companyId;
+    const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
+    return of(this.paginate(this.applyQuery([...scoped], query, RouteAllTable.filters), query)).pipe(
+      delay(200),
+    );
   }
 
   getById(id: string): Observable<Route> {
@@ -30,10 +46,13 @@ export class UserRouteService {
   }
 
   create(payload: RouteCreatePayload): Observable<Route> {
+    const user = this.authService.user()!;
     const item: Route = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
       status: 'open',
+      companyId: user.companyId,
+      publisherId: user.id,
       ...payload,
     };
     this.store.unshift(item);
@@ -64,9 +83,12 @@ export class UserRouteService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(items: Route[], query: TableQuery): Route[] {
+  private applyQuery(
+    items: Route[],
+    query: TableQuery,
+    filters: FilterDef<Route>[] | undefined,
+  ): Route[] {
     let result = items;
-    const filters = RouteTable.filters as FilterDef<Route>[] | undefined;
 
     for (const [key, value] of Object.entries(query.filters)) {
       if (value === null || value === undefined || value === '') {

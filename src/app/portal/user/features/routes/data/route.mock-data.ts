@@ -1,3 +1,5 @@
+import { DEMO_COMPANY_ID, EXTERNAL_COMPANY_ID } from '../../../../../shared/constants/user-list-scope';
+
 import type { Route } from './route.model';
 
 export const ROUTE_MOCK_DATA: Route[] = [
@@ -13,6 +15,8 @@ export const ROUTE_MOCK_DATA: Route[] = [
     description: 'Return trip with available cargo space.',
     status: 'open',
     publishedAt: '2026-06-10T08:00:00.000Z',
+    companyId: DEMO_COMPANY_ID,
+    publisherId: 'user-demo',
   },
   {
     id: 'ro-002',
@@ -26,5 +30,22 @@ export const ROUTE_MOCK_DATA: Route[] = [
     description: 'Morning departure, pallet space available.',
     status: 'in_progress',
     publishedAt: '2026-06-11T10:30:00.000Z',
+    companyId: DEMO_COMPANY_ID,
+    publisherId: 'user-colleague',
+  },
+  {
+    id: 'ro-003',
+    vehicleId: 'veh-ext-001',
+    vehiclePlate: 'ZE-789-CC',
+    vehicleName: 'MAN TGL',
+    origin: 'Zagreb',
+    destination: 'Split',
+    transportStartDate: '2026-06-24',
+    transportEndDate: '2026-06-25',
+    description: 'Cross-border route with spare capacity.',
+    status: 'open',
+    publishedAt: '2026-06-12T14:00:00.000Z',
+    companyId: EXTERNAL_COMPANY_ID,
+    publisherId: 'user-external',
   },
 ];

@@ -1,11 +1,11 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_STORAGE_API } from '../data/storage.constants';
 import type { Storage } from '../data/storage.model';
 
-export const StorageTable = defineTable<Storage>()({
+export const StorageMyTable = defineTable<Storage>()({
   endpoint: USER_STORAGE_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.user.features.storage.table.entity',
@@ -52,6 +52,11 @@ export const StorageTable = defineTable<Storage>()({
   actions: {
     width: '3.5rem',
     items: [
+      {
+        id: 'viewDetails',
+        labelKey: 'portal.user.features.storage.table.actions.viewDetails',
+        icon: LucideEye,
+      },
       { id: 'edit', labelKey: 'portal.user.features.storage.table.actions.edit', icon: LucidePencil },
       {
         id: 'delete',
@@ -73,4 +78,4 @@ export const StorageTable = defineTable<Storage>()({
   ],
 });
 
-export const storageStatusCellKey = tableCellKey(StorageTable, 'status');
+export const storageMyStatusCellKey = tableCellKey(StorageMyTable, 'status');
