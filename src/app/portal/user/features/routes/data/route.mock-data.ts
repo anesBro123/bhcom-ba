@@ -4,7 +4,8 @@ export const ROUTE_MOCK_DATA: Route[] = [
   {
     id: 'ro-001',
     vehicleId: 'veh-001',
-    vehicleLabel: 'BG-123-AA — Mercedes-Benz Sprinter',
+    vehiclePlate: 'BG-123-AA',
+    vehicleName: 'Mercedes-Benz Sprinter',
     origin: 'Sarajevo',
     destination: 'Banja Luka',
     transportStartDate: '2026-06-20',
@@ -15,7 +16,8 @@ export const ROUTE_MOCK_DATA: Route[] = [
   {
     id: 'ro-002',
     vehicleId: 'veh-002',
-    vehicleLabel: 'NS-456-BB — Iveco Daily',
+    vehiclePlate: 'NS-456-BB',
+    vehicleName: 'Iveco Daily',
     origin: 'Novi Sad',
     destination: 'Beograd',
     transportStartDate: '2026-06-20',

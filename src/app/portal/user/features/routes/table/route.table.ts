@@ -22,9 +22,10 @@ export const RouteTable = defineTable<Route>()({
       mobile: { primary: true },
     },
     {
-      key: 'vehicleLabel',
+      key: 'vehiclePlate',
       titleKey: 'portal.user.features.routes.table.columns.vehicle',
       sortable: true,
+      cell: 'custom',
       width: '14rem',
     },
     {
@@ -67,9 +68,10 @@ export const RouteTable = defineTable<Route>()({
       titleKey: 'portal.user.features.routes.table.filters.search',
       placeholderKey: 'portal.user.features.routes.table.filters.searchPlaceholder',
       debounceMs: 300,
-      searchFields: ['origin', 'destination', 'vehicleLabel', 'description'],
+      searchFields: ['origin', 'destination', 'vehiclePlate', 'vehicleName', 'description'],
     },
   ],
 });
 
 export const routeCellKey = tableCellKey(RouteTable, 'origin');
+export const vehicleCellKey = tableCellKey(RouteTable, 'vehiclePlate');

@@ -87,7 +87,13 @@ export class RouteFormPageComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (item) => {
-          const { id: _id, vehicleLabel: _label, publishedAt: _publishedAt, ...formValue } = item;
+          const {
+            id: _id,
+            vehiclePlate: _plate,
+            vehicleName: _name,
+            publishedAt: _publishedAt,
+            ...formValue
+          } = item;
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
@@ -102,12 +108,14 @@ export class RouteFormPageComponent implements OnInit {
     }
 
     const payload = this.form.getRawValue() as RouteFormModel;
-    const vehicleLabel = this.companyVehicleService.getLabel(payload.vehicleId);
+    const { plate: vehiclePlate, name: vehicleName } = this.companyVehicleService.getDisplay(
+      payload.vehicleId,
+    );
     this.submitting.set(true);
 
     const request$ = this.isEdit()
-      ? this.routeService.update(this.entityId()!, { ...payload, vehicleLabel })
-      : this.routeService.create({ ...payload, vehicleLabel });
+      ? this.routeService.update(this.entityId()!, { ...payload, vehiclePlate, vehicleName })
+      : this.routeService.create({ ...payload, vehiclePlate, vehicleName });
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

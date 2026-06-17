@@ -1,0 +1,7 @@
+<span
+  class="vehicle-display"
+  [attr.aria-label]="'shared.vehicle.namePlate' | translate: { name: name(), plate: plate() }"
+>
+  <span class="vehicle-display__name">{{ name() }}</span>
+  <span class="vehicle-display__plate">{{ plate() }}</span>
+</span>

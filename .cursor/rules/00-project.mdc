@@ -57,7 +57,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Features: `portal/user/features/` (dashboard, routes, cargo, storage); `portal/admin/features/` (dashboard, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link, **route-endpoints**
+- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link, **route-endpoints**, **vehicle-display**
 
 ## Auth routing (guards)
 
@@ -87,5 +87,6 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Admin dashboard (reference): `portal/admin/features/dashboard/` — `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`; admin nav has Dashboard section (`ADMIN_HOME_URL`, `LucideLayoutGrid`)
 - **Portal page title:** `PageTitleComponent` — `titleKey` + `subtitleKey` + `pageIcon` (`AdminPageIcons` / `UserPageIcons`); see `page-title.mdc`
 - **Route endpoints cell:** `RouteEndpointsComponent` (`shared/ui/route-endpoints/`) — origin → destination in route/cargo tables; see `tables.mdc`
+- **Vehicle display cell:** `VehicleDisplayComponent` (`shared/ui/vehicle-display/`) — vehicle name + plate in user routes table; see `tables.mdc`
 - **BiH city autocomplete:** `BIH_CITY_OPTIONS` + `type: 'autocomplete'` — see `shared-constants.mdc`, `forms.mdc`
 - **Table page create CTA:** list pages with a create route use `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent` — page owns `createUrl` / `createLabelKey`; see `page-title.mdc`, `portal-feature.mdc`

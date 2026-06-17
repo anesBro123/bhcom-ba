@@ -11,6 +11,7 @@ import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-h
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { RouteEndpointsComponent } from '../../../../../shared/ui/route-endpoints/route-endpoints.component';
+import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -21,7 +22,7 @@ import {
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { RouteTable, routeCellKey } from './route.table';
+import { RouteTable, routeCellKey, vehicleCellKey } from './route.table';
 
 @Component({
   selector: 'app-route-table-page',
@@ -29,6 +30,7 @@ import { RouteTable, routeCellKey } from './route.table';
     DataTableComponent,
     TableCellTemplateDirective,
     RouteEndpointsComponent,
+    VehicleDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -48,6 +50,7 @@ export class RouteTablePageComponent {
   protected readonly createUrl = USER_CREATE_ROUTE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postRoute';
   protected readonly routeKey = routeCellKey;
+  protected readonly vehicleKey = vehicleCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.list(query);

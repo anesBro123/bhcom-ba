@@ -8,7 +8,8 @@ import type { Route, RouteFormModel } from './route.model';
 import { RouteTable } from '../table/route.table';
 
 export interface RouteCreatePayload extends RouteFormModel {
-  vehicleLabel: string;
+  vehiclePlate: string;
+  vehicleName: string;
 }
 
 @Injectable({ providedIn: 'root' })

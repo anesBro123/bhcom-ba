@@ -75,6 +75,9 @@
     },
     "route": {
       "fromTo": "From {{origin}} to {{destination}}"
+    },
+    "vehicle": {
+      "namePlate": "{{name}}, plate {{plate}}"
     }
   },
   "guest": {

@@ -47,3 +47,22 @@ export const routeCellKey = tableCellKey(RouteTable, 'origin');
 ```
 
 Page `imports`: `RouteEndpointsComponent` from `shared/ui/route-endpoints/route-endpoints.component.ts`.
+
+## Vehicle display custom cell
+
+When a column shows vehicle name over plate number:
+
+```typescript
+// *.table.ts — vehicle column, custom cell
+{ key: 'vehiclePlate', titleKey: '…columns.vehicle', cell: 'custom' }
+
+export const vehicleCellKey = tableCellKey(RouteTable, 'vehiclePlate');
+```
+
+```html
+<ng-template [appTableCell]="vehicleKey" let-row>
+  <app-vehicle-display [name]="row.vehicleName" [plate]="row.vehiclePlate" />
+</ng-template>
+```
+
+Page `imports`: `VehicleDisplayComponent` from `shared/ui/vehicle-display/vehicle-display.component.ts`.

@@ -25,6 +25,15 @@ export class CompanyVehicleService {
     );
   }
 
+  getDisplay(id: string): { plate: string; name: string } {
+    const vehicle = this.store.find((item) => item.id === id);
+    if (!vehicle) {
+      return { plate: id, name: id };
+    }
+
+    return { plate: vehicle.plate, name: `${vehicle.make} ${vehicle.model}`.trim() };
+  }
+
   getLabel(id: string): string {
     const vehicle = this.store.find((item) => item.id === id);
     if (!vehicle) {

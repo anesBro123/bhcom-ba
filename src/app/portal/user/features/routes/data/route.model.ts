@@ -9,6 +9,7 @@ export interface RouteFormModel {
 
 export interface Route extends RouteFormModel {
   id: string;
-  vehicleLabel: string;
+  vehiclePlate: string;
+  vehicleName: string;
   publishedAt: string;
 }
