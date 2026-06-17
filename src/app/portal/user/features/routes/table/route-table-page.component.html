@@ -1,0 +1,16 @@
+<app-page-header>
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
+
+@if (tableMounted()) {
+  <app-data-table
+    [definition]="table"
+    [loader]="loadRoutes"
+    (rowAction)="onRowAction($event)"
+  >
+    <ng-template [appTableCell]="routeKey" let-row>
+      {{ routeLabel(row) }}
+    </ng-template>
+  </app-data-table>
+}

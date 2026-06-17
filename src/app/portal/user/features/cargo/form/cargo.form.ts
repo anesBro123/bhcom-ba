@@ -1,0 +1,93 @@
+import { LucideMapPin, LucidePackage, LucidePlus, LucideSave } from '@lucide/angular';
+
+import { defineForm } from '../../../../../shared/form';
+
+import { CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
+import type { CargoFormModel } from '../data/cargo.model';
+
+export const CargoForm = defineForm<CargoFormModel>()({
+  mode: 'single',
+  steps: [
+    {
+      id: 'main',
+      titleKey: 'portal.user.features.cargo.form.steps.main',
+      kind: 'fields',
+      sections: [
+        {
+          id: 'route',
+          titleKey: 'portal.user.features.cargo.form.sections.route.title',
+          subtitleKey: 'portal.user.features.cargo.form.sections.route.subtitle',
+          icon: LucideMapPin,
+          fields: [
+            {
+              key: 'origin',
+              type: 'text',
+              labelKey: 'portal.user.features.cargo.form.fields.origin',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.origin',
+              colSpan: 2,
+            },
+            {
+              key: 'destination',
+              type: 'text',
+              labelKey: 'portal.user.features.cargo.form.fields.destination',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.destination',
+              colSpan: 2,
+            },
+            {
+              key: 'neededByDate',
+              type: 'date',
+              labelKey: 'portal.user.features.cargo.form.fields.neededByDate',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.neededByDate',
+              colSpan: 2,
+            },
+          ],
+        },
+        {
+          id: 'cargo',
+          titleKey: 'portal.user.features.cargo.form.sections.cargo.title',
+          subtitleKey: 'portal.user.features.cargo.form.sections.cargo.subtitle',
+          icon: LucidePackage,
+          fields: [
+            {
+              key: 'cargoType',
+              type: 'select',
+              labelKey: 'portal.user.features.cargo.form.fields.cargoType',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.cargoType',
+              colSpan: 2,
+              options: [...CARGO_TYPE_OPTIONS],
+            },
+            {
+              key: 'size',
+              type: 'text',
+              labelKey: 'portal.user.features.cargo.form.fields.size',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.size',
+              colSpan: 2,
+            },
+            {
+              key: 'weightKg',
+              type: 'number',
+              labelKey: 'portal.user.features.cargo.form.fields.weightKg',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.weightKg',
+              colSpan: 2,
+            },
+            {
+              key: 'description',
+              type: 'textarea',
+              labelKey: 'portal.user.features.cargo.form.fields.description',
+              placeholderKey: 'portal.user.features.cargo.form.placeholders.description',
+              colSpan: 'full',
+              rows: 4,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  actions: {
+    submit: { labelKey: 'portal.user.features.cargo.form.actions.create', icon: LucidePlus },
+  },
+});
+
+export const CargoFormEditActions = {
+  submit: { labelKey: 'portal.user.features.cargo.form.actions.update', icon: LucideSave },
+};

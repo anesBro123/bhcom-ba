@@ -1,0 +1,8 @@
+<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />
+
+<app-form-page
+  [definition]="formDef()"
+  [formGroup]="form"
+  [submitDisabled]="submitting()"
+  (submit)="onSubmit()"
+/>

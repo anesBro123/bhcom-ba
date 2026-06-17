@@ -1,82 +1,79 @@
 import {
-  LucideActivity,
-  LucideBarChart3,
-  LucideBuilding,
-  LucideCalendar,
-  LucideChartLine,
-  LucideChartPie,
-  LucideClipboardList,
-  LucideClock,
   LucideLayoutGrid,
   LucideMap,
-  LucideMessagesSquare,
-  LucideNavigation,
-  LucideRotateCcw,
+  LucidePackage,
   LucideSquarePlus,
-  LucideSquareX,
-  LucideTruck,
-  LucideUserPlus,
-  LucideUsers,
-  LucideVan,
-  LucideWrench,
+  LucideWarehouse,
 } from '@lucide/angular';
+import {
+  USER_CARGO_URL,
+  USER_CREATE_CARGO_URL,
+  USER_CREATE_ROUTE_URL,
+  USER_CREATE_STORAGE_URL,
+  USER_HOME_URL,
+  USER_ROUTES_URL,
+  USER_STORAGE_URL,
+} from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
 
 export const USER_NAV: NavSection[] = [
   {
     titleKey: 'portal.user.nav.sections.dashboard',
     items: [
-      { labelKey: 'portal.user.nav.overview', route: '/dashboard', icon: LucideLayoutGrid, exact: true },
-      { labelKey: 'portal.user.nav.liveMap', route: '/dashboard/live-map', icon: LucideMap },
-      { labelKey: 'portal.user.nav.fleetStatus', route: '/dashboard/fleet-status', icon: LucideActivity },
+      {
+        labelKey: 'portal.user.nav.overview',
+        route: USER_HOME_URL,
+        icon: LucideLayoutGrid,
+        exact: true,
+      },
     ],
   },
   {
-    titleKey: 'portal.user.nav.sections.shipments',
-    items: [
-      { labelKey: 'portal.user.nav.allShipments', route: '/shipments', icon: LucideTruck, exact: true },
-      { labelKey: 'portal.user.nav.trackShipment', route: '/shipments/track', icon: LucideNavigation },
-      { labelKey: 'portal.user.nav.createShipment', route: '/shipments/create', icon: LucideSquarePlus },
-      { labelKey: 'portal.user.nav.delayedShipments', route: '/shipments/delayed', icon: LucideClock },
-    ],
-  },
-  {
-    titleKey: 'portal.user.nav.sections.fleet',
-    items: [
-      { labelKey: 'portal.user.nav.vehicleList', route: '/fleet/vehicles', icon: LucideVan },
-      { labelKey: 'portal.user.nav.createVehicle', route: '/fleet/vehicles/create', icon: LucideSquarePlus },
-      { labelKey: 'portal.user.nav.maintenanceLogs', route: '/fleet/maintenance', icon: LucideWrench },
-      { labelKey: 'portal.user.nav.driverAssignments', route: '/fleet/drivers', icon: LucideUsers },
-    ],
-  },
-  {
-    titleKey: 'portal.user.nav.sections.vendorsClients',
-    items: [
-      { labelKey: 'portal.user.nav.vendorDirectory', route: '/vendors', icon: LucideBuilding, exact: true },
-      { labelKey: 'portal.user.nav.addVendor', route: '/vendors/add', icon: LucideUserPlus },
-      { labelKey: 'portal.user.nav.clientsList', route: '/clients', icon: LucideUsers, exact: true },
-      { labelKey: 'portal.user.nav.clientFeedback', route: '/clients/feedback', icon: LucideMessagesSquare },
-    ],
-  },
-  {
-    titleKey: 'portal.user.nav.sections.orders',
-    items: [
-      { labelKey: 'portal.user.nav.allOrders', route: '/orders', icon: LucideClipboardList, exact: true },
-      { labelKey: 'portal.user.nav.scheduledDeliveries', route: '/orders/scheduled', icon: LucideCalendar },
-      { labelKey: 'portal.user.nav.returns', route: '/orders/returns', icon: LucideRotateCcw },
-      { labelKey: 'portal.user.nav.cancellations', route: '/orders/cancellations', icon: LucideSquareX },
-    ],
-  },
-  {
-    titleKey: 'portal.user.nav.sections.reports',
+    titleKey: 'portal.user.nav.sections.routes',
     items: [
       {
-        labelKey: 'portal.user.nav.deliveryPerformance',
-        route: '/reports/delivery-performance',
-        icon: LucideBarChart3,
+        labelKey: 'portal.user.nav.allRoutes',
+        route: USER_ROUTES_URL,
+        icon: LucideMap,
+        exact: true,
       },
-      { labelKey: 'portal.user.nav.revenueAnalysis', route: '/reports/revenue', icon: LucideChartLine },
-      { labelKey: 'portal.user.nav.fleetEfficiency', route: '/reports/fleet-efficiency', icon: LucideChartPie },
+      {
+        labelKey: 'portal.user.nav.postRoute',
+        route: USER_CREATE_ROUTE_URL,
+        icon: LucideSquarePlus,
+      },
+    ],
+  },
+  {
+    titleKey: 'portal.user.nav.sections.cargo',
+    items: [
+      {
+        labelKey: 'portal.user.nav.allCargo',
+        route: USER_CARGO_URL,
+        icon: LucidePackage,
+        exact: true,
+      },
+      {
+        labelKey: 'portal.user.nav.postCargo',
+        route: USER_CREATE_CARGO_URL,
+        icon: LucideSquarePlus,
+      },
+    ],
+  },
+  {
+    titleKey: 'portal.user.nav.sections.storage',
+    items: [
+      {
+        labelKey: 'portal.user.nav.allStorage',
+        route: USER_STORAGE_URL,
+        icon: LucideWarehouse,
+        exact: true,
+      },
+      {
+        labelKey: 'portal.user.nav.postStorage',
+        route: USER_CREATE_STORAGE_URL,
+        icon: LucideSquarePlus,
+      },
     ],
   },
 ];

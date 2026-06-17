@@ -1,0 +1,12 @@
+<app-page-header>
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
+
+@if (tableMounted()) {
+  <app-data-table
+    [definition]="table"
+    [loader]="loadStorage"
+    (rowAction)="onRowAction($event)"
+  />
+}

@@ -1,0 +1,19 @@
+<app-page-header>
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
+
+@if (tableMounted()) {
+  <app-data-table
+    [definition]="table"
+    [loader]="loadCargo"
+    (rowAction)="onRowAction($event)"
+  >
+    <ng-template [appTableCell]="routeKey" let-row>
+      {{ routeLabel(row) }}
+    </ng-template>
+    <ng-template [appTableCell]="cargoTypeKey" let-row>
+      {{ cargoTypeLabel(row.cargoType) | translate }}
+    </ng-template>
+  </app-data-table>
+}

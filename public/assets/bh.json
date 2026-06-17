@@ -697,390 +697,283 @@
       "nav": {
         "sections": {
           "dashboard": "KONTROLNA TABLA",
-          "shipments": "POŠILJKE",
-          "fleet": "UPRAVLJANJE FLOTE",
-          "vendorsClients": "PRODAVCI I KLIJENTI",
-          "orders": "NARUDŽBE",
-          "reports": "IZVJEŠTAJI"
+          "routes": "RUTE",
+          "cargo": "TERET",
+          "storage": "SKLADIŠTE"
         },
         "overview": "Pregled",
-        "liveMap": "Mapa pošiljki uživo",
-        "fleetStatus": "Status flote",
-        "allShipments": "Sve pošiljke",
-        "trackShipment": "Prati pošiljku",
-        "createShipment": "Kreiraj pošiljku",
-        "delayedShipments": "Odgođene pošiljke",
-        "vehicleList": "Lista vozila",
-        "createVehicle": "Dodaj vozilo",
-        "maintenanceLogs": "Evidencija održavanja",
-        "driverAssignments": "Dodjele vozača",
-        "vendorDirectory": "Imenik prodavaca",
-        "addVendor": "Dodaj prodavca",
-        "clientsList": "Lista klijenata",
-        "clientFeedback": "Povratne informacije klijenata",
-        "allOrders": "Sve narudžbe",
-        "scheduledDeliveries": "Zakazane isporuke",
-        "returns": "Povrati",
-        "cancellations": "Otkazivanja",
-        "deliveryPerformance": "Performanse isporuke",
-        "revenueAnalysis": "Analiza prihoda",
-        "fleetEfficiency": "Efikasnost flote"
+        "allRoutes": "Sve rute",
+        "postRoute": "Objavi rutu",
+        "allCargo": "Sav teret",
+        "postCargo": "Objavi teret",
+        "allStorage": "Sva skladišta",
+        "postStorage": "Objavi skladište"
       },
       "pages": {
-        "dashboardOverview": {
-          "title": "Pregled kontrolne table",
-          "subtitle": "Dobrodošli nazad! Evo šta se dešava u vašim logističkim operacijama."
+        "dashboard": {
+          "title": "Kontrolna tabla",
+          "subtitle": "Pregled objavljenih ruta, tereta i skladišnog prostora."
         },
-        "liveMap": {
-          "title": "Mapa pošiljki uživo",
-          "subtitle": "Pratite aktivne pošiljke na mapi u realnom vremenu."
+        "routes": {
+          "title": "Rute",
+          "subtitle": "Pregledajte i upravljajte rutama koje ste objavili za zahtjeve za transport tereta."
         },
-        "fleetStatus": {
-          "title": "Status flote",
-          "subtitle": "Pratite dostupnost vozila, dodjele i operativno stanje."
+        "createRoute": {
+          "title": "Objavi rutu",
+          "subtitle": "Objavite vozilo kompanije i rutu kako bi drugi mogli zatražiti transport tereta."
         },
-        "allShipments": {
-          "title": "Sve pošiljke",
-          "subtitle": "Pregledajte i filtrirajte sve pošiljke u vašoj mreži."
+        "editRoute": {
+          "title": "Uredi rutu",
+          "subtitle": "Ažurirajte vozilo, rutu, datum ili opis ove objavljene rute."
         },
-        "trackShipment": {
-          "title": "Prati pošiljku",
-          "subtitle": "Pronađite pošiljku po ID-u ili broju za praćenje i status uživo."
+        "cargo": {
+          "title": "Teret",
+          "subtitle": "Pregledajte i upravljajte teretom koji ste objavili."
         },
-        "createShipment": {
-          "title": "Kreiraj novu pošiljku",
-          "subtitle": "Slijedite korake ispod da kreirate i zakazete pošiljku."
+        "createCargo": {
+          "title": "Objavi teret",
+          "subtitle": "Opišite robu koja treba transport kako bi kolege mogle pronaći odgovarajuću rutu."
         },
-        "delayedShipments": {
-          "title": "Odgođene pošiljke",
-          "subtitle": "Pregledajte pošiljke koje kasne i zahtijevaju pažnju."
+        "editCargo": {
+          "title": "Uredi teret",
+          "subtitle": "Ažurirajte polazište, odredište, veličinu, težinu ili druge detalje tereta."
         },
-        "vehicleList": {
-          "title": "Lista vozila",
-          "subtitle": "Pregledajte i upravljajte vozilima dodijeljenim vašoj floti."
+        "storage": {
+          "title": "Skladište",
+          "subtitle": "Pregledajte i upravljajte skladišnim prostorom koji ste objavili."
         },
-        "createVehicle": {
-          "title": "Dodaj vozilo",
-          "subtitle": "Dodajte novo vozilo u flotu sa identifikacijom i specifikacijama."
+        "createStorage": {
+          "title": "Objavi skladište",
+          "subtitle": "Ponudite dostupan prostor u skladištu kompanije za određeni period."
         },
-        "maintenanceLogs": {
-          "title": "Evidencija održavanja",
-          "subtitle": "Pregledajte historiju servisa i nadolazeće održavanje vozila."
-        },
-        "driverAssignments": {
-          "title": "Dodjele vozača",
-          "subtitle": "Upravljajte dodjelom vozača vozilima i rutama."
-        },
-        "vendorDirectory": {
-          "title": "Imenik prodavaca",
-          "subtitle": "Pregledajte prijevoznike, dobavljače i partnerske organizacije."
-        },
-        "addVendor": {
-          "title": "Dodaj prodavca",
-          "subtitle": "Registrujte novog prodavca ili logističkog partnera u imeniku."
-        },
-        "clientsList": {
-          "title": "Lista klijenata",
-          "subtitle": "Pregledajte korisničke račune i aktivnost pošiljki."
-        },
-        "clientFeedback": {
-          "title": "Povratne informacije klijenata",
-          "subtitle": "Pregledajte ocjene i komentare klijenata o završenim isporukama."
-        },
-        "allOrders": {
-          "title": "Sve narudžbe",
-          "subtitle": "Pregledajte sve narudžbe i njihov trenutni status ispunjenja."
-        },
-        "scheduledDeliveries": {
-          "title": "Zakazane isporuke",
-          "subtitle": "Pregledajte nadolazeće isporuke planirane za odabrani period."
-        },
-        "returns": {
-          "title": "Povrati",
-          "subtitle": "Pratite povratne pošiljke i zahtjeve za obrnutu logistiku."
-        },
-        "cancellations": {
-          "title": "Otkazivanja",
-          "subtitle": "Pregledajte otkazane narudžbe i pošiljke sa razlozima otkazivanja."
-        },
-        "deliveryPerformance": {
-          "title": "Performanse isporuke",
-          "subtitle": "Analizirajte stope isporuke na vrijeme i usklađenost sa SLA-om."
-        },
-        "revenueAnalysis": {
-          "title": "Analiza prihoda",
-          "subtitle": "Istražite trendove prihoda, marže i naplatu po periodima."
-        },
-        "fleetEfficiency": {
-          "title": "Efikasnost flote",
-          "subtitle": "Mjerite iskorištenost, prazne kilometre i trošak po kilometru."
+        "editStorage": {
+          "title": "Uredi skladište",
+          "subtitle": "Ažurirajte skladište, datume dostupnosti, veličinu prostora ili opis."
         }
       },
       "features": {
-        "shipments": {
+        "dashboard": {
+          "metrics": {
+            "ariaLabel": "Broj oglasa na tržištu",
+            "routes": {
+              "title": "Rute",
+              "subtitle": "Objavljene rute"
+            },
+            "cargo": {
+              "title": "Teret",
+              "subtitle": "Objavljeni teret"
+            },
+            "storage": {
+              "title": "Skladište",
+              "subtitle": "Objavljeni prostor"
+            }
+          },
+          "quickActions": {
+            "title": "Brze akcije"
+          },
+          "actions": {
+            "allRoutes": {
+              "description": "Pregledajte sve rute koje ste objavili sa vozilima kompanije."
+            },
+            "postRoute": {
+              "description": "Objavite novu rutu i vozilo za zahtjeve transporta tereta."
+            },
+            "allCargo": {
+              "description": "Pregledajte sav teret koji ste objavili."
+            },
+            "postCargo": {
+              "description": "Objavite teret koji treba transport do određenog datuma."
+            },
+            "allStorage": {
+              "description": "Pregledajte sav skladišni prostor koji ste objavili."
+            },
+            "postStorage": {
+              "description": "Objavite dostupan skladišni prostor za period."
+            }
+          }
+        },
+        "routes": {
           "form": {
             "steps": {
-              "type": "Tip pošiljke",
-              "addresses": "Adrese",
-              "packages": "Detalji paketa",
-              "services": "Usluge",
-              "review": "Pregled"
+              "main": "Detalji rute"
             },
             "sections": {
-              "type": {
-                "title": "Tip pošiljke i prioritet",
-                "subtitle": "Odaberite tip pošiljke i prioritet dostave"
+              "route": {
+                "title": "Ruta i vozilo",
+                "subtitle": "Odaberite vozilo kompanije i definirajte transportnu rutu"
               },
-              "origin": {
-                "title": "Adresa polazišta",
-                "subtitle": "Unesite podatke o lokaciji preuzimanja"
-              },
-              "destination": {
-                "title": "Adresa odredišta",
-                "subtitle": "Unesite podatke o lokaciji dostave"
-              },
-              "packages": {
-                "title": "Detalji paketa",
-                "subtitle": "Dodajte stavke u pošiljku"
-              },
-              "services": {
-                "title": "Posebne usluge i opcije",
-                "subtitle": "Konfigurišite dodatne usluge za pošiljku"
-              },
-              "review": {
-                "title": "Pregled i procjena troškova",
-                "subtitle": "Pregledajte detalje pošiljke i dobijte procjenu troškova"
+              "details": {
+                "title": "Dodatni detalji",
+                "subtitle": "Dodajte datum transporta i opcione napomene"
               }
             },
             "fields": {
-              "shipmentType": "Tip pošiljke",
-              "deliveryPriority": "Prioritet dostave",
-              "pickupDate": "Datum preuzimanja",
-              "deliveryDate": "Željeni datum dostave",
-              "companyName": "Naziv kompanije",
-              "contactName": "Kontakt osoba",
-              "addressLine1": "Adresa linija 1",
-              "addressLine2": "Adresa linija 2 (opcionalno)",
-              "city": "Grad",
-              "state": "Država/Pokrajina",
-              "zip": "Poštanski broj",
-              "phone": "Broj telefona",
-              "email": "Email adresa",
-              "preferredCarrier": "Preferirani prevoznik",
-              "serviceLevel": "Nivo usluge",
-              "specialInstructions": "Posebne instrukcije"
+              "vehicleId": "Vozilo kompanije",
+              "origin": "Polazište",
+              "destination": "Odredište",
+              "transportDate": "Datum transporta",
+              "description": "Opis"
             },
             "placeholders": {
-              "pickupDate": "Odaberite datum preuzimanja",
-              "deliveryDate": "Odaberite datum dostave",
-              "companyName": "Unesite naziv kompanije",
-              "contactName": "Unesite ime kontakta",
-              "addressLine1": "Unesite ulicu",
-              "addressLine2": "Unesite stan, sprat, itd.",
-              "city": "Unesite grad",
-              "state": "Odaberite državu",
-              "zip": "Unesite poštanski broj",
-              "phone": "Unesite broj telefona",
-              "email": "Unesite email adresu",
-              "selectCarrier": "Odaberite prevoznika",
-              "selectService": "Odaberite uslugu",
-              "specialInstructions": "Unesite posebne instrukcije za rukovanje, napomene o dostavi..."
-            },
-            "shipmentTypes": {
-              "standardPackage": "Standardni paket",
-              "documentEnvelope": "Koverta za dokumente",
-              "freightPallet": "Teret/Paleta",
-              "bulkCargo": "Rasuti teret"
-            },
-            "priority": {
-              "standard": {
-                "title": "Standardni",
-                "description": "5-7 radnih dana",
-                "price": "$15.99"
-              },
-              "express": {
-                "title": "Ekspres",
-                "description": "2-3 radna dana",
-                "price": "$29.99"
-              },
-              "overnight": {
-                "title": "Preko noći",
-                "description": "Sljedeći radni dan",
-                "price": "$49.99"
-              }
-            },
-            "packages": {
-              "itemLabel": "Stavka {{index}}",
-              "description": "Opis",
-              "descriptionPlaceholder": "Unesite opis stavke",
-              "category": "Kategorija",
-              "quantity": "Količina",
-              "weight": "Težina (lbs)",
-              "value": "Vrijednost ($)",
-              "hazardous": "Opasno",
-              "dimensions": "Dimenzije (inči)",
-              "length": "Dužina",
-              "width": "Širina",
-              "height": "Visina",
-              "addItem": "Dodaj još jednu stavku",
-              "totalItems": "Ukupno stavki",
-              "totalWeight": "Ukupna težina",
-              "totalValue": "Ukupna vrijednost",
-              "weightValue": "{{weight}} lbs",
-              "currencyValue": "${{value}}"
-            },
-            "categories": {
-              "general": "Opća roba",
-              "electronics": "Elektronika",
-              "clothing": "Odjeća",
-              "food": "Hrana i piće",
-              "documents": "Dokumenti"
-            },
-            "carriers": {
-              "fedex": "FedEx",
-              "ups": "UPS",
-              "dhl": "DHL",
-              "usps": "USPS"
-            },
-            "serviceLevels": {
-              "ground": "Kopno",
-              "express": "Ekspres",
-              "overnight": "Preko noći"
-            },
-            "services": {
-              "insuranceCoverage": "Osiguranje",
-              "insuranceCoverageDesc": "Zaštitite pošiljku od gubitka ili oštećenja",
-              "signatureRequired": "Potreban potpis",
-              "signatureRequiredDesc": "Zahtijevajte potpis primaoca pri dostavi",
-              "fragileHandling": "Rukovanje lomljivim",
-              "fragileHandlingDesc": "Dodatna pažnja za delikatne predmete",
-              "temperatureControl": "Kontrola temperature",
-              "temperatureControlDesc": "Transport u kontrolisanim uslovima",
-              "infoBanner": "Dodatne usluge mogu uticati na cijenu i vrijeme dostave. Pregledajte procjenu troškova u sljedećem koraku."
-            },
-            "review": {
-              "summary": "Sažetak pošiljke",
-              "type": "Tip",
-              "priority": "Prioritet",
-              "totalItems": "Ukupno stavki",
-              "totalWeight": "Ukupna težina",
-              "totalValue": "Ukupna vrijednost",
-              "route": "Ruta",
-              "from": "Od",
-              "to": "Do",
-              "services": "Posebne usluge",
-              "noServices": "Nema odabranih posebnih usluga.",
-              "costBreakdown": "Pregled troškova",
-              "baseShipping": "Osnovna dostava",
-              "weightCharge": "Naknada po težini",
-              "servicesCharge": "Usluge",
-              "totalCost": "Ukupna procijenjena cijena",
-              "recalculate": "Ponovo izračunaj",
-              "estimateNote": "Ovo je procjena. Konačna cijena može varirati na osnovu stvarnih dimenzija i tarifa prevoznika."
+              "vehicleId": "Odaberite vozilo kompanije",
+              "origin": "Unesite polazište",
+              "destination": "Unesite odredište",
+              "transportDate": "Odaberite datum transporta",
+              "description": "Opcione napomene o dostupnom prostoru..."
             },
             "actions": {
-              "create": "Kreiraj pošiljku"
+              "create": "Objavi rutu",
+              "update": "Sačuvaj izmjene"
             }
           },
           "table": {
-            "title": "Lista pošiljki",
-            "subtitle": "Pratite status, rute i prioritete svih aktivnih i završenih pošiljki.",
-            "entity": "pošiljki",
+            "entity": "rute",
             "columns": {
-              "id": "ID",
-              "customer": "Kupac",
-              "origin": "Polaziste",
-              "destination": "Odrediste",
-              "departure": "Polazak",
-              "eta": "ETA",
-              "status": "Status",
-              "type": "Tip",
-              "priority": "Prioritet"
-            },
-            "status": {
-              "in_transit": "U tranzitu",
-              "pending": "Na cekanju",
-              "delivered": "Isporuceno"
-            },
-            "type": {
-              "road": "Cesta",
-              "air": "Avion",
-              "sea": "Brod"
-            },
-            "priority": {
-              "standard": "Standardni",
-              "express": "Ekspres",
-              "economy": "Ekonomski"
+              "route": "Ruta",
+              "destination": "Odredište",
+              "vehicle": "Vozilo",
+              "transportDate": "Datum transporta",
+              "description": "Opis"
             },
             "actions": {
-              "view": "Pogledaj detalje",
-              "edit": "Uredi pošiljku",
-              "duplicate": "Dupliciraj",
+              "edit": "Uredi",
               "delete": "Obriši"
             },
             "filters": {
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži pošiljke...",
-              "status": "Status",
-              "allStatuses": "Svi statusi",
-              "type": "Tip",
-              "allTypes": "Svi tipovi",
-              "priority": "Prioritet",
-              "allPriorities": "Svi prioriteti"
+              "searchPlaceholder": "Pretraži rute, vozila, opise..."
+            },
+            "deleteConfirm": {
+              "title": "Obrisati rutu?",
+              "message": "Ovo će trajno ukloniti objavljenu rutu. Ova radnja se ne može poništiti."
             }
           }
         },
-        "fleet": {
-          "vehicles": {
-            "form": {
-              "title": "Dodaj vozilo",
-              "subtitle": "Dodajte novo vozilo u flotu sa identifikacijom i specifikacijama.",
-              "steps": {
-                "main": "Detalji vozila"
+        "cargo": {
+          "form": {
+            "steps": {
+              "main": "Detalji tereta"
+            },
+            "sections": {
+              "route": {
+                "title": "Transportna ruta",
+                "subtitle": "Gdje teret treba i do kada"
               },
-              "sections": {
-                "identity": {
-                  "title": "Informacije o vozilu",
-                  "subtitle": "Unesite osnovne identifikacione podatke vozila"
-                },
-                "specs": {
-                  "title": "Specifikacije",
-                  "subtitle": "Konfigurišite tip, kapacitet i operativni status"
-                }
-              },
-              "fields": {
-                "plateNumber": "Registarska oznaka",
-                "make": "Marka",
-                "model": "Model",
-                "year": "Godina",
-                "vehicleType": "Tip vozila",
-                "capacityKg": "Kapacitet (kg)",
-                "status": "Status",
-                "notes": "Napomene"
-              },
-              "placeholders": {
-                "plateNumber": "Unesite registarsku oznaku",
-                "make": "Unesite proizvođača",
-                "model": "Unesite naziv modela",
-                "year": "npr. 2024",
-                "vehicleType": "Odaberite tip vozila",
-                "capacityKg": "Unesite maksimalni kapacitet",
-                "status": "Odaberite status",
-                "notes": "Opcionalne napomene o vozilu..."
-              },
-              "vehicleTypes": {
-                "van": "Kombi",
-                "truck": "Kamion",
-                "trailer": "Prikolica"
-              },
-              "statuses": {
-                "active": "Aktivno",
-                "maintenance": "Na servisu",
-                "retired": "Povučeno"
-              },
-              "actions": {
-                "create": "Kreiraj vozilo"
+              "cargo": {
+                "title": "Informacije o teretu",
+                "subtitle": "Veličina, težina, tip i napomene"
               }
+            },
+            "fields": {
+              "origin": "Polazište",
+              "destination": "Odredište",
+              "neededByDate": "Potrebno do datuma",
+              "size": "Veličina",
+              "weightKg": "Težina (kg)",
+              "cargoType": "Tip tereta",
+              "description": "Opis"
+            },
+            "placeholders": {
+              "origin": "Unesite mjesto preuzimanja",
+              "destination": "Unesite mjesto dostave",
+              "neededByDate": "Odaberite datum",
+              "size": "npr. 4 palete, 12 m³",
+              "weightKg": "Unesite ukupnu težinu u kg",
+              "cargoType": "Odaberite tip tereta",
+              "description": "Opcione instrukcije za rukovanje..."
+            },
+            "cargoTypes": {
+              "pallet": "Paleta",
+              "bulk": "Rasuti teret",
+              "refrigerated": "Hlađeno",
+              "oversized": "Prekomjerno",
+              "other": "Ostalo"
+            },
+            "actions": {
+              "create": "Objavi teret",
+              "update": "Sačuvaj izmjene"
+            }
+          },
+          "table": {
+            "entity": "tereta",
+            "columns": {
+              "route": "Ruta",
+              "destination": "Odredište",
+              "cargoType": "Tip",
+              "size": "Veličina",
+              "weightKg": "Težina (kg)",
+              "neededByDate": "Potrebno do"
+            },
+            "actions": {
+              "edit": "Uredi",
+              "delete": "Obriši"
+            },
+            "filters": {
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži rute, veličine, opise...",
+              "cargoType": "Tip tereta",
+              "allTypes": "Svi tipovi"
+            },
+            "deleteConfirm": {
+              "title": "Obrisati teret?",
+              "message": "Ovo će trajno ukloniti objavljeni teret. Ova radnja se ne može poništiti."
+            }
+          }
+        },
+        "storage": {
+          "form": {
+            "steps": {
+              "main": "Detalji skladišta"
+            },
+            "sections": {
+              "warehouse": {
+                "title": "Skladište",
+                "subtitle": "Odaberite skladište kompanije"
+              },
+              "availability": {
+                "title": "Dostupnost i prostor",
+                "subtitle": "Definirajte period i dostupnu površinu"
+              }
+            },
+            "fields": {
+              "warehouseId": "Skladište kompanije",
+              "availableFrom": "Dostupno od",
+              "availableTo": "Dostupno do",
+              "spaceM2": "Dostupan prostor (m²)",
+              "description": "Opis"
+            },
+            "placeholders": {
+              "warehouseId": "Odaberite skladište kompanije",
+              "availableFrom": "Odaberite početni datum",
+              "availableTo": "Odaberite krajnji datum",
+              "spaceM2": "Unesite površinu u kvadratnim metrima",
+              "description": "Opcione napomene o prostoru..."
+            },
+            "actions": {
+              "create": "Objavi skladište",
+              "update": "Sačuvaj izmjene"
+            }
+          },
+          "table": {
+            "entity": "skladišta",
+            "columns": {
+              "warehouse": "Skladište",
+              "availableFrom": "Dostupno od",
+              "availableTo": "Dostupno do",
+              "spaceM2": "Prostor (m²)",
+              "description": "Opis"
+            },
+            "actions": {
+              "edit": "Uredi",
+              "delete": "Obriši"
+            },
+            "filters": {
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži skladišta, opise..."
+            },
+            "deleteConfirm": {
+              "title": "Obrisati skladište?",
+              "message": "Ovo će trajno ukloniti objavljeno skladište. Ova radnja se ne može poništiti."
             }
           }
         }

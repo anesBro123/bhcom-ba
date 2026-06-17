@@ -1,0 +1,67 @@
+import { LucidePencil, LucideTrash } from '@lucide/angular';
+
+import { defineTable } from '../../../../../shared/table';
+
+import { USER_STORAGE_API } from '../data/storage.constants';
+import type { Storage } from '../data/storage.model';
+
+export const StorageTable = defineTable<Storage>()({
+  endpoint: USER_STORAGE_API,
+  summaryKey: 'shared.table.common.showingSummary',
+  entityKey: 'portal.user.features.storage.table.entity',
+  defaultPageSize: 10,
+  defaultSort: { field: 'availableFrom', direction: 'desc' },
+  trackBy: 'id',
+  columns: [
+    {
+      key: 'warehouseLabel',
+      titleKey: 'portal.user.features.storage.table.columns.warehouse',
+      sortable: true,
+      mobile: { primary: true },
+    },
+    {
+      key: 'availableFrom',
+      titleKey: 'portal.user.features.storage.table.columns.availableFrom',
+      sortable: true,
+      format: 'date',
+    },
+    {
+      key: 'availableTo',
+      titleKey: 'portal.user.features.storage.table.columns.availableTo',
+      sortable: true,
+      format: 'date',
+    },
+    {
+      key: 'spaceM2',
+      titleKey: 'portal.user.features.storage.table.columns.spaceM2',
+      sortable: true,
+    },
+    {
+      key: 'description',
+      titleKey: 'portal.user.features.storage.table.columns.description',
+      sortable: false,
+    },
+  ],
+  actions: {
+    width: '3.5rem',
+    items: [
+      { id: 'edit', labelKey: 'portal.user.features.storage.table.actions.edit', icon: LucidePencil },
+      {
+        id: 'delete',
+        labelKey: 'portal.user.features.storage.table.actions.delete',
+        icon: LucideTrash,
+        danger: true,
+      },
+    ],
+  },
+  filters: [
+    {
+      key: 'warehouseLabel',
+      type: 'search',
+      titleKey: 'portal.user.features.storage.table.filters.search',
+      placeholderKey: 'portal.user.features.storage.table.filters.searchPlaceholder',
+      debounceMs: 300,
+      searchFields: ['warehouseLabel', 'description'],
+    },
+  ],
+});

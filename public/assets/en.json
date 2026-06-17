@@ -697,390 +697,283 @@
       "nav": {
         "sections": {
           "dashboard": "DASHBOARD",
-          "shipments": "SHIPMENTS",
-          "fleet": "FLEET MANAGEMENT",
-          "vendorsClients": "VENDORS & CLIENTS",
-          "orders": "ORDERS",
-          "reports": "REPORTS"
+          "routes": "ROUTES",
+          "cargo": "CARGO",
+          "storage": "STORAGE"
         },
         "overview": "Overview",
-        "liveMap": "Live Shipment Map",
-        "fleetStatus": "Fleet Status",
-        "allShipments": "All Shipments",
-        "trackShipment": "Track Shipment",
-        "createShipment": "Create Shipment",
-        "delayedShipments": "Delayed Shipments",
-        "vehicleList": "Vehicle List",
-        "createVehicle": "Create Vehicle",
-        "maintenanceLogs": "Maintenance Logs",
-        "driverAssignments": "Driver Assignments",
-        "vendorDirectory": "Vendor Directory",
-        "addVendor": "Add Vendor",
-        "clientsList": "Clients List",
-        "clientFeedback": "Client Feedback",
-        "allOrders": "All Orders",
-        "scheduledDeliveries": "Scheduled Deliveries",
-        "returns": "Returns",
-        "cancellations": "Cancellations",
-        "deliveryPerformance": "Delivery Performance",
-        "revenueAnalysis": "Revenue Analysis",
-        "fleetEfficiency": "Fleet Efficiency"
+        "allRoutes": "All Routes",
+        "postRoute": "Post Route",
+        "allCargo": "All Cargo",
+        "postCargo": "Post Cargo",
+        "allStorage": "All Storage",
+        "postStorage": "Post Storage"
       },
       "pages": {
-        "dashboardOverview": {
-          "title": "Dashboard Overview",
-          "subtitle": "Welcome back! Here's what's happening with your logistics operations."
+        "dashboard": {
+          "title": "Dashboard",
+          "subtitle": "Overview of your published routes, cargo, and storage space."
         },
-        "liveMap": {
-          "title": "Live Shipment Map",
-          "subtitle": "Track active shipments on a real-time map view."
+        "routes": {
+          "title": "Routes",
+          "subtitle": "Browse and manage routes you have published for colleagues to request cargo space."
         },
-        "fleetStatus": {
-          "title": "Fleet Status",
-          "subtitle": "Monitor vehicle availability, assignments, and operational health."
+        "createRoute": {
+          "title": "Post Route",
+          "subtitle": "Publish a company vehicle and route so others can request cargo transport on your trip."
         },
-        "allShipments": {
-          "title": "All Shipments",
-          "subtitle": "Browse and filter all shipments across your network."
+        "editRoute": {
+          "title": "Edit Route",
+          "subtitle": "Update the vehicle, route, date, or description for this published route."
         },
-        "trackShipment": {
-          "title": "Track Shipment",
-          "subtitle": "Look up a shipment by ID or tracking number for live status."
+        "cargo": {
+          "title": "Cargo",
+          "subtitle": "Browse and manage cargo you have published to find transport."
         },
-        "createShipment": {
-          "title": "Create New Shipment",
-          "subtitle": "Follow the steps below to create and schedule your shipment."
+        "createCargo": {
+          "title": "Post Cargo",
+          "subtitle": "Describe goods that need transport so colleagues can match them to available routes."
         },
-        "delayedShipments": {
-          "title": "Delayed Shipments",
-          "subtitle": "Review shipments that are behind schedule and need attention."
+        "editCargo": {
+          "title": "Edit Cargo",
+          "subtitle": "Update origin, destination, size, weight, or other details for this cargo."
         },
-        "vehicleList": {
-          "title": "Vehicle List",
-          "subtitle": "View and manage vehicles assigned to your fleet."
+        "storage": {
+          "title": "Storage",
+          "subtitle": "Browse and manage warehouse space you have published for rent."
         },
-        "createVehicle": {
-          "title": "Create Vehicle",
-          "subtitle": "Add a new vehicle to your fleet with identification and specs."
+        "createStorage": {
+          "title": "Post Storage",
+          "subtitle": "Offer available space in a company warehouse for a specific date range."
         },
-        "maintenanceLogs": {
-          "title": "Maintenance Logs",
-          "subtitle": "Review service history and upcoming maintenance for fleet vehicles."
-        },
-        "driverAssignments": {
-          "title": "Driver Assignments",
-          "subtitle": "Manage which drivers are assigned to which vehicles and routes."
-        },
-        "vendorDirectory": {
-          "title": "Vendor Directory",
-          "subtitle": "Browse carriers, suppliers, and partner organizations."
-        },
-        "addVendor": {
-          "title": "Add Vendor",
-          "subtitle": "Register a new vendor or logistics partner in the directory."
-        },
-        "clientsList": {
-          "title": "Clients List",
-          "subtitle": "View customer accounts and their shipment activity."
-        },
-        "clientFeedback": {
-          "title": "Client Feedback",
-          "subtitle": "Review ratings and comments from customers on completed deliveries."
-        },
-        "allOrders": {
-          "title": "All Orders",
-          "subtitle": "Browse all orders and their current fulfillment status."
-        },
-        "scheduledDeliveries": {
-          "title": "Scheduled Deliveries",
-          "subtitle": "View upcoming deliveries planned for the selected period."
-        },
-        "returns": {
-          "title": "Returns",
-          "subtitle": "Track return shipments and reverse logistics requests."
-        },
-        "cancellations": {
-          "title": "Cancellations",
-          "subtitle": "Review cancelled orders and shipments with reason codes."
-        },
-        "deliveryPerformance": {
-          "title": "Delivery Performance",
-          "subtitle": "Analyze on-time delivery rates and SLA compliance over time."
-        },
-        "revenueAnalysis": {
-          "title": "Revenue Analysis",
-          "subtitle": "Explore revenue trends, margins, and billing by period."
-        },
-        "fleetEfficiency": {
-          "title": "Fleet Efficiency",
-          "subtitle": "Measure utilization, empty miles, and cost per kilometer."
+        "editStorage": {
+          "title": "Edit Storage",
+          "subtitle": "Update warehouse, availability dates, space size, or description for this storage."
         }
       },
       "features": {
-        "shipments": {
+        "dashboard": {
+          "metrics": {
+            "ariaLabel": "Marketplace listing counts",
+            "routes": {
+              "title": "Routes",
+              "subtitle": "Published routes"
+            },
+            "cargo": {
+              "title": "Cargo",
+              "subtitle": "Published cargo"
+            },
+            "storage": {
+              "title": "Storage",
+              "subtitle": "Published storage"
+            }
+          },
+          "quickActions": {
+            "title": "Quick Actions"
+          },
+          "actions": {
+            "allRoutes": {
+              "description": "View all routes you have published with company vehicles."
+            },
+            "postRoute": {
+              "description": "Publish a new route and vehicle for others to request cargo space."
+            },
+            "allCargo": {
+              "description": "View all cargo you have published."
+            },
+            "postCargo": {
+              "description": "Publish cargo that needs transport on a specific route and date."
+            },
+            "allStorage": {
+              "description": "View all warehouse space you have published."
+            },
+            "postStorage": {
+              "description": "Publish available warehouse space for a date range."
+            }
+          }
+        },
+        "routes": {
           "form": {
             "steps": {
-              "type": "Shipment Type",
-              "addresses": "Addresses",
-              "packages": "Package Details",
-              "services": "Services",
-              "review": "Review"
+              "main": "Route Details"
             },
             "sections": {
-              "type": {
-                "title": "Shipment Type & Priority",
-                "subtitle": "Select the type of shipment and delivery priority"
+              "route": {
+                "title": "Route & Vehicle",
+                "subtitle": "Select a company vehicle and define the transport route"
               },
-              "origin": {
-                "title": "Origin Address",
-                "subtitle": "Enter the pickup location details"
-              },
-              "destination": {
-                "title": "Destination Address",
-                "subtitle": "Enter the delivery location details"
-              },
-              "packages": {
-                "title": "Package Details",
-                "subtitle": "Add items to your shipment"
-              },
-              "services": {
-                "title": "Special Services & Options",
-                "subtitle": "Configure additional services for your shipment"
-              },
-              "review": {
-                "title": "Review & Cost Estimate",
-                "subtitle": "Review your shipment details and get a cost estimate"
+              "details": {
+                "title": "Additional Details",
+                "subtitle": "Add a transport date and optional notes for colleagues"
               }
             },
             "fields": {
-              "shipmentType": "Shipment Type",
-              "deliveryPriority": "Delivery Priority",
-              "pickupDate": "Pickup Date",
-              "deliveryDate": "Preferred Delivery Date",
-              "companyName": "Company Name",
-              "contactName": "Contact Name",
-              "addressLine1": "Address Line 1",
-              "addressLine2": "Address Line 2 (Optional)",
-              "city": "City",
-              "state": "State/Province",
-              "zip": "ZIP/Postal Code",
-              "phone": "Phone Number",
-              "email": "Email Address",
-              "preferredCarrier": "Preferred Carrier",
-              "serviceLevel": "Service Level",
-              "specialInstructions": "Special Instructions"
+              "vehicleId": "Company Vehicle",
+              "origin": "Origin",
+              "destination": "Destination",
+              "transportDate": "Transport Date",
+              "description": "Description"
             },
             "placeholders": {
-              "pickupDate": "Select pickup date",
-              "deliveryDate": "Select delivery date",
-              "companyName": "Enter company name",
-              "contactName": "Enter contact name",
-              "addressLine1": "Enter street address",
-              "addressLine2": "Enter apartment, suite, etc.",
-              "city": "Enter city",
-              "state": "Select state",
-              "zip": "Enter ZIP code",
-              "phone": "Enter phone number",
-              "email": "Enter email address",
-              "selectCarrier": "Select carrier",
-              "selectService": "Select service",
-              "specialInstructions": "Enter any special handling instructions, delivery notes, or requirements..."
-            },
-            "shipmentTypes": {
-              "standardPackage": "Standard Package",
-              "documentEnvelope": "Document Envelope",
-              "freightPallet": "Freight/Pallet",
-              "bulkCargo": "Bulk Cargo"
-            },
-            "priority": {
-              "standard": {
-                "title": "Standard",
-                "description": "5-7 business days",
-                "price": "$15.99"
-              },
-              "express": {
-                "title": "Express",
-                "description": "2-3 business days",
-                "price": "$29.99"
-              },
-              "overnight": {
-                "title": "Overnight",
-                "description": "Next business day",
-                "price": "$49.99"
-              }
-            },
-            "packages": {
-              "itemLabel": "Item {{index}}",
-              "description": "Description",
-              "descriptionPlaceholder": "Enter item description",
-              "category": "Category",
-              "quantity": "Quantity",
-              "weight": "Weight (lbs)",
-              "value": "Value ($)",
-              "hazardous": "Hazardous",
-              "dimensions": "Dimensions (inches)",
-              "length": "Length",
-              "width": "Width",
-              "height": "Height",
-              "addItem": "Add Another Item",
-              "totalItems": "Total Items",
-              "totalWeight": "Total Weight",
-              "totalValue": "Total Value",
-              "weightValue": "{{weight}} lbs",
-              "currencyValue": "${{value}}"
-            },
-            "categories": {
-              "general": "General Merchandise",
-              "electronics": "Electronics",
-              "clothing": "Clothing",
-              "food": "Food & Beverage",
-              "documents": "Documents"
-            },
-            "carriers": {
-              "fedex": "FedEx",
-              "ups": "UPS",
-              "dhl": "DHL",
-              "usps": "USPS"
-            },
-            "serviceLevels": {
-              "ground": "Ground",
-              "express": "Express",
-              "overnight": "Overnight"
-            },
-            "services": {
-              "insuranceCoverage": "Insurance Coverage",
-              "insuranceCoverageDesc": "Protect your shipment against loss or damage",
-              "signatureRequired": "Signature Required",
-              "signatureRequiredDesc": "Require recipient signature upon delivery",
-              "fragileHandling": "Fragile Handling",
-              "fragileHandlingDesc": "Extra care for delicate items",
-              "temperatureControl": "Temperature Control",
-              "temperatureControlDesc": "Climate-controlled transport",
-              "infoBanner": "Additional services may affect shipping cost and delivery time. Review the cost estimate in the next step."
-            },
-            "review": {
-              "summary": "Shipment Summary",
-              "type": "Type",
-              "priority": "Priority",
-              "totalItems": "Total Items",
-              "totalWeight": "Total Weight",
-              "totalValue": "Total Value",
-              "route": "Route",
-              "from": "From",
-              "to": "To",
-              "services": "Special Services",
-              "noServices": "No special services selected.",
-              "costBreakdown": "Cost Breakdown",
-              "baseShipping": "Base Shipping",
-              "weightCharge": "Weight Charge",
-              "servicesCharge": "Services",
-              "totalCost": "Total Estimated Cost",
-              "recalculate": "Recalculate Estimate",
-              "estimateNote": "This is an estimate. Final cost may vary based on actual dimensions and carrier rates."
+              "vehicleId": "Select a company vehicle",
+              "origin": "Enter starting point",
+              "destination": "Enter destination",
+              "transportDate": "Select transport date",
+              "description": "Optional notes about available cargo space..."
             },
             "actions": {
-              "create": "Create Shipment"
+              "create": "Publish Route",
+              "update": "Save Changes"
             }
           },
           "table": {
-            "title": "Shipment List",
-            "subtitle": "Track status, routes, and priorities for all active and completed shipments.",
-            "entity": "shipments",
+            "entity": "routes",
             "columns": {
-              "id": "ID",
-              "customer": "Customer",
-              "origin": "Origin",
+              "route": "Route",
               "destination": "Destination",
-              "departure": "Departure",
-              "eta": "ETA",
-              "status": "Status",
-              "type": "Type",
-              "priority": "Priority"
-            },
-            "status": {
-              "in_transit": "In Transit",
-              "pending": "Pending",
-              "delivered": "Delivered"
-            },
-            "type": {
-              "road": "Road",
-              "air": "Air",
-              "sea": "Sea"
-            },
-            "priority": {
-              "standard": "Standard",
-              "express": "Express",
-              "economy": "Economy"
+              "vehicle": "Vehicle",
+              "transportDate": "Transport Date",
+              "description": "Description"
             },
             "actions": {
-              "view": "View Details",
-              "edit": "Edit Shipment",
-              "duplicate": "Duplicate",
+              "edit": "Edit",
               "delete": "Delete"
             },
             "filters": {
               "search": "Search",
-              "searchPlaceholder": "Search shipments...",
-              "status": "Status",
-              "allStatuses": "All statuses",
-              "type": "Type",
-              "allTypes": "All types",
-              "priority": "Priority",
-              "allPriorities": "All priorities"
+              "searchPlaceholder": "Search routes, vehicles, descriptions..."
+            },
+            "deleteConfirm": {
+              "title": "Delete route?",
+              "message": "This will permanently remove the published route. This action cannot be undone."
             }
           }
         },
-        "fleet": {
-          "vehicles": {
-            "form": {
-              "title": "Create Vehicle",
-              "subtitle": "Add a new vehicle to your fleet with identification and specifications.",
-              "steps": {
-                "main": "Vehicle Details"
+        "cargo": {
+          "form": {
+            "steps": {
+              "main": "Cargo Details"
+            },
+            "sections": {
+              "route": {
+                "title": "Transport Route",
+                "subtitle": "Where the cargo needs to go and by when"
               },
-              "sections": {
-                "identity": {
-                  "title": "Vehicle Information",
-                  "subtitle": "Enter basic identification details for the vehicle"
-                },
-                "specs": {
-                  "title": "Specifications",
-                  "subtitle": "Configure type, capacity, and operational status"
-                }
-              },
-              "fields": {
-                "plateNumber": "License Plate",
-                "make": "Make",
-                "model": "Model",
-                "year": "Year",
-                "vehicleType": "Vehicle Type",
-                "capacityKg": "Capacity (kg)",
-                "status": "Status",
-                "notes": "Notes"
-              },
-              "placeholders": {
-                "plateNumber": "Enter license plate number",
-                "make": "Enter manufacturer",
-                "model": "Enter model name",
-                "year": "e.g. 2024",
-                "vehicleType": "Select vehicle type",
-                "capacityKg": "Enter max load capacity",
-                "status": "Select status",
-                "notes": "Optional notes about the vehicle..."
-              },
-              "vehicleTypes": {
-                "van": "Van",
-                "truck": "Truck",
-                "trailer": "Trailer"
-              },
-              "statuses": {
-                "active": "Active",
-                "maintenance": "In Maintenance",
-                "retired": "Retired"
-              },
-              "actions": {
-                "create": "Create Vehicle"
+              "cargo": {
+                "title": "Cargo Information",
+                "subtitle": "Size, weight, type, and handling notes"
               }
+            },
+            "fields": {
+              "origin": "Origin",
+              "destination": "Destination",
+              "neededByDate": "Needed By Date",
+              "size": "Size",
+              "weightKg": "Weight (kg)",
+              "cargoType": "Cargo Type",
+              "description": "Description"
+            },
+            "placeholders": {
+              "origin": "Enter pickup location",
+              "destination": "Enter delivery location",
+              "neededByDate": "Select needed-by date",
+              "size": "e.g. 4 pallets, 12 m³",
+              "weightKg": "Enter total weight in kg",
+              "cargoType": "Select cargo type",
+              "description": "Optional handling instructions or notes..."
+            },
+            "cargoTypes": {
+              "pallet": "Pallet",
+              "bulk": "Bulk",
+              "refrigerated": "Refrigerated",
+              "oversized": "Oversized",
+              "other": "Other"
+            },
+            "actions": {
+              "create": "Publish Cargo",
+              "update": "Save Changes"
+            }
+          },
+          "table": {
+            "entity": "cargo",
+            "columns": {
+              "route": "Route",
+              "destination": "Destination",
+              "cargoType": "Type",
+              "size": "Size",
+              "weightKg": "Weight (kg)",
+              "neededByDate": "Needed By"
+            },
+            "actions": {
+              "edit": "Edit",
+              "delete": "Delete"
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search routes, sizes, descriptions...",
+              "cargoType": "Cargo Type",
+              "allTypes": "All types"
+            },
+            "deleteConfirm": {
+              "title": "Delete cargo?",
+              "message": "This will permanently remove the published cargo. This action cannot be undone."
+            }
+          }
+        },
+        "storage": {
+          "form": {
+            "steps": {
+              "main": "Storage Details"
+            },
+            "sections": {
+              "warehouse": {
+                "title": "Warehouse",
+                "subtitle": "Select a company warehouse to offer space in"
+              },
+              "availability": {
+                "title": "Availability & Space",
+                "subtitle": "Define the date range and available floor area"
+              }
+            },
+            "fields": {
+              "warehouseId": "Company Warehouse",
+              "availableFrom": "Available From",
+              "availableTo": "Available To",
+              "spaceM2": "Available Space (m²)",
+              "description": "Description"
+            },
+            "placeholders": {
+              "warehouseId": "Select a company warehouse",
+              "availableFrom": "Select start date",
+              "availableTo": "Select end date",
+              "spaceM2": "Enter available area in square meters",
+              "description": "Optional notes about the space (access, conditions)..."
+            },
+            "actions": {
+              "create": "Publish Storage",
+              "update": "Save Changes"
+            }
+          },
+          "table": {
+            "entity": "storage",
+            "columns": {
+              "warehouse": "Warehouse",
+              "availableFrom": "Available From",
+              "availableTo": "Available To",
+              "spaceM2": "Space (m²)",
+              "description": "Description"
+            },
+            "actions": {
+              "edit": "Edit",
+              "delete": "Delete"
+            },
+            "filters": {
+              "search": "Search",
+              "searchPlaceholder": "Search warehouses, descriptions..."
+            },
+            "deleteConfirm": {
+              "title": "Delete storage?",
+              "message": "This will permanently remove the published storage. This action cannot be undone."
             }
           }
         }
