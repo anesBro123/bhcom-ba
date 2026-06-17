@@ -9,12 +9,15 @@
 }
 
 .vehicle-display__name {
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: var(--table-cell-primary-size);
+  font-weight: var(--table-cell-primary-weight);
+  line-height: var(--table-cell-line-height);
+  color: var(--table-cell-primary-color);
 }
 
 .vehicle-display__plate {
-  font-size: 0.8125rem;
-  font-weight: 400;
-  color: var(--text-muted);
+  font-size: var(--table-cell-secondary-size);
+  font-weight: var(--table-cell-secondary-weight);
+  line-height: 1.4;
+  color: var(--table-cell-secondary-color);
 }

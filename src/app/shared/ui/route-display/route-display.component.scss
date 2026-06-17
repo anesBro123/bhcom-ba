@@ -1,5 +1,5 @@
 :host {
-  display: inline;
+  display: inline-block;
 }
 
 .route-display {
@@ -7,9 +7,19 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.375rem;
+  line-height: var(--table-cell-line-height);
+}
+
+.route-display__origin,
+.route-display__destination {
+  font-size: var(--table-cell-primary-size);
+  font-weight: var(--table-cell-primary-weight);
+  color: var(--table-cell-primary-color);
 }
 
 .route-display__arrow {
-  color: var(--text-muted);
+  font-size: var(--table-cell-primary-size);
+  font-weight: var(--table-cell-secondary-weight);
+  color: var(--table-cell-secondary-color);
   flex-shrink: 0;
 }
