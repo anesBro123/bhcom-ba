@@ -10,23 +10,24 @@ import {
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { RouteEndpointsComponent } from '../../../../../shared/ui/route-endpoints/route-endpoints.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
-  tableCellKey,
   type RowActionEvent,
   type TableLoader,
 } from '../../../../../shared/table';
 
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
-import { RouteTable } from './route.table';
+import { RouteTable, routeCellKey } from './route.table';
 
 @Component({
   selector: 'app-route-table-page',
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
+    RouteEndpointsComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -44,14 +45,10 @@ export class RouteTablePageComponent {
   protected readonly pageSubtitleKey = 'portal.user.pages.routes.subtitle';
   protected readonly createUrl = USER_CREATE_ROUTE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postRoute';
-  protected readonly routeKey = tableCellKey(RouteTable, 'origin');
+  protected readonly routeKey = routeCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.list(query);
-
-  protected routeLabel(row: Route): string {
-    return `${row.origin} → ${row.destination}`;
-  }
 
   protected onRowAction(event: RowActionEvent<Route>): void {
     switch (event.actionId) {

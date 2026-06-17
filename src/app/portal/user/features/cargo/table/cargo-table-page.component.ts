@@ -8,6 +8,7 @@ import { USER_CREATE_CARGO_URL, userEditCargoUrl } from '../../../../../shared/c
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { RouteEndpointsComponent } from '../../../../../shared/ui/route-endpoints/route-endpoints.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -25,6 +26,7 @@ import { CargoTable, cargoRouteCellKey, cargoTypeCellKey } from './cargo.table';
     DataTableComponent,
     TableCellTemplateDirective,
     TranslatePipe,
+    RouteEndpointsComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -47,10 +49,6 @@ export class CargoTablePageComponent {
   protected readonly tableMounted = signal(true);
 
   protected readonly loadCargo: TableLoader<Cargo> = (query) => this.cargoService.list(query);
-
-  protected routeLabel(row: Cargo): string {
-    return `${row.origin} → ${row.destination}`;
-  }
 
   protected cargoTypeLabel(type: string): string {
     return `portal.user.features.cargo.form.cargoTypes.${type}`;

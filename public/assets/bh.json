@@ -72,6 +72,9 @@
         "cancel": "Odustani",
         "confirm": "Potvrdi"
       }
+    },
+    "route": {
+      "fromTo": "Od {{origin}} do {{destination}}"
     }
   },
   "guest": {
@@ -832,7 +835,6 @@
             "entity": "rute",
             "columns": {
               "route": "Ruta",
-              "destination": "Odredište",
               "vehicle": "Vozilo",
               "transportStartDate": "Početni datum",
               "transportEndDate": "Završni datum",
@@ -901,7 +903,6 @@
             "entity": "tereta",
             "columns": {
               "route": "Ruta",
-              "destination": "Odredište",
               "cargoType": "Tip",
               "size": "Veličina",
               "weightKg": "Težina (kg)",

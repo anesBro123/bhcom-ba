@@ -1,0 +1,15 @@
+:host {
+  display: inline;
+}
+
+.route-endpoints {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.route-endpoints__arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}

@@ -72,6 +72,9 @@
         "cancel": "Cancel",
         "confirm": "Confirm"
       }
+    },
+    "route": {
+      "fromTo": "From {{origin}} to {{destination}}"
     }
   },
   "guest": {
@@ -832,7 +835,6 @@
             "entity": "routes",
             "columns": {
               "route": "Route",
-              "destination": "Destination",
               "vehicle": "Vehicle",
               "transportStartDate": "Start Date",
               "transportEndDate": "End Date",
@@ -901,7 +903,6 @@
             "entity": "cargo",
             "columns": {
               "route": "Route",
-              "destination": "Destination",
               "cargoType": "Type",
               "size": "Size",
               "weightKg": "Weight (kg)",

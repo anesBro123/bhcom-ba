@@ -18,12 +18,8 @@ export const CargoTable = defineTable<Cargo>()({
       titleKey: 'portal.user.features.cargo.table.columns.route',
       sortable: true,
       cell: 'custom',
+      width: '18rem',
       mobile: { primary: true },
-    },
-    {
-      key: 'destination',
-      titleKey: 'portal.user.features.cargo.table.columns.destination',
-      sortable: true,
     },
     {
       key: 'cargoType',

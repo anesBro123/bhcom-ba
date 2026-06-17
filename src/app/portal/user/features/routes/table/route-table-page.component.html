@@ -10,7 +10,7 @@
     (rowAction)="onRowAction($event)"
   >
     <ng-template [appTableCell]="routeKey" let-row>
-      {{ routeLabel(row) }}
+      <app-route-endpoints [origin]="row.origin" [destination]="row.destination" />
     </ng-template>
   </app-data-table>
 }
