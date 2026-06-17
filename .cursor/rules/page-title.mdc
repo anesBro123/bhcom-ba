@@ -1,6 +1,6 @@
 ---
 description: Portal page title — PageTitleComponent
-globs: src/app/portal/**/features/**,src/app/portal/pages/**,src/app/shared/ui/page-title/**
+globs: src/app/portal/**/features/**,src/app/portal/pages/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**
 alwaysApply: false
 ---
 
@@ -33,23 +33,60 @@ Static key (no binding): `<app-page-title titleKey="portal.admin.pages.dashboard
 
 | Page type | `titleKey` source | Example |
 |-----------|-------------------|---------|
-| Table list | `*.table.ts` → `table.titleKey` | `<app-page-title [titleKey]="table.titleKey" />` |
+| Table list (with create route) | `*.table.ts` → `table.titleKey` + `PageHeaderComponent` + `PrimaryActionLinkComponent` | See **Title-row create CTA** below |
+| Table list (read-only) | `*.table.ts` → `table.titleKey` | `<app-page-title [titleKey]="table.titleKey" />` only |
 | Form create/edit | `pageTitleKey` computed or `formDef.titleKey` | `<app-page-title [titleKey]="pageTitleKey()" />` |
 | Dashboard / custom | `portal.<portal>.pages.*` | `<app-page-title titleKey="portal.admin.pages.dashboard" />` |
 | Placeholder | route `data.titleKey` | `<app-page-title [titleKey]="titleKey" />` |
 
-Table pages with `tableMounted` remount: place `<app-page-title>` **outside** the `@if` so the title stays visible during refresh.
+Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
+
+## Title-row create CTA (table list pages with create flow)
+
+**Required** when the feature has a list route and a create route (admin CRUD, user list + create, etc.). Compose `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent` — **do not** put the CTA inside `PageTitleComponent` or `DataTableComponent`.
+
+```html
+<app-page-header>
+  <app-page-title [titleKey]="table.titleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
+
+@if (tableMounted()) {
+  <app-data-table … />
+}
+```
+
+**Page component (parent owns route + label):**
+
+```typescript
+import { PageHeaderComponent } from '…/shared/ui/page-header/page-header.component';
+import { PageTitleComponent } from '…/shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
+import { ADMIN_CREATE_VEHICLE_URL } from '…/shared/constants/app-urls';
+
+protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
+protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
+
+imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, DataTableComponent, …],
+```
+
+- `createUrl` — create URL constant from `app-urls.ts` (never hardcode paths).
+- `createLabelKey` — reuse matching `portal.<portal>.nav.create*` key when it exists.
+- Place `app-page-header` **outside** `tableMounted` `@if` so title + CTA stay visible during table remount.
+- Custom right-side actions: project into `app-page-header` with `pageHeaderActions` attribute instead of `app-primary-action-link`.
+- **Read-only** table pages (no create route): standalone `<app-page-title>` only — no `PageHeader`.
 
 ## Do not
 
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
+- Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Confuse with **form section** titles (`FormSectionComponent` / `form-section-card__title`) or **stepper step** labels — those stay in the form framework.
 
 ## Reference implementations
 
-- Table: `portal/admin/features/users/table/user-table-page.component.*`
+- Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
 - Form (create/edit): `portal/admin/features/users/form/user-form-page.component.*`
 - Dashboard: `portal/admin/features/dashboard/admin-dashboard-page.component.*`
 - Placeholder: `portal/pages/page-placeholder/page-placeholder.component.*`

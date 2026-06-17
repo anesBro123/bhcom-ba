@@ -4,8 +4,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
 import {ConfirmService } from '../../../../../shared/confirm';
-import { adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
+import { ADMIN_CREATE_VEHICLE_URL, adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
+import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 
 import {
   DataTableComponent,
@@ -21,7 +23,14 @@ import { VehicleTable } from './vehicle.table';
 
 @Component({
   selector: 'app-vehicle-table-page',
-  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe, PageTitleComponent],
+  imports: [
+    DataTableComponent,
+    TableCellTemplateDirective,
+    TranslatePipe,
+    PageHeaderComponent,
+    PageTitleComponent,
+    PrimaryActionLinkComponent,
+  ],
   templateUrl: './vehicle-table-page.component.html',
   styleUrl: './vehicle-table-page.component.scss',
 })
@@ -31,6 +40,8 @@ export class VehicleTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = VehicleTable;
+  protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
+  protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
   protected readonly vrstaVozilaKey = tableCellKey(VehicleTable, 'vrstaVozila');
   protected readonly tableMounted = signal(true);
 

@@ -1,0 +1,6 @@
+<a class="primary-action-link" [routerLink]="route()">
+  <span class="primary-action-link__icon">
+    <ng-container *ngComponentOutlet="icon(); inputs: iconInputs" />
+  </span>
+  {{ labelKey() | translate }}
+</a>

@@ -4,8 +4,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { adminEditWarehouseUrl } from '../../../../../shared/constants/app-urls';
+import { ADMIN_CREATE_WAREHOUSE_URL, adminEditWarehouseUrl } from '../../../../../shared/constants/app-urls';
+import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 
 import {
   DataTableComponent,
@@ -21,7 +23,14 @@ import { WarehouseTable } from './warehouse.table';
 
 @Component({
   selector: 'app-warehouse-table-page',
-  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe, PageTitleComponent],
+  imports: [
+    DataTableComponent,
+    TableCellTemplateDirective,
+    TranslatePipe,
+    PageHeaderComponent,
+    PageTitleComponent,
+    PrimaryActionLinkComponent,
+  ],
   templateUrl: './warehouse-table-page.component.html',
   styleUrl: './warehouse-table-page.component.scss',
 })
@@ -31,6 +40,8 @@ export class WarehouseTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = WarehouseTable;
+  protected readonly createUrl = ADMIN_CREATE_WAREHOUSE_URL;
+  protected readonly createLabelKey = 'portal.admin.nav.createWarehouse';
   protected readonly typeKey = tableCellKey(WarehouseTable, 'type');
   protected readonly tableMounted = signal(true);
 

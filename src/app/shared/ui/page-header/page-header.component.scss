@@ -1,0 +1,45 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-header__title {
+  flex: 1;
+  min-width: 0;
+
+  ::ng-deep .page-title {
+    margin-bottom: 0;
+  }
+}
+
+.page-header__actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+@include below-md {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header__actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    ::ng-deep .primary-action-link {
+      width: 100%;
+    }
+  }
+}

@@ -78,7 +78,31 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 ## Table page (`table/<entity>-table-page.component.ts`)
 
 - `protected readonly table = EntityTable`; `TableLoader` → `service.list(query)`.
-- **Page title** in template: `<app-page-title [titleKey]="table.titleKey" />` above `<app-data-table>` (outside remount `@if` when used).
+- **Page title row + create CTA (required when feature has create route):** `app-page-header` with projected `app-page-title` + `app-primary-action-link` above `<app-data-table>` (outside remount `@if`). See `page-title.mdc`.
+
+```html
+<app-page-header>
+  <app-page-title [titleKey]="table.titleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
+
+@if (tableMounted()) {
+  <app-data-table [definition]="table" [loader]="loadEntities" (rowAction)="onRowAction($event)" />
+}
+```
+
+```typescript
+import { PageHeaderComponent } from '…/shared/ui/page-header/page-header.component';
+import { PageTitleComponent } from '…/shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
+import { ADMIN_CREATE_ENTITY_URL } from '…/shared/constants/app-urls';
+
+protected readonly createUrl = ADMIN_CREATE_ENTITY_URL;
+protected readonly createLabelKey = 'portal.admin.nav.createEntity';
+
+imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, DataTableComponent, …],
+```
+
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
@@ -114,6 +138,7 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 - Use `window.confirm` or per-page dialog markup — use `ConfirmService`.
 - Add `*.spec.ts` files.
 - Rebuild table/form chrome outside `DataTableComponent` / `FormPageComponent`.
+- Put create CTAs inside `DataTableComponent` or `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — page templates use `PageTitleComponent` (`page-title.mdc`).
 
 ## Related rules

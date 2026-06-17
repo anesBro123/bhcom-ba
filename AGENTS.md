@@ -91,10 +91,11 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
 - **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` input; place at top of every portal page template above table/form/dashboard content; import by direct path into page `imports`; see `page-title.mdc`. Not for guest pages. `DataTableComponent` / `FormPageComponent` do not render page titles.
+- **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
 
 ## Cursor rules
 
@@ -107,11 +108,11 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` |
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
-| `tables.mdc` | `shared/table/**`, `*.table.ts` |
+| `tables.mdc` | `shared/table/**`, `*.table.ts`, `*-table-page.component.*` — table defs + list pages (incl. create CTA) |
 | `confirm.mdc` | `shared/confirm/**`, destructive-action flows |
 | `portal-feature.mdc` | `portal/**/features/**` — CRUD layout (vehicles reference) |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
-| `page-title.mdc` | Portal page templates + `shared/ui/page-title/` — `PageTitleComponent` usage |
+| `page-title.mdc` | Portal page templates + `shared/ui/page-title/` — title + table create CTA pattern |
 
 ## Responsive conventions
 

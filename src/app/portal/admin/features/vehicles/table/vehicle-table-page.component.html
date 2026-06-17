@@ -1,4 +1,7 @@
-<app-page-title [titleKey]="table.titleKey" />
+<app-page-header>
+  <app-page-title [titleKey]="table.titleKey" />
+  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+</app-page-header>
 
 @if (tableMounted()) {
   <app-data-table [definition]="table" [loader]="loadVehicles" (rowAction)="onRowAction($event)">

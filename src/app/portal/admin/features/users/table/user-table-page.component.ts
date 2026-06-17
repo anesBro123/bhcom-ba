@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { adminEditUserUrl } from '../../../../../shared/constants/app-urls';
+import { ADMIN_CREATE_USER_URL, adminEditUserUrl } from '../../../../../shared/constants/app-urls';
+import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 
 import {
   DataTableComponent,
@@ -18,7 +20,12 @@ import { UserTable } from './user.table';
 
 @Component({
   selector: 'app-user-table-page',
-  imports: [DataTableComponent, PageTitleComponent],
+  imports: [
+    DataTableComponent,
+    PageHeaderComponent,
+    PageTitleComponent,
+    PrimaryActionLinkComponent,
+  ],
   templateUrl: './user-table-page.component.html',
   styleUrl: './user-table-page.component.scss',
 })
@@ -28,6 +35,8 @@ export class UserTablePageComponent {
   private readonly router = inject(Router);
 
   protected readonly table = UserTable;
+  protected readonly createUrl = ADMIN_CREATE_USER_URL;
+  protected readonly createLabelKey = 'portal.admin.nav.createUser';
   protected readonly tableMounted = signal(true);
 
   protected readonly loadUsers: TableLoader<User> = (query) =>

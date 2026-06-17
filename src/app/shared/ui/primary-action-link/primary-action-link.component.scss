@@ -1,0 +1,27 @@
+.primary-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.625rem;
+  min-width: 5.5rem;
+  padding: 0 1.125rem;
+  border: 1px solid var(--bg-form-btn-primary);
+  border-radius: 0.5rem;
+  background: var(--bg-form-btn-primary);
+  color: var(--text-form-btn-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.92;
+  }
+}
+
+.primary-action-link__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
