@@ -1,5 +1,6 @@
 import { LucideMapPin, LucidePackage, LucidePlus, LucideSave } from '@lucide/angular';
 
+import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
 import { defineForm } from '../../../../../shared/form';
 
 import { CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
@@ -21,17 +22,19 @@ export const CargoForm = defineForm<CargoFormModel>()({
           fields: [
             {
               key: 'origin',
-              type: 'text',
+              type: 'autocomplete',
               labelKey: 'portal.user.features.cargo.form.fields.origin',
               placeholderKey: 'portal.user.features.cargo.form.placeholders.origin',
               colSpan: 2,
+              options: BIH_CITY_OPTIONS,
             },
             {
               key: 'destination',
-              type: 'text',
+              type: 'autocomplete',
               labelKey: 'portal.user.features.cargo.form.fields.destination',
               placeholderKey: 'portal.user.features.cargo.form.placeholders.destination',
               colSpan: 2,
+              options: BIH_CITY_OPTIONS,
             },
             {
               key: 'neededByDate',

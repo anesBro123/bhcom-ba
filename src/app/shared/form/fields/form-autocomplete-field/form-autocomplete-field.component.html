@@ -1,0 +1,51 @@
+<div class="form-field">
+  @if (field().labelKey) {
+    <label class="form-label" [attr.for]="field().key">{{ field().labelKey! | translate }}</label>
+  }
+
+  <div class="form-autocomplete">
+    <input
+      class="form-control"
+      [id]="field().key"
+      type="text"
+      role="combobox"
+      [attr.aria-expanded]="panelOpen()"
+      [attr.aria-controls]="field().key + '-listbox'"
+      [attr.aria-autocomplete]="'list'"
+      [formControl]="$any(control())"
+      [attr.autocomplete]="field().autocomplete ?? 'off'"
+      [placeholder]="field().placeholderKey ? (field().placeholderKey! | translate) : ''"
+      (focus)="onFocus()"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      (keydown)="onKeydown($event)"
+    />
+
+    @if (panelOpen() && suggestions().length > 0) {
+      <ul
+        class="form-autocomplete__panel"
+        [id]="field().key + '-listbox'"
+        role="listbox"
+      >
+        @for (option of suggestions(); track option.value; let index = $index) {
+          <li
+            class="form-autocomplete__option"
+            role="option"
+            [class.form-autocomplete__option--active]="activeIndex() === index"
+            [attr.aria-selected]="activeIndex() === index"
+            (mousedown)="$event.preventDefault()"
+            (click)="selectOption(option)"
+          >
+            {{ optionLabel(option) }}
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  @if (field().descriptionKey) {
+    <p class="form-field__hint">{{ field().descriptionKey! | translate }}</p>
+  }
+
+  <app-form-field-error [control]="control()" [errorKeys]="field().errorKeys" />
+</div>

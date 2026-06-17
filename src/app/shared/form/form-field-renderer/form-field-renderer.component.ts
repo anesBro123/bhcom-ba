@@ -3,6 +3,7 @@ import { Component, input, TemplateRef } from '@angular/core';
 import { FormGroup, type AbstractControl } from '@angular/forms';
 
 import { FormCheckboxFieldComponent } from '../fields/form-checkbox-field/form-checkbox-field.component';
+import { FormAutocompleteFieldComponent } from '../fields/form-autocomplete-field/form-autocomplete-field.component';
 import { FormRadioFieldComponent } from '../fields/form-radio-field/form-radio-field.component';
 import { FormSelectFieldComponent } from '../fields/form-select-field/form-select-field.component';
 import { FormTextFieldComponent } from '../fields/form-text-field/form-text-field.component';
@@ -16,6 +17,7 @@ import type { FieldDef, FormFieldContext } from '../form.types';
   imports: [
     NgTemplateOutlet,
     FormTextFieldComponent,
+    FormAutocompleteFieldComponent,
     FormSelectFieldComponent,
     FormTextareaFieldComponent,
     FormRadioFieldComponent,

@@ -7,6 +7,9 @@
         @case ('select') {
           <app-form-select-field [control]="ctrl" [field]="field()" />
         }
+        @case ('autocomplete') {
+          <app-form-autocomplete-field [control]="ctrl" [field]="field()" />
+        }
         @case ('textarea') {
           <app-form-textarea-field [control]="ctrl" [field]="field()" />
         }

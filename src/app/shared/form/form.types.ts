@@ -15,6 +15,7 @@ export type FieldType =
   | 'date'
   | 'password'
   | 'select'
+  | 'autocomplete'
   | 'textarea'
   | 'radio'
   | 'toggle'

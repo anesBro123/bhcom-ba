@@ -99,7 +99,8 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
     }
 
     this.formStore.stepIndex();
-    const step = this.formStore.currentStep();
+    this.definition();
+    const step = this.definition().steps[this.formStore.stepIndex()];
     if (step.kind !== 'fields') {
       return false;
     }
@@ -174,7 +175,7 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   }
 
   protected currentStep() {
-    return this.formStore.currentStep();
+    return this.definition().steps[this.formStore.stepIndex()];
   }
 
   protected onPrevious(): void {

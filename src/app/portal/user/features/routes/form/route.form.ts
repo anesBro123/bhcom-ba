@@ -1,5 +1,6 @@
 import { LucideMap, LucidePlus, LucideSave, LucideTruck } from '@lucide/angular';
 
+import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
 import { defineForm } from '../../../../../shared/form';
 import type { SelectOption } from '../../../../../shared/form/form.types';
 
@@ -29,17 +30,19 @@ export const RouteForm = defineForm<RouteFormModel>()({
             },
             {
               key: 'origin',
-              type: 'text',
+              type: 'autocomplete',
               labelKey: 'portal.user.features.routes.form.fields.origin',
               placeholderKey: 'portal.user.features.routes.form.placeholders.origin',
               colSpan: 2,
+              options: BIH_CITY_OPTIONS,
             },
             {
               key: 'destination',
-              type: 'text',
+              type: 'autocomplete',
               labelKey: 'portal.user.features.routes.form.fields.destination',
               placeholderKey: 'portal.user.features.routes.form.placeholders.destination',
               colSpan: 2,
+              options: BIH_CITY_OPTIONS,
             },
             {
               key: 'transportDate',
