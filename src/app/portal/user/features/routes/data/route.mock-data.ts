@@ -11,6 +11,7 @@ export const ROUTE_MOCK_DATA: Route[] = [
     transportStartDate: '2026-06-20',
     transportEndDate: '2026-06-20',
     description: 'Return trip with available cargo space.',
+    status: 'open',
     publishedAt: '2026-06-10T08:00:00.000Z',
   },
   {
@@ -23,6 +24,7 @@ export const ROUTE_MOCK_DATA: Route[] = [
     transportStartDate: '2026-06-20',
     transportEndDate: '2026-06-22',
     description: 'Morning departure, pallet space available.',
+    status: 'in_progress',
     publishedAt: '2026-06-11T10:30:00.000Z',
   },
 ];

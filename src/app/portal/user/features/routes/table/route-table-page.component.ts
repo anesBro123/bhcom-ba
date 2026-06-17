@@ -11,6 +11,7 @@ import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-h
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
+import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
 import {
   DataTableComponent,
@@ -22,7 +23,7 @@ import {
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { RouteTable, routeCellKey, vehicleCellKey } from './route.table';
+import { RouteTable, routeCellKey, statusCellKey, vehicleCellKey } from './route.table';
 
 @Component({
   selector: 'app-route-table-page',
@@ -30,6 +31,7 @@ import { RouteTable, routeCellKey, vehicleCellKey } from './route.table';
     DataTableComponent,
     TableCellTemplateDirective,
     RouteDisplayComponent,
+    StatusBadgeComponent,
     VehicleDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
@@ -50,6 +52,7 @@ export class RouteTablePageComponent {
   protected readonly createUrl = USER_CREATE_ROUTE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postRoute';
   protected readonly routeKey = routeCellKey;
+  protected readonly statusKey = statusCellKey;
   protected readonly vehicleKey = vehicleCellKey;
   protected readonly tableMounted = signal(true);
 

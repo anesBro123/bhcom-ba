@@ -1,0 +1,58 @@
+---
+description: Entity status field, status badges, and per-entity status conventions
+globs: src/app/shared/constants/user-entity-status.ts,src/app/shared/ui/status-badge/**,src/app/portal/**/data/*.model.ts,src/app/portal/**/data/*.service.ts,src/app/portal/**/table/**
+alwaysApply: false
+---
+
+# Entity status
+
+## Direction
+
+**All listable entities will have a `status` field** (user and admin portals). Each entity gets its **own status union** and label keys when its workflow differs. Reuse **`StatusBadgeComponent`** for pill UI and **`--status-*` theme tokens** in `src/styles.scss`; do not invent per-feature badge markup.
+
+**Today:** user routes, cargo, and storage temporarily share `UserEntityStatus` from `shared/constants/user-entity-status.ts`. When an entity needs different statuses, define e.g. `VehicleStatus` in that feature and entity-specific i18n under `portal.<portal>.features.<entity>.status.*` — then widen `StatusBadgeComponent` (e.g. optional `labelKey` input) if labels are no longer in `shared.entityStatus.*`.
+
+## Shared pieces
+
+| Piece | Path |
+|-------|------|
+| Status type (interim) | `shared/constants/user-entity-status.ts` — `UserEntityStatus`, `USER_ENTITY_STATUS_LABEL_KEYS` |
+| Badge widget | `shared/ui/status-badge/` — `app-status-badge`, `status` input |
+| Theme tokens | `src/styles.scss` — `--status-open-bg`, `--status-open-text`, `--status-in-progress-*`, `--status-canceled-*`, `--status-closed-*` (light + dark) |
+| Badge labels (interim) | `shared.entityStatus.*` in `en.json` / `bh.json` |
+| Column header | `portal.<portal>.features.<entity>.table.columns.status` |
+
+`UserEntityStatus`: `'open' | 'in_progress' | 'canceled' | 'closed'`.
+
+## Entity `data/` conventions
+
+- Add `status: …` on the **entity** interface (`Route`, `Cargo`, …) — **not** on form models unless status becomes user-editable.
+- Mock data: seed varied statuses for demo.
+- Service `create()`: set default status (e.g. `'open'`) **before** spreading payload so forms cannot override.
+- Service `update()`: spread existing row first so `status` is preserved when not in the form payload.
+
+## Table display
+
+Second column after the primary identifier; `cell: 'custom'`, `sortable: true`, `width: ~9rem`.
+
+```typescript
+{ key: 'status', titleKey: '…table.columns.status', sortable: true, cell: 'custom', width: '9rem' }
+export const statusCellKey = tableCellKey(EntityTable, 'status');
+```
+
+```html
+<ng-template [appTableCell]="statusKey" let-row>
+  <app-status-badge [status]="row.status" />
+</ng-template>
+```
+
+Reference: `portal/user/features/routes/table/`, `cargo/table/`, `storage/table/`.
+
+## Checklist for a new entity
+
+1. `{Entity}Status` union + label-key map in `*.model.ts` or `*.constants.ts`
+2. `status` on entity + mock data + service defaults
+3. `status` table column + `StatusBadgeComponent` in table page
+4. i18n: `table.columns.status` + status label keys (`shared.entityStatus.*` only while sharing the interim union)
+
+Related: `tables.mdc`, `layout.mdc`, `shared-constants.mdc`, `i18n.mdc`, `portal-feature.mdc`

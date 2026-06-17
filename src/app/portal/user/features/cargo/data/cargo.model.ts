@@ -1,3 +1,5 @@
+import type { UserEntityStatus } from '../../../../../shared/constants/user-entity-status';
+
 export type CargoType = 'pallet' | 'bulk' | 'refrigerated' | 'oversized' | 'other';
 
 export interface CargoFormModel {
@@ -12,5 +14,6 @@ export interface CargoFormModel {
 
 export interface Cargo extends CargoFormModel {
   id: string;
+  status: UserEntityStatus;
   publishedAt: string;
 }

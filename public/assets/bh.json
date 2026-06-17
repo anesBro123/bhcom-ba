@@ -78,6 +78,12 @@
     },
     "vehicle": {
       "namePlate": "{{name}}, tablice {{plate}}"
+    },
+    "entityStatus": {
+      "open": "Otvoreno",
+      "inProgress": "U toku",
+      "canceled": "Otkazano",
+      "closed": "Zatvoreno"
     }
   },
   "guest": {
@@ -838,6 +844,7 @@
             "entity": "rute",
             "columns": {
               "route": "Ruta",
+              "status": "Status",
               "vehicle": "Vozilo",
               "transportStartDate": "Početni datum",
               "transportEndDate": "Završni datum",
@@ -906,6 +913,7 @@
             "entity": "tereta",
             "columns": {
               "route": "Ruta",
+              "status": "Status",
               "cargoType": "Tip",
               "size": "Veličina",
               "weightKg": "Težina (kg)",
@@ -965,6 +973,7 @@
             "entity": "skladišta",
             "columns": {
               "warehouse": "Skladište",
+              "status": "Status",
               "availableFrom": "Dostupno od",
               "availableTo": "Dostupno do",
               "spaceM2": "Prostor (m²)",

@@ -33,6 +33,7 @@ export class UserRouteService {
     const item: Route = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
+      status: 'open',
       ...payload,
     };
     this.store.unshift(item);

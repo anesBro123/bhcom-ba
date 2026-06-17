@@ -8,5 +8,9 @@
     [definition]="table"
     [loader]="loadStorage"
     (rowAction)="onRowAction($event)"
-  />
+  >
+    <ng-template [appTableCell]="statusKey" let-row>
+      <app-status-badge [status]="row.status" />
+    </ng-template>
+  </app-data-table>
 }

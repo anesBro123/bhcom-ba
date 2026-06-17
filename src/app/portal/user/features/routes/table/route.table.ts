@@ -22,6 +22,13 @@ export const RouteTable = defineTable<Route>()({
       mobile: { primary: true },
     },
     {
+      key: 'status',
+      titleKey: 'portal.user.features.routes.table.columns.status',
+      sortable: true,
+      cell: 'custom',
+      width: '9rem',
+    },
+    {
       key: 'vehiclePlate',
       titleKey: 'portal.user.features.routes.table.columns.vehicle',
       sortable: true,
@@ -74,4 +81,5 @@ export const RouteTable = defineTable<Route>()({
 });
 
 export const routeCellKey = tableCellKey(RouteTable, 'origin');
+export const statusCellKey = tableCellKey(RouteTable, 'status');
 export const vehicleCellKey = tableCellKey(RouteTable, 'vehiclePlate');

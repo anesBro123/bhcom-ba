@@ -1,3 +1,5 @@
+import type { UserEntityStatus } from '../../../../../shared/constants/user-entity-status';
+
 export interface RouteFormModel {
   vehicleId: string;
   origin: string;
@@ -11,5 +13,6 @@ export interface Route extends RouteFormModel {
   id: string;
   vehiclePlate: string;
   vehicleName: string;
+  status: UserEntityStatus;
   publishedAt: string;
 }

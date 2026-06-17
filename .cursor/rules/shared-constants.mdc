@@ -32,6 +32,17 @@ Route URLs live in `shared/constants/app-urls.ts` — see `app-urls.mdc`. This f
 
 City values are stored as plain strings (municipality name). No i18n per city — labels match stored values.
 
+## User entity status (interim)
+
+| Export | Type | Use |
+|--------|------|-----|
+| `UserEntityStatus` | union | `'open' \| 'in_progress' \| 'canceled' \| 'closed'` |
+| `USER_ENTITY_STATUS_LABEL_KEYS` | `Record<UserEntityStatus, string>` | Maps to `shared.entityStatus.*` i18n keys |
+
+- Path: `shared/constants/user-entity-status.ts`
+- **Current consumers:** user `Route`, `Cargo`, `Storage` entity models; `StatusBadgeComponent`
+- **Future:** each entity defines its own status union (e.g. `VehicleStatus`, `WarehouseStatus`) and label keys under `portal.<portal>.features.<entity>.status.*`. Keep `StatusBadgeComponent` + `--status-*` tokens as the shared display layer — see `entity-status.mdc`.
+
 ## Portal page icons
 
 Single source for entity icons used by **sidebar list items** and **`PageTitleComponent`**.

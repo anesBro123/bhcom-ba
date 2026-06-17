@@ -1,6 +1,6 @@
 import { LucidePencil, LucideTrash } from '@lucide/angular';
 
-import { defineTable } from '../../../../../shared/table';
+import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_STORAGE_API } from '../data/storage.constants';
 import type { Storage } from '../data/storage.model';
@@ -18,6 +18,13 @@ export const StorageTable = defineTable<Storage>()({
       titleKey: 'portal.user.features.storage.table.columns.warehouse',
       sortable: true,
       mobile: { primary: true },
+    },
+    {
+      key: 'status',
+      titleKey: 'portal.user.features.storage.table.columns.status',
+      sortable: true,
+      cell: 'custom',
+      width: '9rem',
     },
     {
       key: 'availableFrom',
@@ -65,3 +72,5 @@ export const StorageTable = defineTable<Storage>()({
     },
   ],
 });
+
+export const storageStatusCellKey = tableCellKey(StorageTable, 'status');

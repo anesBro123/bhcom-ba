@@ -32,6 +32,7 @@ export class UserStorageService {
     const item: Storage = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
+      status: 'open',
       ...payload,
     };
     this.store.unshift(item);

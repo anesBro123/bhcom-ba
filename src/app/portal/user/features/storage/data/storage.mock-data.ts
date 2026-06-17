@@ -9,6 +9,7 @@ export const STORAGE_MOCK_DATA: Storage[] = [
     availableTo: '2026-09-30',
     spaceM2: 450,
     description: 'Climate-controlled section near loading ramp.',
+    status: 'open',
     publishedAt: '2026-06-08T11:00:00.000Z',
   },
   {
@@ -19,6 +20,7 @@ export const STORAGE_MOCK_DATA: Storage[] = [
     availableTo: '2026-08-15',
     spaceM2: 1200,
     description: 'Open yard space for bulk goods.',
+    status: 'in_progress',
     publishedAt: '2026-06-12T16:45:00.000Z',
   },
 ];

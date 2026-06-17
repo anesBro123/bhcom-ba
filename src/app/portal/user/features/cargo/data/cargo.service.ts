@@ -28,6 +28,7 @@ export class UserCargoService {
     const item: Cargo = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
+      status: 'open',
       ...payload,
     };
     this.store.unshift(item);
@@ -40,7 +41,10 @@ export class UserCargoService {
       return throwError(() => new Error(`Cargo not found: ${id}`)).pipe(delay(150));
     }
 
-    const updated: Cargo = { id, publishedAt: this.store[index].publishedAt, ...payload };
+    const updated: Cargo = {
+      ...this.store[index],
+      ...payload,
+    };
     this.store[index] = updated;
     return of(structuredClone(updated)).pipe(delay(250));
   }

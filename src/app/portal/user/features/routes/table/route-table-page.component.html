@@ -12,6 +12,9 @@
     <ng-template [appTableCell]="routeKey" let-row>
       <app-route-display [origin]="row.origin" [destination]="row.destination" />
     </ng-template>
+    <ng-template [appTableCell]="statusKey" let-row>
+      <app-status-badge [status]="row.status" />
+    </ng-template>
     <ng-template [appTableCell]="vehicleKey" let-row>
       <app-vehicle-display [name]="row.vehicleName" [plate]="row.vehiclePlate" />
     </ng-template>

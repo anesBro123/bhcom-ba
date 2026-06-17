@@ -22,6 +22,13 @@ export const CargoTable = defineTable<Cargo>()({
       mobile: { primary: true },
     },
     {
+      key: 'status',
+      titleKey: 'portal.user.features.cargo.table.columns.status',
+      sortable: true,
+      cell: 'custom',
+      width: '9rem',
+    },
+    {
       key: 'cargoType',
       titleKey: 'portal.user.features.cargo.table.columns.cargoType',
       sortable: true,
@@ -77,3 +84,4 @@ export const CargoTable = defineTable<Cargo>()({
 
 export const cargoTypeCellKey = tableCellKey(CargoTable, 'cargoType');
 export const cargoRouteCellKey = tableCellKey(CargoTable, 'origin');
+export const cargoStatusCellKey = tableCellKey(CargoTable, 'status');

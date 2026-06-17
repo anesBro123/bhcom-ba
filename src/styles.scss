@@ -104,6 +104,14 @@
   --metric-variant-danger-icon: #f87171;
   --metric-variant-info-bg: color-mix(in srgb, #3b82f6 18%, transparent);
   --metric-variant-info-icon: #60a5fa;
+  --status-open-bg: color-mix(in srgb, #f59e0b 22%, transparent);
+  --status-open-text: #fbbf24;
+  --status-in-progress-bg: color-mix(in srgb, #3b82f6 22%, transparent);
+  --status-in-progress-text: #60a5fa;
+  --status-canceled-bg: color-mix(in srgb, #ef4444 22%, transparent);
+  --status-canceled-text: #f87171;
+  --status-closed-bg: color-mix(in srgb, #22c55e 22%, transparent);
+  --status-closed-text: #4ade80;
 }
 
 [data-sidebar-collapsed] {
@@ -195,6 +203,14 @@
   --metric-variant-danger-icon: #dc2626;
   --metric-variant-info-bg: color-mix(in srgb, #3b82f6 14%, #ffffff);
   --metric-variant-info-icon: #2563eb;
+  --status-open-bg: color-mix(in srgb, #f59e0b 14%, #ffffff);
+  --status-open-text: #d97706;
+  --status-in-progress-bg: color-mix(in srgb, #3b82f6 14%, #ffffff);
+  --status-in-progress-text: #2563eb;
+  --status-canceled-bg: color-mix(in srgb, #ef4444 14%, #ffffff);
+  --status-canceled-text: #dc2626;
+  --status-closed-bg: color-mix(in srgb, #22c55e 14%, #ffffff);
+  --status-closed-text: #16a34a;
 }
 
 *,

@@ -10,8 +10,10 @@ import {
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import {
   DataTableComponent,
+  TableCellTemplateDirective,
   type RowActionEvent,
   type TableLoader,
 } from '../../../../../shared/table';
@@ -19,12 +21,14 @@ import {
 import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { StorageTable } from './storage.table';
+import { StorageTable, storageStatusCellKey } from './storage.table';
 
 @Component({
   selector: 'app-storage-table-page',
   imports: [
     DataTableComponent,
+    TableCellTemplateDirective,
+    StatusBadgeComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -43,6 +47,7 @@ export class StorageTablePageComponent {
   protected readonly pageIcon = UserPageIcons.storage;
   protected readonly createUrl = USER_CREATE_STORAGE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postStorage';
+  protected readonly statusKey = storageStatusCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadStorage: TableLoader<Storage> = (query) => this.storageService.list(query);

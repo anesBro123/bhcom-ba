@@ -66,3 +66,24 @@ export const vehicleCellKey = tableCellKey(RouteTable, 'vehiclePlate');
 ```
 
 Page `imports`: `VehicleDisplayComponent` from `shared/ui/vehicle-display/vehicle-display.component.ts`.
+
+## Status badge custom cell
+
+When a column shows entity workflow status:
+
+```typescript
+// *.table.ts — second column after primary identifier
+{ key: 'status', titleKey: '…columns.status', sortable: true, cell: 'custom', width: '9rem' }
+
+export const statusCellKey = tableCellKey(EntityTable, 'status');
+```
+
+```html
+<ng-template [appTableCell]="statusKey" let-row>
+  <app-status-badge [status]="row.status" />
+</ng-template>
+```
+
+Page `imports`: `StatusBadgeComponent` from `shared/ui/status-badge/status-badge.component.ts`.
+
+All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/routes/table/`, `cargo/table/`, `storage/table/`.

@@ -9,6 +9,7 @@ import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-h
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
+import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -19,16 +20,17 @@ import {
 import type { Cargo } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { CargoTable, cargoRouteCellKey, cargoTypeCellKey } from './cargo.table';
+import { CargoTable, cargoRouteCellKey, cargoStatusCellKey, cargoTypeCellKey } from './cargo.table';
 
 @Component({
   selector: 'app-cargo-table-page',
   imports: [
     DataTableComponent,
-    TableCellTemplateDirective,
-    TranslatePipe,
-    RouteDisplayComponent,
-    PageHeaderComponent,
+  TableCellTemplateDirective,
+  TranslatePipe,
+  RouteDisplayComponent,
+  StatusBadgeComponent,
+  PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
   ],
@@ -47,6 +49,7 @@ export class CargoTablePageComponent {
   protected readonly createUrl = USER_CREATE_CARGO_URL;
   protected readonly createLabelKey = 'portal.user.nav.postCargo';
   protected readonly routeKey = cargoRouteCellKey;
+  protected readonly statusKey = cargoStatusCellKey;
   protected readonly cargoTypeKey = cargoTypeCellKey;
   protected readonly tableMounted = signal(true);
 

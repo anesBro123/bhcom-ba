@@ -31,10 +31,10 @@ features/<entity>/
 
 | File | Role |
 |------|------|
-| `*.model.ts` | `EntityFormModel` interface; `Entity extends EntityFormModel` with `id`; union types for enums |
+| `*.model.ts` | `EntityFormModel` interface; `Entity extends EntityFormModel` with `id`; union types for enums; **`status` on entity** (not form model unless editable) — see `entity-status.mdc` |
 | `*.constants.ts` | `ADMIN_<ENTITY>_API` (HTTP only — not app URLs); option arrays reused by form + table filters |
 | `*.mock-data.ts` | `ENTITY_MOCK_DATA: Entity[]` |
-| `*.service.ts` | `@Injectable({ providedIn: 'root' })`; in-memory `store` from mock; `list` applies `TableQuery` filters/sort/pagination using the table def's `filters`; `getById`, `create`, `update`, `delete` with `delay()` until API |
+| `*.service.ts` | `@Injectable({ providedIn: 'root' })`; in-memory `store` from mock; `list` applies `TableQuery` filters/sort/pagination using the table def's `filters`; `getById`, `create`, `update`, `delete` with `delay()` until API; **`create()` default `status`**; **`update()` preserve `status`** — see `entity-status.mdc` |
 
 Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock store for `HttpClient` later — keep the same method signatures.
 
@@ -82,7 +82,7 @@ Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`.
 - **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
 - **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`
 - **Dynamic select options:** `buildRouteForm(vehicleOptions)` pattern — clone form def, inject loaded options into `vehicleId` field
-- **Table:** `app-route-display` custom cell for origin → destination — see `tables.mdc`
+- **Table:** `app-route-display` custom cell for origin → destination; `app-status-badge` for `status` column — see `tables.mdc`, `entity-status.mdc`
 - **Portal data:** `portal/user/data/company-vehicle.service.ts`, `company-warehouse.service.ts` for cross-feature selects
 
 ## Table page (`table/<entity>-table-page.component.ts`)
@@ -118,6 +118,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 ```
 
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
+- **Status cell:** `app-status-badge` + `status` column — see `entity-status.mdc`, `tables.mdc`.
 - Route pair cells: `RouteDisplayComponent` — see `tables.mdc`.
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).

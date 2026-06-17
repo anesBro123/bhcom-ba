@@ -35,6 +35,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.table.common.*` | Table loading, empty, pagination, row actions |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
+| `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user routes/cargo/storage); per-entity keys later under `portal.*.features.<entity>.status.*` |
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 ### Guest (`guest.*`)
@@ -90,6 +91,7 @@ portal.user.pages.routes.subtitle
 6. **Page subtitles** — every portal page needs a subtitle under `portal.*.pages.<id>.subtitle`. Page components own `pageTitleKey` / `pageSubtitleKey` — not table or form defs. Write helpful UX copy — do not repeat the title.
 7. **Nav `labelKey`** — `portal.<portal>.nav.<itemId>`.
 8. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).
+9. **Entity status labels** — interim shared union: `shared.entityStatus.*`; when an entity gets its own statuses, add `portal.<portal>.features.<entity>.status.<value>` — see `entity-status.mdc`.
 
 ## Files
 

@@ -1,3 +1,5 @@
+import type { UserEntityStatus } from '../../../../../shared/constants/user-entity-status';
+
 export interface StorageFormModel {
   warehouseId: string;
   availableFrom: string;
@@ -9,5 +11,6 @@ export interface StorageFormModel {
 export interface Storage extends StorageFormModel {
   id: string;
   warehouseLabel: string;
+  status: UserEntityStatus;
   publishedAt: string;
 }

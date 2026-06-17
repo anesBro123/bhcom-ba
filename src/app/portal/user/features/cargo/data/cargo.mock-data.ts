@@ -10,6 +10,7 @@ export const CARGO_MOCK_DATA: Cargo[] = [
     weightKg: 1200,
     cargoType: 'pallet',
     description: 'Building materials, forklift required at delivery.',
+    status: 'closed',
     publishedAt: '2026-06-09T14:00:00.000Z',
   },
   {
@@ -21,6 +22,7 @@ export const CARGO_MOCK_DATA: Cargo[] = [
     weightKg: 800,
     cargoType: 'refrigerated',
     description: 'Temperature-controlled food products.',
+    status: 'canceled',
     publishedAt: '2026-06-10T09:15:00.000Z',
   },
 ];
