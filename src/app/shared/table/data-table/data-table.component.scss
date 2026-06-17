@@ -18,17 +18,6 @@
   overflow: hidden;
 }
 
-.data-table-card__header {
-  padding: 1.25rem var(--table-card-padding-x) 0.5rem;
-}
-
-.data-table-card__title {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
 .data-table-card__state {
   padding: 2rem var(--table-card-padding-x);
   text-align: center;
@@ -160,10 +149,6 @@
 }
 
 @include below-md {
-  .data-table-card__header {
-    padding: 1rem var(--table-card-padding-x-mobile) 0.5rem;
-  }
-
   .data-table-card__state {
     padding: 1.5rem var(--table-card-padding-x-mobile);
   }

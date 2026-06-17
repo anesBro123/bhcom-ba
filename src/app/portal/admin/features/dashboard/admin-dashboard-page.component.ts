@@ -10,6 +10,7 @@ import {
   ADMIN_WAREHOUSES_URL,
 } from '../../../../shared/constants/app-urls';
 import { MetricCardComponent, type MetricCardVariant } from '../../../../shared/ui/metric-card/metric-card.component';
+import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
 import { QuickActionCardComponent } from '../../../../shared/ui/quick-action-card/quick-action-card.component';
 import { ADMIN_DASHBOARD_ENTITY_ACTION_GROUPS, ADMIN_DASHBOARD_SETTINGS_ACTION } from './admin-dashboard.actions.config';
 import { AdminDashboardService } from './data/admin-dashboard.service';
@@ -25,7 +26,7 @@ interface DashboardMetric {
 
 @Component({
   selector: 'app-admin-dashboard-page',
-  imports: [RouterLink, TranslatePipe, MetricCardComponent, QuickActionCardComponent],
+  imports: [RouterLink, TranslatePipe, MetricCardComponent, QuickActionCardComponent, PageTitleComponent],
   templateUrl: './admin-dashboard-page.component.html',
   styleUrl: './admin-dashboard-page.component.scss',
 })

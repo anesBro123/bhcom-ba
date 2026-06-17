@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_USERS_URL } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminUserForm, AdminUserFormEditActions } from './user.form';
 import type { UserFormModel } from '../data/user.model';
@@ -17,7 +18,7 @@ import { AdminUserService } from '../data/user.service';
 
 @Component({
   selector: 'app-user-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
   templateUrl: './user-form-page.component.html',
   styleUrl: './user-form-page.component.scss',
 })
@@ -35,13 +36,16 @@ export class UserFormPageComponent implements OnInit {
 
   protected readonly isEdit = computed(() => this.userId() !== null);
 
+  protected readonly pageTitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.features.users.form.titleEdit'
+      : 'portal.admin.features.users.form.titleCreate',
+  );
+
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
     return {
       ...AdminUserForm,
-      titleKey: editing
-        ? 'portal.admin.features.users.form.titleEdit'
-        : 'portal.admin.features.users.form.titleCreate',
       actions: {
         ...AdminUserForm.actions,
         submit: editing

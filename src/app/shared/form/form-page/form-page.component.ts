@@ -16,7 +16,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
 import { startWith } from 'rxjs';
 
 import { FormFieldTemplateDirective } from '../form-field-template.directive';
@@ -49,7 +48,6 @@ import type {
   selector: 'app-form-page',
   imports: [
     NgTemplateOutlet,
-    TranslatePipe,
     FormStepperComponent,
     FormSectionComponent,
     FormGridComponent,

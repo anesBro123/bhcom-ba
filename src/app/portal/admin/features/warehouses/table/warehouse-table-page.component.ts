@@ -5,6 +5,7 @@ import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
 import { adminEditWarehouseUrl } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import {
   DataTableComponent,
@@ -20,7 +21,7 @@ import { WarehouseTable } from './warehouse.table';
 
 @Component({
   selector: 'app-warehouse-table-page',
-  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe],
+  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe, PageTitleComponent],
   templateUrl: './warehouse-table-page.component.html',
   styleUrl: './warehouse-table-page.component.scss',
 })

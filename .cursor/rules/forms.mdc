@@ -8,6 +8,8 @@ alwaysApply: false
 
 Declarative form framework used by guest pages, portal features, and shared login flows. **Do not** rebuild form chrome (stepper, footer, sections, field widgets) on feature pages — use `FormPageComponent`.
 
+**Page title:** portal form pages use `PageTitleComponent` (`shared/ui/page-title/`) — `<app-page-title [titleKey]="...">` in the **page template** above `<app-form-page>`. See `page-title.mdc`. `FormPageComponent` does **not** render page titles. Form **section** titles (`FormSectionComponent`) are unchanged.
+
 ## File map
 
 | Path | Role |

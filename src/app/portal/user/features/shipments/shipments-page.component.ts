@@ -17,6 +17,7 @@ import {
   type TableLoader,
   type TableQuery,
 } from '../../../../shared/table';
+import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
 
 import { SHIPMENT_MOCK_DATA } from './shipment.mock-data';
 import type { Shipment, ShipmentPriority, ShipmentStatus, ShipmentType } from './shipment.model';
@@ -28,6 +29,7 @@ import { ShipmentTable } from './shipment.table';
     DataTableComponent,
     TableCellTemplateDirective,
     TranslatePipe,
+    PageTitleComponent,
     LucideTruck,
     LucideClock,
     LucideCircleCheck,

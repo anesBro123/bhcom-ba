@@ -56,7 +56,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Placeholder pages: `portal/pages/page-placeholder/page-placeholder.component.ts`
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card
+- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title
 
 ## Auth routing (guards)
 
@@ -85,3 +85,4 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Dashboard KPI card: `shared/ui/metric-card/` — `MetricCardComponent` for title + value + subtitle stats; parent wraps in `routerLink` when tile should navigate
 - Dashboard action tile: `shared/ui/quick-action-card/` — `QuickActionCardComponent` for portal quick-action grids (monochrome icon, `routerLink`)
 - Admin dashboard (reference): `portal/admin/features/dashboard/` — `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`; admin nav has Dashboard section (`ADMIN_HOME_URL`, `LucideLayoutGrid`)
+- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`) — `<app-page-title [titleKey]="...">` in each portal page template above content; see `page-title.mdc`

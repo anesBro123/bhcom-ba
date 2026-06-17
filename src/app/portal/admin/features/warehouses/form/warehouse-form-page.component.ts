@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_WAREHOUSES_URL } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminWarehouseForm, AdminWarehouseFormEditActions } from './warehouse.form';
 import type { WarehouseFormModel } from '../data/warehouse.model';
@@ -17,7 +18,7 @@ import { AdminWarehouseService } from '../data/warehouse.service';
 
 @Component({
   selector: 'app-warehouse-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
   templateUrl: './warehouse-form-page.component.html',
   styleUrl: './warehouse-form-page.component.scss',
 })
@@ -35,13 +36,16 @@ export class WarehouseFormPageComponent implements OnInit {
 
   protected readonly isEdit = computed(() => this.warehouseId() !== null);
 
+  protected readonly pageTitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.features.warehouses.form.titleEdit'
+      : 'portal.admin.features.warehouses.form.titleCreate',
+  );
+
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
     return {
       ...AdminWarehouseForm,
-      titleKey: editing
-        ? 'portal.admin.features.warehouses.form.titleEdit'
-        : 'portal.admin.features.warehouses.form.titleCreate',
       actions: {
         ...AdminWarehouseForm.actions,
         submit: editing

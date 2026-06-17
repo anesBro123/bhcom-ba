@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { PageTitleComponent } from '../../../shared/ui/page-title/page-title.component';
 
 @Component({
   selector: 'app-page-placeholder',
-  imports: [TranslatePipe],
+  imports: [PageTitleComponent],
   templateUrl: './page-placeholder.component.html',
   styleUrl: './page-placeholder.component.scss',
 })

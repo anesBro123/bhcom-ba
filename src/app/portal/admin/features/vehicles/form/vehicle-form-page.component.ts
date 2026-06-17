@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_VEHICLES_URL } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminVehicleForm, AdminVehicleFormEditActions } from './vehicle.form';
 import type { VehicleFormModel } from '../data/vehicle.model';
@@ -17,7 +18,7 @@ import { AdminVehicleService } from '../data/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
   templateUrl: './vehicle-form-page.component.html',
   styleUrl: './vehicle-form-page.component.scss',
 })
@@ -35,13 +36,16 @@ export class VehicleFormPageComponent implements OnInit {
 
   protected readonly isEdit = computed(() => this.vehicleId() !== null);
 
+  protected readonly pageTitleKey = computed(() =>
+    this.isEdit()
+      ? 'portal.admin.features.vehicles.form.titleEdit'
+      : 'portal.admin.features.vehicles.form.titleCreate',
+  );
+
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
     return {
       ...AdminVehicleForm,
-      titleKey: editing
-        ? 'portal.admin.features.vehicles.form.titleEdit'
-        : 'portal.admin.features.vehicles.form.titleCreate',
       actions: {
         ...AdminVehicleForm.actions,
         submit: editing

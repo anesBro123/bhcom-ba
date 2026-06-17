@@ -10,10 +10,6 @@
       />
     }
 
-    <header class="data-table-card__header">
-      <h2 class="data-table-card__title">{{ definition().titleKey | translate }}</h2>
-    </header>
-
     @if (tableStore.loading()) {
       <div class="data-table-card__state">{{ 'shared.table.common.loading' | translate }}</div>
     } @else if (tableStore.error()) {

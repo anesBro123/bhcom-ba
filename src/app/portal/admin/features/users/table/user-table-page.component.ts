@@ -4,6 +4,7 @@ import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
 import { adminEditUserUrl } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import {
   DataTableComponent,
@@ -17,7 +18,7 @@ import { UserTable } from './user.table';
 
 @Component({
   selector: 'app-user-table-page',
-  imports: [DataTableComponent],
+  imports: [DataTableComponent, PageTitleComponent],
   templateUrl: './user-table-page.component.html',
   styleUrl: './user-table-page.component.scss',
 })

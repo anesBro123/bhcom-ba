@@ -7,17 +7,6 @@
   width: 100%;
 }
 
-.form-page__header {
-  margin-bottom: 1.25rem;
-}
-
-.form-page__title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
 .form-page__sections,
 .form-page__step-content {
   display: flex;
@@ -38,10 +27,6 @@
 }
 
 @include below-md {
-  .form-page__title {
-    font-size: 1.25rem;
-  }
-
   .form-stepper-card {
     padding: 1rem 1rem 0.875rem;
   }

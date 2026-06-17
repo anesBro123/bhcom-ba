@@ -1,3 +1,5 @@
+<app-page-title [titleKey]="table.titleKey" />
+
 @if (tableMounted()) {
   <app-data-table [definition]="table" [loader]="loadVehicles" (rowAction)="onRowAction($event)">
     <ng-template [appTableCell]="vrstaVozilaKey" let-row>

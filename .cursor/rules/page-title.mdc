@@ -1,0 +1,57 @@
+---
+description: Portal page title — PageTitleComponent
+globs: src/app/portal/**/features/**,src/app/portal/pages/**,src/app/shared/ui/page-title/**
+alwaysApply: false
+---
+
+# Portal page title (`PageTitleComponent`)
+
+Canonical top-level heading for **portal shell pages** (dashboard, table, form, placeholder). Renders an `h1` above page content on the shell background — **not** inside table/form cards.
+
+## Component
+
+| Item | Value |
+|------|-------|
+| Path | `shared/ui/page-title/page-title.component.ts` |
+| Selector | `app-page-title` |
+| Input | `titleKey` (required i18n key string) |
+| Import | Direct path — no barrel; add to page component `imports: [PageTitleComponent]` |
+
+```typescript
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+```
+
+```html
+<app-page-title [titleKey]="table.titleKey" />
+```
+
+Static key (no binding): `<app-page-title titleKey="portal.admin.pages.dashboard" />`
+
+## Where to render
+
+**Page templates only** — first element above content (table card, form stepper, dashboard sections, etc.).
+
+| Page type | `titleKey` source | Example |
+|-----------|-------------------|---------|
+| Table list | `*.table.ts` → `table.titleKey` | `<app-page-title [titleKey]="table.titleKey" />` |
+| Form create/edit | `pageTitleKey` computed or `formDef.titleKey` | `<app-page-title [titleKey]="pageTitleKey()" />` |
+| Dashboard / custom | `portal.<portal>.pages.*` | `<app-page-title titleKey="portal.admin.pages.dashboard" />` |
+| Placeholder | route `data.titleKey` | `<app-page-title [titleKey]="titleKey" />` |
+
+Table pages with `tableMounted` remount: place `<app-page-title>` **outside** the `@if` so the title stays visible during refresh.
+
+## Do not
+
+- Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
+- Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
+- Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
+- Confuse with **form section** titles (`FormSectionComponent` / `form-section-card__title`) or **stepper step** labels — those stay in the form framework.
+
+## Reference implementations
+
+- Table: `portal/admin/features/users/table/user-table-page.component.*`
+- Form (create/edit): `portal/admin/features/users/form/user-form-page.component.*`
+- Dashboard: `portal/admin/features/dashboard/admin-dashboard-page.component.*`
+- Placeholder: `portal/pages/page-placeholder/page-placeholder.component.*`
+
+Related: `layout.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

@@ -24,3 +24,4 @@ alwaysApply: false
 - Form footers stack at **640px** (`form-footer.component.scss`); do not change without reason.
 - Tables on mobile: card list via `DataTableComponent` `isMobileLayout` (`matchMedia` 768px) — see `tables.mdc`; do not add a second table/card UI on feature pages.
 - Shell/layout mobile behavior: see `00-project.mdc` (hamburger, drawer, `SidebarService`).
+- Portal page titles: use `PageTitleComponent` (`app-page-title`, `shared/ui/page-title/`) in portal page templates — see `page-title.mdc`. Do not inline `<h1 class="page-title">` or add title rendering to shared form/table components.

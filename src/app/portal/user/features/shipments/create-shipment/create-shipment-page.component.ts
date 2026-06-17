@@ -22,6 +22,7 @@ import { ShipmentReviewStepComponent } from './components/shipment-review-step/s
 import { ShipmentServicesSectionComponent } from './components/shipment-services-section/shipment-services-section.component';
 import { CreateShipmentForm } from './create-shipment.form';
 import type { CreateShipmentFormModel } from './create-shipment.model';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 @Component({
   selector: 'app-create-shipment-page',
@@ -35,6 +36,7 @@ import type { CreateShipmentFormModel } from './create-shipment.model';
     PackageItemsSectionComponent,
     ShipmentServicesSectionComponent,
     ShipmentReviewStepComponent,
+    PageTitleComponent,
   ],
   templateUrl: './create-shipment-page.component.html',
   styleUrl: './create-shipment-page.component.scss',
@@ -43,6 +45,7 @@ export class CreateShipmentPageComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly formDef = CreateShipmentForm;
+  protected readonly pageTitleKey = 'portal.user.pages.createShipment';
   protected readonly form = this.buildForm();
 
   protected readonly priorityFieldKey = formFieldKey(

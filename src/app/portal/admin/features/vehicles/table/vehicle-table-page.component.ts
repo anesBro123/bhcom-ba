@@ -5,6 +5,7 @@ import { filter, switchMap, take } from 'rxjs';
 
 import {ConfirmService } from '../../../../../shared/confirm';
 import { adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import {
   DataTableComponent,
@@ -20,7 +21,7 @@ import { VehicleTable } from './vehicle.table';
 
 @Component({
   selector: 'app-vehicle-table-page',
-  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe],
+  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe, PageTitleComponent],
   templateUrl: './vehicle-table-page.component.html',
   styleUrl: './vehicle-table-page.component.scss',
 })

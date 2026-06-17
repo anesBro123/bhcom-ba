@@ -1,10 +1,4 @@
 <section class="form-page">
-  @if (definition().titleKey) {
-    <header class="form-page__header">
-      <h1 class="form-page__title">{{ definition().titleKey! | translate }}</h1>
-    </header>
-  }
-
   @if (showStepper()) {
     <div class="form-stepper-card">
       <app-form-stepper

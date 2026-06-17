@@ -7,13 +7,14 @@ import {
 } from '@angular/forms';
 
 import { FormPageComponent } from '../../../../../shared/form';
+import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { CreateVehicleForm } from './create-vehicle.form';
 import type { CreateVehicleFormModel } from './vehicle.model';
 
 @Component({
   selector: 'app-create-vehicle-page',
-  imports: [ReactiveFormsModule, FormPageComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
   templateUrl: './create-vehicle-page.component.html',
   styleUrl: './create-vehicle-page.component.scss',
 })

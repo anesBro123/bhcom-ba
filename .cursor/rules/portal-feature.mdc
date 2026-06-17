@@ -60,6 +60,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - Template:
 
 ```html
+<app-page-title [titleKey]="pageTitleKey()" />
 <app-form-page
   [definition]="formDef()"
   [formGroup]="form"
@@ -70,11 +71,14 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 />
 ```
 
+- `pageTitleKey` computed — swap create vs edit title keys; do not rely on `FormPageComponent` for page title.
+
 - Stepper UX (free navigation, `ValidationState` pills, submit-only enforcement, mobile layout): see `forms.mdc` — do not implement in the feature page.
 
 ## Table page (`table/<entity>-table-page.component.ts`)
 
 - `protected readonly table = EntityTable`; `TableLoader` → `service.list(query)`.
+- **Page title** in template: `<app-page-title [titleKey]="table.titleKey" />` above `<app-data-table>` (outside remount `@if` when used).
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
@@ -110,11 +114,13 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 - Use `window.confirm` or per-page dialog markup — use `ConfirmService`.
 - Add `*.spec.ts` files.
 - Rebuild table/form chrome outside `DataTableComponent` / `FormPageComponent`.
+- Render page titles inside `DataTableComponent` or `FormPageComponent` — page templates use `PageTitleComponent` (`page-title.mdc`).
 
 ## Related rules
 
 | Area | Rule |
 |------|------|
+| Page title | `page-title.mdc` |
 | New page checklist | `new-page.mdc` |
 | Forms / stepper | `forms.mdc` |
 | Tables / mobile cards | `tables.mdc` |

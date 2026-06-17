@@ -20,6 +20,7 @@ alwaysApply: false
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
 - `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). Content widget — not shell chrome. Import by direct path; parent owns i18n keys, grid layout, and optional `routerLink` wrapper for clickable tiles.
 - `QuickActionCardComponent` (`shared/ui/quick-action-card/`) — dashboard/portal action tile: `titleKey`, `descriptionKey`, `route`, `icon` (`LucideIcon`). Renders as `<a routerLink>` with centered monochrome icon (`--text-secondary`, ~22px), title, and description. No colored icon badge or accent top border. Import by direct path; parent owns grid layout.
+- `PageTitleComponent` (`shared/ui/page-title/`) — portal page `h1`: single input `titleKey` (i18n key). Use `<app-page-title [titleKey]="...">` at the top of **portal page templates** (dashboard, table, form, placeholder) — above table cards / form steppers, not inside them. Import by direct path; add to page `imports`. See `page-title.mdc`. Not used on guest pages.
 - Profile icon opens **account menu** (`shared.topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
 
 ## SidebarService (`portal/shell/shared.sidebar.service.ts`)
@@ -47,4 +48,5 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
 - Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
+- **Portal page title:** `PageTitleComponent` — see `page-title.mdc`. Page templates own `<app-page-title>`; `DataTableComponent` / `FormPageComponent` do not render page titles.
 - **Portal accent:** `PortalShellComponent` host class `portal-user` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--user` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
