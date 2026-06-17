@@ -137,6 +137,7 @@
     font-size: 0.875rem;
     color: var(--text-table-body, var(--text-primary));
     min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -171,6 +172,7 @@
   }
 
   .data-table-row-card {
+    min-width: 0;
     border: 1px solid var(--border-table);
     border-radius: 0.625rem;
     background: var(--bg-table-card);
@@ -189,11 +191,12 @@
   .data-table-row-card__primary {
     flex: 1;
     min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .data-table-row-card__field {
     display: grid;
-    grid-template-columns: minmax(0, 38%) 1fr;
+    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
     gap: 0.5rem 0.75rem;
     padding: 0.375rem 0;
   }
