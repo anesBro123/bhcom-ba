@@ -15,6 +15,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 import { AdminUserForm, AdminUserFormEditActions } from './user.form';
 import type { UserFormModel } from '../data/user.model';
 import { AdminUserService } from '../data/user.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-user-form-page',
@@ -47,6 +48,8 @@ export class UserFormPageComponent implements OnInit {
       ? 'portal.admin.pages.editUser.subtitle'
       : 'portal.admin.pages.createUser.subtitle',
   );
+
+  protected readonly pageIcon = AdminPageIcons.users;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

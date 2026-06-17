@@ -16,7 +16,7 @@ Canonical top-level heading for **portal shell pages** (dashboard, table, form, 
 |------|-------|
 | Path | `shared/ui/page-title/page-title.component.ts` |
 | Selector | `app-page-title` |
-| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**) |
+| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**); `icon` (required `LucideIcon` — entity icon from portal page-icons) |
 | Import | Direct path — no barrel; add to page component `imports: [PageTitleComponent]` |
 
 ```typescript
@@ -24,7 +24,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 ```
 
 ```html
-<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
 ```
 
 Static keys:
@@ -33,8 +33,31 @@ Static keys:
 <app-page-title
   titleKey="portal.admin.pages.dashboard.title"
   subtitleKey="portal.admin.pages.dashboard.subtitle"
+  [icon]="pageIcon"
 />
 ```
+
+## Page icon (entity)
+
+- **Required** on every portal page — muted Lucide icon left of the `h1`.
+- Source: `AdminPageIcons` (`portal/admin/admin-page-icons.ts`) or `UserPageIcons` (`portal/user/user-page-icons.ts`). Nav list items import the same constants — do not duplicate Lucide imports on pages.
+- Use the **entity** icon (e.g. `LucideTruck` for vehicles), **not** `LucideSquarePlus`. Reserve `+` for sidebar create links and `PrimaryActionLinkComponent` only.
+- Same icon on **list, create, and edit** pages for a feature — title copy differentiates the task.
+
+```typescript
+import { AdminPageIcons } from '../../../admin-page-icons';
+
+protected readonly pageIcon = AdminPageIcons.vehicles;
+```
+
+## Layout (icon + title rows)
+
+CSS grid inside `PageTitleComponent`:
+
+- **Row 1:** entity icon (col 1) + `h1` title (col 2), vertically centered
+- **Row 2:** subtitle spans full width (`grid-column: 1 / -1`) — left edge aligns with icon, runs under both icon and title
+
+Do not nest subtitle under the title column only — keeps subtitle aligned with icon per design.
 
 ## Subtitle copy (UX)
 
@@ -63,10 +86,10 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Page type | Keys on page component | Example |
 |-----------|------------------------|---------|
 | Table list (with create route) | `pageTitleKey` + `pageSubtitleKey` + `PageHeaderComponent` + `PrimaryActionLinkComponent` | See **Title-row create CTA** below |
-| Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />` |
-| Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed | `<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />` |
-| Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` constants | Same as table list |
-| Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` | See static-keys example above |
+| Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />` |
+| Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed + `pageIcon` | `<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />` |
+| Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` constants | Same as table list |
+| Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` + `pageIcon` | See static-keys example above |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
 
@@ -76,7 +99,7 @@ Table pages with `tableMounted` remount: place the title row **outside** the `@i
 
 ```html
 <app-page-header>
-  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
   <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
 </app-page-header>
 
@@ -91,10 +114,12 @@ Table pages with `tableMounted` remount: place the title row **outside** the `@i
 import { PageHeaderComponent } from '…/shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '…/shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
+import { AdminPageIcons } from '…/portal/admin/admin-page-icons';
 import { ADMIN_CREATE_VEHICLE_URL } from '…/shared/constants/app-urls';
 
 protected readonly pageTitleKey = 'portal.admin.pages.vehicles.title';
 protected readonly pageSubtitleKey = 'portal.admin.pages.vehicles.subtitle';
+protected readonly pageIcon = AdminPageIcons.vehicles;
 protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
 protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
 
@@ -115,7 +140,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
-- Confuse with **form section** titles (`FormSectionComponent` / `form-section-card__title`) or **stepper step** labels — those stay in the form framework.
+- Put `LucideSquarePlus` on page titles — use entity icons from `AdminPageIcons` / `UserPageIcons`; `+` stays on create action links only.
 
 ## Reference implementations
 

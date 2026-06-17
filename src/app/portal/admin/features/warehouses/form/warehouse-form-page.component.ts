@@ -15,6 +15,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 import { AdminWarehouseForm, AdminWarehouseFormEditActions } from './warehouse.form';
 import type { WarehouseFormModel } from '../data/warehouse.model';
 import { AdminWarehouseService } from '../data/warehouse.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-warehouse-form-page',
@@ -47,6 +48,8 @@ export class WarehouseFormPageComponent implements OnInit {
       ? 'portal.admin.pages.editWarehouse.subtitle'
       : 'portal.admin.pages.createWarehouse.subtitle',
   );
+
+  protected readonly pageIcon = AdminPageIcons.warehouses;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

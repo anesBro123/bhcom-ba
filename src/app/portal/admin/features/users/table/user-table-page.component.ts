@@ -16,6 +16,7 @@ import {
 
 import type { User } from '../data/user.model';
 import { AdminUserService } from '../data/user.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 import { UserTable } from './user.table';
 
 @Component({
@@ -37,6 +38,7 @@ export class UserTablePageComponent {
   protected readonly table = UserTable;
   protected readonly pageTitleKey = 'portal.admin.pages.users.title';
   protected readonly pageSubtitleKey = 'portal.admin.pages.users.subtitle';
+  protected readonly pageIcon = AdminPageIcons.users;
   protected readonly createUrl = ADMIN_CREATE_USER_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createUser';
   protected readonly tableMounted = signal(true);

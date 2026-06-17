@@ -1,0 +1,54 @@
+---
+description: Shared app constants — cities, page icons (not route URLs)
+globs: src/app/shared/constants/**,src/app/portal/admin/admin-page-icons.ts,src/app/portal/user/user-page-icons.ts
+alwaysApply: false
+---
+
+# Shared constants (non-URL)
+
+Route URLs live in `shared/constants/app-urls.ts` — see `app-urls.mdc`. This file covers other shared constant modules.
+
+## BiH municipalities (`bih-cities.ts`)
+
+| Export | Type | Use |
+|--------|------|-----|
+| `BIH_CITIES` | `readonly string[]` | Sorted municipality names (`localeCompare` with `bs`) |
+| `BIH_CITY_OPTIONS` | `SelectOption[]` | `{ value: city, label: city }` — for form `autocomplete` / `select` fields |
+
+- Path: `shared/constants/bih-cities.ts`
+- Full list of BiH municipalities (FBiH, RS, Brčko) — **do not** duplicate city lists in feature files.
+- Import: `import { BIH_CITY_OPTIONS } from '…/shared/constants/bih-cities';`
+
+**Current consumers:** `portal/user/features/routes/form/route.form.ts` (origin, destination), `portal/user/features/cargo/form/cargo.form.ts` (origin, destination).
+
+```typescript
+{
+  key: 'origin',
+  type: 'autocomplete',
+  labelKey: '…fields.origin',
+  options: BIH_CITY_OPTIONS,
+}
+```
+
+City values are stored as plain strings (municipality name). No i18n per city — labels match stored values.
+
+## Portal page icons
+
+Single source for entity icons used by **sidebar list items** and **`PageTitleComponent`**.
+
+| File | Export | Keys |
+|------|--------|------|
+| `portal/admin/admin-page-icons.ts` | `AdminPageIcons` | `dashboard`, `users`, `vehicles`, `warehouses`, `settings` |
+| `portal/user/user-page-icons.ts` | `UserPageIcons` | `dashboard`, `routes`, `cargo`, `storage` |
+
+- Nav configs (`admin-nav.config.ts`, `user-nav.config.ts`) import these for **list** items; create nav items keep `LucideSquarePlus`.
+- Portal pages set `protected readonly pageIcon = AdminPageIcons.vehicles` (or `UserPageIcons.*`) — see `page-title.mdc`.
+- **Do not** use `LucideSquarePlus` on page titles.
+
+## Adding new shared constants
+
+- **Geographic / domain lists** reused by 2+ features → `shared/constants/<name>.ts`, export typed options compatible with `SelectOption`.
+- **Portal-only icons** → add to `admin-page-icons.ts` or `user-page-icons.ts`, then wire nav + pages.
+- **Feature-specific enums** (cargo type, vehicle kind) → stay in feature `*.constants.ts`.
+
+Related: `forms.mdc` (autocomplete + options), `page-title.mdc`, `app-urls.mdc`

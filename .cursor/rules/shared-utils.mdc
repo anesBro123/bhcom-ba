@@ -1,0 +1,63 @@
+---
+description: Shared utilities — date validation, search normalization
+globs: src/app/shared/utils/**
+alwaysApply: false
+---
+
+# Shared utilities (`shared/utils/`)
+
+## Date input (`date-input.ts`)
+
+Used by date fields in forms and `FormTextFieldComponent` for `min` / `max` HTML attributes.
+
+| Export | Role |
+|--------|------|
+| `todayIsoDate()` | Current local date as `YYYY-MM-DD` |
+| `resolveDateInputBound(value)` | Resolves `'today'` → today ISO; passes through ISO strings |
+| `resolveFieldDateBound(bound, formValue)` | Resolves `FieldDef.minDate` / `maxDate` (static or `(value) => …`) |
+| `notPastDateValidator()` | `FormGroup` validator — value must be ≥ today (`minDate` error) |
+| `endDateOnOrAfterStartValidator(startKey)` | End date ≥ today **and** ≥ start field (`minDate` / `dateRange` errors) |
+
+### Form field defs (`FieldDef`)
+
+```typescript
+minDate: 'today',
+maxDate: (value) => value.transportStartDate || 'today',
+```
+
+Types: `DateInputBoundValue = string | 'today'`; bound can be static or `(formValue) => …`.
+
+### Form page validators
+
+Mirror def constraints on the `FormGroup` — validators live on the page, not only in `FieldDef`:
+
+```typescript
+import { endDateOnOrAfterStartValidator, notPastDateValidator } from '…/shared/utils/date-input';
+
+transportStartDate: ['', [Validators.required, notPastDateValidator()]],
+transportEndDate: ['', [Validators.required, endDateOnOrAfterStartValidator('transportStartDate')]],
+```
+
+When start date changes, re-validate end date:
+
+```typescript
+this.form.get('transportStartDate')?.valueChanges
+  .pipe(takeUntilDestroyed(this.destroyRef))
+  .subscribe(() => this.form.get('transportEndDate')?.updateValueAndValidity({ emitEvent: false }));
+```
+
+**Reference:** `portal/user/features/routes/form/route-form-page.component.ts`, `portal/user/features/cargo/form/cargo-form-page.component.ts`, `portal/user/features/storage/form/storage-form-page.component.ts`.
+
+### Error i18n
+
+`shared.form.common.errors.minDate`, `shared.form.common.errors.dateRange` — registered in `form-control-error.ts` (`DEFAULT_ERROR_PRIORITY` / `DEFAULT_ERROR_KEYS`).
+
+## Search normalization (`normalize-for-search.ts`)
+
+| Export | Role |
+|--------|------|
+| `normalizeForSearch(value)` | Lowercase, trim, strip BiH diacritics (č→c, š→s, …), NFD + remove combining marks |
+
+Used by `FormAutocompleteFieldComponent` to filter options. Reuse for table search / filters when matching user-typed text against BiH place names.
+
+Related: `forms.mdc`, `shared-constants.mdc` (`BIH_CITY_OPTIONS`)

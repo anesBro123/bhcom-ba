@@ -15,6 +15,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 import { AdminVehicleForm, AdminVehicleFormEditActions } from './vehicle.form';
 import type { VehicleFormModel } from '../data/vehicle.model';
 import { AdminVehicleService } from '../data/vehicle.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-vehicle-form-page',
@@ -47,6 +48,8 @@ export class VehicleFormPageComponent implements OnInit {
       ? 'portal.admin.pages.editVehicle.subtitle'
       : 'portal.admin.pages.createVehicle.subtitle',
   );
+
+  protected readonly pageIcon = AdminPageIcons.vehicles;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

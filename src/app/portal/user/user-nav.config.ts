@@ -1,10 +1,4 @@
-import {
-  LucideLayoutGrid,
-  LucideMap,
-  LucidePackage,
-  LucideSquarePlus,
-  LucideWarehouse,
-} from '@lucide/angular';
+import { LucideSquarePlus } from '@lucide/angular';
 import {
   USER_CARGO_URL,
   USER_CREATE_CARGO_URL,
@@ -15,6 +9,7 @@ import {
   USER_STORAGE_URL,
 } from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
+import { UserPageIcons } from './user-page-icons';
 
 export const USER_NAV: NavSection[] = [
   {
@@ -23,7 +18,7 @@ export const USER_NAV: NavSection[] = [
       {
         labelKey: 'portal.user.nav.overview',
         route: USER_HOME_URL,
-        icon: LucideLayoutGrid,
+        icon: UserPageIcons.dashboard,
         exact: true,
       },
     ],
@@ -34,7 +29,7 @@ export const USER_NAV: NavSection[] = [
       {
         labelKey: 'portal.user.nav.allRoutes',
         route: USER_ROUTES_URL,
-        icon: LucideMap,
+        icon: UserPageIcons.routes,
         exact: true,
       },
       {
@@ -50,7 +45,7 @@ export const USER_NAV: NavSection[] = [
       {
         labelKey: 'portal.user.nav.allCargo',
         route: USER_CARGO_URL,
-        icon: LucidePackage,
+        icon: UserPageIcons.cargo,
         exact: true,
       },
       {
@@ -66,7 +61,7 @@ export const USER_NAV: NavSection[] = [
       {
         labelKey: 'portal.user.nav.allStorage',
         route: USER_STORAGE_URL,
-        icon: LucideWarehouse,
+        icon: UserPageIcons.storage,
         exact: true,
       },
       {

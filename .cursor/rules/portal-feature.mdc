@@ -60,7 +60,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - Template:
 
 ```html
-<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" />
+<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
 <app-form-page
   [definition]="formDef()"
   [formGroup]="form"
@@ -71,9 +71,19 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 />
 ```
 
-- `pageTitleKey` / `pageSubtitleKey` computed — swap create vs edit `portal.<portal>.pages.*` keys; do not rely on `FormPageComponent` or `FormDefinition` for page title.
+- `pageTitleKey` / `pageSubtitleKey` computed — swap create vs edit `portal.<portal>.pages.*` keys; `pageIcon` from `AdminPageIcons` / `UserPageIcons` (same on list + create + edit).
 
 - Stepper UX (free navigation, `ValidationState` pills, submit-only enforcement, mobile layout): see `forms.mdc` — do not implement in the feature page.
+
+### User routes / cargo (single-step + shared patterns)
+
+Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`.
+
+- **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
+- **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`
+- **Dynamic select options:** `buildRouteForm(vehicleOptions)` pattern — clone form def, inject loaded options into `vehicleId` field
+- **Table:** `app-route-endpoints` custom cell for origin → destination — see `tables.mdc`
+- **Portal data:** `portal/user/data/company-vehicle.service.ts`, `company-warehouse.service.ts` for cross-feature selects
 
 ## Table page (`table/<entity>-table-page.component.ts`)
 
@@ -82,7 +92,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 ```html
 <app-page-header>
-  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" />
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
   <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
 </app-page-header>
 
@@ -95,10 +105,12 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 import { PageHeaderComponent } from '…/shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '…/shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '…/shared/ui/primary-action-link/primary-action-link.component';
+import { AdminPageIcons } from '…/portal/admin/admin-page-icons';
 import { ADMIN_CREATE_ENTITY_URL } from '…/shared/constants/app-urls';
 
 protected readonly pageTitleKey = 'portal.admin.pages.<entity>.title';
 protected readonly pageSubtitleKey = 'portal.admin.pages.<entity>.subtitle';
+protected readonly pageIcon = AdminPageIcons.<entity>;
 protected readonly createUrl = ADMIN_CREATE_ENTITY_URL;
 protected readonly createLabelKey = 'portal.admin.nav.createEntity';
 
@@ -106,6 +118,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 ```
 
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
+- Route pair cells: `RouteEndpointsComponent` — see `tables.mdc`.
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
 
@@ -153,4 +166,6 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 | Tables / mobile cards | `tables.mdc` |
 | Delete confirmation | `confirm.mdc` |
 | Route URLs | `app-urls.mdc` |
+| Cities / page icons | `shared-constants.mdc` |
+| Date validators | `shared-utils.mdc` |
 | Translation keys | `i18n.mdc` |

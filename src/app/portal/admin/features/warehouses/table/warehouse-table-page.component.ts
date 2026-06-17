@@ -19,6 +19,7 @@ import {
 
 import type { Warehouse } from '../data/warehouse.model';
 import { AdminWarehouseService } from '../data/warehouse.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 import { WarehouseTable } from './warehouse.table';
 
 @Component({
@@ -42,6 +43,7 @@ export class WarehouseTablePageComponent {
   protected readonly table = WarehouseTable;
   protected readonly pageTitleKey = 'portal.admin.pages.warehouses.title';
   protected readonly pageSubtitleKey = 'portal.admin.pages.warehouses.subtitle';
+  protected readonly pageIcon = AdminPageIcons.warehouses;
   protected readonly createUrl = ADMIN_CREATE_WAREHOUSE_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createWarehouse';
   protected readonly typeKey = tableCellKey(WarehouseTable, 'type');

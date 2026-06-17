@@ -20,6 +20,7 @@ import {
 
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { RouteTable, routeCellKey } from './route.table';
 
 @Component({
@@ -43,6 +44,7 @@ export class RouteTablePageComponent {
   protected readonly table = RouteTable;
   protected readonly pageTitleKey = 'portal.user.pages.routes.title';
   protected readonly pageSubtitleKey = 'portal.user.pages.routes.subtitle';
+  protected readonly pageIcon = UserPageIcons.routes;
   protected readonly createUrl = USER_CREATE_ROUTE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postRoute';
   protected readonly routeKey = routeCellKey;

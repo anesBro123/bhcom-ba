@@ -18,6 +18,7 @@ import {
 
 import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { StorageTable } from './storage.table';
 
 @Component({
@@ -39,6 +40,7 @@ export class StorageTablePageComponent {
   protected readonly table = StorageTable;
   protected readonly pageTitleKey = 'portal.user.pages.storage.title';
   protected readonly pageSubtitleKey = 'portal.user.pages.storage.subtitle';
+  protected readonly pageIcon = UserPageIcons.storage;
   protected readonly createUrl = USER_CREATE_STORAGE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postStorage';
   protected readonly tableMounted = signal(true);

@@ -18,6 +18,7 @@ import {
 
 import type { Cargo } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { CargoTable, cargoRouteCellKey, cargoTypeCellKey } from './cargo.table';
 
 @Component({
@@ -42,6 +43,7 @@ export class CargoTablePageComponent {
   protected readonly table = CargoTable;
   protected readonly pageTitleKey = 'portal.user.pages.cargo.title';
   protected readonly pageSubtitleKey = 'portal.user.pages.cargo.subtitle';
+  protected readonly pageIcon = UserPageIcons.cargo;
   protected readonly createUrl = USER_CREATE_CARGO_URL;
   protected readonly createLabelKey = 'portal.user.nav.postCargo';
   protected readonly routeKey = cargoRouteCellKey;

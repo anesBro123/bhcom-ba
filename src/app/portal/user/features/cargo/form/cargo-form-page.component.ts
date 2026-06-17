@@ -15,6 +15,7 @@ import { notPastDateValidator } from '../../../../../shared/utils/date-input';
 
 import type { CargoFormModel } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { CargoForm, CargoFormEditActions } from './cargo.form';
 
 @Component({
@@ -43,6 +44,8 @@ export class CargoFormPageComponent implements OnInit {
   protected readonly pageSubtitleKey = computed(() =>
     this.isEdit() ? 'portal.user.pages.editCargo.subtitle' : 'portal.user.pages.createCargo.subtitle',
   );
+
+  protected readonly pageIcon = UserPageIcons.cargo;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

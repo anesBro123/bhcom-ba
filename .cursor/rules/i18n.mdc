@@ -31,8 +31,9 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 |------|---------|
 | `shared.sidebar.*` | Portal sidebar chrome |
 | `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
-| `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.notStarted` / `inProgress` / `valid` / `invalid`), field errors (`errors.*`) |
+| `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, pagination, row actions |
+| `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteEndpointsComponent`) |
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 ### Guest (`guest.*`)
@@ -75,6 +76,8 @@ portal.user.nav.allRoutes
 portal.user.pages.routes.title
 portal.user.pages.routes.subtitle
 ```
+
+**City fields:** municipality names in `BIH_CITY_OPTIONS` use plain `label` strings — no per-city i18n keys.
 
 ## Rules for new keys
 

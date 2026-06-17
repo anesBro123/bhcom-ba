@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { AdminPageIcons } from '../../admin-page-icons';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
 
 @Component({
@@ -8,4 +9,6 @@ import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.
   templateUrl: './admin-settings-page.component.html',
   styleUrl: './admin-settings-page.component.scss',
 })
-export class AdminSettingsPageComponent {}
+export class AdminSettingsPageComponent {
+  protected readonly pageIcon = AdminPageIcons.settings;
+}

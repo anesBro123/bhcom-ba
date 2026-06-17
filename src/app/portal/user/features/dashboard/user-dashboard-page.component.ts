@@ -12,6 +12,7 @@ import {
 import { MetricCardComponent, type MetricCardVariant } from '../../../../shared/ui/metric-card/metric-card.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
 import { QuickActionCardComponent } from '../../../../shared/ui/quick-action-card/quick-action-card.component';
+import { UserPageIcons } from '../../user-page-icons';
 import { USER_DASHBOARD_ENTITY_ACTION_GROUPS } from './user-dashboard.actions.config';
 import { UserDashboardService } from './data/user-dashboard.service';
 
@@ -34,6 +35,7 @@ export class UserDashboardPageComponent implements OnInit {
   private readonly dashboardService = inject(UserDashboardService);
 
   protected readonly entityActionGroups = USER_DASHBOARD_ENTITY_ACTION_GROUPS;
+  protected readonly pageIcon = UserPageIcons.dashboard;
 
   protected readonly metrics: DashboardMetric[] = [
     {

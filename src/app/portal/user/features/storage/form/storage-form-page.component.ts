@@ -19,6 +19,7 @@ import { CompanyWarehouseService } from '../../../data/company-warehouse.service
 
 import type { StorageFormModel } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { buildStorageForm, StorageForm, StorageFormEditActions } from './storage.form';
 
 @Component({
@@ -49,6 +50,8 @@ export class StorageFormPageComponent implements OnInit {
   protected readonly pageSubtitleKey = computed(() =>
     this.isEdit() ? 'portal.user.pages.editStorage.subtitle' : 'portal.user.pages.createStorage.subtitle',
   );
+
+  protected readonly pageIcon = UserPageIcons.storage;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

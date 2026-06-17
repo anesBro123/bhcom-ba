@@ -12,6 +12,7 @@ import {
 import { MetricCardComponent, type MetricCardVariant } from '../../../../shared/ui/metric-card/metric-card.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
 import { QuickActionCardComponent } from '../../../../shared/ui/quick-action-card/quick-action-card.component';
+import { AdminPageIcons } from '../../admin-page-icons';
 import { ADMIN_DASHBOARD_ENTITY_ACTION_GROUPS, ADMIN_DASHBOARD_SETTINGS_ACTION } from './admin-dashboard.actions.config';
 import { AdminDashboardService } from './data/admin-dashboard.service';
 
@@ -35,6 +36,7 @@ export class AdminDashboardPageComponent implements OnInit {
 
   protected readonly entityActionGroups = ADMIN_DASHBOARD_ENTITY_ACTION_GROUPS;
   protected readonly settingsAction = ADMIN_DASHBOARD_SETTINGS_ACTION;
+  protected readonly pageIcon = AdminPageIcons.dashboard;
 
   protected readonly metrics: DashboardMetric[] = [
     {

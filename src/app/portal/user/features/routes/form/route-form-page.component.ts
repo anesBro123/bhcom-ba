@@ -19,6 +19,7 @@ import { CompanyVehicleService } from '../../../data/company-vehicle.service';
 
 import type { RouteFormModel } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
+import { UserPageIcons } from '../../../user-page-icons';
 import { buildRouteForm, RouteForm, RouteFormEditActions } from './route.form';
 
 @Component({
@@ -49,6 +50,8 @@ export class RouteFormPageComponent implements OnInit {
   protected readonly pageSubtitleKey = computed(() =>
     this.isEdit() ? 'portal.user.pages.editRoute.subtitle' : 'portal.user.pages.createRoute.subtitle',
   );
+
+  protected readonly pageIcon = UserPageIcons.routes;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

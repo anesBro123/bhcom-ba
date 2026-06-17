@@ -19,6 +19,7 @@ import {
 
 import type { Vehicle } from '../data/vehicle.model';
 import { AdminVehicleService } from '../data/vehicle.service';
+import { AdminPageIcons } from '../../../admin-page-icons';
 import { VehicleTable } from './vehicle.table';
 
 @Component({
@@ -42,6 +43,7 @@ export class VehicleTablePageComponent {
   protected readonly table = VehicleTable;
   protected readonly pageTitleKey = 'portal.admin.pages.vehicles.title';
   protected readonly pageSubtitleKey = 'portal.admin.pages.vehicles.subtitle';
+  protected readonly pageIcon = AdminPageIcons.vehicles;
   protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
   protected readonly vrstaVozilaKey = tableCellKey(VehicleTable, 'vrstaVozila');

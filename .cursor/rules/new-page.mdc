@@ -16,7 +16,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 4. Add nav section (list + create) in `admin-nav.config.ts` with `route` from `app-urls.ts`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
 6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
-7. **Page title:** import `PageTitleComponent` from `shared/ui/page-title/`; above content with **title + subtitle** from `portal.*.pages.*` on the page component (`pageTitleKey` / `pageSubtitleKey`). Table/form defs do **not** carry page header keys. See **`page-title.mdc`**.
+7. **Page title:** `PageTitleComponent` with `pageTitleKey` / `pageSubtitleKey` / `pageIcon` (`AdminPageIcons` / `UserPageIcons`) — see **`page-title.mdc`**, **`shared-constants.mdc`**.
 8. **Table create CTA (required):** compose `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent`. Page TS: `createUrl` from `app-urls.ts`, `createLabelKey` from `portal.<portal>.nav.create*`. Reference: `portal/admin/features/vehicles/table/`.
 
 ## Portal feature (other shapes)

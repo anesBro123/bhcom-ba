@@ -1,4 +1,4 @@
-import { LucideLayoutGrid, LucideSquarePlus, LucideTruck, LucideUsers, LucideWarehouse } from '@lucide/angular';
+import { LucideSquarePlus } from '@lucide/angular';
 import {
   ADMIN_CREATE_USER_URL,
   ADMIN_CREATE_VEHICLE_URL,
@@ -9,6 +9,7 @@ import {
   ADMIN_WAREHOUSES_URL,
 } from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
+import { AdminPageIcons } from './admin-page-icons';
 
 export const ADMIN_NAV: NavSection[] = [
   {
@@ -17,7 +18,7 @@ export const ADMIN_NAV: NavSection[] = [
       {
         labelKey: 'portal.admin.nav.overview',
         route: ADMIN_HOME_URL,
-        icon: LucideLayoutGrid,
+        icon: AdminPageIcons.dashboard,
         exact: true,
       },
     ],
@@ -28,7 +29,7 @@ export const ADMIN_NAV: NavSection[] = [
       {
         labelKey: 'portal.admin.nav.allUsers',
         route: ADMIN_USERS_URL,
-        icon: LucideUsers,
+        icon: AdminPageIcons.users,
         exact: true,
       },
       {
@@ -44,7 +45,7 @@ export const ADMIN_NAV: NavSection[] = [
       {
         labelKey: 'portal.admin.nav.allVehicles',
         route: ADMIN_VEHICLES_URL,
-        icon: LucideTruck,
+        icon: AdminPageIcons.vehicles,
         exact: true,
       },
       {
@@ -60,7 +61,7 @@ export const ADMIN_NAV: NavSection[] = [
       {
         labelKey: 'portal.admin.nav.allWarehouses',
         route: ADMIN_WAREHOUSES_URL,
-        icon: LucideWarehouse,
+        icon: AdminPageIcons.warehouses,
         exact: true,
       },
       {
