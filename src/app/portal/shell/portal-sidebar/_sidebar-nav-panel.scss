@@ -1,0 +1,82 @@
+// Shared section header + item list (expanded sidebar + collapsed flyout panel)
+.sidebar__section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  padding: 0 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-section);
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sidebar__section-title-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.sidebar__section-title--active {
+  color: var(--portal-accent-muted, var(--portal-accent));
+}
+
+.sidebar__section-title--active .sidebar__section-title-icon {
+  color: var(--portal-accent);
+  opacity: 1;
+}
+
+.sidebar__items {
+  list-style: none;
+  margin: 0;
+  margin-left: calc(0.625rem + var(--sidebar-section-icon-size, 18px) / 2 - 1px);
+  --sidebar-items-rail-inset: 0.625rem;
+  --sidebar-rail-width: 2px;
+  padding: 0.125rem 0 0 var(--sidebar-items-rail-inset);
+  border-left: var(--sidebar-rail-width) solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 0.75rem;
+  border-radius: 8px;
+  border-left: 2px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &:hover {
+    background-color: var(--bg-active);
+    color: var(--text-primary);
+  }
+
+  &--active {
+    position: relative;
+    z-index: 1;
+    margin-left: calc(-1 * var(--sidebar-items-rail-inset) - var(--sidebar-rail-width));
+    padding-left: calc(0.75rem + var(--sidebar-items-rail-inset) + var(--sidebar-rail-width));
+    border-left-color: var(--portal-accent);
+    border-radius: 0;
+    background-color: var(--portal-accent-nav-bg, var(--bg-active));
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+}

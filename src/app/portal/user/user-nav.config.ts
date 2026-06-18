@@ -1,4 +1,3 @@
-import { LucideSquarePlus } from '@lucide/angular';
 import {
   USER_CARGO_URL,
   USER_CREATE_CARGO_URL,
@@ -17,78 +16,72 @@ import { UserPageIcons } from './user-page-icons';
 export const USER_NAV: NavSection[] = [
   {
     titleKey: 'portal.user.nav.sections.dashboard',
+    icon: UserPageIcons.dashboard,
     items: [
       {
         labelKey: 'portal.user.nav.overview',
         route: USER_HOME_URL,
-        icon: UserPageIcons.dashboard,
         exact: true,
       },
     ],
   },
   {
     titleKey: 'portal.user.nav.sections.routes',
+    icon: UserPageIcons.routes,
     items: [
       {
         labelKey: 'portal.user.nav.allRoutes',
         route: USER_ROUTES_URL,
-        icon: UserPageIcons.routes,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.myRoutes',
         route: USER_MY_ROUTES_URL,
-        icon: UserPageIcons.routes,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.postRoute',
         route: USER_CREATE_ROUTE_URL,
-        icon: LucideSquarePlus,
       },
     ],
   },
   {
     titleKey: 'portal.user.nav.sections.cargo',
+    icon: UserPageIcons.cargo,
     items: [
       {
         labelKey: 'portal.user.nav.allCargo',
         route: USER_CARGO_URL,
-        icon: UserPageIcons.cargo,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.myCargo',
         route: USER_MY_CARGO_URL,
-        icon: UserPageIcons.cargo,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.postCargo',
         route: USER_CREATE_CARGO_URL,
-        icon: LucideSquarePlus,
       },
     ],
   },
   {
     titleKey: 'portal.user.nav.sections.storage',
+    icon: UserPageIcons.storage,
     items: [
       {
         labelKey: 'portal.user.nav.allStorage',
         route: USER_STORAGE_URL,
-        icon: UserPageIcons.storage,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.myStorage',
         route: USER_MY_STORAGE_URL,
-        icon: UserPageIcons.storage,
         exact: true,
       },
       {
         labelKey: 'portal.user.nav.postStorage',
         route: USER_CREATE_STORAGE_URL,
-        icon: LucideSquarePlus,
       },
     ],
   },

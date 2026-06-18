@@ -9,8 +9,10 @@ alwaysApply: false
 ## Structure
 
 - `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
-- `PortalSidebarComponent` (`portal-sidebar`) — brand row (BHCOM + portal suffix from `PORTAL_CONFIG`), collapsible nav (desktop), drawer (mobile).
-- Nav types: `portal/common/models/nav.model.ts`; configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
+- `PortalSidebarComponent` (`portal-sidebar`) — brand row, collapsible nav (desktop), drawer (mobile). Collapsed desktop flyouts via `SidebarSectionFlyoutComponent` (`portal-sidebar/sidebar-section-flyout/`).
+- **Shared nav panel styles:** `portal/shell/portal-sidebar/_sidebar-nav-panel.scss` — section title, item list, links, active rail overlap. `@use` from `portal-sidebar.component.scss` and `sidebar-section-flyout.component.scss`. **Flyout panel reuses the same BEM classes** (`sidebar__section-title`, `sidebar__items`, `sidebar__link`) as expanded sidebar — do not duplicate flyout-only item/title styles.
+- Nav types: `portal/common/models/nav.model.ts` (`NavSection.icon?`, text-only `NavItem`); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
+- Active-section helper: `portal/common/utils/is-nav-section-active.ts` (`isNavSectionActive(section, url)`).
 - `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
 - `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest shared.topbar.
@@ -46,12 +48,61 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 
 ## Desktop sidebar
 
-- Viewport height (`100vh`), nav area scrolls (`overflow-y` on `.sidebar__nav`).
+- Viewport height (`100vh`), nav area scrolls (`overflow-y` on `.sidebar__nav`; `overflow: visible` when collapsed for flyout).
 - Brand row: `PanelLeftClose` / `PanelLeftOpen` for collapse.
+- Sidebar host: `z-index: 100` (desktop) so flyout panels stack above main content.
+
+### Nav model
+
+```typescript
+interface NavSection {
+  titleKey: string;
+  icon?: LucideIcon;   // entity icon — section header + collapsed trigger only
+  items: NavItem[];
+}
+interface NavItem {
+  labelKey: string;
+  route: string;
+  exact?: boolean;
+}
+```
+
+- Section `icon` from `UserPageIcons` / `AdminPageIcons` — see `shared-constants.mdc`.
+- **No per-item icons** in nav configs.
+
+### Expanded + flyout panel (shared `_sidebar-nav-panel.scss`)
+
+Parent sets `--sidebar-section-icon-size: 18px` on `.sidebar__section` (expanded) or `.sidebar-flyout` (collapsed panel).
+
+**Section header** (`<h2 class="sidebar__section-title">`):
+- `icon` (18px) + uppercase muted `titleKey`; `pointer-events: none` (not clickable).
+- Inactive: title `--text-section`, icon `--text-muted`.
+- Active (`sidebar__section-title--active` via `isNavSectionActive`): title `--portal-accent-muted`, icon `--portal-accent`.
+
+**Item list** (`ul.sidebar__items`):
+- Vertical guide rail: `border-left: 2px solid var(--border-subtle)`, centered under section icon (`margin-left: calc(0.625rem + iconSize/2 - 1px)`).
+
+**Links** (`a.sidebar__link`):
+- Text only; `border-radius: 8px` when inactive/hover.
+- **Active** (`sidebar__link--active`): soft `--portal-accent-nav-bg` fill, `font-weight: 600`, `border-radius: 0`.
+- **Active rail overlap:** negative `margin-left` pulls link over list padding **and** rail width; `border-left: 2px solid var(--portal-accent)` with `z-index: 1` paints over the gray rail so that row reads as a green spine segment (not a second parallel bar).
+
+### Collapsed (desktop only, `> 768px`)
+
+- Gated by `flyoutMode` = `collapsed && !isMobileLayout()` (`MOBILE_MEDIA_QUERY` via `matchMedia` in `portal-sidebar.component.ts`).
+- **Single-item sections** (Dashboard): centered rail `<a class="sidebar__link sidebar__link--rail">` using `NavSection.icon`; icon muted unless route active.
+- **Multi-item sections**: entity icon **trigger** in `SidebarSectionFlyoutComponent`; hover/focus opens fixed panel to the right.
+- **Flyout panel** reuses `_sidebar-nav-panel.scss` classes — visually identical to one expanded section. Panel chrome only in flyout SCSS: fixed position, `z-index: 210`, tokens `--bg-sidebar-flyout`, `--border-sidebar-flyout`, `--shadow-sidebar-flyout`.
+- **Trigger** styles stay in `sidebar-section-flyout.component.scss` (encapsulation): muted icon; accent when `sectionActive()`.
+- Flyout closes on leave (200ms grace), Escape, outside click, or navigation.
+
+### Mobile drawer
+
+- Flyout **disabled** — full section headers + item labels even if `collapsed` is persisted from desktop.
 
 ## Styling
 
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
 - Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
 - **Portal page title:** `PageTitleComponent` — see `page-title.mdc`. Page templates own `<app-page-title>`; table list pages with create routes compose `PageHeaderComponent` + `PrimaryActionLinkComponent`. `DataTableComponent` / `FormPageComponent` do not render page titles or create CTAs.
-- **Portal accent:** `PortalShellComponent` host class `portal-user` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--user` / `.login--admin` on the same tokens. Active sidebar link: inset 3px border + tinted background; brand portal suffix uses muted accent.
+- **Portal accent:** `PortalShellComponent` host class `portal-user` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--user` / `.login--admin` on the same tokens. Active sidebar item: accent rail overlap + tinted background (see `_sidebar-nav-panel.scss`); brand portal suffix uses muted accent.

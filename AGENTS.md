@@ -9,8 +9,8 @@ src/app/
 ├── shared/          # auth, i18n, theme, constants/, form/, table/, confirm/, ui/
 ├── guest/           # public routes, shell, guards, login/register pages
 └── portal/          # authenticated shell, configs, features, guards
-    ├── common/      # models, PORTAL_CONFIG barrel (nav + portal-config)
-    ├── shell/       # PortalShell, sidebar, topbar, SidebarService
+    ├── shell/       # PortalShell, sidebar, SidebarSectionFlyout, topbar, SidebarService
+    ├── common/      # models, PORTAL_CONFIG barrel, is-nav-section-active util
     ├── guards/      # portalMatchGuard
     ├── user/        # routes, nav, config, features/
     └── admin/       # routes, nav, config, features/ (dashboard, users, vehicles, warehouses)
@@ -78,8 +78,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
 - **Admin dashboard:** `portal/admin/features/dashboard/` — KPI row (`app-metric-card`, counts via `AdminDashboardService`) + Quick Actions (`app-quick-action-card`, grouped browse/create columns + settings row); see `new-page.mdc`, `layout.mdc`
 - **Guest shell:** `src/app/guest/shell/`
-- **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`)
-- **User CRUD (reference):** `portal/user/features/routes/` — `data/`, `form/`, `table/`; list + create + edit
+- **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`); shared nav panel: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
+- **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.icon`, text-only `NavItem`); configs `user-nav.config.ts`, `admin-nav.config.ts`; `isNavSectionActive()` in `portal/common/utils/is-nav-section-active.ts`; flyout reuses same `sidebar__*` classes — see `layout.mdc`
+- **User CRUD (reference):** `portal/user/features/routes/` — `data/`, `form/`, `table-all/`, `table-my/`; All vs My list split; `listAll()` / `listMine()` on service
 - **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
 - **Stepper (create-only):** `guest/pages/register/`
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
@@ -88,7 +89,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **BiH cities:** `shared/constants/bih-cities.ts` — `BIH_CITY_OPTIONS` for autocomplete origin/destination fields
 - **User entity status (interim):** `shared/constants/user-entity-status.ts` — `UserEntityStatus`; all entities will get their own status unions later — see `entity-status.mdc`
-- **Portal page icons:** `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts`
+- **Portal page icons:** `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — section headers, collapsed rail/flyout triggers, page titles (not per-nav-item icons)
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
 - **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination in tables
@@ -109,7 +110,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `app-urls.mdc` | Always — route URLs via `shared/constants/app-urls.ts` only |
 | `angular.mdc` | `src/**/*.{ts,html,scss}` |
 | `guest.mdc` | `src/app/guest/**` |
-| `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` |
+| `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` — sidebar sections, flyout, nav icon rules |
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
 | `tables.mdc` | `shared/table/**`, `*.table.ts`, `*-table-page.component.*` — table defs + list pages (incl. create CTA) |

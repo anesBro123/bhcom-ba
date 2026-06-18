@@ -55,6 +55,9 @@
   --bg-table-actions-menu: var(--bg-app);
   --border-table-actions-menu: rgba(255, 255, 255, 0.08);
   --shadow-table-actions-menu: 0 8px 24px rgb(0 0 0 / 0.35);
+  --bg-sidebar-flyout: var(--bg-app);
+  --border-sidebar-flyout: rgba(255, 255, 255, 0.08);
+  --shadow-sidebar-flyout: 0 8px 24px rgb(0 0 0 / 0.35);
   --bg-form-card: rgba(255, 255, 255, 0.02);
   --bg-confirm-dialog: #151c2e;
   --border-form-card: rgba(255, 255, 255, 0.1);
@@ -154,6 +157,9 @@
   --bg-table-actions-menu: var(--bg-table-card);
   --border-table-actions-menu: rgba(0, 0, 0, 0.08);
   --shadow-table-actions-menu: 0 4px 16px rgb(0 0 0 / 0.1);
+  --bg-sidebar-flyout: var(--bg-table-card);
+  --border-sidebar-flyout: rgba(0, 0, 0, 0.08);
+  --shadow-sidebar-flyout: 0 4px 16px rgb(0 0 0 / 0.1);
   --bg-form-card: #ffffff;
   --bg-confirm-dialog: #ffffff;
   --border-form-card: rgba(0, 0, 0, 0.08);

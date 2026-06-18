@@ -33,25 +33,47 @@
   <nav class="sidebar__nav">
     @for (section of navSections; track section.titleKey) {
       <div class="sidebar__section">
-        <h2 class="sidebar__section-title">{{ section.titleKey | translate }}</h2>
-        <ul class="sidebar__items">
-          @for (item of section.items; track item.route) {
-            <li>
-              <a
-                [routerLink]="item.route"
-                routerLinkActive="sidebar__link--active"
-                [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-                class="sidebar__link"
-                [attr.title]="
-                  sidebarService.collapsed() ? (item.labelKey | translate) : null
-                "
-              >
-                <svg [lucideIcon]="item.icon" [size]="18" class="sidebar__link-icon" />
-                <span>{{ item.labelKey | translate }}</span>
-              </a>
-            </li>
-          }
-        </ul>
+        @if (usesFlyout(section)) {
+          <portal-sidebar-section-flyout [section]="section" />
+        } @else if (isRailLink(section)) {
+          @let item = section.items[0];
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="sidebar__link--active"
+            [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+            class="sidebar__link sidebar__link--rail"
+            [attr.aria-label]="section.titleKey | translate"
+            [attr.title]="section.titleKey | translate"
+          >
+            @if (section.icon) {
+              <svg [lucideIcon]="section.icon" [size]="20" class="sidebar__link-rail-icon" />
+            }
+          </a>
+        } @else {
+          <h2
+            class="sidebar__section-title"
+            [class.sidebar__section-title--active]="isSectionActive(section)"
+          >
+            @if (section.icon) {
+              <svg [lucideIcon]="section.icon" [size]="18" class="sidebar__section-title-icon" />
+            }
+            <span>{{ section.titleKey | translate }}</span>
+          </h2>
+          <ul class="sidebar__items">
+            @for (item of section.items; track item.route) {
+              <li>
+                <a
+                  [routerLink]="item.route"
+                  routerLinkActive="sidebar__link--active"
+                  [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+                  class="sidebar__link"
+                >
+                  <span>{{ item.labelKey | translate }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        }
       </div>
     }
   </nav>

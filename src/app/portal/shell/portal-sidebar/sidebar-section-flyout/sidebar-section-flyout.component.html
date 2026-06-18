@@ -1,0 +1,56 @@
+<div
+  class="sidebar-flyout-zone"
+  (mouseenter)="onZoneEnter()"
+  (mouseleave)="onZoneLeave()"
+  (focusin)="onZoneEnter()"
+>
+  <button
+    #trigger
+    type="button"
+    class="sidebar__section-trigger"
+    [class.sidebar__section-trigger--active]="sectionActive()"
+    [attr.aria-expanded]="open()"
+    [attr.aria-label]="section().titleKey | translate"
+    aria-haspopup="true"
+    (keydown)="onTriggerKeydown($event)"
+  >
+    @if (section().icon) {
+      <svg [lucideIcon]="section().icon!" [size]="20" class="sidebar__section-trigger-icon" />
+    }
+  </button>
+
+  @if (open()) {
+    <div
+      class="sidebar-flyout"
+      role="navigation"
+      [attr.aria-label]="section().titleKey | translate"
+      [style.top.px]="panelTop()"
+      [style.left.px]="panelLeft()"
+    >
+      <h2
+        class="sidebar__section-title"
+        [class.sidebar__section-title--active]="sectionActive()"
+      >
+        @if (section().icon) {
+          <svg [lucideIcon]="section().icon!" [size]="18" class="sidebar__section-title-icon" />
+        }
+        <span>{{ section().titleKey | translate }}</span>
+      </h2>
+      <ul class="sidebar__items">
+        @for (item of section().items; track item.route) {
+          <li>
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="sidebar__link--active"
+              [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              class="sidebar__link"
+              (click)="onLinkClick()"
+            >
+              <span>{{ item.labelKey | translate }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>
