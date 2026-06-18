@@ -1,0 +1,136 @@
+---
+description: Global detail modal (DetailModalService) for read-only entity views
+globs: src/app/shared/detail-modal/**,src/app/**/detail/**,src/app/app.ts,src/app/app.html
+alwaysApply: false
+---
+
+# Detail modal (`src/app/shared/detail-modal`)
+
+Global imperative read-only detail modal for table **View Details** row actions. Do not use `ConfirmService` for detail views or duplicate modal markup in feature pages.
+
+## Structure
+
+| File | Role |
+|------|------|
+| `detail-modal.types.ts` | `DetailDefinition`, `DetailFieldDef`, `DetailModalOptions`, `DetailModalResult` |
+| `define-detail.ts` | `defineDetail<T>()` |
+| `detail-modal.constants.ts` | `buildDetailModalActions(scope)`, shared close/edit label keys |
+| `detail-modal.service.ts` | `open<T>(options): Observable<DetailModalResult>` |
+| `detail-view/` | Renders `DetailDefinition` + entity data |
+| `detail-field-renderer/` | Built-in field widgets (text, date, status, route, vehicle, translate) |
+| `detail-modal/` | `DetailModalComponent` — single host mounted in app root |
+| `index.ts` | Barrel |
+
+## Global host
+
+`app.html` mounts `<app-confirm-dialog />` once (alongside `<router-outlet />`). `PortalShellComponent` mounts `<app-detail-modal />` for portal table detail views. Feature pages only inject `DetailModalService`; no per-page dialog template.
+
+## Per-entity pattern
+
+1. **Definition** — `detail/<entity>.detail.ts` with `defineDetail<Entity>()({ sections: [...] })`.
+2. **Opener** — `detail/open-<entity>-detail-modal.ts` calls `DetailModalService.open()` and handles `edit` navigation.
+3. **Table page** — `viewDetails` row action calls the opener with `scope: 'all' | 'my'`.
+
+```typescript
+// detail/route.detail.ts
+export const RouteDetail = defineDetail<Route>()({
+  sections: [
+    {
+      id: 'schedule',
+      titleKey: 'portal.user.features.routes.detail.sections.schedule',
+      fields: [
+        { key: 'status', type: 'status', labelKey: '…table.columns.status' },
+        { key: 'transportStartDate', type: 'date', labelKey: '…form.fields.transportStartDate' },
+      ],
+    },
+  ],
+});
+```
+
+```typescript
+// table page
+case 'viewDetails':
+  openRouteDetailModal(this.detailModalService, this.router, event.row, 'all');
+  break;
+```
+
+## API
+
+```typescript
+import {
+  DetailModalService,
+  buildDetailModalActions,
+  DETAIL_MODAL_EDIT_ACTION_ID,
+} from 'shared/detail-modal';
+
+this.detailModalService
+  .open({
+    titleKey: 'portal.user.features.routes.detail.title',
+    subtitleKey: 'portal.user.features.routes.detail.subtitle',
+    subtitleParams: { id: row.id },
+    definition: RouteDetail,
+    data: row,
+    actions: buildDetailModalActions('my'), // Edit + Close; 'all' → Close only
+  })
+  .pipe(take(1))
+  .subscribe((result) => {
+    if (result.actionId === DETAIL_MODAL_EDIT_ACTION_ID) {
+      void this.router.navigateByUrl(userEditRouteUrl(row.id));
+    }
+  });
+```
+
+- Returns `Observable<DetailModalResult>` with `{ actionId }`.
+- Backdrop, Escape, and header X → `{ actionId: 'close' }`.
+- Only one modal at a time.
+
+## Field types
+
+| `type` | Renders |
+|--------|---------|
+| `text` | Plain string (empty → em dash) |
+| `date` | Formatted date |
+| `number` | Formatted number; optional `suffixKey` |
+| `status` | `StatusBadgeComponent` |
+| `route` | `RouteDisplayComponent` (`originKey`, `destinationKey`) |
+| `vehicle` | `VehicleDisplayComponent` (`nameKey`, `plateKey`) |
+| `translate` | Enum label via `options` |
+
+Reuse form/table `labelKey`s where possible. Add `…features.<entity>.detail.*` for modal title, subtitle, and section headings only.
+
+## CTA scope
+
+| Scope | Footer actions |
+|-------|----------------|
+| `'all'` | Close only |
+| `'my'` | Edit (secondary) + Close (primary) |
+
+Use `buildDetailModalActions(scope)` — do not hand-roll button defs unless a flow needs custom actions.
+
+## i18n
+
+| Path | Use for |
+|------|---------|
+| `shared.detailModal.common.close` | Default close button |
+| `shared.detailModal.common.edit` | Default edit button |
+| `…features.<entity>.detail.title` | Modal title |
+| `…features.<entity>.detail.subtitle` | Modal subtitle (supports params) |
+| `…features.<entity>.detail.sections.*` | Section headings |
+
+## Styling
+
+Theme tokens in `src/styles.scss`:
+
+- `--bg-detail-modal`
+- `--border-detail-modal`
+- `--shadow-detail-modal`
+
+Panel width `min(100%, 42rem)`. `z-index: 250`. Body scroll locked while open.
+
+## Examples
+
+- Routes: `portal/user/features/routes/detail/`
+- Cargo: `portal/user/features/cargo/detail/`
+- Storage: `portal/user/features/storage/detail/`
+
+Do not use `ConfirmService` for view details. Do not add a second global detail modal host.

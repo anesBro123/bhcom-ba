@@ -73,6 +73,12 @@
         "confirm": "Potvrdi"
       }
     },
+    "detailModal": {
+      "common": {
+        "close": "Zatvori",
+        "edit": "Uredi"
+      }
+    },
     "route": {
       "fromTo": "Od {{origin}} do {{destination}}"
     },
@@ -903,10 +909,17 @@
             "sendRequestConfirm": {
               "title": "Poslati zahtjev?",
               "message": "Vaš zahtjev će biti poslan izdavaocu rute. Ovo je pregled — API za zahtjeve još nije povezan."
+            }
+          },
+          "detail": {
+            "title": "Detalji rute",
+            "subtitle": "Detaljne informacije o ruti {{id}}",
+            "sections": {
+              "schedule": "Raspored i status",
+              "route": "Ruta i vozilo"
             },
-            "viewDetailsComingSoon": {
-              "title": "Detalji uskoro dostupni",
-              "message": "Poseban prikaz detalja za ovu rutu bit će dostupan u budućoj verziji."
+            "fields": {
+              "publishedAt": "Objavljeno"
             }
           }
         },
@@ -984,10 +997,17 @@
             "sendRequestConfirm": {
               "title": "Poslati zahtjev?",
               "message": "Vaš zahtjev će biti poslan izdavaocu tereta. Ovo je pregled — API za zahtjeve još nije povezan."
+            }
+          },
+          "detail": {
+            "title": "Detalji tereta",
+            "subtitle": "Detaljne informacije o teretu {{id}}",
+            "sections": {
+              "shipment": "Informacije o pošiljci",
+              "route": "Transportna ruta"
             },
-            "viewDetailsComingSoon": {
-              "title": "Detalji uskoro dostupni",
-              "message": "Poseban prikaz detalja za ovaj teret bit će dostupan u budućoj verziji."
+            "fields": {
+              "publishedAt": "Objavljeno"
             }
           }
         },
@@ -1052,10 +1072,17 @@
             "sendRequestConfirm": {
               "title": "Poslati zahtjev?",
               "message": "Vaš zahtjev će biti poslan izdavaocu skladišta. Ovo je pregled — API za zahtjeve još nije povezan."
+            }
+          },
+          "detail": {
+            "title": "Detalji skladišta",
+            "subtitle": "Detaljne informacije o skladištu {{id}}",
+            "sections": {
+              "availability": "Dostupnost i prostor",
+              "details": "Dodatni detalji"
             },
-            "viewDetailsComingSoon": {
-              "title": "Detalji uskoro dostupni",
-              "message": "Poseban prikaz detalja za ovo skladište bit će dostupan u budućoj verziji."
+            "fields": {
+              "publishedAt": "Objavljeno"
             }
           }
         }

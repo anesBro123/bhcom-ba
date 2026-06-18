@@ -60,9 +60,12 @@
   --shadow-sidebar-flyout: 0 8px 24px rgb(0 0 0 / 0.35);
   --bg-form-card: rgba(255, 255, 255, 0.02);
   --bg-confirm-dialog: #151c2e;
+  --bg-detail-modal: #151c2e;
   --border-form-card: rgba(255, 255, 255, 0.1);
   --border-confirm-dialog: rgba(255, 255, 255, 0.12);
+  --border-detail-modal: rgba(255, 255, 255, 0.12);
   --shadow-confirm-dialog: 0 16px 48px rgb(0 0 0 / 0.45);
+  --shadow-detail-modal: 0 16px 48px rgb(0 0 0 / 0.45);
   --radius-form-card: 0.75rem;
   --gap-form-sections: 1.25rem;
   --bg-form-input: rgba(255, 255, 255, 0.08);
@@ -164,9 +167,12 @@
   --shadow-sidebar-flyout: 0 4px 16px rgb(0 0 0 / 0.1);
   --bg-form-card: #ffffff;
   --bg-confirm-dialog: #ffffff;
+  --bg-detail-modal: #ffffff;
   --border-form-card: rgba(0, 0, 0, 0.08);
   --border-confirm-dialog: rgba(0, 0, 0, 0.08);
+  --border-detail-modal: rgba(0, 0, 0, 0.08);
   --shadow-confirm-dialog: 0 16px 48px rgb(0 0 0 / 0.12);
+  --shadow-detail-modal: 0 16px 48px rgb(0 0 0 / 0.12);
   --radius-form-card: 0.75rem;
   --gap-form-sections: 1.25rem;
   --bg-form-input: #ffffff;

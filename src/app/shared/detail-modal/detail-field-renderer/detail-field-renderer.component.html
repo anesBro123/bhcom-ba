@@ -1,0 +1,51 @@
+@switch (field().type) {
+  @case ('text') {
+    <span class="detail-field__value">
+      {{ textValue(asTextField().key) || '—' }}
+    </span>
+  }
+  @case ('date') {
+    <span class="detail-field__value">
+      {{ dateValue(asTextField().key) || '—' }}
+    </span>
+  }
+  @case ('number') {
+    <span class="detail-field__value">
+      @if (numberValue(asTextField().key)) {
+        {{ numberValue(asTextField().key) }}
+        @if (asTextField().suffixKey) {
+          <span class="detail-field__suffix">{{ asTextField().suffixKey | translate }}</span>
+        }
+      } @else {
+        —
+      }
+    </span>
+  }
+  @case ('status') {
+    <app-status-badge [status]="statusValue(asTextField().key)" />
+  }
+  @case ('route') {
+    <app-route-display
+      [origin]="stringValue(asRouteField().originKey)"
+      [destination]="stringValue(asRouteField().destinationKey)"
+    />
+  }
+  @case ('vehicle') {
+    <app-vehicle-display
+      [name]="stringValue(asVehicleField().nameKey)"
+      [plate]="stringValue(asVehicleField().plateKey)"
+    />
+  }
+  @case ('translate') {
+    @let translateField = asTranslateField();
+    @let value = data()[translateField.key];
+    @let labelKey = translateLabelKey(translateField, value);
+    <span class="detail-field__value">
+      @if (labelKey) {
+        {{ labelKey | translate }}
+      } @else {
+        {{ textValue(translateField.key) || '—' }}
+      }
+    </span>
+  }
+}

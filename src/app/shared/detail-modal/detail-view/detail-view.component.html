@@ -1,0 +1,20 @@
+<div class="detail-view">
+  @for (section of definition().sections; track section.id) {
+    <section class="detail-view__section" [class]="sectionColSpan(section)">
+      <h3 class="detail-view__section-title">{{ section.titleKey | translate }}</h3>
+
+      <dl class="detail-view__fields">
+        @for (field of section.fields; track $index) {
+          @if (isFieldVisible(field)) {
+            <div class="detail-view__field">
+              <dt class="detail-view__label">{{ field.labelKey | translate }}</dt>
+              <dd class="detail-view__value">
+                <app-detail-field-renderer [field]="field" [data]="data()" />
+              </dd>
+            </div>
+          }
+        }
+      </dl>
+    </section>
+  }
+</div>

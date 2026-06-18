@@ -73,6 +73,12 @@
         "confirm": "Confirm"
       }
     },
+    "detailModal": {
+      "common": {
+        "close": "Close",
+        "edit": "Edit"
+      }
+    },
     "route": {
       "fromTo": "From {{origin}} to {{destination}}"
     },
@@ -903,10 +909,17 @@
             "sendRequestConfirm": {
               "title": "Send request?",
               "message": "Your request will be sent to the route publisher. This is a preview — the request API is not yet connected."
+            }
+          },
+          "detail": {
+            "title": "Route Details",
+            "subtitle": "Detailed information about route {{id}}",
+            "sections": {
+              "schedule": "Schedule & Status",
+              "route": "Route & Vehicle"
             },
-            "viewDetailsComingSoon": {
-              "title": "Details coming soon",
-              "message": "A dedicated details view for this route will be available in a future update."
+            "fields": {
+              "publishedAt": "Published"
             }
           }
         },
@@ -984,10 +997,17 @@
             "sendRequestConfirm": {
               "title": "Send request?",
               "message": "Your request will be sent to the cargo publisher. This is a preview — the request API is not yet connected."
+            }
+          },
+          "detail": {
+            "title": "Cargo Details",
+            "subtitle": "Detailed information about cargo {{id}}",
+            "sections": {
+              "shipment": "Shipment Information",
+              "route": "Transport Route"
             },
-            "viewDetailsComingSoon": {
-              "title": "Details coming soon",
-              "message": "A dedicated details view for this cargo will be available in a future update."
+            "fields": {
+              "publishedAt": "Published"
             }
           }
         },
@@ -1052,10 +1072,17 @@
             "sendRequestConfirm": {
               "title": "Send request?",
               "message": "Your request will be sent to the storage publisher. This is a preview — the request API is not yet connected."
+            }
+          },
+          "detail": {
+            "title": "Storage Details",
+            "subtitle": "Detailed information about storage {{id}}",
+            "sections": {
+              "availability": "Availability & Space",
+              "details": "Additional Details"
             },
-            "viewDetailsComingSoon": {
-              "title": "Details coming soon",
-              "message": "A dedicated details view for this storage will be available in a future update."
+            "fields": {
+              "publishedAt": "Published"
             }
           }
         }

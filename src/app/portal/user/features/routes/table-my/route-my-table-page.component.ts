@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
+import { DetailModalService } from '../../../../../shared/detail-modal';
 import {
   USER_CREATE_ROUTE_URL,
   userEditRouteUrl,
@@ -22,6 +23,7 @@ import {
 
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
+import { openRouteDetailModal } from '../detail/open-route-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   RouteMyTable,
@@ -47,6 +49,7 @@ import {
 export class RouteMyTablePageComponent {
   private readonly routeService = inject(UserRouteService);
   private readonly confirmService = inject(ConfirmService);
+  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = RouteMyTable;
@@ -65,13 +68,7 @@ export class RouteMyTablePageComponent {
   protected onRowAction(event: RowActionEvent<Route>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        this.confirmService
-          .confirm({
-            titleKey: 'portal.user.features.routes.table.viewDetailsComingSoon.title',
-            messageKey: 'portal.user.features.routes.table.viewDetailsComingSoon.message',
-          })
-          .pipe(take(1))
-          .subscribe();
+        openRouteDetailModal(this.detailModalService, this.router, event.row, 'my');
         break;
       case 'edit':
         void this.router.navigateByUrl(userEditRouteUrl(event.row.id));

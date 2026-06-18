@@ -1,7 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
+import { DetailModalService } from '../../../../../shared/detail-modal';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
@@ -15,6 +17,7 @@ import {
 
 import type { Route } from '../data/route.model';
 import { UserRouteService } from '../data/route.service';
+import { openRouteDetailModal } from '../detail/open-route-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   RouteAllTable,
@@ -38,6 +41,8 @@ import {
 export class RouteAllTablePageComponent {
   private readonly routeService = inject(UserRouteService);
   private readonly confirmService = inject(ConfirmService);
+  private readonly detailModalService = inject(DetailModalService);
+  private readonly router = inject(Router);
 
   protected readonly table = RouteAllTable;
   protected readonly pageTitleKey = 'portal.user.pages.allRoutes.title';
@@ -53,13 +58,7 @@ export class RouteAllTablePageComponent {
   protected onRowAction(event: RowActionEvent<Route>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        this.confirmService
-          .confirm({
-            titleKey: 'portal.user.features.routes.table.viewDetailsComingSoon.title',
-            messageKey: 'portal.user.features.routes.table.viewDetailsComingSoon.message',
-          })
-          .pipe(take(1))
-          .subscribe();
+        openRouteDetailModal(this.detailModalService, this.router, event.row, 'all');
         break;
       case 'sendRequest':
         this.confirmService

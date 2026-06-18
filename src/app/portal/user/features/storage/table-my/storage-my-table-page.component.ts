@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
+import { DetailModalService } from '../../../../../shared/detail-modal';
 import {
   USER_CREATE_STORAGE_URL,
   userEditStorageUrl,
@@ -20,6 +21,7 @@ import {
 
 import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
+import { openStorageDetailModal } from '../detail/open-storage-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import { StorageMyTable, storageMyStatusCellKey } from './storage-my.table';
 
@@ -38,6 +40,7 @@ import { StorageMyTable, storageMyStatusCellKey } from './storage-my.table';
 export class StorageMyTablePageComponent {
   private readonly storageService = inject(UserStorageService);
   private readonly confirmService = inject(ConfirmService);
+  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = StorageMyTable;
@@ -55,13 +58,7 @@ export class StorageMyTablePageComponent {
   protected onRowAction(event: RowActionEvent<Storage>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        this.confirmService
-          .confirm({
-            titleKey: 'portal.user.features.storage.table.viewDetailsComingSoon.title',
-            messageKey: 'portal.user.features.storage.table.viewDetailsComingSoon.message',
-          })
-          .pipe(take(1))
-          .subscribe();
+        openStorageDetailModal(this.detailModalService, this.router, event.row, 'my');
         break;
       case 'edit':
         void this.router.navigateByUrl(userEditStorageUrl(event.row.id));

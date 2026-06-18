@@ -4,6 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
+import { DetailModalService } from '../../../../../shared/detail-modal';
 import { USER_CREATE_CARGO_URL, userEditCargoUrl } from '../../../../../shared/constants/app-urls';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
@@ -19,6 +20,7 @@ import {
 
 import type { Cargo } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
+import { openCargoDetailModal } from '../detail/open-cargo-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   CargoMyTable,
@@ -44,6 +46,7 @@ import {
 export class CargoMyTablePageComponent {
   private readonly cargoService = inject(UserCargoService);
   private readonly confirmService = inject(ConfirmService);
+  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = CargoMyTable;
@@ -66,13 +69,7 @@ export class CargoMyTablePageComponent {
   protected onRowAction(event: RowActionEvent<Cargo>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        this.confirmService
-          .confirm({
-            titleKey: 'portal.user.features.cargo.table.viewDetailsComingSoon.title',
-            messageKey: 'portal.user.features.cargo.table.viewDetailsComingSoon.message',
-          })
-          .pipe(take(1))
-          .subscribe();
+        openCargoDetailModal(this.detailModalService, this.router, event.row, 'my');
         break;
       case 'edit':
         void this.router.navigateByUrl(userEditCargoUrl(event.row.id));
