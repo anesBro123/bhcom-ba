@@ -33,12 +33,12 @@
   --bg-table-card: transparent;
   --border-table: rgba(255, 255, 255, 0.06);
   --bg-table-header: transparent;
-  --text-table-header: #9ca3af;
+  --text-table-header: #64748b;
   --text-table-header-weight: 500;
   --text-table-body: #f3f4f6;
   --table-cell-padding-y: 1.125rem;
   --table-cell-primary-size: 0.875rem;
-  --table-cell-primary-weight: 600;
+  --table-cell-primary-weight: 400;
   --table-cell-primary-color: var(--text-primary);
   --table-cell-secondary-size: 0.75rem;
   --table-cell-secondary-weight: 400;
@@ -146,6 +146,8 @@
   --text-table-header: #64748b;
   --text-table-header-weight: 500;
   --text-table-body: #1e293b;
+  --table-cell-primary-color: #020817;
+  --table-cell-primary-weight: 400;
   --bg-table-row-hover: #f1f5f9;
   --bg-table-filter: #ffffff;
   --border-table-filter: rgba(0, 0, 0, 0.12);
