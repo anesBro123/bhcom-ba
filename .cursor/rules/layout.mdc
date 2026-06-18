@@ -83,8 +83,8 @@ Parent sets `--sidebar-section-icon-size: 18px` on `.sidebar__section` (expanded
 - Vertical guide rail: `border-left: 2px solid var(--border-subtle)`, centered under section icon (`margin-left: calc(0.625rem + iconSize/2 - 1px)`).
 
 **Links** (`a.sidebar__link`):
-- Text only; `border-radius: 8px` when inactive/hover.
-- **Active** (`sidebar__link--active`): soft `--portal-accent-nav-bg` fill, `font-weight: 600`, `border-radius: 0`.
+- Text only; full-width rail overlap on all states (`border-radius: 0`); hover uses `--bg-active`.
+- **Active** (`sidebar__link--active`): soft `--portal-accent-nav-bg` fill, `font-weight: 600`, accent `border-left`.
 - **Active rail overlap:** negative `margin-left` pulls link over list padding **and** rail width; `border-left: 2px solid var(--portal-accent)` with `z-index: 1` paints over the gray rail so that row reads as a green spine segment (not a second parallel bar).
 
 ### Collapsed (desktop only, `> 768px`)
