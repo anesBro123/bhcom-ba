@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_VEHICLES_URL } from '../../../../../shared/constants/app-urls';
+import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminVehicleForm, AdminVehicleFormEditActions } from './vehicle.form';
@@ -19,7 +20,7 @@ import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-vehicle-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageBackLinkComponent, PageTitleComponent],
   templateUrl: './vehicle-form-page.component.html',
   styleUrl: './vehicle-form-page.component.scss',
 })
@@ -50,6 +51,8 @@ export class VehicleFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.vehicles;
+  protected readonly backUrl = ADMIN_VEHICLES_URL;
+  protected readonly backLabelKey = 'portal.admin.nav.allVehicles';
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_USERS_URL } from '../../../../../shared/constants/app-urls';
+import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminUserForm, AdminUserFormEditActions } from './user.form';
@@ -19,7 +20,7 @@ import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-user-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageBackLinkComponent, PageTitleComponent],
   templateUrl: './user-form-page.component.html',
   styleUrl: './user-form-page.component.scss',
 })
@@ -50,6 +51,8 @@ export class UserFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.users;
+  protected readonly backUrl = ADMIN_USERS_URL;
+  protected readonly backLabelKey = 'portal.admin.nav.allUsers';
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

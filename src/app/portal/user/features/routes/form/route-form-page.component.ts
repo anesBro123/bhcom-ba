@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { USER_MY_ROUTES_URL } from '../../../../../shared/constants/app-urls';
+import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
   endDateOnOrAfterStartValidator,
@@ -24,7 +25,7 @@ import { buildRouteForm, RouteForm, RouteFormEditActions } from './route.form';
 
 @Component({
   selector: 'app-route-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageBackLinkComponent, PageTitleComponent],
   templateUrl: './route-form-page.component.html',
   styleUrl: './route-form-page.component.scss',
 })
@@ -52,6 +53,8 @@ export class RouteFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = UserPageIcons.routes;
+  protected readonly backUrl = USER_MY_ROUTES_URL;
+  protected readonly backLabelKey = 'portal.user.nav.myRoutes';
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

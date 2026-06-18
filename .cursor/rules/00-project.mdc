@@ -58,7 +58,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Features: `portal/user/features/` (dashboard, routes, cargo, storage); `portal/admin/features/` (dashboard, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link, **route-display**, **vehicle-display**, **status-badge**
+- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-back-link, page-header, primary-action-link, **route-display**, **vehicle-display**, **status-badge**
 
 ## Auth routing (guards)
 
@@ -90,6 +90,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Dashboard action tile: `shared/ui/quick-action-card/` — `QuickActionCardComponent` for portal quick-action grids (monochrome icon, `routerLink`)
 - Admin dashboard (reference): `portal/admin/features/dashboard/` — `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`; admin nav Dashboard section uses `AdminPageIcons.dashboard` on `NavSection.icon`
 - **Portal page title:** `PageTitleComponent` — `titleKey` + `subtitleKey` + `pageIcon` (`AdminPageIcons` / `UserPageIcons`); see `page-title.mdc`
+- **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`) — above `PageTitleComponent` on create/edit forms; `backUrl` + nav `backLabelKey` + `[form]`; dirty → `ConfirmService` + `shared.form.common.discardChanges.*`; see `page-title.mdc`
 - **Route display cell:** `RouteDisplayComponent` (`shared/ui/route-display/`) — origin → destination in route/cargo tables; see `tables.mdc`
 - **Vehicle display cell:** `VehicleDisplayComponent` (`shared/ui/vehicle-display/`) — vehicle name + plate in user routes table; see `tables.mdc`
 - **Status badge cell:** `StatusBadgeComponent` (`shared/ui/status-badge/`) — entity `status` pill in user route/cargo/storage tables; all entities will get status over time — see `entity-status.mdc`, `tables.mdc`

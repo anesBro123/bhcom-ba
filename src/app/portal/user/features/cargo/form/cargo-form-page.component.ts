@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { USER_MY_CARGO_URL } from '../../../../../shared/constants/app-urls';
+import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { notPastDateValidator } from '../../../../../shared/utils/date-input';
 
@@ -20,7 +21,7 @@ import { CargoForm, CargoFormEditActions } from './cargo.form';
 
 @Component({
   selector: 'app-cargo-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageBackLinkComponent, PageTitleComponent],
   templateUrl: './cargo-form-page.component.html',
   styleUrl: './cargo-form-page.component.scss',
 })
@@ -46,6 +47,8 @@ export class CargoFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = UserPageIcons.cargo;
+  protected readonly backUrl = USER_MY_CARGO_URL;
+  protected readonly backLabelKey = 'portal.user.nav.myCargo';
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

@@ -40,6 +40,11 @@
           "invalid": "Has errors"
         },
         "fieldRequired": "This field is required",
+        "discardChanges": {
+          "title": "Discard unsaved changes?",
+          "message": "Your changes will be lost if you leave this page.",
+          "confirm": "Discard"
+        },
         "errors": {
           "required": "This field is required",
           "email": "Enter a valid email address",

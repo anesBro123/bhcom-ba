@@ -40,6 +40,11 @@
           "invalid": "Ima grešaka"
         },
         "fieldRequired": "Ovo polje je obavezno",
+        "discardChanges": {
+          "title": "Odbaciti nesačuvane promjene?",
+          "message": "Vaše promjene će biti izgubljene ako napustite ovu stranicu.",
+          "confirm": "Odbaci"
+        },
         "errors": {
           "required": "Ovo polje je obavezno",
           "email": "Unesite ispravnu email adresu",

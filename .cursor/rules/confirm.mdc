@@ -1,6 +1,6 @@
 ---
 description: Global confirmation dialog (ConfirmService)
-globs: src/app/shared/confirm/**,src/app/app.ts,src/app/app.html
+globs: src/app/shared/confirm/**,src/app/app.ts,src/app/app.html,src/app/shared/ui/page-back-link/**
 alwaysApply: false
 ---
 
@@ -52,6 +52,7 @@ this.confirmService
 | `shared.confirm.common.confirm` | Default confirm button (do not duplicate per feature) |
 | `…features.<feature>.table.deleteConfirm.title` | Feature-specific dialog title |
 | `…features.<feature>.table.deleteConfirm.message` | Feature-specific dialog body |
+| `shared.form.common.discardChanges.*` | Shared leave-form dialog copy (`PageBackLinkComponent`) |
 
 Callers pass **title + message only** in most cases. Override `confirmLabelKey` / `cancelLabelKey` only when shared defaults are wrong for that flow.
 
@@ -68,5 +69,7 @@ Dialog `z-index: 250` (above mobile sidebar `200`). Body scroll locked while ope
 ## Example
 
 Delete confirmation: `portal/admin/features/vehicles/table/vehicle-table-page.component.ts` — `ConfirmService` before `AdminVehicleService.delete`.
+
+Leave form (dirty back link): `shared/ui/page-back-link/page-back-link.component.ts` — `ConfirmService` with `shared.form.common.discardChanges.*` before navigating to the list URL.
 
 Do not use `window.confirm`. Do not add a second global dialog host.

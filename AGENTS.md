@@ -96,10 +96,11 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Vehicle display UI:** `shared/ui/vehicle-display/` — `VehicleDisplayComponent` (`app-vehicle-display`) for vehicle name + plate in tables
 - **Status badge UI:** `shared/ui/status-badge/` — `StatusBadgeComponent` (`app-status-badge`) for entity status pills in tables; theme tokens `--status-*` in `styles.scss`. User routes/cargo/storage today; **all listable entities will have `status`** — each entity gets its own status union over time (`entity-status.mdc`)
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-header, primary-action-link, route-display, vehicle-display, status-badge)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-back-link, page-header, primary-action-link, route-display, vehicle-display, status-badge)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
 - **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` + `subtitleKey` + `pageIcon` on the page component; entity icon from `AdminPageIcons` / `UserPageIcons`. See `page-title.mdc`.
+- **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`, `app-page-back-link`) — required on portal create/edit form pages above `PageTitleComponent`; inputs: `route` (list URL from `app-urls.ts`), `labelKey` (reuse `portal.*.nav.all*` or `portal.user.nav.my*`), `form` (dirty → `ConfirmService` + `shared.form.common.discardChanges.*`). Admin → entity list; user → `USER_MY_*_URL`. See `page-title.mdc`.
 - **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
 
 ## Cursor rules
@@ -117,7 +118,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `confirm.mdc` | `shared/confirm/**`, destructive-action flows |
 | `portal-feature.mdc` | `portal/**/features/**` — CRUD layout (vehicles reference) |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
-| `page-title.mdc` | Portal page templates + `shared/ui/page-title/` — title, icon, table create CTA |
+| `page-title.mdc` | Portal page templates + `shared/ui/page-title/` + `shared/ui/page-back-link/` — title, back link, icon, table create CTA |
 | `shared-constants.mdc` | `bih-cities.ts`, `user-entity-status.ts`, `admin-page-icons.ts`, `user-page-icons.ts` |
 | `entity-status.mdc` | Entity `status` field, `StatusBadgeComponent`, per-entity status conventions |
 | `shared-utils.mdc` | `date-input.ts`, `normalize-for-search.ts` |

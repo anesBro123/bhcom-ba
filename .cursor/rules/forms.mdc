@@ -8,7 +8,7 @@ alwaysApply: false
 
 Declarative form framework used by guest pages, portal features, and shared login flows. **Do not** rebuild form chrome (stepper, footer, sections, field widgets) on feature pages — use `FormPageComponent`.
 
-**Page title:** portal form pages use `PageTitleComponent` with `[icon]="pageIcon"` — see `page-title.mdc`. `FormPageComponent` does **not** render page titles.
+**Page chrome:** portal form pages compose `PageBackLinkComponent` above `PageTitleComponent` with `[icon]="pageIcon"` — see `page-title.mdc`. `FormPageComponent` does **not** render page titles or back links.
 
 ## File map
 
@@ -32,7 +32,7 @@ Declarative form framework used by guest pages, portal features, and shared logi
 1. **Model** — `*.model.ts` interface for form value (`Entity extends FormModel & { id }` for CRUD).
 2. **Definition** — `export const X = defineForm<Model>()({ mode: 'single' | 'stepper', steps: [...] })` in `*.form.ts`.
 3. **Page** — `FormBuilder` group mirrors every field key; validators on the `FormGroup`, not only in the def.
-4. **Template** — `<app-form-page [definition] [formGroup] [submitDisabled] (submit)>`; add stepper inputs when needed (below).
+4. **Template** — `PageBackLinkComponent` + `PageTitleComponent` + `<app-form-page …>`; add stepper inputs when needed (below).
 5. **i18n** — keys under feature namespace + `shared.form.common.*` for chrome; both `en.json` and `bh.json`.
 
 ## `FormPageComponent` API

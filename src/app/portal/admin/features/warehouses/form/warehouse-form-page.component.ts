@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { ADMIN_WAREHOUSES_URL } from '../../../../../shared/constants/app-urls';
+import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
 import { AdminWarehouseForm, AdminWarehouseFormEditActions } from './warehouse.form';
@@ -19,7 +20,7 @@ import { AdminPageIcons } from '../../../admin-page-icons';
 
 @Component({
   selector: 'app-warehouse-form-page',
-  imports: [ReactiveFormsModule, FormPageComponent, PageTitleComponent],
+  imports: [ReactiveFormsModule, FormPageComponent, PageBackLinkComponent, PageTitleComponent],
   templateUrl: './warehouse-form-page.component.html',
   styleUrl: './warehouse-form-page.component.scss',
 })
@@ -50,6 +51,8 @@ export class WarehouseFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.warehouses;
+  protected readonly backUrl = ADMIN_WAREHOUSES_URL;
+  protected readonly backLabelKey = 'portal.admin.nav.allWarehouses';
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

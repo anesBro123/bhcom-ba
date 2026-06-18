@@ -60,9 +60,11 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - `formDef` computed — swap submit action for create vs edit (`*FormEditActions` pattern).
 - `ngOnInit`: no `:id` → `stepperDataReady.set(true)`; with `:id` → `getById` → `patchValue` (strip `id`) → `stepperDataReady.set(true)`; load error → `navigateByUrl` list URL.
 - `onSubmit`: guard `submitting`; `getRawValue() as FormModel`; create vs update; success → list URL. Do not re-validate — `FormPageComponent` already did.
+- `backUrl` + `backLabelKey` — list URL and nav label for `PageBackLinkComponent` (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.my*`; same URL as post-save redirect).
 - Template:
 
 ```html
+<app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />
 <app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
 <app-form-page
   [definition]="formDef()"
@@ -157,6 +159,7 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 - Use `window.confirm` or per-page dialog markup — use `ConfirmService`.
 - Add `*.spec.ts` files.
 - Rebuild table/form chrome outside `DataTableComponent` / `FormPageComponent`.
+- Omit `PageBackLinkComponent` on portal create/edit form pages — see `page-title.mdc`.
 - Put create CTAs inside `DataTableComponent` or `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — page templates use `PageTitleComponent` (`page-title.mdc`).
 

@@ -1,16 +1,27 @@
 ---
 description: Portal page title — PageTitleComponent
-globs: src/app/portal/**/features/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**
+globs: src/app/portal/**/features/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**,src/app/shared/ui/page-back-link/**
 alwaysApply: false
 ---
 
-# Portal page title (`PageTitleComponent`)
+# Portal page title (`PageTitleComponent`) and form back link (`PageBackLinkComponent`)
 
 Canonical top-level heading for **portal shell pages** (dashboard, table, form, settings). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
 
+**Form create/edit pages** also require `PageBackLinkComponent` above the title — see **Form back link** below.
+
 **Page titles and subtitles live on the page component** — **not** in `*.table.ts` or `*.form.ts`. Use `portal.<portal>.pages.*` keys only.
 
-## Component
+## `PageBackLinkComponent`
+
+| Item | Value |
+|------|-------|
+| Path | `shared/ui/page-back-link/page-back-link.component.ts` |
+| Selector | `app-page-back-link` |
+| Inputs | `route` (required list URL from `app-urls.ts`); `labelKey` (required — reuse `portal.*.nav.all*` or `portal.user.nav.my*`); `form` (required `FormGroup` — dirty guard) |
+| Import | Direct path — no barrel |
+
+## `PageTitleComponent`
 
 | Item | Value |
 |------|-------|
@@ -87,8 +98,8 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 |-----------|------------------------|---------|
 | Table list (with create route) | `pageTitleKey` + `pageSubtitleKey` + `PageHeaderComponent` + `PrimaryActionLinkComponent` | See **Title-row create CTA** below |
 | Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />` |
-| Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed + `pageIcon` | `<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />` |
-| Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` constants | Same as table list |
+| Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
+| Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
 | Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` + `pageIcon` | See static-keys example above |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
@@ -132,9 +143,34 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 - Custom right-side actions: project into `app-page-header` with `pageHeaderActions` attribute instead of `app-primary-action-link`.
 - **Read-only** table pages (no create route): standalone `<app-page-title>` only — no `PageHeader`.
 
+## Form back link (create/edit pages)
+
+**Required** on every portal create/edit form page. Renders above `PageTitleComponent` — returns to the entity list (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.my*`). Same URL as post-save redirect.
+
+```html
+<app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />
+<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
+```
+
+```typescript
+import { PageBackLinkComponent } from '…/shared/ui/page-back-link/page-back-link.component';
+import { ADMIN_VEHICLES_URL } from '…/shared/constants/app-urls';
+
+protected readonly backUrl = ADMIN_VEHICLES_URL;
+protected readonly backLabelKey = 'portal.admin.nav.allVehicles';
+
+imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
+```
+
+- `backUrl` — list URL from `app-urls.ts` (never hardcode paths).
+- `backLabelKey` — reuse matching nav list label (`portal.admin.nav.allVehicles`, `portal.user.nav.myRoutes`, etc.).
+- `[form]` — when dirty, `ConfirmService` prompts with `shared.form.common.discardChanges.*` before navigating.
+- Component: `shared/ui/page-back-link/` — not inside `FormPageComponent`.
+
 ## Do not
 
 - Put page `titleKey` / `subtitleKey` on `TableDefinition` or `FormDefinition` — pages own header copy.
+- Do not add per-page back/cancel buttons in the form footer — use `PageBackLinkComponent` in the page template instead.
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
@@ -145,7 +181,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 ## Reference implementations
 
 - Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
-- Form (create/edit): `portal/admin/features/users/form/user-form-page.component.*`
+- Form (create/edit with back link): `portal/admin/features/vehicles/form/vehicle-form-page.component.*`
 - Dashboard: `portal/admin/features/dashboard/admin-dashboard-page.component.*`
 - Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
 
