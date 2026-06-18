@@ -35,7 +35,11 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.table.common.*` | Table loading, empty, pagination, row actions |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
+| `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
+| `shared.dateRange.*` | Shared date range UI copy (`fromTo`, `single` aria-labels for `DateRangeDisplayComponent`) |
 | `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user routes/cargo/storage); per-entity keys later under `portal.*.features.<entity>.status.*` |
+
+Table **merged period** column headers: `portal.user.features.routes.table.columns.period`, `portal.user.features.storage.table.columns.period` (distinct from form field keys like `transportStartDate`).
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 ### Guest (`guest.*`)
@@ -73,6 +77,8 @@ Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-acti
 ```
 portal.user.features.routes.form.fields.origin
 portal.user.features.routes.table.columns.route
+portal.user.features.routes.table.columns.period
+portal.user.features.storage.table.columns.period
 portal.user.features.cargo.table.columns.origin
 portal.user.nav.allRoutes
 portal.user.pages.routes.title

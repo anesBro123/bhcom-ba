@@ -90,6 +90,13 @@
     "vehicle": {
       "namePlate": "{{name}}, tablice {{plate}}"
     },
+    "warehouse": {
+      "nameCity": "{{name}}, {{city}}"
+    },
+    "dateRange": {
+      "fromTo": "Od {{from}} do {{to}}",
+      "single": "{{date}}"
+    },
     "entityStatus": {
       "open": "Otvoreno",
       "inProgress": "U toku",
@@ -893,6 +900,7 @@
               "route": "Ruta",
               "status": "Status",
               "vehicle": "Vozilo",
+              "period": "Period",
               "transportStartDate": "Početni datum",
               "transportEndDate": "Završni datum",
               "description": "Opis"
@@ -1055,6 +1063,7 @@
             "columns": {
               "warehouse": "Skladište",
               "status": "Status",
+              "period": "Dostupnost",
               "availableFrom": "Dostupno od",
               "availableTo": "Dostupno do",
               "spaceM2": "Prostor (m²)",

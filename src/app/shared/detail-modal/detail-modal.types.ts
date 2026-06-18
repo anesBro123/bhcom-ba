@@ -9,6 +9,7 @@ export type DetailFieldType =
   | 'status'
   | 'route'
   | 'vehicle'
+  | 'warehouse'
   | 'translate';
 
 export interface DetailFieldDefBase<T> {
@@ -35,6 +36,12 @@ export interface DetailVehicleFieldDef<T> extends DetailFieldDefBase<T> {
   plateKey: keyof T & string;
 }
 
+export interface DetailWarehouseFieldDef<T> extends DetailFieldDefBase<T> {
+  type: 'warehouse';
+  nameKey: keyof T & string;
+  cityKey: keyof T & string;
+}
+
 export interface DetailTranslateFieldDef<T> extends DetailFieldDefBase<T> {
   key: keyof T & string;
   type: 'translate';
@@ -45,6 +52,7 @@ export type DetailFieldDef<T> =
   | DetailKeyedFieldDef<T>
   | DetailRouteFieldDef<T>
   | DetailVehicleFieldDef<T>
+  | DetailWarehouseFieldDef<T>
   | DetailTranslateFieldDef<T>;
 
 export interface DetailSectionDef<T> {

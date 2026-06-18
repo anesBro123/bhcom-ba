@@ -105,12 +105,20 @@ export class StorageFormPageComponent implements OnInit {
     }
 
     const payload = this.form.getRawValue() as StorageFormModel;
+    const { name: warehouseName, city: warehouseCity } = this.companyWarehouseService.getDisplay(
+      payload.warehouseId,
+    );
     const warehouseLabel = this.companyWarehouseService.getLabel(payload.warehouseId);
     this.submitting.set(true);
 
     const request$ = this.isEdit()
-      ? this.storageService.update(this.entityId()!, { ...payload, warehouseLabel })
-      : this.storageService.create({ ...payload, warehouseLabel });
+      ? this.storageService.update(this.entityId()!, {
+          ...payload,
+          warehouseLabel,
+          warehouseName,
+          warehouseCity,
+        })
+      : this.storageService.create({ ...payload, warehouseLabel, warehouseName, warehouseCity });
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

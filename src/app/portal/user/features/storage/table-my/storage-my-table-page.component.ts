@@ -8,10 +8,12 @@ import {
   USER_CREATE_STORAGE_URL,
   userEditStorageUrl,
 } from '../../../../../shared/constants/app-urls';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
+import { WarehouseDisplayComponent } from '../../../../../shared/ui/warehouse-display/warehouse-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -23,14 +25,21 @@ import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
 import { openStorageDetailModal } from '../detail/open-storage-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
-import { StorageMyTable, storageMyStatusCellKey } from './storage-my.table';
+import {
+  StorageMyTable,
+  storageMyPeriodCellKey,
+  storageMyStatusCellKey,
+  storageMyWarehouseCellKey,
+} from './storage-my.table';
 
 @Component({
   selector: 'app-storage-my-table-page',
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
+    WarehouseDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -50,6 +59,8 @@ export class StorageMyTablePageComponent {
   protected readonly createUrl = USER_CREATE_STORAGE_URL;
   protected readonly createLabelKey = 'portal.user.nav.postStorage';
   protected readonly statusKey = storageMyStatusCellKey;
+  protected readonly warehouseKey = storageMyWarehouseCellKey;
+  protected readonly periodKey = storageMyPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadStorage: TableLoader<Storage> = (query) =>

@@ -25,6 +25,15 @@ export class CompanyWarehouseService {
     );
   }
 
+  getDisplay(id: string): { name: string; city: string } {
+    const warehouse = this.store.find((item) => item.id === id);
+    if (!warehouse) {
+      return { name: id, city: id };
+    }
+
+    return { name: warehouse.name, city: warehouse.city };
+  }
+
   getLabel(id: string): string {
     const warehouse = this.store.find((item) => item.id === id);
     if (!warehouse) {

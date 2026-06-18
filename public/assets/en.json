@@ -90,6 +90,13 @@
     "vehicle": {
       "namePlate": "{{name}}, plate {{plate}}"
     },
+    "warehouse": {
+      "nameCity": "{{name}}, {{city}}"
+    },
+    "dateRange": {
+      "fromTo": "From {{from}} to {{to}}",
+      "single": "{{date}}"
+    },
     "entityStatus": {
       "open": "Open",
       "inProgress": "In Progress",
@@ -893,6 +900,7 @@
               "route": "Route",
               "status": "Status",
               "vehicle": "Vehicle",
+              "period": "Period",
               "transportStartDate": "Start Date",
               "transportEndDate": "End Date",
               "description": "Description"
@@ -1055,6 +1063,7 @@
             "columns": {
               "warehouse": "Warehouse",
               "status": "Status",
+              "period": "Availability",
               "availableFrom": "Available From",
               "availableTo": "Available To",
               "spaceM2": "Space (m²)",

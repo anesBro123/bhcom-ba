@@ -17,6 +17,7 @@ export const StorageAllTable = defineTable<Storage>()({
       key: 'warehouseLabel',
       titleKey: 'portal.user.features.storage.table.columns.warehouse',
       sortable: true,
+      cell: 'custom',
       mobile: { primary: true },
     },
     {
@@ -28,15 +29,10 @@ export const StorageAllTable = defineTable<Storage>()({
     },
     {
       key: 'availableFrom',
-      titleKey: 'portal.user.features.storage.table.columns.availableFrom',
+      titleKey: 'portal.user.features.storage.table.columns.period',
       sortable: true,
-      format: 'date',
-    },
-    {
-      key: 'availableTo',
-      titleKey: 'portal.user.features.storage.table.columns.availableTo',
-      sortable: true,
-      format: 'date',
+      cell: 'custom',
+      width: '18rem',
     },
     {
       key: 'spaceM2',
@@ -71,9 +67,11 @@ export const StorageAllTable = defineTable<Storage>()({
       titleKey: 'portal.user.features.storage.table.filters.search',
       placeholderKey: 'portal.user.features.storage.table.filters.searchPlaceholder',
       debounceMs: 300,
-      searchFields: ['warehouseLabel', 'description'],
+      searchFields: ['warehouseLabel', 'warehouseName', 'warehouseCity', 'description'],
     },
   ],
 });
 
 export const storageAllStatusCellKey = tableCellKey(StorageAllTable, 'status');
+export const storageAllWarehouseCellKey = tableCellKey(StorageAllTable, 'warehouseLabel');
+export const storageAllPeriodCellKey = tableCellKey(StorageAllTable, 'availableFrom');

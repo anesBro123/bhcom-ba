@@ -5,6 +5,7 @@ import { take } from 'rxjs';
 import { ConfirmService } from '../../../../../shared/confirm';
 import { DetailModalService } from '../../../../../shared/detail-modal';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
@@ -22,6 +23,7 @@ import { UserPageIcons } from '../../../user-page-icons';
 import {
   RouteAllTable,
   routeAllCellKey,
+  routeAllPeriodCellKey,
   routeAllStatusCellKey,
   routeAllVehicleCellKey,
 } from './route-all.table';
@@ -32,6 +34,7 @@ import {
     DataTableComponent,
     TableCellTemplateDirective,
     RouteDisplayComponent,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
     VehicleDisplayComponent,
     PageTitleComponent,
@@ -51,6 +54,7 @@ export class RouteAllTablePageComponent {
   protected readonly routeKey = routeAllCellKey;
   protected readonly statusKey = routeAllStatusCellKey;
   protected readonly vehicleKey = routeAllVehicleCellKey;
+  protected readonly periodKey = routeAllPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.listAll(query);

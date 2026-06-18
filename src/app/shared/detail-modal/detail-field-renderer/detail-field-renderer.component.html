@@ -36,6 +36,12 @@
       [plate]="stringValue(asVehicleField().plateKey)"
     />
   }
+  @case ('warehouse') {
+    <app-warehouse-display
+      [name]="stringValue(asWarehouseField().nameKey)"
+      [city]="stringValue(asWarehouseField().cityKey)"
+    />
+  }
   @case ('translate') {
     @let translateField = asTranslateField();
     @let value = data()[translateField.key];

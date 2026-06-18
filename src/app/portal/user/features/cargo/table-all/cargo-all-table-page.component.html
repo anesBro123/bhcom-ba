@@ -15,5 +15,8 @@
     <ng-template [appTableCell]="cargoTypeKey" let-row>
       {{ cargoTypeLabel(row.cargoType) | translate }}
     </ng-template>
+    <ng-template [appTableCell]="neededByDateKey" let-row>
+      <app-date-range-display [from]="row.neededByDate" />
+    </ng-template>
   </app-data-table>
 }

@@ -11,6 +11,7 @@ import {
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
@@ -28,6 +29,7 @@ import { UserPageIcons } from '../../../user-page-icons';
 import {
   RouteMyTable,
   routeMyCellKey,
+  routeMyPeriodCellKey,
   routeMyStatusCellKey,
   routeMyVehicleCellKey,
 } from './route-my.table';
@@ -38,6 +40,7 @@ import {
     DataTableComponent,
     TableCellTemplateDirective,
     RouteDisplayComponent,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
     VehicleDisplayComponent,
     PageHeaderComponent,
@@ -61,6 +64,7 @@ export class RouteMyTablePageComponent {
   protected readonly routeKey = routeMyCellKey;
   protected readonly statusKey = routeMyStatusCellKey;
   protected readonly vehicleKey = routeMyVehicleCellKey;
+  protected readonly periodKey = routeMyPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadRoutes: TableLoader<Route> = (query) => this.routeService.listMine(query);

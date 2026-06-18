@@ -14,9 +14,10 @@ export const StorageDetail = defineDetail<Storage>()({
           labelKey: 'portal.user.features.storage.table.columns.status',
         },
         {
-          key: 'warehouseLabel',
-          type: 'text',
+          type: 'warehouse',
           labelKey: 'portal.user.features.storage.table.columns.warehouse',
+          nameKey: 'warehouseName',
+          cityKey: 'warehouseCity',
         },
         {
           key: 'availableFrom',

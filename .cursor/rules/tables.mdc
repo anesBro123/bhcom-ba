@@ -19,6 +19,30 @@ alwaysApply: false
 
 Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not use `window.confirm`.
 
+## Table cell visual hierarchy (user portal lists)
+
+When a table shows route/cargo/storage-style rows, reuse shared display widgets — **do not** invent per-feature badge/chip markup or use status colors on non-status data.
+
+| Priority | Widget | Style | Use for |
+|----------|--------|-------|---------|
+| Primary identifier | `RouteDisplayComponent` | Neutral outline chips (`--chip-neutral-*`) | Origin → destination |
+| Primary identifier | `WarehouseDisplayComponent` | Two-line primary/secondary text | Warehouse name + city |
+| Workflow | `StatusBadgeComponent` | **Only colored semantic pill** in the row (`--status-*`) | Entity `status` |
+| Period / deadline | `DateRangeDisplayComponent` | Compact inline text, tabular nums, `nowrap` | Merged from–to dates or single date |
+| Secondary | `VehicleDisplayComponent` | Two-line primary/secondary text | Vehicle name + plate |
+| Other | plain `format: 'text'` / `'number'` | Default table cell tokens | Description, size, weight, etc. |
+
+**Merged date columns:** routes and storage expose one **Period** / **Availability** column (`…table.columns.period`) instead of separate start/end columns. Keep the column `key` on the **from/start** field (`transportStartDate`, `availableFrom`) so sort and `defaultSort` stay on start date. Use `width: '18rem'` minimum so ranges like `Sep 1, 2026 – Feb 28, 2027` stay on one line.
+
+**Denormalized display fields:** persist table-friendly labels on the entity at create/update time (same pattern as routes):
+
+| Entity | Form FK | Denormalized on entity | Resolved via |
+|--------|---------|------------------------|--------------|
+| Route | `vehicleId` | `vehicleName`, `vehiclePlate` | `CompanyVehicleService.getDisplay()` |
+| Storage | `warehouseId` | `warehouseName`, `warehouseCity`, `warehouseLabel` | `CompanyWarehouseService.getDisplay()` + `getLabel()` |
+
+Reference implementations: `portal/user/features/routes/table-my/`, `cargo/table-my/`, `storage/table-my/`.
+
 ## Mobile (≤768px)
 
 - `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal).
@@ -31,7 +55,7 @@ Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not us
 
 ## Route display custom cell
 
-When a column shows origin → destination:
+When a column shows origin → destination (neutral outline chips — **not** status colors):
 
 ```typescript
 // *.table.ts — origin column, custom cell, often mobile.primary
@@ -46,7 +70,7 @@ export const routeCellKey = tableCellKey(RouteTable, 'origin');
 </ng-template>
 ```
 
-Page `imports`: `RouteDisplayComponent` from `shared/ui/route-display/route-display.component.ts`.
+Page `imports`: `RouteDisplayComponent` from `shared/ui/route-display/route-display.component.ts`. Chip tokens: `--chip-neutral-bg`, `--chip-neutral-border`, `--chip-neutral-text` in `src/styles.scss`.
 
 ## Vehicle display custom cell
 
@@ -87,3 +111,48 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 Page `imports`: `StatusBadgeComponent` from `shared/ui/status-badge/status-badge.component.ts`.
 
 All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/routes/table/`, `cargo/table/`, `storage/table/`.
+
+## Date range display custom cell
+
+When a column shows a date period (or single date). **Do not** use two separate date columns when the UI reads as one range.
+
+```typescript
+// *.table.ts — keep sort key on start/from field; merge end/to into one column
+{ key: 'transportStartDate', titleKey: '…columns.period', sortable: true, cell: 'custom', width: '18rem' }
+
+export const periodCellKey = tableCellKey(RouteTable, 'transportStartDate');
+```
+
+i18n column keys: `portal.user.features.routes.table.columns.period`, `portal.user.features.storage.table.columns.period`. Form field keys (`transportStartDate`, `availableFrom`, etc.) stay separate under `…form.fields.*`.
+
+```html
+<!-- Range (routes, storage) -->
+<ng-template [appTableCell]="periodKey" let-row>
+  <app-date-range-display [from]="row.transportStartDate" [to]="row.transportEndDate" />
+</ng-template>
+
+<!-- Single date (cargo needed-by) -->
+<ng-template [appTableCell]="neededByDateKey" let-row>
+  <app-date-range-display [from]="row.neededByDate" />
+</ng-template>
+```
+
+Page `imports`: `DateRangeDisplayComponent` from `shared/ui/date-range-display/date-range-display.component.ts`. Formatting via `formatDisplayDate()` in `shared/utils/format-display-date.ts`. Component uses `flex-wrap: nowrap` — widen column (`18rem`+) rather than letting ranges wrap.
+
+## Warehouse display custom cell
+
+When a column shows warehouse name over city (storage tables):
+
+```typescript
+{ key: 'warehouseLabel', titleKey: '…columns.warehouse', cell: 'custom', mobile: { primary: true } }
+
+export const warehouseCellKey = tableCellKey(StorageTable, 'warehouseLabel');
+```
+
+```html
+<ng-template [appTableCell]="warehouseKey" let-row>
+  <app-warehouse-display [name]="row.warehouseName" [city]="row.warehouseCity" />
+</ng-template>
+```
+
+Entity stores denormalized `warehouseName` / `warehouseCity` (like `vehicleName` / `vehiclePlate` on routes). Set on form submit via `CompanyWarehouseService.getDisplay()`; keep `warehouseLabel` for select labels and search. Page `imports`: `WarehouseDisplayComponent` from `shared/ui/warehouse-display/warehouse-display.component.ts`. Detail modal: `type: 'warehouse'` with `nameKey` / `cityKey` — see `detail-modal.mdc`.

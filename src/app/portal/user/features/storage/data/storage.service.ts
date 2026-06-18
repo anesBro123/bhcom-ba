@@ -12,6 +12,8 @@ import { StorageMyTable } from '../table-my/storage-my.table';
 
 export interface StorageCreatePayload extends StorageFormModel {
   warehouseLabel: string;
+  warehouseName: string;
+  warehouseCity: string;
 }
 
 @Injectable({ providedIn: 'root' })

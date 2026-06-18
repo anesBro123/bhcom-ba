@@ -4,8 +4,10 @@ import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
 import { DetailModalService } from '../../../../../shared/detail-modal';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
+import { WarehouseDisplayComponent } from '../../../../../shared/ui/warehouse-display/warehouse-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -17,14 +19,21 @@ import type { Storage } from '../data/storage.model';
 import { UserStorageService } from '../data/storage.service';
 import { openStorageDetailModal } from '../detail/open-storage-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
-import { StorageAllTable, storageAllStatusCellKey } from './storage-all.table';
+import {
+  StorageAllTable,
+  storageAllPeriodCellKey,
+  storageAllStatusCellKey,
+  storageAllWarehouseCellKey,
+} from './storage-all.table';
 
 @Component({
   selector: 'app-storage-all-table-page',
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
+    WarehouseDisplayComponent,
     PageTitleComponent,
   ],
   templateUrl: './storage-all-table-page.component.html',
@@ -40,6 +49,8 @@ export class StorageAllTablePageComponent {
   protected readonly pageSubtitleKey = 'portal.user.pages.allStorage.subtitle';
   protected readonly pageIcon = UserPageIcons.storage;
   protected readonly statusKey = storageAllStatusCellKey;
+  protected readonly warehouseKey = storageAllWarehouseCellKey;
+  protected readonly periodKey = storageAllPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadStorage: TableLoader<Storage> = (query) =>

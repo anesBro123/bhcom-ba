@@ -48,7 +48,8 @@ export const CargoMyTable = defineTable<Cargo>()({
       key: 'neededByDate',
       titleKey: 'portal.user.features.cargo.table.columns.neededByDate',
       sortable: true,
-      format: 'date',
+      cell: 'custom',
+      width: '12rem',
     },
   ],
   actions: {
@@ -90,3 +91,4 @@ export const CargoMyTable = defineTable<Cargo>()({
 export const cargoMyTypeCellKey = tableCellKey(CargoMyTable, 'cargoType');
 export const cargoMyRouteCellKey = tableCellKey(CargoMyTable, 'origin');
 export const cargoMyStatusCellKey = tableCellKey(CargoMyTable, 'status');
+export const cargoMyNeededByDateCellKey = tableCellKey(CargoMyTable, 'neededByDate');

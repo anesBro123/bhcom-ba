@@ -35,6 +35,8 @@ alwaysApply: false
 
 Second column after the primary identifier; `cell: 'custom'`, `sortable: true`, `width: ~9rem`.
 
+**Visual rule:** `StatusBadgeComponent` is the **only colored pill** in a table row. Route chips use neutral `--chip-neutral-*` tokens; dates use plain `DateRangeDisplayComponent` text — see `tables.mdc`.
+
 ```typescript
 { key: 'status', titleKey: '…table.columns.status', sortable: true, cell: 'custom', width: '9rem' }
 export const statusCellKey = tableCellKey(EntityTable, 'status');

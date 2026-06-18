@@ -91,12 +91,16 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **User entity status (interim):** `shared/constants/user-entity-status.ts` — `UserEntityStatus`; all entities will get their own status unions later — see `entity-status.mdc`
 - **Portal page icons:** `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — section headers, collapsed rail/flyout triggers, page titles (not per-nav-item icons)
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
+- **Display date formatting:** `shared/utils/format-display-date.ts` — `formatDisplayDate()` for tables, date-range display, detail modal
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
-- **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination in tables
+- **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination with neutral chips in tables
+- **Date range display UI:** `shared/ui/date-range-display/` — `DateRangeDisplayComponent` (`app-date-range-display`) for merged period / single-date columns
 - **Vehicle display UI:** `shared/ui/vehicle-display/` — `VehicleDisplayComponent` (`app-vehicle-display`) for vehicle name + plate in tables
-- **Status badge UI:** `shared/ui/status-badge/` — `StatusBadgeComponent` (`app-status-badge`) for entity status pills in tables; theme tokens `--status-*` in `styles.scss`. User routes/cargo/storage today; **all listable entities will have `status`** — each entity gets its own status union over time (`entity-status.mdc`)
+- **Warehouse display UI:** `shared/ui/warehouse-display/` — `WarehouseDisplayComponent` (`app-warehouse-display`) for warehouse name + city in storage tables
+- **Status badge UI:** `shared/ui/status-badge/` — `StatusBadgeComponent` (`app-status-badge`); **only colored semantic pill in a table row** — do not reuse status colors on route/date/warehouse cells. Theme tokens `--status-*` in `styles.scss`. User routes/cargo/storage today; **all listable entities will have `status`**
+- **Table cell display (user routes/cargo/storage):** reuse shared widgets per `tables.mdc` — `RouteDisplayComponent` (neutral chips), `DateRangeDisplayComponent` (merged period column, `width: '18rem'`), `VehicleDisplayComponent`, `WarehouseDisplayComponent` (name + city). Denormalize `vehicleName`/`vehiclePlate` and `warehouseName`/`warehouseCity` on create/update via portal `company-*.service.ts` `getDisplay()`.
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-back-link, page-header, primary-action-link, route-display, vehicle-display, status-badge)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-back-link, page-header, primary-action-link, route-display, date-range-display, vehicle-display, warehouse-display, status-badge)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
 - **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` + `subtitleKey` + `pageIcon` on the page component; entity icon from `AdminPageIcons` / `UserPageIcons`. See `page-title.mdc`.
@@ -121,7 +125,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `page-title.mdc` | Portal page templates + `shared/ui/page-title/` + `shared/ui/page-back-link/` — title, back link, icon, table create CTA |
 | `shared-constants.mdc` | `bih-cities.ts`, `user-entity-status.ts`, `admin-page-icons.ts`, `user-page-icons.ts` |
 | `entity-status.mdc` | Entity `status` field, `StatusBadgeComponent`, per-entity status conventions |
-| `shared-utils.mdc` | `date-input.ts`, `normalize-for-search.ts` |
+| `shared-utils.mdc` | `date-input.ts`, `format-display-date.ts`, `normalize-for-search.ts` |
 
 ## Responsive conventions
 

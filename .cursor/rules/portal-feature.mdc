@@ -80,14 +80,20 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 - Stepper UX (free navigation, `ValidationState` pills, submit-only enforcement, mobile layout): see `forms.mdc` — do not implement in the feature page.
 
-### User routes / cargo (single-step + shared patterns)
+### User routes / cargo / storage (single-step + shared table display)
 
-Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`.
+Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`, `portal/user/features/storage/`.
 
 - **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
 - **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`
-- **Dynamic select options:** `buildRouteForm(vehicleOptions)` pattern — clone form def, inject loaded options into `vehicleId` field
-- **Table:** `app-route-display` custom cell for origin → destination; `app-status-badge` for `status` column — see `tables.mdc`, `entity-status.mdc`
+- **Dynamic select options:** `buildRouteForm(vehicleOptions)` / `buildStorageForm(warehouseOptions)` — clone form def, inject loaded options
+- **Denormalized display on create/update:**
+  - Routes: `CompanyVehicleService.getDisplay(vehicleId)` → `vehicleName`, `vehiclePlate`
+  - Storage: `CompanyWarehouseService.getDisplay(warehouseId)` → `warehouseName`, `warehouseCity`; `getLabel()` → `warehouseLabel`
+- **Table display widgets** (see `tables.mdc` for templates):
+  - Routes + cargo: `app-route-display` (route col), `app-status-badge`, `app-date-range-display` (merged period or single needed-by)
+  - Routes only: `app-vehicle-display`
+  - Storage: `app-warehouse-display` (name + city), `app-status-badge`, `app-date-range-display` (availability period)
 - **Portal data:** `portal/user/data/company-vehicle.service.ts`, `company-warehouse.service.ts` for cross-feature selects
 
 ## Table page (`table/<entity>-table-page.component.ts`)
@@ -124,7 +130,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 
 - Custom enum/display cells: `tableCellKey(Table, 'column')` + `<ng-template [appTableCell]="key" let-row>` + `| translate` on label keys.
 - **Status cell:** `app-status-badge` + `status` column — see `entity-status.mdc`, `tables.mdc`.
-- Route pair cells: `RouteDisplayComponent` — see `tables.mdc`.
+- **Route / date / vehicle / warehouse cells:** shared display components — see `tables.mdc` (do not use raw text or duplicate badge markup).
 - Row actions in `onRowAction`: `edit` → `navigateByUrl(editUrl(id))`; `delete` → `ConfirmService` then `service.delete` (see `confirm.mdc`).
 - After delete: remount table via `tableMounted` signal (`false` → `queueMicrotask` → `true`).
 

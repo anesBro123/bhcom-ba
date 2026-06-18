@@ -15,5 +15,11 @@
     <ng-template [appTableCell]="vehicleKey" let-row>
       <app-vehicle-display [name]="row.vehicleName" [plate]="row.vehiclePlate" />
     </ng-template>
+    <ng-template [appTableCell]="periodKey" let-row>
+      <app-date-range-display
+        [from]="row.transportStartDate"
+        [to]="row.transportEndDate"
+      />
+    </ng-template>
   </app-data-table>
 }

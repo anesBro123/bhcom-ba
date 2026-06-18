@@ -6,6 +6,7 @@ import { filter, switchMap, take } from 'rxjs';
 import { ConfirmService } from '../../../../../shared/confirm';
 import { DetailModalService } from '../../../../../shared/detail-modal';
 import { USER_CREATE_CARGO_URL, userEditCargoUrl } from '../../../../../shared/constants/app-urls';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
@@ -24,6 +25,7 @@ import { openCargoDetailModal } from '../detail/open-cargo-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   CargoMyTable,
+  cargoMyNeededByDateCellKey,
   cargoMyRouteCellKey,
   cargoMyStatusCellKey,
   cargoMyTypeCellKey,
@@ -36,6 +38,7 @@ import {
     TableCellTemplateDirective,
     TranslatePipe,
     RouteDisplayComponent,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
     PageHeaderComponent,
     PageTitleComponent,
@@ -58,6 +61,7 @@ export class CargoMyTablePageComponent {
   protected readonly routeKey = cargoMyRouteCellKey;
   protected readonly statusKey = cargoMyStatusCellKey;
   protected readonly cargoTypeKey = cargoMyTypeCellKey;
+  protected readonly neededByDateKey = cargoMyNeededByDateCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadCargo: TableLoader<Cargo> = (query) => this.cargoService.listMine(query);

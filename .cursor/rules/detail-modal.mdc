@@ -17,7 +17,7 @@ Global imperative read-only detail modal for table **View Details** row actions.
 | `detail-modal.constants.ts` | `buildDetailModalActions(scope)`, shared close/edit label keys |
 | `detail-modal.service.ts` | `open<T>(options): Observable<DetailModalResult>` |
 | `detail-view/` | Renders `DetailDefinition` + entity data |
-| `detail-field-renderer/` | Built-in field widgets (text, date, status, route, vehicle, translate) |
+| `detail-field-renderer/` | Built-in field widgets (text, date, status, route, vehicle, warehouse, translate) |
 | `detail-modal/` | `DetailModalComponent` — single host mounted in app root |
 | `index.ts` | Barrel |
 
@@ -94,7 +94,10 @@ this.detailModalService
 | `status` | `StatusBadgeComponent` |
 | `route` | `RouteDisplayComponent` (`originKey`, `destinationKey`) |
 | `vehicle` | `VehicleDisplayComponent` (`nameKey`, `plateKey`) |
+| `warehouse` | `WarehouseDisplayComponent` (`nameKey`, `cityKey`) |
 | `translate` | Enum label via `options` |
+
+For storage warehouse, prefer `type: 'warehouse'` over plain `text` on `warehouseLabel` — requires `warehouseName` / `warehouseCity` on the entity. Date fields in detail modals stay separate labeled `date` rows (tables merge ranges via `DateRangeDisplayComponent`).
 
 Reuse form/table `labelKey`s where possible. Add `…features.<entity>.detail.*` for modal title, subtitle, and section headings only.
 

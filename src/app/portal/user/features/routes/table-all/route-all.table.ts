@@ -37,17 +37,10 @@ export const RouteAllTable = defineTable<Route>()({
     },
     {
       key: 'transportStartDate',
-      titleKey: 'portal.user.features.routes.table.columns.transportStartDate',
+      titleKey: 'portal.user.features.routes.table.columns.period',
       sortable: true,
-      format: 'date',
-      width: '10rem',
-    },
-    {
-      key: 'transportEndDate',
-      titleKey: 'portal.user.features.routes.table.columns.transportEndDate',
-      sortable: true,
-      format: 'date',
-      width: '10rem',
+      cell: 'custom',
+      width: '18rem',
     },
     {
       key: 'description',
@@ -86,3 +79,4 @@ export const RouteAllTable = defineTable<Route>()({
 export const routeAllCellKey = tableCellKey(RouteAllTable, 'origin');
 export const routeAllStatusCellKey = tableCellKey(RouteAllTable, 'status');
 export const routeAllVehicleCellKey = tableCellKey(RouteAllTable, 'vehiclePlate');
+export const routeAllPeriodCellKey = tableCellKey(RouteAllTable, 'transportStartDate');

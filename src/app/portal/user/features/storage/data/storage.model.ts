@@ -11,6 +11,8 @@ export interface StorageFormModel {
 export interface Storage extends StorageFormModel {
   id: string;
   warehouseLabel: string;
+  warehouseName: string;
+  warehouseCity: string;
   status: UserEntityStatus;
   publishedAt: string;
   companyId: string;

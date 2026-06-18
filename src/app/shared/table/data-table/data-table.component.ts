@@ -36,6 +36,7 @@ import { TablePaginationComponent } from '../table-pagination/table-pagination.c
 import { TableFilterBarComponent } from '../table-filter-bar/table-filter-bar.component';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
 import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
+import { formatDisplayDate } from '../../utils/format-display-date';
 
 @Component({
   selector: 'app-data-table',
@@ -192,7 +193,7 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
           currency: 'USD',
         }).format(Number(value));
       case 'date':
-        return formatDateValue(value);
+        return formatDisplayDate(value);
       default:
         return value === null || value === undefined ? '' : String(value);
     }
@@ -238,19 +239,3 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   }
 }
 
-function formatDateValue(value: unknown): string {
-  if (value === null || value === undefined || value === '') {
-    return '';
-  }
-
-  const date = value instanceof Date ? value : new Date(String(value));
-  if (Number.isNaN(date.getTime())) {
-    return String(value);
-  }
-
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(date);
-}

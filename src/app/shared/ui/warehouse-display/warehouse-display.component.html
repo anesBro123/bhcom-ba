@@ -1,0 +1,7 @@
+<span
+  class="warehouse-display"
+  [attr.aria-label]="'shared.warehouse.nameCity' | translate: { name: name(), city: city() }"
+>
+  <span class="warehouse-display__name">{{ name() }}</span>
+  <span class="warehouse-display__city">{{ city() }}</span>
+</span>

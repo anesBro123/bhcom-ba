@@ -5,6 +5,7 @@ import type { UserEntityStatus } from '../../constants/user-entity-status';
 import { RouteDisplayComponent } from '../../ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../ui/status-badge/status-badge.component';
 import { VehicleDisplayComponent } from '../../ui/vehicle-display/vehicle-display.component';
+import { WarehouseDisplayComponent } from '../../ui/warehouse-display/warehouse-display.component';
 import {
   formatDetailDateValue,
   formatDetailNumberValue,
@@ -16,6 +17,7 @@ import type {
   DetailRouteFieldDef,
   DetailTranslateFieldDef,
   DetailVehicleFieldDef,
+  DetailWarehouseFieldDef,
 } from '../detail-modal.types';
 
 @Component({
@@ -25,6 +27,7 @@ import type {
     RouteDisplayComponent,
     StatusBadgeComponent,
     VehicleDisplayComponent,
+    WarehouseDisplayComponent,
   ],
   templateUrl: './detail-field-renderer.component.html',
   styleUrl: './detail-field-renderer.component.scss',
@@ -43,6 +46,10 @@ export class DetailFieldRendererComponent<T extends object> {
 
   protected asVehicleField(): DetailVehicleFieldDef<T> {
     return this.field() as DetailVehicleFieldDef<T>;
+  }
+
+  protected asWarehouseField(): DetailWarehouseFieldDef<T> {
+    return this.field() as DetailWarehouseFieldDef<T>;
   }
 
   protected asTranslateField(): DetailTranslateFieldDef<T> {

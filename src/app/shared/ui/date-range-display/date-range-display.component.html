@@ -1,0 +1,20 @@
+@if (isRange()) {
+  <span
+    class="date-range-display"
+    [attr.aria-label]="
+      'shared.dateRange.fromTo'
+        | translate: { from: formattedFrom(), to: formattedTo() }
+    "
+  >
+    <span class="date-range-display__date">{{ formattedFrom() }}</span>
+    <span class="date-range-display__separator" aria-hidden="true">–</span>
+    <span class="date-range-display__date">{{ formattedTo() }}</span>
+  </span>
+} @else {
+  <span
+    class="date-range-display date-range-display--single"
+    [attr.aria-label]="'shared.dateRange.single' | translate: { date: formattedFrom() }"
+  >
+    <span class="date-range-display__date">{{ formattedFrom() }}</span>
+  </span>
+}

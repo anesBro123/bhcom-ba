@@ -1,18 +1,7 @@
+import { formatDisplayDate } from '../utils/format-display-date';
+
 export function formatDetailDateValue(value: unknown): string {
-  if (value === null || value === undefined || value === '') {
-    return '';
-  }
-
-  const date = value instanceof Date ? value : new Date(String(value));
-  if (Number.isNaN(date.getTime())) {
-    return String(value);
-  }
-
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(date);
+  return formatDisplayDate(value);
 }
 
 export function formatDetailNumberValue(value: unknown): string {

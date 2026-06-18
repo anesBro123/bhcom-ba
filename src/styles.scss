@@ -118,6 +118,9 @@
   --status-canceled-text: #f87171;
   --status-closed-bg: color-mix(in srgb, #22c55e 22%, transparent);
   --status-closed-text: #4ade80;
+  --chip-neutral-bg: rgba(255, 255, 255, 0.06);
+  --chip-neutral-border: rgba(255, 255, 255, 0.14);
+  --chip-neutral-text: var(--text-primary);
 }
 
 [data-sidebar-collapsed] {
@@ -225,6 +228,9 @@
   --status-canceled-text: #dc2626;
   --status-closed-bg: color-mix(in srgb, #22c55e 14%, #ffffff);
   --status-closed-text: #16a34a;
+  --chip-neutral-bg: #ffffff;
+  --chip-neutral-border: rgba(0, 0, 0, 0.12);
+  --chip-neutral-text: var(--text-primary);
 }
 
 *,

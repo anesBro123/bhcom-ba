@@ -5,6 +5,7 @@ import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
 import { DetailModalService } from '../../../../../shared/detail-modal';
+import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
@@ -21,6 +22,7 @@ import { openCargoDetailModal } from '../detail/open-cargo-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   CargoAllTable,
+  cargoAllNeededByDateCellKey,
   cargoAllRouteCellKey,
   cargoAllStatusCellKey,
   cargoAllTypeCellKey,
@@ -33,6 +35,7 @@ import {
     TableCellTemplateDirective,
     TranslatePipe,
     RouteDisplayComponent,
+    DateRangeDisplayComponent,
     StatusBadgeComponent,
     PageTitleComponent,
   ],
@@ -51,6 +54,7 @@ export class CargoAllTablePageComponent {
   protected readonly routeKey = cargoAllRouteCellKey;
   protected readonly statusKey = cargoAllStatusCellKey;
   protected readonly cargoTypeKey = cargoAllTypeCellKey;
+  protected readonly neededByDateKey = cargoAllNeededByDateCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadCargo: TableLoader<Cargo> = (query) => this.cargoService.listAll(query);
