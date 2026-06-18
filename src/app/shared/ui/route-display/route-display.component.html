@@ -1,5 +1,6 @@
 <span
   class="route-display"
+  [class.route-display--nowrap]="nowrap()"
   [attr.aria-label]="'shared.route.fromTo' | translate: { origin: origin(), destination: destination() }"
 >
   <span class="route-display__chip route-display__origin">{{ origin() }}</span>

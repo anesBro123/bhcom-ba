@@ -8,7 +8,11 @@
           @if (isFieldVisible(field)) {
             <div class="detail-view__field">
               <dt class="detail-view__label">{{ field.labelKey | translate }}</dt>
-              <dd class="detail-view__value">
+              <dd
+                class="detail-view__value"
+                [class.detail-view__value--text]="field.type === 'text'"
+                [class.detail-view__value--route]="field.type === 'route'"
+              >
                 <app-detail-field-renderer [field]="field" [data]="data()" />
               </dd>
             </div>

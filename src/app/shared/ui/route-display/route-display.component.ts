@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { booleanAttribute, Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -10,4 +10,5 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class RouteDisplayComponent {
   readonly origin = input.required<string>();
   readonly destination = input.required<string>();
+  readonly nowrap = input(false, { transform: booleanAttribute });
 }
