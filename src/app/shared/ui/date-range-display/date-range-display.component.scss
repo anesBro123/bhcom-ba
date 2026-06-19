@@ -1,5 +1,9 @@
+@use 'styles/breakpoints' as *;
+
 :host {
   display: inline-block;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .date-range-display {
@@ -23,4 +27,15 @@
   font-weight: var(--table-cell-secondary-weight);
   color: var(--table-cell-secondary-color);
   flex-shrink: 0;
+}
+
+@include below-md {
+  :host {
+    display: block;
+  }
+
+  .date-range-display {
+    flex-wrap: wrap;
+    row-gap: 0.125rem;
+  }
 }
