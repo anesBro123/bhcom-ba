@@ -42,13 +42,24 @@ Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock st
 
 ## Routes + nav + URLs
 
-1. **`shared/constants/admin-urls.ts`** or **`user-urls.ts`** — list URL(s), create URL, edit URL builder (re-exported by `app-urls.ts`; see `app-urls.mdc`).
-   - **User entities (transport, freight, warehouse):** `USER_<ENTITY>_URL` (all/external), `USER_OUR_<ENTITY>_URL` (mine), `USER_CREATE_<ENTITY>_URL`, `userEdit<Entity>Url(id)`.
+1. **`shared/constants/admin-urls.ts`** or **`user-urls.ts`** — create URL, edit URL builder, hub URLs (user Plan 3); re-exported by `app-urls.ts` (see `app-urls.mdc`).
+   - **User entities (Plan 3):** `USER_FIND_URL`, `USER_OUR_LISTINGS_URL`, `userFindUrl()` / `userOurListingsUrl()` (TS navigation), `userFindRoute()` / `userOurListingsRoute()` (`routerLink`), `USER_CREATE_<ENTITY>_URL`, `userEdit<Entity>Url(id)`. No standalone list URL constants.
 2. **`admin.routes.ts`** (or `user.routes.ts`) — children under `PortalShellComponent`:
    - **Admin:** `<entity>` → table, `<entity>/create` → form, `<entity>/:id/edit` → same form.
-   - **User:** `<entity>/our` **before** `<entity>/:id/edit`; `<entity>` → all table, `<entity>/our` → my table, `<entity>/create` → form, `<entity>/:id/edit` → form. Form save redirects to `USER_OUR_*_URL`.
-3. **`admin-nav.config.ts`** / **`user-nav.config.ts`** — `NavSection` with `icon` from page icons; items are text-only (all + create for admin; all + my + create for user). `route` from `app-urls.ts`.
+   - **User (Plan 3):** `home`, `offer`, `find`, `our-listings` hub routes; per entity only `<entity>/create` and `<entity>/:id/edit`. List tables are embedded in hub pages — not standalone routes. Form save redirects to `userOurListingsUrl(matchingEntity)`.
+3. **`admin-nav.config.ts`** / **`user-nav.config.ts`** — `NavSection` with `icon` from page icons; `route` from `app-urls.ts`.
+   - **User (Plan 3):** four flat sidebar sections — Home, Find, Our listings, Offer (`NavSection.route`). Entity picking via `EntityTabsComponent` on hub pages — see `entity-tabs.mdc`, `layout.mdc`.
+   - **Admin:** entity sections with all + create items (text-only).
 4. **User services:** `listAll()` / `listOurs()` with company scoping (`companyId` on entity; session `companyId`); `create()` sets ownership from session.
+
+### User hub pages (Plan 3)
+
+| Feature folder | Route | Role |
+|----------------|-------|------|
+| `features/find/` | `/find?tab=` | `PageTitleComponent` + `EntityTabsComponent` + embedded `*AllTablePageComponent` (`[embedded]="true"`); no create CTA |
+| `features/our-listings/` | `/our-listings?tab=` | `PageHeaderComponent` + tab-specific `PrimaryActionLink` + `EntityTabsComponent` + embedded `*OurTablePageComponent` (`[embedded]="true"`) |
+
+Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG`.
 
 Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:id/edit`); only absolute URLs go in the domain URL files (`admin-urls.ts` for admin CRUD).
 
@@ -60,7 +71,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - `formDef` computed — swap submit action for create vs edit (`*FormEditActions` pattern).
 - `ngOnInit`: no `:id` → `stepperDataReady.set(true)`; with `:id` → `getById` → `patchValue` (strip `id`) → `stepperDataReady.set(true)`; load error → `navigateByUrl` list URL.
 - `onSubmit`: guard `submitting`; `getRawValue() as FormModel`; create vs update; success → list URL. Do not re-validate — `FormPageComponent` already did.
-- `backUrl` + `backLabelKey` — list URL and nav label for `PageBackLinkComponent` (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.our*`; same URL as post-save redirect).
+- `backUrl` + `backLabelKey` — list URL and nav label for `PageBackLinkComponent` (admin: `portal.<portal>.nav.all*`; user: `userOurListingsUrl(matchingEntity)` + `portal.user.nav.our*`; same URL as post-save redirect).
 - Template:
 
 ```html
@@ -99,7 +110,8 @@ Reference: `portal/user/features/transport/`, `portal/user/features/freight/`, `
 ## Table page (`table/<entity>-table-page.component.ts`)
 
 - `protected readonly table = EntityTable`; `TableLoader` → `service.list(query)`.
-- **Page title row + create CTA (required when feature has create route):** `app-page-header` with projected `app-page-title` + `app-primary-action-link` above `<app-data-table>` (outside remount `@if`). See `page-title.mdc`.
+- **Embedded mode (user Plan 3):** `embedded = input(false)`. When `true`, skip page title/header chrome; render `<app-data-table>` only. Hub pages (`find/`, `our-listings/`) compose embedded table components — see `entity-tabs.mdc`.
+- **Page title row + create CTA (required when feature has create route and not embedded):** `app-page-header` with projected `app-page-title` + `app-primary-action-link` above `<app-data-table>` (outside remount `@if`). See `page-title.mdc`. Our-listings hub owns the create CTA when tables are embedded.
 
 ```html
 <app-page-header>
@@ -179,6 +191,7 @@ Add keys to **both** `public/assets/en.json` and `bh.json` (see `i18n.mdc`).
 | Forms / stepper | `forms.mdc` |
 | Tables / mobile cards | `tables.mdc` |
 | Table filters | `table-filters.mdc` |
+| Entity tab hubs | `entity-tabs.mdc` |
 | Delete confirmation | `confirm.mdc` |
 | Route URLs | `app-urls.mdc` |
 | Cities / page icons | `shared-constants.mdc` |

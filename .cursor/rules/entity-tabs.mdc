@@ -1,0 +1,70 @@
+---
+description: Entity tab hub UI for user portal Find and Our listings pages
+globs: src/app/shared/ui/entity-tabs/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/user-entity-tabs.config.ts
+alwaysApply: false
+---
+
+# Entity tabs (`EntityTabsComponent`)
+
+Shared sticky tab bar for user portal **Find** (`/find`) and **Our listings** (`/our-listings`) hub pages.
+
+## Component
+
+| Path | Selector | Role |
+|------|----------|------|
+| `shared/ui/entity-tabs/` | `app-entity-tabs` | Pill tabs with Lucide icon + label |
+
+### API
+
+| Input / output | Type |
+|----------------|------|
+| `activeTab` | `UserEntityTab` (`transport` \| `freight` \| `warehouse`) |
+| `tabs` | `EntityTabConfig[]` — `{ id, labelKey, icon }` |
+| `tabChange` | output `UserEntityTab` |
+
+Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG` (icons from `UserPageIcons`).
+
+### i18n
+
+`portal.user.features.entityTabs.transport|freight|warehouse` + `…entityTabs.ariaLabel`
+
+## URL convention
+
+| Constant | Path |
+|----------|------|
+| `USER_FIND_URL` | `/find` |
+| `USER_OUR_LISTINGS_URL` | `/our-listings` |
+| `userFindUrl(tab?)` | `/find?tab=transport` — use with `navigateByUrl()` only |
+| `userOurListingsUrl(tab?)` | `/our-listings?tab=transport` — use with `navigateByUrl()` only |
+| `userFindRoute(tab?)` | `{ route, queryParams }` — use with `[routerLink]` + `[queryParams]` |
+| `userOurListingsRoute(tab?)` | `{ route, queryParams }` — use with `[routerLink]` + `[queryParams]` |
+
+Parse query with `parseUserEntityTab()` from `shared/constants/user-urls.ts`.
+
+Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userFindUrl()` / `userOurListingsUrl()` on tab change (programmatic navigation).
+
+For `[routerLink]` in templates, use `userFindRoute()` / `userOurListingsRoute()` — `{ route, queryParams }`. Do **not** bind `userFindUrl()` strings to `routerLink` (Angular encodes `?` into the path segment).
+
+Sidebar hub links stay active with `?tab=` via `navLinkActiveOptions()` in `portal/common/utils/nav-link-active-options.ts` — see `layout.mdc`.
+
+## Hub pages
+
+| Feature | Route | Title keys | Table body |
+|---------|-------|------------|------------|
+| `features/find/` | `/find` | `pages.find.*` | Embedded `*AllTablePageComponent` with `[embedded]="true"` — no create CTA |
+| `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | Embedded `*OurTablePageComponent` with `[embedded]="true"`; hub header owns tab-specific `PrimaryActionLink` |
+
+List tables stay in feature `table-all/` / `table-our/` folders — **not** standalone routes in Plan 3.
+
+## Embedded table pages
+
+Marketplace and our table page components accept `embedded = input(false)`. When `true`, skip `PageTitleComponent` / `PageHeaderComponent` chrome; render `DataTableComponent` only.
+
+## Sidebar (Plan 3)
+
+Four flat clickable sections in `USER_NAV` — Home, Find, Our listings, Offer (`NavSection.route`; no nested items). See `layout.mdc`.
+
+## Do not
+
+- Register standalone `/transport`, `/freight`, `/warehouse`, or `*/our` list routes alongside hubs.
+- Hardcode `/find?tab=` strings — use `userFindUrl()` / `userOurListingsUrl()`.

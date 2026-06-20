@@ -59,7 +59,7 @@ export function adminEditPartUrl(id: string): string {
 
 Guest: `LANDING_URL`, `SIGN_IN_URL`, `COMPANY_REGISTER_URL`, `USER_LOGIN_URL`, `ADMIN_LOGIN_URL`.
 
-User: `USER_HOME_URL`, `USER_OFFER_URL`, `USER_TRANSPORT_URL`, `USER_OUR_TRANSPORT_URL`, `USER_CREATE_TRANSPORT_URL`, `userEditTransportUrl()`, `USER_FREIGHT_URL`, `USER_OUR_FREIGHT_URL`, `USER_CREATE_FREIGHT_URL`, `userEditFreightUrl()`, `USER_WAREHOUSE_URL`, `USER_OUR_WAREHOUSE_URL`, `USER_CREATE_WAREHOUSE_URL`, `userEditWarehouseUrl()`.
+User: `USER_HOME_URL`, `USER_OFFER_URL`, `USER_FIND_URL`, `USER_OUR_LISTINGS_URL`, `userFindUrl()`, `userOurListingsUrl()` (programmatic navigation), `userFindRoute()`, `userOurListingsRoute()` (`[routerLink]` + `[queryParams]` — do not bind `?tab=` strings to `routerLink`), `USER_CREATE_TRANSPORT_URL`, `userEditTransportUrl()`, `USER_CREATE_FREIGHT_URL`, `userEditFreightUrl()`, `USER_CREATE_WAREHOUSE_URL`, `userEditWarehouseUrl()`. List browsing uses hub URLs + `?tab=` — no standalone `/transport` or `/freight/our` list constants.
 
 Admin: `ADMIN_HOME_URL`, `ADMIN_SETTINGS_URL`, `ADMIN_VEHICLES_URL`, `ADMIN_CREATE_VEHICLE_URL`, `ADMIN_USERS_URL`, `ADMIN_CREATE_USER_URL`, `ADMIN_WAREHOUSES_URL`, `ADMIN_CREATE_WAREHOUSE_URL`, `adminEditVehicleUrl()`, `adminEditUserUrl()`, `adminEditWarehouseUrl()`.
 

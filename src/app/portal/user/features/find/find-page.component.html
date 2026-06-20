@@ -1,0 +1,31 @@
+<app-page-title
+  titleKey="portal.user.pages.find.title"
+  subtitleKey="portal.user.pages.find.subtitle"
+  [icon]="pageIcon"
+/>
+
+<app-entity-tabs
+  [activeTab]="activeTab()"
+  [tabs]="entityTabs"
+  (tabChange)="onTabChange($event)"
+/>
+
+@switch (activeTab()) {
+  @case ('freight') {
+    <app-freight-all-table-page [embedded]="true" />
+  }
+  @case ('warehouse') {
+    <app-warehouse-all-table-page [embedded]="true" />
+  }
+  @default {
+    <app-transport-all-table-page [embedded]="true" />
+  }
+}
+
+<footer class="find-page__footer">
+  {{ 'portal.user.features.find.manageListingsPrompt' | translate }}
+  <a
+    [routerLink]="ourListingsLink.route"
+    [queryParams]="ourListingsLink.queryParams"
+  >{{ 'portal.user.features.find.manageListingsLink' | translate }}</a>
+</footer>

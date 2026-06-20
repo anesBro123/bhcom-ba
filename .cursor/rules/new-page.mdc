@@ -13,7 +13,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or user equivalent).
 2. Add URLs to `shared/constants/admin-urls.ts` (or `user-urls.ts` for user features): list, create, `editUrl(id)`.
 3. Register three routes in `admin.routes.ts`: list, `create`, `:id/edit` (same form component for create + edit).
-4. Add nav section in `admin-nav.config.ts` (or `user-nav.config.ts`): `NavSection` with `icon` from `AdminPageIcons` / `UserPageIcons`, `NavItem`s with `route` from `app-urls.ts`. Admin items are text-only; user Find / Our listings entity items also set `NavItem.icon` (entity icons).
+4. Add nav section in `admin-nav.config.ts` (or `user-nav.config.ts`): `NavSection` with `icon` from `AdminPageIcons` / `UserPageIcons`. Admin uses `items` with `route` from `app-urls.ts`. **User portal:** four flat sections with `NavSection.route` — Home, Find, Our listings, Offer; see `user-nav.config.ts`, `layout.mdc`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
 6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
 7. **Page title + back link:** `PageBackLinkComponent` + `PageTitleComponent` with `pageTitleKey` / `pageSubtitleKey` / `pageIcon`; form page also needs `backUrl` (list URL) + `backLabelKey` (nav list label) — see **`page-title.mdc`**, **`shared-constants.mdc`**.
@@ -23,9 +23,20 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 
 1. Feature folder: `portal/user/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
 2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
-3. If in sidebar: add `NavItem`(s) under a `NavSection` in `user-nav.config.ts` or `admin-nav.config.ts`; set `NavSection.icon` from page icons; user entity items may set `NavItem.icon`. Matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`, `layout.mdc`). **User portal nav (Plan 2):** four sections — Home (`/home`), Find (Transport/Freight/Warehouse marketplace URLs), Our listings (`*/our`), Offer (`/offer`); see `user-nav.config.ts`.
+3. If in sidebar: add entries in `user-nav.config.ts` or `admin-nav.config.ts`. **User:** flat `NavSection` with `route` + `icon` (Home, Find, Our listings, Offer). **Admin:** grouped `NavSection` + `items`. Routes from `shared/constants/app-urls.ts` (see `app-urls.mdc`, `layout.mdc`).
 4. **Stub / title-only page:** dedicated feature page with static `PageTitleComponent` keys — see `portal/admin/features/settings/`.
-5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/transport/table/`.
+5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/transport/table-all/` (embedded in Find hub).
+
+## User hub page (Find / Our listings)
+
+Follow **`entity-tabs.mdc`** — reference: `portal/user/features/find/`, `portal/user/features/our-listings/`.
+
+1. Add `USER_FIND_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userFindUrl` / `userOurListingsUrl` for TS; `userFindRoute` / `userOurListingsRoute` for templates).
+2. Register `find` and `our-listings` routes in `user.routes.ts` — **do not** register standalone entity list routes.
+3. Hub page: `PageTitleComponent` (+ `PageHeaderComponent` + tab-specific `PrimaryActionLink` on Our listings only) + `EntityTabsComponent` + embedded table page components with `[embedded]="true"`.
+4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=` query param; navigate with `userFindUrl()` / `userOurListingsUrl()` on tab change.
+5. Sidebar active state: `navLinkActiveOptions(exact)` on hub nav links — see `layout.mdc`.
+6. i18n: `portal.user.pages.find.*`, `portal.user.pages.ourListings.*`, `portal.user.features.entityTabs.*` in both locale files.
 6. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
    - **Admin (implemented):** `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`
    - **KPI row:** `<app-metric-card>` in a 3-col desktop / 1-col mobile grid; wrap each card in `<a routerLink>` for navigation; counts from existing entity services via `list()` → `total` (or dedicated dashboard service with `forkJoin`); show `—` while loading; prefer `variant="default"` for neutral icons

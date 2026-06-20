@@ -1,0 +1,16 @@
+<nav class="entity-tabs" [attr.aria-label]="'portal.user.features.entityTabs.ariaLabel' | translate">
+  @for (tab of tabs(); track tab.id) {
+    <button
+      type="button"
+      class="entity-tabs__tab"
+      [class.entity-tabs__tab--active]="activeTab() === tab.id"
+      [attr.aria-current]="activeTab() === tab.id ? 'page' : null"
+      (click)="selectTab(tab.id)"
+    >
+      <span class="entity-tabs__tab-icon" aria-hidden="true">
+        <ng-container *ngComponentOutlet="tab.icon; inputs: iconInputs" />
+      </span>
+      <span>{{ tab.labelKey | translate }}</span>
+    </button>
+  }
+</nav>

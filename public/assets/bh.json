@@ -783,8 +783,16 @@
           "subtitle": "Počnite ovdje — pronađite što vam treba ili objavite ponudu vaše kompanije."
         },
         "offer": {
-          "title": "Ponudite objavu",
+          "title": "Ponudite uslugu",
           "subtitle": "Odaberite šta vaša kompanija želi ponuditi na tržištu."
+        },
+        "find": {
+          "title": "Pronađi",
+          "subtitle": "Pregledajte objave drugih kompanija na tržištu."
+        },
+        "ourListings": {
+          "title": "Naše objave",
+          "subtitle": "Sve što je objavila vaša kompanija — od bilo kog člana tima."
         },
         "marketplaceTransport": {
           "title": "Prevoz na tržištu",
@@ -1129,6 +1137,16 @@
               "publishedAt": "Objavljeno"
             }
           }
+        },
+        "entityTabs": {
+          "ariaLabel": "Tip objave",
+          "transport": "Prevoz",
+          "freight": "Teret",
+          "warehouse": "Skladište"
+        },
+        "find": {
+          "manageListingsPrompt": "Upravljate objavama vaše kompanije?",
+          "manageListingsLink": "Naše objave"
         },
         "home": {
           "snapshot": {

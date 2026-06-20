@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_OUR_FREIGHT_URL } from '../../../../../shared/constants/app-urls';
+import { userOurListingsUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { notPastDateValidator } from '../../../../../shared/utils/date-input';
@@ -48,7 +48,7 @@ export class FreightFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = UserPageIcons.freight;
-  protected readonly backUrl = USER_OUR_FREIGHT_URL;
+  protected readonly backUrl = userOurListingsUrl('freight');
   protected readonly backLabelKey = 'portal.user.nav.ourFreight';
 
   protected readonly formDef = computed(() => {
@@ -91,7 +91,7 @@ export class FreightFormPageComponent implements OnInit {
           });
         },
         error: () => {
-          void this.router.navigateByUrl(USER_OUR_FREIGHT_URL);
+          void this.router.navigateByUrl(userOurListingsUrl('freight'));
         },
       });
   }
@@ -111,7 +111,7 @@ export class FreightFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_OUR_FREIGHT_URL);
+        void this.router.navigateByUrl(userOurListingsUrl('freight'));
       },
       error: () => {
         this.submitting.set(false);

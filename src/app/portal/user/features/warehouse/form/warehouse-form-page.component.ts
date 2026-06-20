@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_OUR_WAREHOUSE_URL } from '../../../../../shared/constants/app-urls';
+import { userOurListingsUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
@@ -53,7 +53,7 @@ export class WarehouseFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = UserPageIcons.warehouse;
-  protected readonly backUrl = USER_OUR_WAREHOUSE_URL;
+  protected readonly backUrl = userOurListingsUrl('warehouse');
   protected readonly backLabelKey = 'portal.user.nav.ourWarehouse';
 
   protected readonly formDef = computed(() => {
@@ -94,7 +94,7 @@ export class WarehouseFormPageComponent implements OnInit {
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
-          void this.router.navigateByUrl(USER_OUR_WAREHOUSE_URL);
+          void this.router.navigateByUrl(userOurListingsUrl('warehouse'));
         },
       });
   }
@@ -123,7 +123,7 @@ export class WarehouseFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_OUR_WAREHOUSE_URL);
+        void this.router.navigateByUrl(userOurListingsUrl('warehouse'));
       },
       error: () => {
         this.submitting.set(false);

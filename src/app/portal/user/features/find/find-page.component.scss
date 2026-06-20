@@ -1,0 +1,24 @@
+.find-page__footer {
+  margin: 1.5rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+
+  a {
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--text-primary);
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--text-muted);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}

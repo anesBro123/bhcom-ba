@@ -7,11 +7,10 @@ import {
   USER_CREATE_FREIGHT_URL,
   USER_CREATE_TRANSPORT_URL,
   USER_CREATE_WAREHOUSE_URL,
-  USER_FREIGHT_URL,
+  USER_FIND_URL,
   USER_OFFER_URL,
-  USER_OUR_TRANSPORT_URL,
-  USER_TRANSPORT_URL,
-  USER_WAREHOUSE_URL,
+  userFindRoute,
+  userOurListingsRoute,
 } from '../../../../shared/constants/app-urls';
 import {
   IntentCardAction,
@@ -43,11 +42,11 @@ export class HomePageComponent {
   private readonly homeService = inject(HomeService);
 
   protected readonly pageIcon = UserPageIcons.home;
-  protected readonly ourListingsUrl = USER_OUR_TRANSPORT_URL;
+  protected readonly ourListingsLink = userOurListingsRoute('transport');
   protected readonly offerUrl = USER_OFFER_URL;
-  protected readonly marketplaceTransportUrl = USER_TRANSPORT_URL;
-  protected readonly marketplaceFreightUrl = USER_FREIGHT_URL;
-  protected readonly marketplaceWarehouseUrl = USER_WAREHOUSE_URL;
+  protected readonly marketplaceTransportLink = userFindRoute('transport');
+  protected readonly marketplaceFreightLink = userFindRoute('freight');
+  protected readonly marketplaceWarehouseLink = userFindRoute('warehouse');
 
   protected readonly snapshot = signal<HomeCounts | null>(null);
 
@@ -62,7 +61,8 @@ export class HomePageComponent {
           actions: [
             {
               labelKey: 'portal.user.features.home.journey.moveGoods.findTransport',
-              route: USER_TRANSPORT_URL,
+              route: USER_FIND_URL,
+              queryParams: { tab: 'transport' },
             },
             {
               labelKey: 'portal.user.features.home.journey.moveGoods.offerFreight',
@@ -77,7 +77,8 @@ export class HomePageComponent {
           actions: [
             {
               labelKey: 'portal.user.features.home.journey.transportCapacity.findFreight',
-              route: USER_FREIGHT_URL,
+              route: USER_FIND_URL,
+              queryParams: { tab: 'freight' },
             },
             {
               labelKey: 'portal.user.features.home.journey.transportCapacity.offerTransport',
@@ -97,7 +98,8 @@ export class HomePageComponent {
           actions: [
             {
               labelKey: 'portal.user.features.home.journey.needWarehouse.findWarehouse',
-              route: USER_WAREHOUSE_URL,
+              route: USER_FIND_URL,
+              queryParams: { tab: 'warehouse' },
             },
           ],
         },

@@ -23,7 +23,7 @@
   }
 
   &--active {
-    background-color: var(--portal-accent-nav-bg, var(--bg-active));
+    background-color: transparent;
   }
 }
 
@@ -34,7 +34,7 @@
 }
 
 .sidebar__section-trigger--active .sidebar__section-trigger-icon {
-  color: var(--portal-accent-muted, var(--portal-accent));
+  color: var(--portal-accent);
   opacity: 1;
 }
 

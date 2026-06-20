@@ -11,8 +11,8 @@ alwaysApply: false
 - `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
 - `PortalSidebarComponent` (`portal-sidebar`) — brand row, collapsible nav (desktop), drawer (mobile). Collapsed desktop flyouts via `SidebarSectionFlyoutComponent` (`portal-sidebar/sidebar-section-flyout/`).
 - **Shared nav panel styles:** `portal/shell/portal-sidebar/_sidebar-nav-panel.scss` — section title, item list, links, active rail overlap. `@use` from `portal-sidebar.component.scss` and `sidebar-section-flyout.component.scss`. **Flyout panel reuses the same BEM classes** (`sidebar__section-title`, `sidebar__items`, `sidebar__link`) as expanded sidebar — do not duplicate flyout-only item/title styles.
-- Nav types: `portal/common/models/nav.model.ts` (`NavSection.icon?`, optional `NavItem.icon?`); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
-- Active-section helper: `portal/common/utils/is-nav-section-active.ts` (`isNavSectionActive(section, url)`).
+- Nav types: `portal/common/models/nav.model.ts` (`NavSection.route?` for user flat links, `NavSection.items?` for admin groups); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
+- Active helpers: `portal/common/utils/is-nav-section-active.ts`; `portal/common/utils/nav-link-active-options.ts` (`navLinkActiveOptions()` — `queryParams: 'ignored'` for hub routes with `?tab=`).
 - `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
 - `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest shared.topbar.
@@ -22,7 +22,7 @@ alwaysApply: false
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
 - `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). Content widget — not shell chrome. Import by direct path; parent owns i18n keys, grid layout, and optional `routerLink` wrapper for clickable tiles.
 - `QuickActionCardComponent` (`shared/ui/quick-action-card/`) — dashboard/portal action tile: `titleKey`, `descriptionKey`, `route`, `icon` (`LucideIcon`). Renders as `<a routerLink>` with centered monochrome icon (`--text-secondary`, ~22px), title, and description. No colored icon badge or accent top border. Import by direct path; parent owns grid layout.
-- `IntentCardComponent` (`shared/ui/intent-card/`) — user portal intent picker: `titleKey`, `descriptionKey`, `icon`, `actions` (`{ labelKey, route }[]`), optional `clickableCard` (single-action whole-card link + hover border — Offer). Static panel; icon + title header row; `--bg-form-card` / `--border-form-card` chrome; neutral text-link actions with `→` (Home). Import by direct path; parent owns grid layout.
+- `IntentCardComponent` (`shared/ui/intent-card/`) — user portal intent picker: `titleKey`, `descriptionKey`, `icon`, `actions` (`{ labelKey, route, queryParams? }[]`), optional `clickableCard` (single-action whole-card link + hover border — Offer). Static panel; icon + title header row; `--bg-form-card` / `--border-form-card` chrome; neutral text-link actions with `→` (Home). Hub links use `userFindRoute()` / `userOurListingsRoute()` — not `userFindUrl()` strings on `routerLink`. Import by direct path; parent owns grid layout.
 - `PageTitleComponent` (`shared/ui/page-title/`) — portal page `h1` + subtitle + entity icon. **Layout:** row 1 = icon + title; row 2 = subtitle full-width (aligned with icon left edge). Inputs: `titleKey`, `subtitleKey`, `icon` (from `AdminPageIcons` / `UserPageIcons`). See `page-title.mdc`. Not used on guest pages.
 - `PageBackLinkComponent` (`shared/ui/page-back-link/`) — chevron + list label above page title on portal create/edit forms; inputs: `route`, `labelKey`, `form`. Dirty leave uses `ConfirmService`. See `page-title.mdc`. Not used on guest or table list pages.
 - `RouteDisplayComponent` (`shared/ui/route-display/`) — origin → destination with **neutral outline chips** (`--chip-neutral-*` in `styles.scss`) for route/cargo tables. Inputs: `origin`, `destination` (plain strings). Selector: `app-route-display`. i18n aria: `shared.route.fromTo`. Import by direct path; use in `appTableCell` templates — see `tables.mdc`.
@@ -61,20 +61,22 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 ```typescript
 interface NavSection {
   titleKey: string;
-  icon?: LucideIcon;   // section header + collapsed flyout trigger / single-item rail
-  items: NavItem[];
+  icon?: LucideIcon;
+  route?: string;     // direct link — user portal flat nav (Home, Find, Our listings, Offer)
+  exact?: boolean;
+  items?: NavItem[];  // grouped links — admin portal
 }
 interface NavItem {
   labelKey: string;
   route: string;
   exact?: boolean;
-  icon?: LucideIcon;  // user portal entity links (Find / Our listings); admin stays text-only
+  icon?: LucideIcon;
 }
 ```
 
 - Section `icon` from `UserPageIcons` / `AdminPageIcons` — see `shared-constants.mdc`.
-- **User portal:** entity `NavItem.icon` on Find and Our listings items (`transport`, `freight`, `warehouse`). Home and Offer are single-item sections — section icon only on rail; no item icon required.
-- **Admin portal:** items remain text-only (no `NavItem.icon`).
+- **User portal:** four flat clickable links — Home, Find, Our listings, Offer (`NavSection.route` + `icon`; labels from `portal.user.nav.home|find|ourListings|offer`). Entity picking on hub pages — see `entity-tabs.mdc`.
+- **Admin portal:** grouped sections with `items` (text-only links); multi-item sections use flyout when sidebar collapsed.
 
 ### Expanded + flyout panel (shared `_sidebar-nav-panel.scss`)
 
@@ -95,16 +97,20 @@ Parent sets `--sidebar-section-icon-size: 18px` on `.sidebar__section` (expanded
 
 ### Collapsed (desktop only, `> 768px`)
 
-- Gated by `flyoutMode` = `collapsed && !isMobileLayout()` (`MOBILE_MEDIA_QUERY` via `matchMedia` in `portal-sidebar.component.ts`).
-- **Single-item sections** (Home, Offer on user portal; Dashboard on admin): centered rail `<a class="sidebar__link sidebar__link--rail">` using `NavSection.icon`; icon muted unless route active.
-- **Multi-item sections**: entity icon **trigger** in `SidebarSectionFlyoutComponent`; hover/focus opens fixed panel to the right.
+- Gated by `flyoutMode` = `collapsed && !isMobileLayout()` (`MOBILE_MEDIA_QUERY` via `matchMedia` in `portal-sidebar.component.ts`). `sidebar--collapsed` class is **not** applied on mobile — drawer always uses expanded layout.
+- **User portal:** all four intents render as centered rail links (`sidebar__link--rail`) using `NavSection.icon` + `NavSection.route`.
+- **Admin multi-item sections**: entity icon **trigger** in `SidebarSectionFlyoutComponent`; hover/focus opens fixed panel to the right.
+- **Collapsed active (user rail + admin flyout trigger):** icon turns `--portal-accent` only — **no** background fill or left accent bar on rail links.
+- **Expanded active (admin grouped items):** soft `--portal-accent-nav-bg` fill + accent `border-left` (unchanged).
 - **Flyout panel** reuses `_sidebar-nav-panel.scss` classes — visually identical to one expanded section. Panel chrome only in flyout SCSS: fixed position, `z-index: 210`, tokens `--bg-sidebar-flyout`, `--border-sidebar-flyout`, `--shadow-sidebar-flyout`.
 - **Trigger** styles stay in `sidebar-section-flyout.component.scss` (encapsulation): muted icon; accent when `sectionActive()`.
 - Flyout closes on leave (200ms grace), Escape, outside click, or navigation.
+- **`routerLinkActive`:** use `navLinkActiveOptions(exact)` so hub routes stay active with `?tab=` query params (`/find?tab=freight`, `/our-listings?tab=warehouse`).
 
 ### Mobile drawer
 
-- Flyout **disabled** — full section headers + item labels even if `collapsed` is persisted from desktop.
+- Flyout **disabled** — full link labels even if `collapsed` is persisted from desktop.
+- Direct links use `sidebar__link--direct` styling (left-aligned, full width); ignore desktop collapsed rail layout.
 
 ## Styling
 

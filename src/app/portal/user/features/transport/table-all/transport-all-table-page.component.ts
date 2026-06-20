@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
@@ -45,6 +45,8 @@ import {
   templateUrl: './transport-all-table-page.component.html',
 })
 export class TransportAllTablePageComponent {
+  readonly embedded = input(false);
+
   private readonly routeService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
   private readonly detailModalService = inject(DetailModalService);

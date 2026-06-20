@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { USER_OUR_TRANSPORT_URL } from '../../../../../shared/constants/app-urls';
+import { userOurListingsUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
@@ -53,7 +53,7 @@ export class TransportFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = UserPageIcons.transport;
-  protected readonly backUrl = USER_OUR_TRANSPORT_URL;
+  protected readonly backUrl = userOurListingsUrl('transport');
   protected readonly backLabelKey = 'portal.user.nav.ourTransport';
 
   protected readonly formDef = computed(() => {
@@ -100,7 +100,7 @@ export class TransportFormPageComponent implements OnInit {
           queueMicrotask(() => this.form.patchValue(formValue));
         },
         error: () => {
-          void this.router.navigateByUrl(USER_OUR_TRANSPORT_URL);
+          void this.router.navigateByUrl(userOurListingsUrl('transport'));
         },
       });
   }
@@ -123,7 +123,7 @@ export class TransportFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(USER_OUR_TRANSPORT_URL);
+        void this.router.navigateByUrl(userOurListingsUrl('transport'));
       },
       error: () => {
         this.submitting.set(false);

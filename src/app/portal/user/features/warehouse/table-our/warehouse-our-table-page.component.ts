@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
@@ -47,6 +47,8 @@ import {
   templateUrl: './warehouse-our-table-page.component.html',
 })
 export class WarehouseOurTablePageComponent {
+  readonly embedded = input(false);
+
   private readonly storageService = inject(UserWarehouseService);
   private readonly confirmService = inject(ConfirmService);
   private readonly detailModalService = inject(DetailModalService);

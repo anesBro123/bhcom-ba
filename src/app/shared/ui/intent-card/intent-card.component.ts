@@ -7,6 +7,7 @@ import type { LucideIcon } from '@lucide/angular';
 export interface IntentCardAction {
   labelKey: string;
   route: string;
+  queryParams?: Record<string, string>;
 }
 
 @Component({

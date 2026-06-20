@@ -23,6 +23,7 @@ import { BrandMarkComponent } from '../../../shared/ui/brand-mark/brand-mark.com
 import { PORTAL_CONFIG } from '../../common/models/portal-config.model';
 import type { NavSection } from '../../common/models/nav.model';
 import { isNavSectionActive } from '../../common/utils/is-nav-section-active';
+import { navLinkActiveOptions } from '../../common/utils/nav-link-active-options';
 import { MOBILE_MEDIA_QUERY } from '../viewport';
 import { SidebarService } from '../sidebar.service';
 import { SidebarSectionFlyoutComponent } from './sidebar-section-flyout/sidebar-section-flyout.component';
@@ -102,11 +103,40 @@ export class PortalSidebarComponent {
   }
 
   protected usesFlyout(section: NavSection): boolean {
-    return this.flyoutMode() && section.items.length > 1;
+    return this.flyoutMode() && (section.items?.length ?? 0) > 1;
+  }
+
+  protected isDirectLink(section: NavSection): boolean {
+    return !!section.route;
   }
 
   protected isRailLink(section: NavSection): boolean {
-    return this.flyoutMode() && section.items.length === 1;
+    if (!this.flyoutMode()) {
+      return false;
+    }
+    if (section.route) {
+      return true;
+    }
+    return (section.items?.length ?? 0) === 1;
+  }
+
+  protected linkRoute(section: NavSection): string {
+    return section.route ?? section.items![0].route;
+  }
+
+  protected linkExact(section: NavSection): boolean {
+    if (section.route) {
+      return section.exact ?? false;
+    }
+    return section.items![0].exact ?? false;
+  }
+
+  protected linkActiveOptions(section: NavSection) {
+    return navLinkActiveOptions(this.linkExact(section));
+  }
+
+  protected itemActiveOptions(exact: boolean | undefined) {
+    return navLinkActiveOptions(exact ?? false);
   }
 
   protected isSectionActive(section: NavSection): boolean {

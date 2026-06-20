@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { take } from 'rxjs';
@@ -45,6 +45,8 @@ import {
   templateUrl: './freight-all-table-page.component.html',
 })
 export class FreightAllTablePageComponent {
+  readonly embedded = input(false);
+
   private readonly cargoService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
   private readonly detailModalService = inject(DetailModalService);

@@ -1,6 +1,6 @@
 import {
   LucideClipboardList,
-  LucideLayoutGrid,
+  LucideHome,
   LucideMap,
   LucidePackage,
   LucideSearch,
@@ -10,7 +10,7 @@ import {
 import type { LucideIcon } from '@lucide/angular';
 
 export const UserPageIcons = {
-  home: LucideLayoutGrid,
+  home: LucideHome,
   find: LucideSearch,
   ourListings: LucideClipboardList,
   offer: LucideSquarePlus,

@@ -17,6 +17,7 @@ import { filter } from 'rxjs';
 
 import type { NavSection } from '../../../common/models/nav.model';
 import { isNavSectionActive } from '../../../common/utils/is-nav-section-active';
+import { navLinkActiveOptions } from '../../../common/utils/nav-link-active-options';
 
 const CLOSE_DELAY_MS = 200;
 
@@ -94,6 +95,10 @@ export class SidebarSectionFlyoutComponent {
 
   protected sectionActive(): boolean {
     return isNavSectionActive(this.section(), this.currentUrl());
+  }
+
+  protected itemActiveOptions(exact: boolean | undefined) {
+    return navLinkActiveOptions(exact ?? false);
   }
 
   protected onZoneEnter(): void {

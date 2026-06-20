@@ -1,0 +1,26 @@
+<app-page-header>
+  <app-page-title
+    titleKey="portal.user.pages.ourListings.title"
+    subtitleKey="portal.user.pages.ourListings.subtitle"
+    [icon]="pageIcon"
+  />
+  <app-primary-action-link [route]="createUrl()" [labelKey]="createLabelKey()" />
+</app-page-header>
+
+<app-entity-tabs
+  [activeTab]="activeTab()"
+  [tabs]="entityTabs"
+  (tabChange)="onTabChange($event)"
+/>
+
+@switch (activeTab()) {
+  @case ('freight') {
+    <app-freight-our-table-page [embedded]="true" />
+  }
+  @case ('warehouse') {
+    <app-warehouse-our-table-page [embedded]="true" />
+  }
+  @default {
+    <app-transport-our-table-page [embedded]="true" />
+  }
+}

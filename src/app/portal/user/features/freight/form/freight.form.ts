@@ -48,8 +48,8 @@ export const FreightForm = defineForm<FreightFormModel>()({
         },
         {
           id: 'cargo',
-          titleKey: 'portal.user.features.freight.form.sections.cargo.title',
-          subtitleKey: 'portal.user.features.freight.form.sections.cargo.subtitle',
+          titleKey: 'portal.user.features.freight.form.sections.freight.title',
+          subtitleKey: 'portal.user.features.freight.form.sections.freight.subtitle',
           icon: LucidePackage,
           fields: [
             {

@@ -42,7 +42,7 @@
             <a
               [routerLink]="item.route"
               routerLinkActive="sidebar__link--active"
-              [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              [routerLinkActiveOptions]="itemActiveOptions(item.exact)"
               class="sidebar__link"
               (click)="onLinkClick()"
             >

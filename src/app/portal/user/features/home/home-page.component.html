@@ -33,7 +33,11 @@
             }}
           </p>
         </div>
-        <a [routerLink]="ourListingsUrl" class="home-page__snapshot-link">
+        <a
+          [routerLink]="ourListingsLink.route"
+          [queryParams]="ourListingsLink.queryParams"
+          class="home-page__snapshot-link"
+        >
           {{ 'portal.user.features.home.snapshot.cta' | translate }}
         </a>
       } @else {
@@ -76,10 +80,10 @@
     <span class="home-page__browse-label">
       {{ 'portal.user.features.home.browseMarketplace' | translate }}:
     </span>
-    <a [routerLink]="marketplaceTransportUrl">{{ 'portal.user.nav.transport' | translate }}</a>
+    <a [routerLink]="marketplaceTransportLink.route" [queryParams]="marketplaceTransportLink.queryParams">{{ 'portal.user.nav.transport' | translate }}</a>
     <span class="home-page__browse-sep" aria-hidden="true">·</span>
-    <a [routerLink]="marketplaceFreightUrl">{{ 'portal.user.nav.freight' | translate }}</a>
+    <a [routerLink]="marketplaceFreightLink.route" [queryParams]="marketplaceFreightLink.queryParams">{{ 'portal.user.nav.freight' | translate }}</a>
     <span class="home-page__browse-sep" aria-hidden="true">·</span>
-    <a [routerLink]="marketplaceWarehouseUrl">{{ 'portal.user.nav.warehouse' | translate }}</a>
+    <a [routerLink]="marketplaceWarehouseLink.route" [queryParams]="marketplaceWarehouseLink.queryParams">{{ 'portal.user.nav.warehouse' | translate }}</a>
   </footer>
 </div>

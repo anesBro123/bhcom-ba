@@ -783,8 +783,16 @@
           "subtitle": "Start here — find what you need or publish what your company offers."
         },
         "offer": {
-          "title": "Offer a listing",
+          "title": "Offer service",
           "subtitle": "Choose what your company wants to offer on the marketplace."
+        },
+        "find": {
+          "title": "Find",
+          "subtitle": "Browse listings from other companies on the marketplace."
+        },
+        "ourListings": {
+          "title": "Our listings",
+          "subtitle": "Everything your company published — from any team member."
         },
         "marketplaceTransport": {
           "title": "Transport on the marketplace",
@@ -1129,6 +1137,16 @@
               "publishedAt": "Published"
             }
           }
+        },
+        "entityTabs": {
+          "ariaLabel": "Listing type",
+          "transport": "Transport",
+          "freight": "Freight",
+          "warehouse": "Warehouse"
+        },
+        "find": {
+          "manageListingsPrompt": "Manage your company's listings?",
+          "manageListingsLink": "Our listings"
         },
         "home": {
           "snapshot": {

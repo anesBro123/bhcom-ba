@@ -21,6 +21,15 @@ alwaysApply: false
 
 Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not use `window.confirm`.
 
+## User portal hub tables (Plan 3)
+
+Marketplace (`table-all/`) and our (`table-our/`) table page components are **not** standalone routes. Hub pages embed them:
+
+- `features/find/find-page.component.*` — `TransportAllTablePageComponent`, etc. with `[embedded]="true"`
+- `features/our-listings/our-listings-page.component.*` — `TransportOurTablePageComponent`, etc. with `[embedded]="true"`; hub header owns tab-specific create CTA
+
+See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
+
 ## Table cell visual hierarchy (user portal lists)
 
 When a table shows route/cargo/storage-style rows, reuse shared display widgets — **do not** invent per-feature badge/chip markup or use status colors on non-status data.
