@@ -63,7 +63,7 @@ Submit in page handler: `form.getRawValue() as Model` — framework already vali
 - Set `autocomplete: 'off'` on field def (default in template) — not browser autofill
 - **Validators on `FormGroup`** — autocomplete does not enforce picking from the list; add `Validators.required` on the page
 
-**Reference:** `portal/user/features/routes/form/route.form.ts`, `portal/user/features/cargo/form/cargo.form.ts`
+**Reference:** `portal/user/features/transport/form/transport.form.ts`, `portal/user/features/freight/form/freight.form.ts`
 
 ## Date fields (`type: 'date'`)
 
@@ -73,7 +73,7 @@ Submit in page handler: `form.getRawValue() as Model` — framework already vali
 - Add matching **`FormGroup` validators** on the form page (`notPastDateValidator`, `endDateOnOrAfterStartValidator`) — see `shared-utils.mdc`
 - Errors: `shared.form.common.errors.minDate`, `…dateRange` (via `form-control-error.ts`)
 
-**Reference:** `portal/user/features/routes/form/route.form.ts` + `route-form-page.component.ts`
+**Reference:** `portal/user/features/transport/form/transport.form.ts` + `transport-form-page.component.ts`
 
 ## Single-step (`mode: 'single'`)
 
@@ -216,7 +216,7 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 |-------|-----------|
 | Stepper create-only | `guest/pages/register/` |
 | Stepper create + edit (CRUD) | `portal/admin/features/vehicles/form/` |
-| Single-step CRUD + autocomplete + dates | `portal/user/features/routes/form/` |
+| Single-step CRUD + autocomplete + dates | `portal/user/features/transport/form/` |
 | Guest login (single) | `guest/pages/login/` |
 
 ## Do not

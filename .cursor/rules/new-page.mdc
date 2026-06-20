@@ -25,13 +25,13 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
 3. If in sidebar: add `NavItem`(s) under a `NavSection` in `user-nav.config.ts` or `admin-nav.config.ts`; set `NavSection.icon` from page icons; items are text-only (no per-link icons). Matching absolute `route` from `shared/constants/app-urls.ts` (see `app-urls.mdc`, `layout.mdc`).
 4. **Stub / title-only page:** dedicated feature page with static `PageTitleComponent` keys — see `portal/admin/features/settings/`.
-5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/routes/table/`.
+5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/transport/table/`.
 6. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
    - **Admin (implemented):** `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`
    - **KPI row:** `<app-metric-card>` in a 3-col desktop / 1-col mobile grid; wrap each card in `<a routerLink>` for navigation; counts from existing entity services via `list()` → `total` (or dedicated dashboard service with `forkJoin`); show `—` while loading; prefer `variant="default"` for neutral icons
    - **Quick actions:** `<app-quick-action-card>` from `shared/ui/quick-action-card/`; entity icons from `UserPageIcons` on dashboard action config; reuse nav `titleKey`s + `portal.<portal>.features.dashboard.actions.*.description` for subtitles
    - **Admin layout:** 3 entity columns (browse + create stacked per entity); settings action alone on its own row below
-   - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL`, `UserPageIcons.dashboard` / `AdminPageIcons.dashboard` on `NavSection.icon`, overview item (`exact: true`)
+   - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL`, `UserPageIcons.home` / `AdminPageIcons.dashboard` on `NavSection.icon`, overview item (`exact: true`)
    - **i18n:** `portal.<portal>.features.dashboard.metrics.*`, `…quickActions.title`, `…actions.*.description`; add `portal.admin.nav.sections.dashboard` + `portal.admin.nav.overview` for admin
    - **User (implemented):** `user-dashboard-page.*`, `user-dashboard.actions.config.ts`, `data/user-dashboard.service.ts`
 7. **Dashboard overview** — feature folder `portal/{user|admin}/features/dashboard/`:

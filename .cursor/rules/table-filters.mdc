@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Table filters (`src/app/shared/table`)
 
-User portal list pages (routes, cargo, storage — All + My) use the shared filter framework inside `DataTableComponent`. **Do not** build ad-hoc filter UI on list pages.
+User portal list pages (transport, freight, warehouse — All + My) use the shared filter framework inside `DataTableComponent`. **Do not** build ad-hoc filter UI on list pages.
 
 ## File layout
 
@@ -25,7 +25,7 @@ User portal list pages (routes, cargo, storage — All + My) use the shared filt
 | Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension |
 | Per-page defs | `portal/user/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
 
-Reference defs: `portal/user/features/routes/data/route-table-filters.ts`, `cargo/data/cargo-table-filters.ts`, `storage/data/storage-table-filters.ts`.
+Reference defs: `portal/user/features/transport/data/transport-table-filters.ts`, `cargo/data/freight-table-filters.ts`, `storage/data/warehouse-table-filters.ts`.
 
 ## Wiring a filtered table
 
@@ -34,26 +34,26 @@ Reference defs: `portal/user/features/routes/data/route-table-filters.ts`, `carg
 3. i18n: `portal.user.features.<entity>.table.filters.*` + `…table.filterGroups.*` for section labels.
 
 ```typescript
-// cargo-table-filters.ts (abbreviated)
+// freight-table-filters.ts (abbreviated)
 export const CARGO_TABLE_FILTERS: FilterDef<Cargo>[] = [
   {
     key: 'origin',
     type: 'multiSelect',
-    titleKey: 'portal.user.features.cargo.table.filters.origin',
-    placeholderKey: 'portal.user.features.cargo.table.filters.allOrigins',
+    titleKey: 'portal.user.features.freight.table.filters.origin',
+    placeholderKey: 'portal.user.features.freight.table.filters.allOrigins',
     options: BIH_CITY_OPTIONS.map((c) => ({ value: c.value, label: c.label })),
     searchable: true,
-    groupTitleKey: 'portal.user.features.cargo.table.filterGroups.route',
+    groupTitleKey: 'portal.user.features.freight.table.filterGroups.route',
   },
   {
     key: 'weightKg',
     type: 'numberRange',
-    titleKey: 'portal.user.features.cargo.table.filters.weightKg',
+    titleKey: 'portal.user.features.freight.table.filters.weightKg',
     min: 0,
     max: 5000,
     step: 50,
     unitSuffixKey: 'shared.table.filters.units.kg',
-    groupTitleKey: 'portal.user.features.cargo.table.filterGroups.attributes',
+    groupTitleKey: 'portal.user.features.freight.table.filterGroups.attributes',
   },
   { key: 'search', type: 'search', …, searchFields: ['description'] },
 ];
@@ -113,7 +113,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 | `portal.user.features.<entity>.table.filters.*` | Per-filter labels / placeholders |
 | `portal.user.features.<entity>.table.filterGroups.*` | Section headers (route, attributes, dates, location) |
 
-Reuse form option `labelKey`s in filter `options` where enums overlap. Cargo size units: `portal.user.features.cargo.form.sizeUnits.*` (not `.sizeUnits` without `.form`).
+Reuse form option `labelKey`s in filter `options` where enums overlap. Cargo size units: `portal.user.features.freight.form.sizeUnits.*` (not `.sizeUnits` without `.form`).
 
 ## Admin portal
 

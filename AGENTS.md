@@ -38,7 +38,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 | Portal | URL prefix | Routes file | Nav config | Features |
 |--------|------------|-------------|------------|----------|
-| User | `/` (e.g. `/dashboard`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (dashboard, routes, cargo, storage) |
+| User | `/` (e.g. `/home`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (dashboard, transport, freight, warehouse) |
 | Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (dashboard, settings, users, vehicles, warehouses) |
 
 ### Routing
@@ -80,7 +80,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`); shared nav panel: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
 - **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.icon`, text-only `NavItem`); configs `user-nav.config.ts`, `admin-nav.config.ts`; `isNavSectionActive()` in `portal/common/utils/is-nav-section-active.ts`; flyout reuses same `sidebar__*` classes — see `layout.mdc`
-- **User CRUD (reference):** `portal/user/features/routes/` — `data/`, `form/`, `table-all/`, `table-my/`; All vs My list split; `listAll()` / `listMine()` on service
+- **User home (journey hub):** `portal/user/features/home/` — scenario cards, company snapshot, links to Find/Offer flows
+- **User offer picker:** `portal/user/features/offer/` — entity picker → create forms; entry via `USER_OFFER_URL`
+- **User CRUD (reference):** `portal/user/features/transport/` — `data/`, `form/`, `table-all/`, `table-our/`; All vs Our list split; `listAll()` / `listOurs()` on service
 - **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
 - **Stepper (create-only):** `guest/pages/register/`
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
@@ -93,19 +95,20 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
 - **Display date formatting:** `shared/utils/format-display-date.ts` — `formatDisplayDate()` for tables, date-range display, detail modal
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
-- **Table filters (user portal):** `shared/table/` filter bar, chips, collapsible panel, multi-select/date/number-range controls; per-page defs in `portal/user/features/*/data/*-table-filters.ts`; see `table-filters.mdc`. References: `route-table-filters.ts`, `cargo-table-filters.ts`, `storage-table-filters.ts`
+- **Table filters (user portal):** `shared/table/` filter bar, chips, collapsible panel, multi-select/date/number-range controls; per-page defs in `portal/user/features/*/data/*-table-filters.ts`; see `table-filters.mdc`. References: `transport-table-filters.ts`, `freight-table-filters.ts`, `warehouse-table-filters.ts`
 - **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination with neutral chips in tables
 - **Date range display UI:** `shared/ui/date-range-display/` — `DateRangeDisplayComponent` (`app-date-range-display`) for merged period / single-date columns
 - **Vehicle display UI:** `shared/ui/vehicle-display/` — `VehicleDisplayComponent` (`app-vehicle-display`) for vehicle name + plate in tables
 - **Warehouse display UI:** `shared/ui/warehouse-display/` — `WarehouseDisplayComponent` (`app-warehouse-display`) for warehouse name + city in storage tables
-- **Status badge UI:** `shared/ui/status-badge/` — `StatusBadgeComponent` (`app-status-badge`); **only colored semantic pill in a table row** — do not reuse status colors on route/date/warehouse cells. Theme tokens `--status-*` in `styles.scss`. User routes/cargo/storage today; **all listable entities will have `status`**
-- **Table cell display (user routes/cargo/storage):** reuse shared widgets per `tables.mdc` — `RouteDisplayComponent` (neutral chips), `DateRangeDisplayComponent` (merged period column, `width: '18rem'`), `VehicleDisplayComponent`, `WarehouseDisplayComponent` (name + city). Denormalize `vehicleName`/`vehiclePlate` and `warehouseName`/`warehouseCity` on create/update via portal `company-*.service.ts` `getDisplay()`.
+- **Status badge UI:** `shared/ui/status-badge/` — `StatusBadgeComponent` (`app-status-badge`); **only colored semantic pill in a table row** — do not reuse status colors on route/date/warehouse cells. Theme tokens `--status-*` in `styles.scss`. User transport/freight/warehouse today; **all listable entities will have `status`**
+- **Table cell display (user transport/freight/warehouse):** reuse shared widgets per `tables.mdc` — `RouteDisplayComponent` (neutral chips), `DateRangeDisplayComponent` (merged period column, `width: '18rem'`), `VehicleDisplayComponent`, `WarehouseDisplayComponent` (name + city). Denormalize `vehicleName`/`vehiclePlate` and `warehouseName`/`warehouseCity` on create/update via portal `company-*.service.ts` `getDisplay()`.
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
-- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, page-title, page-back-link, page-header, primary-action-link, route-display, date-range-display, vehicle-display, warehouse-display, status-badge)
+- **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, page-title, page-back-link, page-header, primary-action-link, route-display, date-range-display, vehicle-display, warehouse-display, status-badge)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
+- **User intent card:** `shared/ui/intent-card/` — `IntentCardComponent` (`app-intent-card`); static panel, icon + title header, text-link actions with `→`; optional `clickableCard` for Offer (whole-card link, hover border)
 - **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` + `subtitleKey` + `pageIcon` on the page component; entity icon from `AdminPageIcons` / `UserPageIcons`. See `page-title.mdc`.
-- **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`, `app-page-back-link`) — required on portal create/edit form pages above `PageTitleComponent`; inputs: `route` (list URL from `app-urls.ts`), `labelKey` (reuse `portal.*.nav.all*` or `portal.user.nav.my*`), `form` (dirty → `ConfirmService` + `shared.form.common.discardChanges.*`). Admin → entity list; user → `USER_MY_*_URL`. See `page-title.mdc`.
+- **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`, `app-page-back-link`) — required on portal create/edit form pages above `PageTitleComponent`; inputs: `route` (list URL from `app-urls.ts`), `labelKey` (reuse `portal.*.nav.all*` or `portal.user.nav.our*`), `form` (dirty → `ConfirmService` + `shared.form.common.discardChanges.*`). Admin → entity list; user → `USER_OUR_*_URL`. See `page-title.mdc`.
 - **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
 
 ## Cursor rules

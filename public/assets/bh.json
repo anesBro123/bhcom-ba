@@ -755,139 +755,88 @@
     "user": {
       "nav": {
         "sections": {
-          "dashboard": "KONTROLNA TABLA",
-          "routes": "RUTE",
-          "cargo": "TERET",
-          "storage": "SKLADIŠTE"
+          "home": "POČETNA",
+          "find": "PRONAĐI",
+          "ourListings": "NAŠE OBJAVE",
+          "offer": "PONUDI"
         },
-        "overview": "Pregled",
-        "allRoutes": "Sve rute",
-        "myRoutes": "Moje rute",
-        "postRoute": "Objavi rutu",
-        "allCargo": "Sav teret",
-        "myCargo": "Moj teret",
-        "postCargo": "Objavi teret",
-        "allStorage": "Sva skladišta",
-        "myStorage": "Moja skladišta",
-        "postStorage": "Objavi skladište"
+        "home": "Početna",
+        "find": "Pronađi",
+        "ourListings": "Naše objave",
+        "offer": "Ponudi",
+        "transport": "Prevoz",
+        "freight": "Teret",
+        "warehouse": "Skladište",
+        "ourTransport": "Naše rute",
+        "ourFreight": "Naš teret",
+        "ourWarehouse": "Naša skladišta",
+        "marketplaceTransport": "Prevoz na tržištu",
+        "marketplaceFreight": "Teret na tržištu",
+        "marketplaceWarehouse": "Skladište na tržištu",
+        "offerTransport": "Ponudi prevoz",
+        "offerFreight": "Ponudi teret",
+        "offerWarehouse": "Ponudi skladište"
       },
       "pages": {
-        "dashboard": {
-          "title": "Kontrolna tabla",
-          "subtitle": "Pregled objavljenih ruta, tereta i skladišnog prostora."
+        "home": {
+          "title": "Početna",
+          "subtitle": "Počnite ovdje — pronađite što vam treba ili objavite ponudu vaše kompanije."
         },
-        "routes": {
-          "title": "Rute",
-          "subtitle": "Pregledajte i upravljajte rutama koje ste objavili za zahtjeve za transport tereta."
+        "offer": {
+          "title": "Ponudite objavu",
+          "subtitle": "Odaberite šta vaša kompanija želi ponuditi na tržištu."
         },
-        "allRoutes": {
-          "title": "Sve rute",
-          "subtitle": "Filtrirajte i pregledajte rute drugih kompanija, zatim pošaljite zahtjev za transport."
+        "marketplaceTransport": {
+          "title": "Prevoz na tržištu",
+          "subtitle": "Pregledajte prevoz koji su objavile druge kompanije. Filtrirajte po relaciji, datumima i tipu vozila."
         },
-        "myRoutes": {
-          "title": "Moje rute",
-          "subtitle": "Filtrirajte i upravljajte rutama vaše kompanije — pregledajte, uredite ili uklonite oglase."
+        "ourTransport": {
+          "title": "Naš prevoz",
+          "subtitle": "Sav prevoz koji je objavila vaša kompanija — od bilo kog člana tima. Uredite ili uklonite objave."
         },
-        "createRoute": {
-          "title": "Objavi rutu",
-          "subtitle": "Objavite vozilo kompanije i rutu kako bi drugi mogli zatražiti transport tereta."
+        "createTransport": {
+          "title": "Objavi prevoz",
+          "subtitle": "Dodajte rutu i vozilo kako bi druge kompanije mogle zatražiti transport tereta."
         },
-        "editRoute": {
-          "title": "Uredi rutu",
-          "subtitle": "Ažurirajte vozilo, rutu, datum ili opis ove objavljene rute."
+        "editTransport": {
+          "title": "Uredi prevoz",
+          "subtitle": "Ažurirajte rutu, vozilo, datume ili opis ove objave."
         },
-        "cargo": {
-          "title": "Teret",
-          "subtitle": "Pregledajte i upravljajte teretom koji ste objavili."
+        "marketplaceFreight": {
+          "title": "Teret na tržištu",
+          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pronađite pošiljke koje odgovaraju vašim rutama."
         },
-        "allCargo": {
-          "title": "Sav teret",
-          "subtitle": "Filtrirajte i pregledajte teret drugih kompanija, zatim pošaljite zahtjev za transport."
+        "ourFreight": {
+          "title": "Naš teret",
+          "subtitle": "Sav teret koji je objavila vaša kompanija. Upravljajte objavama vašeg tima."
         },
-        "myCargo": {
-          "title": "Moj teret",
-          "subtitle": "Filtrirajte i upravljajte teretom vaše kompanije — pregledajte, uredite ili uklonite oglase."
-        },
-        "createCargo": {
+        "createFreight": {
           "title": "Objavi teret",
-          "subtitle": "Opišite robu koja treba transport kako bi kolege mogle pronaći odgovarajuću rutu."
+          "subtitle": "Opišite robu koja treba transport kako bi je prevoznici pronašli."
         },
-        "editCargo": {
+        "editFreight": {
           "title": "Uredi teret",
-          "subtitle": "Ažurirajte polazište, odredište, veličinu, težinu ili druge detalje tereta."
+          "subtitle": "Ažurirajte polazište, odredište, veličinu, težinu ili druge detalje."
         },
-        "storage": {
-          "title": "Skladište",
-          "subtitle": "Pregledajte i upravljajte skladišnim prostorom koji ste objavili."
+        "marketplaceWarehouse": {
+          "title": "Skladište na tržištu",
+          "subtitle": "Pregledajte skladišni prostor koji su objavile druge kompanije. Filtrirajte po lokaciji i dostupnosti."
         },
-        "allStorage": {
-          "title": "Sva skladišta",
-          "subtitle": "Filtrirajte i pregledajte skladišni prostor drugih kompanija, zatim pošaljite zahtjev za najam."
+        "ourWarehouse": {
+          "title": "Naša skladišta",
+          "subtitle": "Sav skladišni prostor koji je objavila vaša kompanija. Upravljajte dostupnošću i detaljima."
         },
-        "myStorage": {
-          "title": "Moja skladišta",
-          "subtitle": "Filtrirajte i upravljajte skladišnim prostorom vaše kompanije — pregledajte, uredite ili uklonite oglase."
-        },
-        "createStorage": {
+        "createWarehouse": {
           "title": "Objavi skladište",
-          "subtitle": "Ponudite dostupan prostor u skladištu kompanije za određeni period."
+          "subtitle": "Ponudite skladišni prostor vaše kompanije za određeni period."
         },
-        "editStorage": {
+        "editWarehouse": {
           "title": "Uredi skladište",
           "subtitle": "Ažurirajte skladište, datume dostupnosti, veličinu prostora ili opis."
         }
       },
       "features": {
-        "dashboard": {
-          "metrics": {
-            "ariaLabel": "Broj oglasa na tržištu",
-            "routes": {
-              "title": "Rute",
-              "subtitle": "Objavljene rute"
-            },
-            "cargo": {
-              "title": "Teret",
-              "subtitle": "Objavljeni teret"
-            },
-            "storage": {
-              "title": "Skladište",
-              "subtitle": "Objavljeni prostor"
-            }
-          },
-          "quickActions": {
-            "title": "Brze akcije"
-          },
-          "actions": {
-            "allRoutes": {
-              "description": "Pregledajte rute objavljene od drugih kompanija."
-            },
-            "myRoutes": {
-              "description": "Upravljajte rutama objavljenim od vaše kompanije."
-            },
-            "postRoute": {
-              "description": "Objavite novu rutu i vozilo za zahtjeve transporta tereta."
-            },
-            "allCargo": {
-              "description": "Pregledajte teret objavljen od drugih kompanija."
-            },
-            "myCargo": {
-              "description": "Upravljajte teretom objavljenim od vaše kompanije."
-            },
-            "postCargo": {
-              "description": "Objavite teret koji treba transport do određenog datuma."
-            },
-            "allStorage": {
-              "description": "Pregledajte skladišni prostor objavljen od drugih kompanija."
-            },
-            "myStorage": {
-              "description": "Upravljajte skladišnim prostorom objavljenim od vaše kompanije."
-            },
-            "postStorage": {
-              "description": "Objavite dostupan skladišni prostor za period."
-            }
-          }
-        },
-        "routes": {
+        "transport": {
           "form": {
             "steps": {
               "main": "Detalji rute"
@@ -924,7 +873,7 @@
             }
           },
           "table": {
-            "entity": "rute",
+            "entity": "prevoz",
             "columns": {
               "route": "Ruta",
               "status": "Status",
@@ -980,7 +929,7 @@
             }
           }
         },
-        "cargo": {
+        "freight": {
           "form": {
             "steps": {
               "main": "Detalji tereta"
@@ -990,7 +939,7 @@
                 "title": "Transportna ruta",
                 "subtitle": "Gdje teret treba i do kada"
               },
-              "cargo": {
+              "freight": {
                 "title": "Informacije o teretu",
                 "subtitle": "Veličina, težina, tip i napomene"
               }
@@ -1001,7 +950,7 @@
               "neededByDate": "Potrebno do datuma",
               "size": "Veličina",
               "weightKg": "Težina (kg)",
-              "cargoType": "Tip tereta",
+              "freightType": "Tip tereta",
               "description": "Opis",
               "sizeWithUnit": {
                 "pallets": "Veličina (palete)",
@@ -1015,7 +964,7 @@
               "neededByDate": "Odaberite datum",
               "size": "Unesite količinu",
               "weightKg": "Unesite ukupnu težinu u kg",
-              "cargoType": "Odaberite tip tereta",
+              "freightType": "Odaberite tip tereta",
               "description": "Opcione instrukcije za rukovanje..."
             },
             "sizeUnits": {
@@ -1024,7 +973,7 @@
               "units": "jedinica",
               "unit": "jedinica"
             },
-            "cargoTypes": {
+            "freightTypes": {
               "pallet": "Paleta",
               "bulk": "Rasuti teret",
               "refrigerated": "Hlađeno",
@@ -1037,11 +986,11 @@
             }
           },
           "table": {
-            "entity": "tereta",
+            "entity": "teret",
             "columns": {
               "route": "Ruta",
               "status": "Status",
-              "cargoType": "Tip",
+              "freightType": "Tip",
               "size": "Veličina",
               "weightKg": "Težina (kg)",
               "neededByDate": "Potrebno do"
@@ -1059,7 +1008,7 @@
               "allDestinations": "Sva odredišta",
               "status": "Status",
               "allStatuses": "Svi statusi",
-              "cargoType": "Tip tereta",
+              "freightType": "Tip tereta",
               "allTypes": "Svi tipovi",
               "size": "Veličina",
               "weightKg": "Težina (kg)",
@@ -1094,7 +1043,7 @@
             }
           }
         },
-        "storage": {
+        "warehouse": {
           "form": {
             "steps": {
               "main": "Detalji skladišta"
@@ -1180,6 +1129,65 @@
               "publishedAt": "Objavljeno"
             }
           }
+        },
+        "home": {
+          "snapshot": {
+            "ariaLabel": "Pregled objava kompanije",
+            "labelOpenOnly": "{{openCount}} aktivnih objava",
+            "labelWithExpiring": "{{openCount}} aktivnih objava · {{expiringCount}} uskoro ističe",
+            "breakdown": "{{transport}} prevoz · {{freight}} teret · {{warehouse}} skladište",
+            "cta": "Pogledaj naše objave",
+            "empty": "Vaša kompanija još nema objava.",
+            "emptyCta": "Objavite prvu objavu"
+          },
+          "journey": {
+            "heading": "Šta vam treba danas?",
+            "subheading": "Odaberite situaciju — odvest ćemo vas na pravo mjesto.",
+            "groups": {
+              "transport": "Prevoz",
+              "warehouse": "Skladište"
+            },
+            "moveGoods": {
+              "title": "Treba mi transport robe",
+              "body": "Pronađite rutu prevoznika ili objavite teret koji vašoj kompaniji treba transport.",
+              "findTransport": "Pronađi prevoz",
+              "offerFreight": "Objavi teret"
+            },
+            "transportCapacity": {
+              "title": "Imam kapacitet za transport",
+              "body": "Pronađite teret za vožnju ili objavite rutu s slobodnim prostorom.",
+              "findFreight": "Pronađi teret",
+              "offerTransport": "Objavi prevoz"
+            },
+            "needWarehouse": {
+              "title": "Treba mi skladišni prostor",
+              "body": "Pregledajte skladišni prostor koji nude druge kompanije.",
+              "findWarehouse": "Pronađi skladište"
+            },
+            "haveWarehouse": {
+              "title": "Imam skladišni prostor",
+              "body": "Objavite slobodan prostor u skladištu vaše kompanije.",
+              "offerWarehouse": "Objavi skladište"
+            }
+          },
+          "browseMarketplace": "Ili pregledajte tržište"
+        },
+        "offer": {
+          "transport": {
+            "title": "Ponudi prevoz",
+            "description": "Slobodan kapacitet vozila na ruti — drugi mogu zatražiti transport tereta."
+          },
+          "freight": {
+            "title": "Ponudi teret",
+            "description": "Roba koja treba transport — povežite s dostupnim rutama."
+          },
+          "warehouse": {
+            "title": "Ponudi skladište",
+            "description": "Skladišni prostor koji vaša kompanija nudi za određeni period."
+          },
+          "continue": "Nastavi",
+          "notSure": "Niste sigurni?",
+          "backHome": "Nazad na početnu"
         }
       }
     }

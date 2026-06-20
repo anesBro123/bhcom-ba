@@ -755,146 +755,95 @@
     "user": {
       "nav": {
         "sections": {
-          "dashboard": "DASHBOARD",
-          "routes": "ROUTES",
-          "cargo": "CARGO",
-          "storage": "STORAGE"
+          "home": "HOME",
+          "find": "FIND",
+          "ourListings": "OUR LISTINGS",
+          "offer": "OFFER"
         },
-        "overview": "Overview",
-        "allRoutes": "All Routes",
-        "myRoutes": "My Routes",
-        "postRoute": "Post Route",
-        "allCargo": "All Cargo",
-        "myCargo": "My Cargo",
-        "postCargo": "Post Cargo",
-        "allStorage": "All Storage",
-        "myStorage": "My Storage",
-        "postStorage": "Post Storage"
+        "home": "Home",
+        "find": "Find",
+        "ourListings": "Our listings",
+        "offer": "Offer",
+        "transport": "Transport",
+        "freight": "Freight",
+        "warehouse": "Warehouse",
+        "ourTransport": "Our transport",
+        "ourFreight": "Our freight",
+        "ourWarehouse": "Our warehouse",
+        "marketplaceTransport": "Marketplace transport",
+        "marketplaceFreight": "Marketplace freight",
+        "marketplaceWarehouse": "Marketplace warehouse",
+        "offerTransport": "Offer transport",
+        "offerFreight": "Offer freight",
+        "offerWarehouse": "Offer warehouse"
       },
       "pages": {
-        "dashboard": {
-          "title": "Dashboard",
-          "subtitle": "Overview of your published routes, cargo, and storage space."
+        "home": {
+          "title": "Home",
+          "subtitle": "Start here — find what you need or publish what your company offers."
         },
-        "routes": {
-          "title": "Routes",
-          "subtitle": "Browse and manage routes you have published for colleagues to request cargo space."
+        "offer": {
+          "title": "Offer a listing",
+          "subtitle": "Choose what your company wants to offer on the marketplace."
         },
-        "allRoutes": {
-          "title": "All Routes",
-          "subtitle": "Filter and browse routes published by other companies, then send transport requests."
+        "marketplaceTransport": {
+          "title": "Transport on the marketplace",
+          "subtitle": "Browse transport listings published by other companies. Filter by lane, dates, and vehicle type."
         },
-        "myRoutes": {
-          "title": "My Routes",
-          "subtitle": "Filter and manage your company's published routes — view, edit, or remove listings."
+        "ourTransport": {
+          "title": "Our transport",
+          "subtitle": "All transport your company published — from any team member. Edit or remove listings."
         },
-        "createRoute": {
-          "title": "Post Route",
-          "subtitle": "Publish a company vehicle and route so others can request cargo transport on your trip."
+        "createTransport": {
+          "title": "Publish transport",
+          "subtitle": "Add a route and vehicle so other companies can request cargo space."
         },
-        "editRoute": {
-          "title": "Edit Route",
-          "subtitle": "Update the vehicle, route, date, or description for this published route."
+        "editTransport": {
+          "title": "Edit transport",
+          "subtitle": "Update route, vehicle, dates, or description for this listing."
         },
-        "cargo": {
-          "title": "Cargo",
-          "subtitle": "Browse and manage cargo you have published to find transport."
+        "marketplaceFreight": {
+          "title": "Freight on the marketplace",
+          "subtitle": "Browse freight published by other companies. Find shipments that match your routes."
         },
-        "allCargo": {
-          "title": "All Cargo",
-          "subtitle": "Filter and browse cargo published by other companies, then send transport requests."
+        "ourFreight": {
+          "title": "Our freight",
+          "subtitle": "All freight your company published. Manage listings your team created."
         },
-        "myCargo": {
-          "title": "My Cargo",
-          "subtitle": "Filter and manage your company's published cargo — view, edit, or remove listings."
+        "createFreight": {
+          "title": "Publish freight",
+          "subtitle": "Describe goods that need transport so carriers can find them."
         },
-        "createCargo": {
-          "title": "Post Cargo",
-          "subtitle": "Describe goods that need transport so colleagues can match them to available routes."
+        "editFreight": {
+          "title": "Edit freight",
+          "subtitle": "Update origin, destination, size, weight, or other details."
         },
-        "editCargo": {
-          "title": "Edit Cargo",
-          "subtitle": "Update origin, destination, size, weight, or other details for this cargo."
+        "marketplaceWarehouse": {
+          "title": "Warehouse on the marketplace",
+          "subtitle": "Browse warehouse space published by other companies. Filter by location and availability."
         },
-        "storage": {
-          "title": "Storage",
-          "subtitle": "Browse and manage warehouse space you have published for rent."
+        "ourWarehouse": {
+          "title": "Our warehouse",
+          "subtitle": "All warehouse space your company published. Manage availability and details."
         },
-        "allStorage": {
-          "title": "All Storage",
-          "subtitle": "Filter and browse warehouse space published by other companies, then send rental requests."
+        "createWarehouse": {
+          "title": "Publish warehouse",
+          "subtitle": "Offer warehouse space from your company for a specific period."
         },
-        "myStorage": {
-          "title": "My Storage",
-          "subtitle": "Filter and manage your company's published warehouse space — view, edit, or remove listings."
-        },
-        "createStorage": {
-          "title": "Post Storage",
-          "subtitle": "Offer available space in a company warehouse for a specific date range."
-        },
-        "editStorage": {
-          "title": "Edit Storage",
-          "subtitle": "Update warehouse, availability dates, space size, or description for this storage."
+        "editWarehouse": {
+          "title": "Edit warehouse",
+          "subtitle": "Update warehouse, availability dates, space size, or description."
         }
       },
       "features": {
-        "dashboard": {
-          "metrics": {
-            "ariaLabel": "Marketplace listing counts",
-            "routes": {
-              "title": "Routes",
-              "subtitle": "Published routes"
-            },
-            "cargo": {
-              "title": "Cargo",
-              "subtitle": "Published cargo"
-            },
-            "storage": {
-              "title": "Storage",
-              "subtitle": "Published storage"
-            }
-          },
-          "quickActions": {
-            "title": "Quick Actions"
-          },
-          "actions": {
-            "allRoutes": {
-              "description": "Browse routes published by other companies."
-            },
-            "myRoutes": {
-              "description": "Manage your company's published routes."
-            },
-            "postRoute": {
-              "description": "Publish a new route and vehicle for others to request cargo space."
-            },
-            "allCargo": {
-              "description": "Browse cargo published by other companies."
-            },
-            "myCargo": {
-              "description": "Manage your company's published cargo."
-            },
-            "postCargo": {
-              "description": "Publish cargo that needs transport on a specific route and date."
-            },
-            "allStorage": {
-              "description": "Browse warehouse space published by other companies."
-            },
-            "myStorage": {
-              "description": "Manage your company's published warehouse space."
-            },
-            "postStorage": {
-              "description": "Publish available warehouse space for a date range."
-            }
-          }
-        },
-        "routes": {
+        "transport": {
           "form": {
             "steps": {
-              "main": "Route Details"
+              "main": "Transport Details"
             },
             "sections": {
               "route": {
-                "title": "Route & Vehicle",
+                "title": "Transport & Vehicle",
                 "subtitle": "Select a company vehicle and define the transport route"
               },
               "details": {
@@ -916,17 +865,17 @@
               "destination": "Enter destination",
               "transportStartDate": "Select start date",
               "transportEndDate": "Select end date",
-              "description": "Optional notes about available cargo space..."
+              "description": "Optional notes about available freight space..."
             },
             "actions": {
-              "create": "Publish Route",
+              "create": "Publish Transport",
               "update": "Save Changes"
             }
           },
           "table": {
-            "entity": "routes",
+            "entity": "transport",
             "columns": {
-              "route": "Route",
+              "route": "Transport",
               "status": "Status",
               "vehicle": "Vehicle",
               "vehicleType": "Vehicle Type",
@@ -955,7 +904,7 @@
               "searchPlaceholder": "Search vehicles, descriptions..."
             },
             "filterGroups": {
-              "route": "Route",
+              "route": "Transport",
               "attributes": "Attributes",
               "dates": "Dates"
             },
@@ -969,29 +918,29 @@
             }
           },
           "detail": {
-            "title": "Route Details",
+            "title": "Transport Details",
             "subtitle": "Detailed information about route {{id}}",
             "sections": {
               "schedule": "Schedule & Status",
-              "route": "Route & Vehicle"
+              "route": "Transport & Vehicle"
             },
             "fields": {
               "publishedAt": "Published"
             }
           }
         },
-        "cargo": {
+        "freight": {
           "form": {
             "steps": {
-              "main": "Cargo Details"
+              "main": "Freight Details"
             },
             "sections": {
               "route": {
-                "title": "Transport Route",
-                "subtitle": "Where the cargo needs to go and by when"
+                "title": "Transport Transport",
+                "subtitle": "Where the freight needs to go and by when"
               },
-              "cargo": {
-                "title": "Cargo Information",
+              "freight": {
+                "title": "Freight Information",
                 "subtitle": "Size, weight, type, and handling notes"
               }
             },
@@ -1001,7 +950,7 @@
               "neededByDate": "Needed By Date",
               "size": "Size",
               "weightKg": "Weight (kg)",
-              "cargoType": "Cargo Type",
+              "freightType": "Freight Type",
               "description": "Description",
               "sizeWithUnit": {
                 "pallets": "Size (pallets)",
@@ -1015,7 +964,7 @@
               "neededByDate": "Select needed-by date",
               "size": "Enter quantity",
               "weightKg": "Enter total weight in kg",
-              "cargoType": "Select cargo type",
+              "freightType": "Select freight type",
               "description": "Optional handling instructions or notes..."
             },
             "sizeUnits": {
@@ -1024,7 +973,7 @@
               "units": "units",
               "unit": "unit"
             },
-            "cargoTypes": {
+            "freightTypes": {
               "pallet": "Pallet",
               "bulk": "Bulk",
               "refrigerated": "Refrigerated",
@@ -1032,16 +981,16 @@
               "other": "Other"
             },
             "actions": {
-              "create": "Publish Cargo",
+              "create": "Publish Freight",
               "update": "Save Changes"
             }
           },
           "table": {
-            "entity": "cargo",
+            "entity": "freight",
             "columns": {
-              "route": "Route",
+              "route": "Transport",
               "status": "Status",
-              "cargoType": "Type",
+              "freightType": "Type",
               "size": "Size",
               "weightKg": "Weight (kg)",
               "neededByDate": "Needed By"
@@ -1059,7 +1008,7 @@
               "allDestinations": "All destinations",
               "status": "Status",
               "allStatuses": "All statuses",
-              "cargoType": "Cargo type",
+              "freightType": "Freight type",
               "allTypes": "All types",
               "size": "Size",
               "weightKg": "Weight (kg)",
@@ -1069,32 +1018,32 @@
               "searchPlaceholder": "Search descriptions..."
             },
             "filterGroups": {
-              "route": "Route",
+              "route": "Transport",
               "attributes": "Attributes",
               "dates": "Dates"
             },
             "deleteConfirm": {
-              "title": "Delete cargo?",
-              "message": "This will permanently remove the published cargo. This action cannot be undone."
+              "title": "Delete freight?",
+              "message": "This will permanently remove the published freight. This action cannot be undone."
             },
             "sendRequestConfirm": {
               "title": "Send request?",
-              "message": "Your request will be sent to the cargo publisher. This is a preview — the request API is not yet connected."
+              "message": "Your request will be sent to the freight publisher. This is a preview — the request API is not yet connected."
             }
           },
           "detail": {
-            "title": "Cargo Details",
-            "subtitle": "Detailed information about cargo {{id}}",
+            "title": "Freight Details",
+            "subtitle": "Detailed information about freight {{id}}",
             "sections": {
               "shipment": "Shipment Information",
-              "route": "Transport Route"
+              "route": "Transport Transport"
             },
             "fields": {
               "publishedAt": "Published"
             }
           }
         },
-        "storage": {
+        "warehouse": {
           "form": {
             "steps": {
               "main": "Storage Details"
@@ -1124,12 +1073,12 @@
               "description": "Optional notes about the space (access, conditions)..."
             },
             "actions": {
-              "create": "Publish Storage",
+              "create": "Publish warehouse",
               "update": "Save Changes"
             }
           },
           "table": {
-            "entity": "storage",
+            "entity": "warehouse",
             "columns": {
               "warehouse": "Warehouse",
               "status": "Status",
@@ -1161,17 +1110,17 @@
               "dates": "Dates"
             },
             "deleteConfirm": {
-              "title": "Delete storage?",
-              "message": "This will permanently remove the published storage. This action cannot be undone."
+              "title": "Delete warehouse?",
+              "message": "This will permanently remove the published warehouse. This action cannot be undone."
             },
             "sendRequestConfirm": {
               "title": "Send request?",
-              "message": "Your request will be sent to the storage publisher. This is a preview — the request API is not yet connected."
+              "message": "Your request will be sent to the warehouse publisher. This is a preview — the request API is not yet connected."
             }
           },
           "detail": {
             "title": "Storage Details",
-            "subtitle": "Detailed information about storage {{id}}",
+            "subtitle": "Detailed information about warehouse {{id}}",
             "sections": {
               "availability": "Availability & Space",
               "details": "Additional Details"
@@ -1180,6 +1129,65 @@
               "publishedAt": "Published"
             }
           }
+        },
+        "home": {
+          "snapshot": {
+            "ariaLabel": "Company listings overview",
+            "labelOpenOnly": "{{openCount}} open listings",
+            "labelWithExpiring": "{{openCount}} open listings · {{expiringCount}} expiring soon",
+            "breakdown": "{{transport}} transport · {{freight}} freight · {{warehouse}} warehouse",
+            "cta": "View our listings",
+            "empty": "Your company has no listings yet.",
+            "emptyCta": "Publish your first listing"
+          },
+          "journey": {
+            "heading": "What do you need today?",
+            "subheading": "Pick a situation — we'll take you to the right place.",
+            "groups": {
+              "transport": "Transport",
+              "warehouse": "Warehouse"
+            },
+            "moveGoods": {
+              "title": "I need to move goods",
+              "body": "Find a carrier route or publish freight your company needs moved.",
+              "findTransport": "Find transport",
+              "offerFreight": "Publish freight"
+            },
+            "transportCapacity": {
+              "title": "I have transport capacity",
+              "body": "Find freight to fill your trip or publish transport with available space.",
+              "findFreight": "Find freight",
+              "offerTransport": "Publish transport"
+            },
+            "needWarehouse": {
+              "title": "I need warehouse space",
+              "body": "Browse warehouse space offered by other companies.",
+              "findWarehouse": "Find warehouse"
+            },
+            "haveWarehouse": {
+              "title": "I have warehouse space",
+              "body": "Publish available space in your company's warehouse.",
+              "offerWarehouse": "Publish warehouse"
+            }
+          },
+          "browseMarketplace": "Or browse the marketplace"
+        },
+        "offer": {
+          "transport": {
+            "title": "Offer transport",
+            "description": "Available truck capacity on a route — others can request cargo space."
+          },
+          "freight": {
+            "title": "Offer freight",
+            "description": "Goods that need transport — match with available routes."
+          },
+          "warehouse": {
+            "title": "Offer warehouse",
+            "description": "Warehouse space your company can offer for a specific period."
+          },
+          "continue": "Continue",
+          "notSure": "Not sure?",
+          "backHome": "Back to home"
         }
       }
     }

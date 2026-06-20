@@ -46,7 +46,7 @@ this.form.get('transportStartDate')?.valueChanges
   .subscribe(() => this.form.get('transportEndDate')?.updateValueAndValidity({ emitEvent: false }));
 ```
 
-**Reference:** `portal/user/features/routes/form/route-form-page.component.ts`, `portal/user/features/cargo/form/cargo-form-page.component.ts`, `portal/user/features/storage/form/storage-form-page.component.ts`.
+**Reference:** `portal/user/features/transport/form/transport-form-page.component.ts`, `portal/user/features/freight/form/freight-form-page.component.ts`, `portal/user/features/warehouse/form/warehouse-form-page.component.ts`.
 
 ### Error i18n
 

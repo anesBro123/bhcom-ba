@@ -19,7 +19,7 @@ Route URLs live in `shared/constants/app-urls.ts` — see `app-urls.mdc`. This f
 - Full list of BiH municipalities (FBiH, RS, Brčko) — **do not** duplicate city lists in feature files.
 - Import: `import { BIH_CITY_OPTIONS } from '…/shared/constants/bih-cities';`
 
-**Current consumers:** `portal/user/features/routes/form/route.form.ts` (origin, destination), `portal/user/features/cargo/form/cargo.form.ts` (origin, destination).
+**Current consumers:** `portal/user/features/transport/form/transport.form.ts` (origin, destination), `portal/user/features/freight/form/freight.form.ts` (origin, destination).
 
 ```typescript
 {

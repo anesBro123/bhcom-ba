@@ -1,0 +1,137 @@
+@use 'styles/breakpoints' as *;
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.home-page__snapshot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+
+.home-page__snapshot-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.home-page__snapshot-text {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.home-page__snapshot-breakdown {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.home-page__snapshot-link {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-muted);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.home-page__journey-heading {
+  margin: 0 0 0.375rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.home-page__journey-subheading {
+  margin: 0 0 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+.home-page__journey-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.home-page__journey-group-title {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.home-page__journey-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.home-page__browse {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.home-page__browse-label {
+  color: var(--text-secondary);
+}
+
+.home-page__browse a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-muted);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.home-page__browse-sep {
+  color: var(--text-muted);
+}
+
+@include below-md {
+  .home-page__journey-grid {
+    grid-template-columns: 1fr;
+  }
+}

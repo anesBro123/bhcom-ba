@@ -1,88 +1,82 @@
 import {
-  USER_CARGO_URL,
-  USER_CREATE_CARGO_URL,
-  USER_CREATE_ROUTE_URL,
-  USER_CREATE_STORAGE_URL,
+  USER_CREATE_FREIGHT_URL,
+  USER_CREATE_TRANSPORT_URL,
+  USER_CREATE_WAREHOUSE_URL,
+  USER_FREIGHT_URL,
   USER_HOME_URL,
-  USER_MY_CARGO_URL,
-  USER_MY_ROUTES_URL,
-  USER_MY_STORAGE_URL,
-  USER_ROUTES_URL,
-  USER_STORAGE_URL,
+  USER_OFFER_URL,
+  USER_OUR_FREIGHT_URL,
+  USER_OUR_TRANSPORT_URL,
+  USER_OUR_WAREHOUSE_URL,
+  USER_TRANSPORT_URL,
+  USER_WAREHOUSE_URL,
 } from '../../shared/constants/app-urls';
 import { NavSection } from '../common/models/nav.model';
 import { UserPageIcons } from './user-page-icons';
 
 export const USER_NAV: NavSection[] = [
   {
-    titleKey: 'portal.user.nav.sections.dashboard',
-    icon: UserPageIcons.dashboard,
+    titleKey: 'portal.user.nav.sections.home',
+    icon: UserPageIcons.home,
     items: [
       {
-        labelKey: 'portal.user.nav.overview',
+        labelKey: 'portal.user.nav.home',
         route: USER_HOME_URL,
         exact: true,
       },
     ],
   },
   {
-    titleKey: 'portal.user.nav.sections.routes',
-    icon: UserPageIcons.routes,
+    titleKey: 'portal.user.nav.sections.find',
+    icon: UserPageIcons.find,
     items: [
       {
-        labelKey: 'portal.user.nav.allRoutes',
-        route: USER_ROUTES_URL,
+        labelKey: 'portal.user.nav.transport',
+        route: USER_TRANSPORT_URL,
         exact: true,
       },
       {
-        labelKey: 'portal.user.nav.myRoutes',
-        route: USER_MY_ROUTES_URL,
+        labelKey: 'portal.user.nav.freight',
+        route: USER_FREIGHT_URL,
         exact: true,
       },
       {
-        labelKey: 'portal.user.nav.postRoute',
-        route: USER_CREATE_ROUTE_URL,
+        labelKey: 'portal.user.nav.warehouse',
+        route: USER_WAREHOUSE_URL,
+        exact: true,
       },
     ],
   },
   {
-    titleKey: 'portal.user.nav.sections.cargo',
-    icon: UserPageIcons.cargo,
+    titleKey: 'portal.user.nav.sections.ourListings',
+    icon: UserPageIcons.ourListings,
     items: [
       {
-        labelKey: 'portal.user.nav.allCargo',
-        route: USER_CARGO_URL,
+        labelKey: 'portal.user.nav.transport',
+        route: USER_OUR_TRANSPORT_URL,
         exact: true,
       },
       {
-        labelKey: 'portal.user.nav.myCargo',
-        route: USER_MY_CARGO_URL,
+        labelKey: 'portal.user.nav.freight',
+        route: USER_OUR_FREIGHT_URL,
         exact: true,
       },
       {
-        labelKey: 'portal.user.nav.postCargo',
-        route: USER_CREATE_CARGO_URL,
+        labelKey: 'portal.user.nav.warehouse',
+        route: USER_OUR_WAREHOUSE_URL,
+        exact: true,
       },
     ],
   },
   {
-    titleKey: 'portal.user.nav.sections.storage',
-    icon: UserPageIcons.storage,
+    titleKey: 'portal.user.nav.sections.offer',
+    icon: UserPageIcons.offer,
     items: [
       {
-        labelKey: 'portal.user.nav.allStorage',
-        route: USER_STORAGE_URL,
-        exact: true,
-      },
-      {
-        labelKey: 'portal.user.nav.myStorage',
-        route: USER_MY_STORAGE_URL,
-        exact: true,
-      },
-      {
-        labelKey: 'portal.user.nav.postStorage',
-        route: USER_CREATE_STORAGE_URL,
+        labelKey: 'portal.user.nav.offer',
+        route: USER_OFFER_URL,
       },
     ],
   },
+  // Offer is the single create entry; entity create URLs come from the picker.
 ];

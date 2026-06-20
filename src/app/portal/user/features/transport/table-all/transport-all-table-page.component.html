@@ -1,0 +1,28 @@
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
+
+@if (tableMounted()) {
+  <app-data-table
+    [definition]="table"
+    [loader]="loadRoutes"
+    (rowAction)="onRowAction($event)"
+  >
+    <ng-template [appTableCell]="transportKey" let-row>
+      <app-route-display [origin]="row.origin" [destination]="row.destination" />
+    </ng-template>
+    <ng-template [appTableCell]="statusKey" let-row>
+      <app-status-badge [status]="row.status" />
+    </ng-template>
+    <ng-template [appTableCell]="vehicleKey" let-row>
+      <app-vehicle-display [name]="row.vehicleName" [plate]="row.vehiclePlate" />
+    </ng-template>
+    <ng-template [appTableCell]="vehicleTypeKey" let-row>
+      <app-vehicle-type-display [vehicleType]="row.vehicleType" />
+    </ng-template>
+    <ng-template [appTableCell]="periodKey" let-row>
+      <app-date-range-display
+        [from]="row.transportStartDate"
+        [to]="row.transportEndDate"
+      />
+    </ng-template>
+  </app-data-table>
+}

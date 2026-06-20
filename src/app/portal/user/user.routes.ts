@@ -1,16 +1,17 @@
 import { Routes } from '@angular/router';
 import { PORTAL_CONFIG } from '../common/models/portal-config.model';
 import { PortalShellComponent } from '../shell/portal-shell/portal-shell.component';
-import { CargoFormPageComponent } from './features/cargo/form/cargo-form-page.component';
-import { CargoAllTablePageComponent } from './features/cargo/table-all/cargo-all-table-page.component';
-import { CargoMyTablePageComponent } from './features/cargo/table-my/cargo-my-table-page.component';
-import { UserDashboardPageComponent } from './features/dashboard/user-dashboard-page.component';
-import { RouteFormPageComponent } from './features/routes/form/route-form-page.component';
-import { RouteAllTablePageComponent } from './features/routes/table-all/route-all-table-page.component';
-import { RouteMyTablePageComponent } from './features/routes/table-my/route-my-table-page.component';
-import { StorageFormPageComponent } from './features/storage/form/storage-form-page.component';
-import { StorageAllTablePageComponent } from './features/storage/table-all/storage-all-table-page.component';
-import { StorageMyTablePageComponent } from './features/storage/table-my/storage-my-table-page.component';
+import { FreightFormPageComponent } from './features/freight/form/freight-form-page.component';
+import { FreightAllTablePageComponent } from './features/freight/table-all/freight-all-table-page.component';
+import { FreightOurTablePageComponent } from './features/freight/table-our/freight-our-table-page.component';
+import { HomePageComponent } from './features/home/home-page.component';
+import { OfferPageComponent } from './features/offer/offer-page.component';
+import { TransportFormPageComponent } from './features/transport/form/transport-form-page.component';
+import { TransportAllTablePageComponent } from './features/transport/table-all/transport-all-table-page.component';
+import { TransportOurTablePageComponent } from './features/transport/table-our/transport-our-table-page.component';
+import { WarehouseFormPageComponent } from './features/warehouse/form/warehouse-form-page.component';
+import { WarehouseAllTablePageComponent } from './features/warehouse/table-all/warehouse-all-table-page.component';
+import { WarehouseOurTablePageComponent } from './features/warehouse/table-our/warehouse-our-table-page.component';
 import { USER_PORTAL_CONFIG } from './user-portal.config';
 
 export default [
@@ -19,71 +20,76 @@ export default [
     component: PortalShellComponent,
     providers: [{ provide: PORTAL_CONFIG, useValue: USER_PORTAL_CONFIG }],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
-        path: 'dashboard',
-        component: UserDashboardPageComponent,
-        data: { titleKey: 'portal.user.pages.dashboard.title' },
+        path: 'home',
+        component: HomePageComponent,
+        data: { titleKey: 'portal.user.pages.home.title' },
       },
       {
-        path: 'routes/mine',
-        component: RouteMyTablePageComponent,
-        data: { titleKey: 'portal.user.pages.myRoutes.title' },
+        path: 'offer',
+        component: OfferPageComponent,
+        data: { titleKey: 'portal.user.pages.offer.title' },
       },
       {
-        path: 'routes',
-        component: RouteAllTablePageComponent,
-        data: { titleKey: 'portal.user.pages.allRoutes.title' },
+        path: 'transport/our',
+        component: TransportOurTablePageComponent,
+        data: { titleKey: 'portal.user.pages.ourTransport.title' },
       },
       {
-        path: 'routes/create',
-        component: RouteFormPageComponent,
-        data: { titleKey: 'portal.user.pages.createRoute.title' },
+        path: 'transport',
+        component: TransportAllTablePageComponent,
+        data: { titleKey: 'portal.user.pages.marketplaceTransport.title' },
       },
       {
-        path: 'routes/:id/edit',
-        component: RouteFormPageComponent,
-        data: { titleKey: 'portal.user.pages.editRoute.title' },
+        path: 'transport/create',
+        component: TransportFormPageComponent,
+        data: { titleKey: 'portal.user.pages.createTransport.title' },
       },
       {
-        path: 'cargo/mine',
-        component: CargoMyTablePageComponent,
-        data: { titleKey: 'portal.user.pages.myCargo.title' },
+        path: 'transport/:id/edit',
+        component: TransportFormPageComponent,
+        data: { titleKey: 'portal.user.pages.editTransport.title' },
       },
       {
-        path: 'cargo',
-        component: CargoAllTablePageComponent,
-        data: { titleKey: 'portal.user.pages.allCargo.title' },
+        path: 'freight/our',
+        component: FreightOurTablePageComponent,
+        data: { titleKey: 'portal.user.pages.ourFreight.title' },
       },
       {
-        path: 'cargo/create',
-        component: CargoFormPageComponent,
-        data: { titleKey: 'portal.user.pages.createCargo.title' },
+        path: 'freight',
+        component: FreightAllTablePageComponent,
+        data: { titleKey: 'portal.user.pages.marketplaceFreight.title' },
       },
       {
-        path: 'cargo/:id/edit',
-        component: CargoFormPageComponent,
-        data: { titleKey: 'portal.user.pages.editCargo.title' },
+        path: 'freight/create',
+        component: FreightFormPageComponent,
+        data: { titleKey: 'portal.user.pages.createFreight.title' },
       },
       {
-        path: 'storage/mine',
-        component: StorageMyTablePageComponent,
-        data: { titleKey: 'portal.user.pages.myStorage.title' },
+        path: 'freight/:id/edit',
+        component: FreightFormPageComponent,
+        data: { titleKey: 'portal.user.pages.editFreight.title' },
       },
       {
-        path: 'storage',
-        component: StorageAllTablePageComponent,
-        data: { titleKey: 'portal.user.pages.allStorage.title' },
+        path: 'warehouse/our',
+        component: WarehouseOurTablePageComponent,
+        data: { titleKey: 'portal.user.pages.ourWarehouse.title' },
       },
       {
-        path: 'storage/create',
-        component: StorageFormPageComponent,
-        data: { titleKey: 'portal.user.pages.createStorage.title' },
+        path: 'warehouse',
+        component: WarehouseAllTablePageComponent,
+        data: { titleKey: 'portal.user.pages.marketplaceWarehouse.title' },
       },
       {
-        path: 'storage/:id/edit',
-        component: StorageFormPageComponent,
-        data: { titleKey: 'portal.user.pages.editStorage.title' },
+        path: 'warehouse/create',
+        component: WarehouseFormPageComponent,
+        data: { titleKey: 'portal.user.pages.createWarehouse.title' },
+      },
+      {
+        path: 'warehouse/:id/edit',
+        component: WarehouseFormPageComponent,
+        data: { titleKey: 'portal.user.pages.editWarehouse.title' },
       },
     ],
   },

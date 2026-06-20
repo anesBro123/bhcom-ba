@@ -1,0 +1,24 @@
+<app-page-title
+  titleKey="portal.user.pages.offer.title"
+  subtitleKey="portal.user.pages.offer.subtitle"
+  [icon]="pageIcon"
+/>
+
+<div class="offer-page">
+  <div class="offer-page__grid">
+    @for (option of options; track option.actions[0].route) {
+      <app-intent-card
+        [icon]="option.icon"
+        [titleKey]="option.titleKey"
+        [descriptionKey]="option.descriptionKey"
+        [actions]="option.actions"
+        [clickableCard]="true"
+      />
+    }
+  </div>
+
+  <p class="offer-page__footer">
+    {{ 'portal.user.features.offer.notSure' | translate }}
+    <a [routerLink]="homeUrl">{{ 'portal.user.features.offer.backHome' | translate }}</a>
+  </p>
+</div>

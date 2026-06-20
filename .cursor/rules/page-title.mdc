@@ -18,7 +18,7 @@ Canonical top-level heading for **portal shell pages** (dashboard, table, form, 
 |------|-------|
 | Path | `shared/ui/page-back-link/page-back-link.component.ts` |
 | Selector | `app-page-back-link` |
-| Inputs | `route` (required list URL from `app-urls.ts`); `labelKey` (required — reuse `portal.*.nav.all*` or `portal.user.nav.my*`); `form` (required `FormGroup` — dirty guard) |
+| Inputs | `route` (required list URL from `app-urls.ts`); `labelKey` (required — reuse `portal.*.nav.all*` or `portal.user.nav.our*`); `form` (required `FormGroup` — dirty guard) |
 | Import | Direct path — no barrel |
 
 ## `PageTitleComponent`
@@ -145,7 +145,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 
 ## Form back link (create/edit pages)
 
-**Required** on every portal create/edit form page. Renders above `PageTitleComponent` — returns to the entity list (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.my*`). Same URL as post-save redirect.
+**Required** on every portal create/edit form page. Renders above `PageTitleComponent` — returns to the entity list (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.our*`). Same URL as post-save redirect.
 
 ```html
 <app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />

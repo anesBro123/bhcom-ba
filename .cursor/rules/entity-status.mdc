@@ -50,7 +50,7 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 </ng-template>
 ```
 
-Reference: `portal/user/features/routes/table/`, `cargo/table/`, `storage/table/`.
+Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/table/`.
 
 ## Checklist for a new entity
 

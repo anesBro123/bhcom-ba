@@ -37,7 +37,7 @@ export const RouteDetail = defineDetail<Route>()({
   sections: [
     {
       id: 'schedule',
-      titleKey: 'portal.user.features.routes.detail.sections.schedule',
+      titleKey: 'portal.user.features.transport.detail.sections.schedule',
       fields: [
         { key: 'status', type: 'status', labelKey: '…table.columns.status' },
         { key: 'transportStartDate', type: 'date', labelKey: '…form.fields.transportStartDate' },
@@ -65,8 +65,8 @@ import {
 
 this.detailModalService
   .open({
-    titleKey: 'portal.user.features.routes.detail.title',
-    subtitleKey: 'portal.user.features.routes.detail.subtitle',
+    titleKey: 'portal.user.features.transport.detail.title',
+    subtitleKey: 'portal.user.features.transport.detail.subtitle',
     subtitleParams: { id: row.id },
     definition: RouteDetail,
     data: row,
@@ -75,7 +75,7 @@ this.detailModalService
   .pipe(take(1))
   .subscribe((result) => {
     if (result.actionId === DETAIL_MODAL_EDIT_ACTION_ID) {
-      void this.router.navigateByUrl(userEditRouteUrl(row.id));
+      void this.router.navigateByUrl(userEditTransportUrl(row.id));
     }
   });
 ```
@@ -132,8 +132,8 @@ Panel width `min(100%, 42rem)`. `z-index: 250`. Body scroll locked while open.
 
 ## Examples
 
-- Routes: `portal/user/features/routes/detail/`
-- Cargo: `portal/user/features/cargo/detail/`
-- Storage: `portal/user/features/storage/detail/`
+- Routes: `portal/user/features/transport/detail/`
+- Cargo: `portal/user/features/freight/detail/`
+- Storage: `portal/user/features/warehouse/detail/`
 
 Do not use `ConfirmService` for view details. Do not add a second global detail modal host.

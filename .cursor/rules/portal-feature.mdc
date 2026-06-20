@@ -8,7 +8,7 @@ alwaysApply: false
 
 **Canonical reference:** `portal/admin/features/vehicles/` — follow this layout for new admin list + create + edit features.
 
-User features follow the same `data/` / `form/` layout — reference: `portal/user/features/routes/`. User list features split **All** vs **My** into sibling folders `table-all/` and `table-my/` (separate table defs + page components per scope).
+User features follow the same `data/` / `form/` layout — reference: `portal/user/features/transport/`. User list features split **All** vs **My** into sibling folders `table-all/` and `table-our/` (separate table defs + page components per scope).
 
 ## Folder layout
 
@@ -24,7 +24,7 @@ features/<entity>/
   table-all/                 # user — external company items
     <entity>-all.table.ts
     <entity>-all-table-page.component.{ts,html,scss}
-  table-my/                  # user — session company items
+  table-our/                  # user — session company items
     <entity>-my.table.ts
     <entity>-my-table-page.component.{ts,html,scss}
 ```
@@ -36,19 +36,19 @@ features/<entity>/
 | `*.model.ts` | `EntityFormModel` interface; `Entity extends EntityFormModel` with `id`; union types for enums; **`status` on entity** (not form model unless editable) — see `entity-status.mdc` |
 | `*.constants.ts` | `ADMIN_<ENTITY>_API` (HTTP only — not app URLs); option arrays reused by form + table filters |
 | `*.mock-data.ts` | `ENTITY_MOCK_DATA: Entity[]` |
-| `*.service.ts` | `@Injectable({ providedIn: 'root' })`; in-memory `store` from mock; **`list()`** (admin) or **`listAll()` / `listMine()`** (user) applies `TableQuery`; `getById`, `create`, `update`, `delete` with `delay()` until API; **`create()` default `status`**; **`update()` preserve `status`** — see `entity-status.mdc` |
+| `*.service.ts` | `@Injectable({ providedIn: 'root' })`; in-memory `store` from mock; **`list()`** (admin) or **`listAll()` / `listOurs()`** (user) applies `TableQuery`; `getById`, `create`, `update`, `delete` with `delay()` until API; **`create()` default `status`**; **`update()` preserve `status`** — see `entity-status.mdc` |
 
 Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock store for `HttpClient` later — keep the same method signatures.
 
 ## Routes + nav + URLs
 
 1. **`shared/constants/admin-urls.ts`** or **`user-urls.ts`** — list URL(s), create URL, edit URL builder (re-exported by `app-urls.ts`; see `app-urls.mdc`).
-   - **User entities (routes, cargo, storage):** `USER_<ENTITY>_URL` (all/external), `USER_MY_<ENTITY>_URL` (mine), `USER_CREATE_<ENTITY>_URL`, `userEdit<Entity>Url(id)`.
+   - **User entities (transport, freight, warehouse):** `USER_<ENTITY>_URL` (all/external), `USER_OUR_<ENTITY>_URL` (mine), `USER_CREATE_<ENTITY>_URL`, `userEdit<Entity>Url(id)`.
 2. **`admin.routes.ts`** (or `user.routes.ts`) — children under `PortalShellComponent`:
    - **Admin:** `<entity>` → table, `<entity>/create` → form, `<entity>/:id/edit` → same form.
-   - **User:** `<entity>/mine` **before** `<entity>/:id/edit`; `<entity>` → all table, `<entity>/mine` → my table, `<entity>/create` → form, `<entity>/:id/edit` → form. Form save redirects to `USER_MY_*_URL`.
+   - **User:** `<entity>/our` **before** `<entity>/:id/edit`; `<entity>` → all table, `<entity>/our` → my table, `<entity>/create` → form, `<entity>/:id/edit` → form. Form save redirects to `USER_OUR_*_URL`.
 3. **`admin-nav.config.ts`** / **`user-nav.config.ts`** — `NavSection` with `icon` from page icons; items are text-only (all + create for admin; all + my + create for user). `route` from `app-urls.ts`.
-4. **User services:** `listAll()` / `listMine()` with company scoping (`companyId` on entity; session `companyId`); `create()` sets ownership from session.
+4. **User services:** `listAll()` / `listOurs()` with company scoping (`companyId` on entity; session `companyId`); `create()` sets ownership from session.
 
 Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:id/edit`); only absolute URLs go in the domain URL files (`admin-urls.ts` for admin CRUD).
 
@@ -60,7 +60,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 - `formDef` computed — swap submit action for create vs edit (`*FormEditActions` pattern).
 - `ngOnInit`: no `:id` → `stepperDataReady.set(true)`; with `:id` → `getById` → `patchValue` (strip `id`) → `stepperDataReady.set(true)`; load error → `navigateByUrl` list URL.
 - `onSubmit`: guard `submitting`; `getRawValue() as FormModel`; create vs update; success → list URL. Do not re-validate — `FormPageComponent` already did.
-- `backUrl` + `backLabelKey` — list URL and nav label for `PageBackLinkComponent` (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.my*`; same URL as post-save redirect).
+- `backUrl` + `backLabelKey` — list URL and nav label for `PageBackLinkComponent` (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.our*`; same URL as post-save redirect).
 - Template:
 
 ```html
@@ -82,7 +82,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 ### User routes / cargo / storage (single-step + shared table display)
 
-Reference: `portal/user/features/routes/`, `portal/user/features/cargo/`, `portal/user/features/storage/`.
+Reference: `portal/user/features/transport/`, `portal/user/features/freight/`, `portal/user/features/warehouse/`.
 
 - **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
 - **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`

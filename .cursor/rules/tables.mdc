@@ -14,7 +14,7 @@ alwaysApply: false
 4. **Page title row:** `PageTitleComponent` in the **page template** above `<app-data-table>`. See `page-title.mdc`. `DataTableComponent` does not render page titles.
 5. **Create CTA (required on list pages with a create route):** `PageHeaderComponent` + `PrimaryActionLinkComponent` composed with `PageTitleComponent` — **not** inside `DataTableComponent` or `PageTitleComponent`. Parent page owns `createUrl` + `createLabelKey`. Reference: `portal/admin/features/vehicles/table/vehicle-table-page.component.*`. Skip CTA only when the list has no create flow (read-only).
 6. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
-7. **Route pair cell:** use `RouteDisplayComponent` (`app-route-display`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/routes/table/`, `portal/user/features/cargo/table/`.
+7. **Route pair cell:** use `RouteDisplayComponent` (`app-route-display`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/transport/table/`, `portal/user/features/freight/table/`.
 8. Mock data: feature `*.service.ts` with in-memory store from `*.mock-data.ts` until API exists — see `portal/admin/features/vehicles/data/`.
 9. i18n: column `titleKey`, action `labelKey` in table def. Page header copy (`title` + `subtitle` + `pageIcon`) lives on the page component — not in `*.table.ts`.
 10. Destructive row actions (e.g. delete): confirm via `ConfirmService` from `shared/confirm` before calling the API — see `confirm.mdc`. Add `…table.deleteConfirm.title` / `…message` keys per feature; use `shared.confirm.common.*` for button labels.
@@ -43,7 +43,7 @@ When a table shows route/cargo/storage-style rows, reuse shared display widgets 
 | Route | `vehicleId` | `vehicleName`, `vehiclePlate` | `CompanyVehicleService.getDisplay()` |
 | Storage | `warehouseId` | `warehouseName`, `warehouseCity`, `warehouseLabel` | `CompanyWarehouseService.getDisplay()` + `getLabel()` |
 
-Reference implementations: `portal/user/features/routes/table-my/`, `cargo/table-my/`, `storage/table-my/`.
+Reference implementations: `portal/user/features/transport/table-our/`, `cargo/table-our/`, `storage/table-our/`.
 
 ## Mobile (≤768px)
 
@@ -112,7 +112,7 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 
 Page `imports`: `StatusBadgeComponent` from `shared/ui/status-badge/status-badge.component.ts`.
 
-All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/routes/table/`, `cargo/table/`, `storage/table/`.
+All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/table/`.
 
 ## Date range display custom cell
 
@@ -125,7 +125,7 @@ When a column shows a date period (or single date). **Do not** use two separate 
 export const periodCellKey = tableCellKey(RouteTable, 'transportStartDate');
 ```
 
-i18n column keys: `portal.user.features.routes.table.columns.period`, `portal.user.features.storage.table.columns.period`. Form field keys (`transportStartDate`, `availableFrom`, etc.) stay separate under `…form.fields.*`.
+i18n column keys: `portal.user.features.transport.table.columns.period`, `portal.user.features.warehouse.table.columns.period`. Form field keys (`transportStartDate`, `availableFrom`, etc.) stay separate under `…form.fields.*`.
 
 ```html
 <!-- Range (routes, storage) -->

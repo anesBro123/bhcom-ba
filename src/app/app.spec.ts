@@ -45,7 +45,7 @@ describe('App', () => {
 
   it('should render sidebar brand', async () => {
     const fixture = TestBed.createComponent(App);
-    await TestBed.inject(Router).navigateByUrl('/dashboard');
+    await TestBed.inject(Router).navigateByUrl('/home');
     fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;

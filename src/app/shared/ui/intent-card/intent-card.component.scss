@@ -1,0 +1,131 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.intent-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--border-form-card, var(--border-subtle));
+  border-radius: var(--radius-form-card, var(--radius-md));
+  background: var(--bg-form-card, var(--bg-card));
+}
+
+.intent-card--clickable {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--text-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-muted);
+    outline-offset: 2px;
+  }
+
+  &:hover .intent-card__action--continue,
+  &:focus-visible .intent-card__action--continue {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  &:hover .intent-card__arrow,
+  &:focus-visible .intent-card__arrow {
+    transform: translateX(2px);
+  }
+}
+
+.intent-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.intent-card__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.intent-card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.intent-card__description {
+  margin: 0;
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.intent-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.intent-card__action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.25rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  &:hover .intent-card__arrow,
+  &:focus-visible .intent-card__arrow {
+    transform: translateX(2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-muted);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.intent-card__action--continue {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.intent-card__arrow {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+@include below-md {
+  .intent-card__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

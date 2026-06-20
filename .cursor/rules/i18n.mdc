@@ -8,7 +8,7 @@ alwaysApply: false
 
 - All user-visible strings via translation keys (`labelKey`, `titleKey`, `| translate`).
 - Add every new key to **both** `public/assets/en.json` and `public/assets/bh.json` (single file per language).
-- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.user.features.cargo.table.cargoTypes.${type}'`).
+- In TS, return key strings for labels (e.g. `statusLabel()` → `'portal.user.features.freight.table.cargoTypes.${type}'`).
 - Do not embed English prose in templates when a key exists or should exist.
 
 ## Key tree (mirrors `src/app/` layers)
@@ -38,9 +38,9 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
 | `shared.dateRange.*` | Shared date range UI copy (`fromTo`, `single` aria-labels for `DateRangeDisplayComponent`) |
-| `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user routes/cargo/storage); per-entity keys later under `portal.*.features.<entity>.status.*` |
+| `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user transport/freight/warehouse); per-entity keys later under `portal.*.features.<entity>.status.*` |
 
-Table **merged period** column headers: `portal.user.features.routes.table.columns.period`, `portal.user.features.storage.table.columns.period` (distinct from form field keys like `transportStartDate`).
+Table **merged period** column headers: `portal.user.features.transport.table.columns.period`, `portal.user.features.warehouse.table.columns.period` (distinct from form field keys like `transportStartDate`).
 
 Table **filter labels**: `portal.user.features.<entity>.table.filters.*`; section groups: `…table.filterGroups.{route|attributes|dates|location}`.
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
@@ -78,11 +78,11 @@ Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-acti
 ### Portal user feature example
 
 ```
-portal.user.features.routes.form.fields.origin
-portal.user.features.routes.table.columns.route
-portal.user.features.routes.table.columns.period
-portal.user.features.storage.table.columns.period
-portal.user.features.cargo.table.columns.origin
+portal.user.features.transport.form.fields.origin
+portal.user.features.transport.table.columns.route
+portal.user.features.transport.table.columns.period
+portal.user.features.warehouse.table.columns.period
+portal.user.features.freight.table.columns.origin
 portal.user.nav.allRoutes
 portal.user.pages.routes.title
 portal.user.pages.routes.subtitle
