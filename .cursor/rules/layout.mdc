@@ -11,7 +11,7 @@ alwaysApply: false
 - `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
 - `PortalSidebarComponent` (`portal-sidebar`) — brand row, collapsible nav (desktop), drawer (mobile). Collapsed desktop flyouts via `SidebarSectionFlyoutComponent` (`portal-sidebar/sidebar-section-flyout/`).
 - **Shared nav panel styles:** `portal/shell/portal-sidebar/_sidebar-nav-panel.scss` — section title, item list, links, active rail overlap. `@use` from `portal-sidebar.component.scss` and `sidebar-section-flyout.component.scss`. **Flyout panel reuses the same BEM classes** (`sidebar__section-title`, `sidebar__items`, `sidebar__link`) as expanded sidebar — do not duplicate flyout-only item/title styles.
-- Nav types: `portal/common/models/nav.model.ts` (`NavSection.icon?`, text-only `NavItem`); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
+- Nav types: `portal/common/models/nav.model.ts` (`NavSection.icon?`, optional `NavItem.icon?`); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
 - Active-section helper: `portal/common/utils/is-nav-section-active.ts` (`isNavSectionActive(section, url)`).
 - `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
 - `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
@@ -61,18 +61,20 @@ On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMo
 ```typescript
 interface NavSection {
   titleKey: string;
-  icon?: LucideIcon;   // entity icon — section header + collapsed trigger only
+  icon?: LucideIcon;   // section header + collapsed flyout trigger / single-item rail
   items: NavItem[];
 }
 interface NavItem {
   labelKey: string;
   route: string;
   exact?: boolean;
+  icon?: LucideIcon;  // user portal entity links (Find / Our listings); admin stays text-only
 }
 ```
 
 - Section `icon` from `UserPageIcons` / `AdminPageIcons` — see `shared-constants.mdc`.
-- **No per-item icons** in nav configs.
+- **User portal:** entity `NavItem.icon` on Find and Our listings items (`transport`, `freight`, `warehouse`). Home and Offer are single-item sections — section icon only on rail; no item icon required.
+- **Admin portal:** items remain text-only (no `NavItem.icon`).
 
 ### Expanded + flyout panel (shared `_sidebar-nav-panel.scss`)
 
@@ -87,14 +89,14 @@ Parent sets `--sidebar-section-icon-size: 18px` on `.sidebar__section` (expanded
 - Vertical guide rail: `border-left: 2px solid var(--border-subtle)`, centered under section icon (`margin-left: calc(0.625rem + iconSize/2 - 1px)`).
 
 **Links** (`a.sidebar__link`):
-- Text only; full-width rail overlap on all states (`border-radius: 0`); hover uses `--bg-active`.
+- Optional `NavItem.icon` (16px, `.sidebar__link-icon`, `--text-muted`; active → `--portal-accent`) + label; full-width rail overlap on all states (`border-radius: 0`); hover uses `--bg-active`.
 - **Active** (`sidebar__link--active`): soft `--portal-accent-nav-bg` fill, `font-weight: 600`, accent `border-left`.
 - **Active rail overlap:** negative `margin-left` pulls link over list padding **and** rail width; `border-left: 2px solid var(--portal-accent)` with `z-index: 1` paints over the gray rail so that row reads as a green spine segment (not a second parallel bar).
 
 ### Collapsed (desktop only, `> 768px`)
 
 - Gated by `flyoutMode` = `collapsed && !isMobileLayout()` (`MOBILE_MEDIA_QUERY` via `matchMedia` in `portal-sidebar.component.ts`).
-- **Single-item sections** (Dashboard): centered rail `<a class="sidebar__link sidebar__link--rail">` using `NavSection.icon`; icon muted unless route active.
+- **Single-item sections** (Home, Offer on user portal; Dashboard on admin): centered rail `<a class="sidebar__link sidebar__link--rail">` using `NavSection.icon`; icon muted unless route active.
 - **Multi-item sections**: entity icon **trigger** in `SidebarSectionFlyoutComponent`; hover/focus opens fixed panel to the right.
 - **Flyout panel** reuses `_sidebar-nav-panel.scss` classes — visually identical to one expanded section. Panel chrome only in flyout SCSS: fixed position, `z-index: 210`, tokens `--bg-sidebar-flyout`, `--border-sidebar-flyout`, `--shadow-sidebar-flyout`.
 - **Trigger** styles stay in `sidebar-section-flyout.component.scss` (encapsulation): muted icon; accent when `sectionActive()`.

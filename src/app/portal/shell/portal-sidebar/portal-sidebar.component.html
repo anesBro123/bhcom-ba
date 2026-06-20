@@ -68,6 +68,9 @@
                   [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
                   class="sidebar__link"
                 >
+                  @if (item.icon) {
+                    <svg [lucideIcon]="item.icon" [size]="16" class="sidebar__link-icon" />
+                  }
                   <span>{{ item.labelKey | translate }}</span>
                 </a>
               </li>

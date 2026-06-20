@@ -46,6 +46,9 @@
               class="sidebar__link"
               (click)="onLinkClick()"
             >
+              @if (item.icon) {
+                <svg [lucideIcon]="item.icon" [size]="16" class="sidebar__link-icon" />
+              }
               <span>{{ item.labelKey | translate }}</span>
             </a>
           </li>

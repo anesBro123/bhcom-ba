@@ -50,10 +50,11 @@ Entity icons for **sidebar section headers**, **collapsed flyout triggers**, and
 | File | Export | Keys |
 |------|--------|------|
 | `portal/admin/admin-page-icons.ts` | `AdminPageIcons` | `dashboard`, `users`, `vehicles`, `warehouses`, `settings` |
-| `portal/user/user-page-icons.ts` | `UserPageIcons` | `dashboard`, `routes`, `cargo`, `storage` |
+| `portal/user/user-page-icons.ts` | `UserPageIcons` | `home`, `find`, `ourListings`, `offer`, `transport`, `freight`, `warehouse` |
 
-- `NavSection.icon` in nav configs — section title (expanded) + flyout trigger (collapsed desktop).
-- Sidebar **items** are text-only (no per-link icons).
+- `NavSection.icon` in nav configs — section title (expanded) + flyout trigger (collapsed desktop) + single-item rail link.
+- **User sidebar items:** optional `NavItem.icon` on entity links under Find / Our listings (`UserPageIcons.transport|freight|warehouse`).
+- **Admin sidebar items:** text-only (no per-link icons).
 - Portal pages set `pageIcon` from `UserPageIcons` / `AdminPageIcons` — see `page-title.mdc`.
 - **Do not** use `LucideSquarePlus` on page titles.
 

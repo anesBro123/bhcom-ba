@@ -34,16 +34,19 @@ export const USER_NAV: NavSection[] = [
         labelKey: 'portal.user.nav.transport',
         route: USER_TRANSPORT_URL,
         exact: true,
+        icon: UserPageIcons.transport,
       },
       {
         labelKey: 'portal.user.nav.freight',
         route: USER_FREIGHT_URL,
         exact: true,
+        icon: UserPageIcons.freight,
       },
       {
         labelKey: 'portal.user.nav.warehouse',
         route: USER_WAREHOUSE_URL,
         exact: true,
+        icon: UserPageIcons.warehouse,
       },
     ],
   },
@@ -55,16 +58,19 @@ export const USER_NAV: NavSection[] = [
         labelKey: 'portal.user.nav.transport',
         route: USER_OUR_TRANSPORT_URL,
         exact: true,
+        icon: UserPageIcons.transport,
       },
       {
         labelKey: 'portal.user.nav.freight',
         route: USER_OUR_FREIGHT_URL,
         exact: true,
+        icon: UserPageIcons.freight,
       },
       {
         labelKey: 'portal.user.nav.warehouse',
         route: USER_OUR_WAREHOUSE_URL,
         exact: true,
+        icon: UserPageIcons.warehouse,
       },
     ],
   },
@@ -78,5 +84,4 @@ export const USER_NAV: NavSection[] = [
       },
     ],
   },
-  // Offer is the single create entry; entity create URLs come from the picker.
 ];

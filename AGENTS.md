@@ -79,7 +79,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Admin dashboard:** `portal/admin/features/dashboard/` — KPI row (`app-metric-card`, counts via `AdminDashboardService`) + Quick Actions (`app-quick-action-card`, grouped browse/create columns + settings row); see `new-page.mdc`, `layout.mdc`
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`); shared nav panel: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
-- **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.icon`, text-only `NavItem`); configs `user-nav.config.ts`, `admin-nav.config.ts`; `isNavSectionActive()` in `portal/common/utils/is-nav-section-active.ts`; flyout reuses same `sidebar__*` classes — see `layout.mdc`
+- **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.icon`, optional `NavItem.icon` on user entity links); configs `user-nav.config.ts` (Home, Find, Our listings, Offer), `admin-nav.config.ts`; `isNavSectionActive()` in `portal/common/utils/is-nav-section-active.ts`; flyout reuses same `sidebar__*` classes — see `layout.mdc`
 - **User home (journey hub):** `portal/user/features/home/` — scenario cards, company snapshot, links to Find/Offer flows
 - **User offer picker:** `portal/user/features/offer/` — entity picker → create forms; entry via `USER_OFFER_URL`
 - **User CRUD (reference):** `portal/user/features/transport/` — `data/`, `form/`, `table-all/`, `table-our/`; All vs Our list split; `listAll()` / `listOurs()` on service

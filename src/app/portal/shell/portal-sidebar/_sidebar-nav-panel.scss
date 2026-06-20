@@ -47,6 +47,7 @@
 .sidebar__link {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   position: relative;
   z-index: 1;
   margin-left: calc(-1 * var(--sidebar-items-rail-inset) - var(--sidebar-rail-width));
@@ -78,4 +79,13 @@
     color: var(--text-primary);
     font-weight: 600;
   }
+}
+
+.sidebar__link-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.sidebar__link--active .sidebar__link-icon {
+  color: var(--portal-accent);
 }
