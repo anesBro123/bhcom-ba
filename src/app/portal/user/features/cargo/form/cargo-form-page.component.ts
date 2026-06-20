@@ -14,10 +14,10 @@ import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/p
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { notPastDateValidator } from '../../../../../shared/utils/date-input';
 
-import type { CargoFormModel } from '../data/cargo.model';
+import type { CargoFormModel, CargoType } from '../data/cargo.model';
 import { UserCargoService } from '../data/cargo.service';
 import { UserPageIcons } from '../../../user-page-icons';
-import { CargoForm, CargoFormEditActions } from './cargo.form';
+import { buildCargoForm, CargoForm, CargoFormEditActions } from './cargo.form';
 
 @Component({
   selector: 'app-cargo-form-page',
@@ -35,6 +35,7 @@ export class CargoFormPageComponent implements OnInit {
   protected readonly form = this.buildForm();
   protected readonly submitting = signal(false);
   protected readonly entityId = signal<string | null>(null);
+  protected readonly cargoType = signal<CargoType>('pallet');
 
   protected readonly isEdit = computed(() => this.entityId() !== null);
 
@@ -52,8 +53,9 @@ export class CargoFormPageComponent implements OnInit {
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
+    const base = buildCargoForm(this.cargoType());
     return {
-      ...CargoForm,
+      ...base,
       actions: {
         ...CargoForm.actions,
         submit: editing ? CargoFormEditActions.submit : CargoForm.actions.submit,
@@ -62,6 +64,15 @@ export class CargoFormPageComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.form
+      .get('cargoType')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        if (value) {
+          this.cargoType.set(value as CargoType);
+        }
+      });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       return;
@@ -74,7 +85,10 @@ export class CargoFormPageComponent implements OnInit {
       .subscribe({
         next: (item) => {
           const { id: _id, publishedAt: _publishedAt, ...formValue } = item;
-          queueMicrotask(() => this.form.patchValue(formValue));
+          queueMicrotask(() => {
+            this.cargoType.set(item.cargoType);
+            this.form.patchValue(formValue);
+          });
         },
         error: () => {
           void this.router.navigateByUrl(USER_MY_CARGO_URL);
@@ -110,9 +124,9 @@ export class CargoFormPageComponent implements OnInit {
       origin: ['', Validators.required],
       destination: ['', Validators.required],
       neededByDate: ['', [Validators.required, notPastDateValidator()]],
-      size: ['', Validators.required],
+      size: [null as number | null, Validators.required],
       weightKg: [null as number | null, Validators.required],
-      cargoType: ['pallet', Validators.required],
+      cargoType: ['pallet' as CargoType, Validators.required],
       description: [''],
     });
   }

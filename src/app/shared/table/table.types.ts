@@ -4,6 +4,26 @@ export type ColumnFormat = 'text' | 'date' | 'number' | 'currency';
 export type ColumnCell = 'default' | 'custom';
 export type SortDirection = 'asc' | 'desc';
 
+export interface DateRangeFilterValue {
+  from?: string;
+  to?: string;
+}
+
+export interface NumberRangeFilterValue {
+  min?: number;
+  max?: number;
+}
+
+export interface FilterOption {
+  value: string;
+  labelKey?: string;
+  label?: string;
+}
+
+export interface FilterGroupMeta {
+  groupTitleKey?: string;
+}
+
 export interface ColumnDef<T, K extends keyof T & string = keyof T & string> {
   key: K;
   titleKey: string;
@@ -22,21 +42,51 @@ export interface ColumnDef<T, K extends keyof T & string = keyof T & string> {
 }
 
 export type FilterDef<T> =
-  | {
-      key: keyof T & string;
+  | ({
+      key: string;
       type: 'search';
       titleKey: string;
       placeholderKey: string;
       debounceMs?: number;
       searchFields?: (keyof T & string)[];
-    }
-  | {
-      key: keyof T & string;
+    } & FilterGroupMeta)
+  | ({
+      key: string;
       type: 'select';
       titleKey: string;
       placeholderKey: string;
-      options: { value: string; labelKey: string }[];
-    };
+      options: FilterOption[];
+      field?: keyof T & string;
+    } & FilterGroupMeta)
+  | ({
+      key: string;
+      type: 'multiSelect';
+      titleKey: string;
+      placeholderKey: string;
+      options: FilterOption[];
+      searchable?: boolean;
+      showOptionIcons?: boolean;
+      showStatusBadges?: boolean;
+      field?: keyof T & string;
+    } & FilterGroupMeta)
+  | ({
+      key: string;
+      type: 'dateRange';
+      titleKey: string;
+      field: keyof T & string;
+      endField?: keyof T & string;
+    } & FilterGroupMeta)
+  | ({
+      key: string;
+      type: 'numberRange';
+      titleKey: string;
+      field?: keyof T & string;
+      min: number;
+      max: number;
+      step?: number;
+      unitSuffixKey?: string;
+      chipTitleKey?: string;
+    } & FilterGroupMeta);
 
 export interface RowActionDef<T> {
   id: string;
@@ -66,6 +116,8 @@ export interface TableDefinition<T> {
   defaultSort?: { field: keyof T & string; direction: SortDirection };
   selectable?: boolean;
   trackBy?: keyof T & string;
+  filterStorageKey?: string;
+  showFilterChips?: boolean;
   columns: ColumnDef<T>[];
   filters?: FilterDef<T>[];
   actions?: RowActionsConfig<T>;

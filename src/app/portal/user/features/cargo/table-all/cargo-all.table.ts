@@ -2,7 +2,11 @@ import { LucideEye, LucideSend } from '@lucide/angular';
 
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
-import { USER_CARGO_API, CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
+import { USER_CARGO_API } from '../data/cargo.constants';
+import {
+  CARGO_ALL_FILTER_STORAGE_KEY,
+  CARGO_TABLE_FILTERS,
+} from '../data/cargo-table-filters';
 import type { Cargo } from '../data/cargo.model';
 
 export const CargoAllTable = defineTable<Cargo>()({
@@ -12,6 +16,7 @@ export const CargoAllTable = defineTable<Cargo>()({
   defaultPageSize: 10,
   defaultSort: { field: 'neededByDate', direction: 'desc' },
   trackBy: 'id',
+  filterStorageKey: CARGO_ALL_FILTER_STORAGE_KEY,
   columns: [
     {
       key: 'origin',
@@ -26,30 +31,34 @@ export const CargoAllTable = defineTable<Cargo>()({
       titleKey: 'portal.user.features.cargo.table.columns.status',
       sortable: true,
       cell: 'custom',
-      width: '9rem',
+      width: '8rem',
     },
     {
       key: 'cargoType',
       titleKey: 'portal.user.features.cargo.table.columns.cargoType',
       sortable: true,
       cell: 'custom',
+      width: '9rem',
     },
     {
       key: 'size',
       titleKey: 'portal.user.features.cargo.table.columns.size',
       sortable: true,
+      cell: 'custom',
+      width: '7rem',
     },
     {
       key: 'weightKg',
       titleKey: 'portal.user.features.cargo.table.columns.weightKg',
       sortable: true,
+      width: '6.5rem',
     },
     {
       key: 'neededByDate',
       titleKey: 'portal.user.features.cargo.table.columns.neededByDate',
       sortable: true,
       cell: 'custom',
-      width: '12rem',
+      width: '9.5rem',
     },
   ],
   actions: {
@@ -67,26 +76,11 @@ export const CargoAllTable = defineTable<Cargo>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'origin',
-      type: 'search',
-      titleKey: 'portal.user.features.cargo.table.filters.search',
-      placeholderKey: 'portal.user.features.cargo.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['origin', 'destination', 'size', 'description'],
-    },
-    {
-      key: 'cargoType',
-      type: 'select',
-      titleKey: 'portal.user.features.cargo.table.filters.cargoType',
-      placeholderKey: 'portal.user.features.cargo.table.filters.allTypes',
-      options: [...CARGO_TYPE_OPTIONS],
-    },
-  ],
+  filters: CARGO_TABLE_FILTERS,
 });
 
 export const cargoAllTypeCellKey = tableCellKey(CargoAllTable, 'cargoType');
 export const cargoAllRouteCellKey = tableCellKey(CargoAllTable, 'origin');
 export const cargoAllStatusCellKey = tableCellKey(CargoAllTable, 'status');
+export const cargoAllSizeCellKey = tableCellKey(CargoAllTable, 'size');
 export const cargoAllNeededByDateCellKey = tableCellKey(CargoAllTable, 'neededByDate');

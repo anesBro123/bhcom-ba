@@ -1,0 +1,136 @@
+---
+description: Advanced table filtering — filter defs, panel UX, chips, persistence
+globs: src/app/shared/table/**,src/app/portal/**/data/*-table-filters.ts,src/app/portal/**/table*/**/*
+alwaysApply: false
+---
+
+# Table filters (`src/app/shared/table`)
+
+User portal list pages (routes, cargo, storage — All + My) use the shared filter framework inside `DataTableComponent`. **Do not** build ad-hoc filter UI on list pages.
+
+## File layout
+
+| Piece | Path |
+|-------|------|
+| Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta` |
+| Apply logic | `shared/table/apply-table-filters.ts` — `applyTableFilters()`, `isActiveFilterValueForDef()`, `countActiveFilters()` |
+| Chip utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()` |
+| Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()` |
+| Persistence | `shared/table/table-filter-storage.ts` — filter values + `panelExpanded` in localStorage |
+| Panel shell | `shared/table/data-table/` — collapsible header, chips, empty-filtered state |
+| Filter bar | `shared/table/table-filter-bar/` — grouped grid of filter controls |
+| Multi-select | `shared/table/table-filter-multi-select/` |
+| Date range | `shared/table/table-filter-date-range/` |
+| Number range | `shared/table/table-filter-number-range/` — dual-thumb slider, summary line |
+| Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension |
+| Per-page defs | `portal/user/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
+
+Reference defs: `portal/user/features/routes/data/route-table-filters.ts`, `cargo/data/cargo-table-filters.ts`, `storage/data/storage-table-filters.ts`.
+
+## Wiring a filtered table
+
+1. Create `*-table-filters.ts` with `FilterDef<Entity>[]` and unique `*_FILTER_STORAGE_KEY` per list (All vs My need separate keys).
+2. In `*.table.ts`: `filters: ENTITY_TABLE_FILTERS`, `filterStorageKey: ENTITY_ALL_FILTER_STORAGE_KEY`.
+3. i18n: `portal.user.features.<entity>.table.filters.*` + `…table.filterGroups.*` for section labels.
+
+```typescript
+// cargo-table-filters.ts (abbreviated)
+export const CARGO_TABLE_FILTERS: FilterDef<Cargo>[] = [
+  {
+    key: 'origin',
+    type: 'multiSelect',
+    titleKey: 'portal.user.features.cargo.table.filters.origin',
+    placeholderKey: 'portal.user.features.cargo.table.filters.allOrigins',
+    options: BIH_CITY_OPTIONS.map((c) => ({ value: c.value, label: c.label })),
+    searchable: true,
+    groupTitleKey: 'portal.user.features.cargo.table.filterGroups.route',
+  },
+  {
+    key: 'weightKg',
+    type: 'numberRange',
+    titleKey: 'portal.user.features.cargo.table.filters.weightKg',
+    min: 0,
+    max: 5000,
+    step: 50,
+    unitSuffixKey: 'shared.table.filters.units.kg',
+    groupTitleKey: 'portal.user.features.cargo.table.filterGroups.attributes',
+  },
+  { key: 'search', type: 'search', …, searchFields: ['description'] },
+];
+```
+
+## FilterDef variants
+
+| `type` | Use for | Notes |
+|--------|---------|-------|
+| `search` | Free-text | `searchFields`, `debounceMs`; full-width row in bar |
+| `select` | Single enum | Native `<select>` |
+| `multiSelect` | Cities, status, cargo type, vehicle type | `searchable`, `showStatusBadges`, `showOptionIcons` |
+| `dateRange` | Period / needed-by | `field` + optional `endField` for overlap matching |
+| `numberRange` | Weight, size, m² | `min`/`max`/`step`, optional `unitSuffixKey` |
+
+Optional on all: `groupTitleKey` — consecutive filters with the same key render under one section label (Route, Attributes, Dates).
+
+Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabilityPeriod` — `key` is `string`.
+
+## UX conventions (do not regress)
+
+### Collapsible panel
+- Toggle in `data-table-filters__header`; `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`.
+- **Collapsed + active filters:** left border only on header (no background fill); muted `{{count}} active` text — **no** numeric badge on toggle.
+- Auto-expand when user applies first filter; close multi-select popovers on collapse (`closeDropdownsToken`).
+
+### Multi-select
+- Closed trigger: comma-separated labels; **status** filters show compact `StatusBadge` when ≤3 selected, else comma text.
+- Open panel: search → **ODABRANO** row with **Očisti odabir** on the right → selected options → divider → unselected (sorted).
+- Checkboxes: native control; `accent-color: var(--bg-pagination-active)` (slider thumb fill) — browser default checkmark.
+- `showStatusBadges: true` on status filters; `showOptionIcons: true` on vehicle type (routes).
+
+### Number range
+- Full bounds = **inactive** (not stored, no chip); summary shows `shared.table.filters.anyRange` when inactive.
+- Dimmed track at full bounds; narrowed range shows values + optional `unitSuffixKey` in summary/tooltips.
+
+### Chips
+- **One chip per filter dimension** — multi-select values grouped (comma-separated labels or multiple status badges); × clears the whole filter key.
+- Status chips: `StatusBadge`(s) only — badge already contains label; do not duplicate text.
+- Range chips append unit from `unitSuffixKey`.
+- Chip build logic: `shared/table/filter-chips.utils.ts` — `buildFilterChips()`.
+
+### Empty state
+- When `hasActiveFilters()` and zero rows: `shared.table.common.emptyFiltered` + inline Clear filters link.
+
+### Layout
+- Filter grid: 3 cols desktop, 2 cols tablet (`below-lg` 1100px), 1 col mobile (`below-md` 768px).
+- Dark mode: `--bg-table-filter`, `--bg-table-filter-panel`, `--shadow-table-filter-panel` in `styles.scss`.
+
+## i18n
+
+| Path | Use for |
+|------|---------|
+| `shared.table.filters.*` | Toggle, clear, chips, slider, multi-select chrome |
+| `shared.table.filters.units.kg` / `.m2` | Number-range suffix |
+| `shared.table.common.emptyFiltered` | Filtered empty table |
+| `portal.user.features.<entity>.table.filters.*` | Per-filter labels / placeholders |
+| `portal.user.features.<entity>.table.filterGroups.*` | Section headers (route, attributes, dates, location) |
+
+Reuse form option `labelKey`s in filter `options` where enums overlap. Cargo size units: `portal.user.features.cargo.form.sizeUnits.*` (not `.sizeUnits` without `.form`).
+
+## Admin portal
+
+Admin tables today use simpler `search` / `select` filters only. Full advanced filter framework is **user portal** scope unless explicitly extended.
+
+## Do not
+
+- Rebuild filter bar, chips, or panel outside `DataTableComponent`.
+- Treat full number-range bounds as an active filter.
+- Use portal accent on filter controls (sliders, checkboxes, clear links stay neutral).
+- Re-add count badge on Filters toggle.
+
+## Related rules
+
+| Area | Rule |
+|------|------|
+| Table defs / cells | `tables.mdc` |
+| Status badges | `entity-status.mdc` |
+| i18n keys | `i18n.mdc` |
+| Feature layout | `portal-feature.mdc` |

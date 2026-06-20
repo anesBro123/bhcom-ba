@@ -3,12 +3,12 @@ import { delay, Observable, of, throwError } from 'rxjs';
 
 import { AuthService } from '../../../../../shared/core/auth/auth.service';
 import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
-import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { applyTableFilters } from '../../../../../shared/table/apply-table-filters';
+import type { PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
+import { STORAGE_TABLE_FILTERS } from './storage-table-filters';
 import { STORAGE_MOCK_DATA } from './storage.mock-data';
 import type { Storage, StorageFormModel } from './storage.model';
-import { StorageAllTable } from '../table-all/storage-all.table';
-import { StorageMyTable } from '../table-my/storage-my.table';
 
 export interface StorageCreatePayload extends StorageFormModel {
   warehouseLabel: string;
@@ -24,17 +24,13 @@ export class UserStorageService {
   listMine(query: TableQuery): Observable<PaginatedResponse<Storage>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, StorageMyTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   listAll(query: TableQuery): Observable<PaginatedResponse<Storage>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, StorageAllTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   getById(id: string): Observable<Storage> {
@@ -84,37 +80,11 @@ export class UserStorageService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(
-    items: Storage[],
-    query: TableQuery,
-    filters: FilterDef<Storage>[] | undefined,
-  ): Storage[] {
-    let result = items;
-
-    for (const [key, value] of Object.entries(query.filters)) {
-      if (value === null || value === undefined || value === '') {
-        continue;
-      }
-
-      const filterDef = filters?.find((filter) => filter.key === key);
-      result = result.filter((item) => {
-        const record = item as unknown as Record<string, unknown>;
-
-        if (filterDef?.type === 'search') {
-          const fields = filterDef.searchFields ?? [filterDef.key];
-          const needle = String(value).toLowerCase();
-          return fields.some((field) => {
-            const fieldValue = record[field];
-            return fieldValue !== null && String(fieldValue).toLowerCase().includes(needle);
-          });
-        }
-
-        return String(record[key]) === String(value);
-      });
-    }
+  private applyQuery(items: Storage[], query: TableQuery): Storage[] {
+    let result = applyTableFilters(items, query, STORAGE_TABLE_FILTERS);
 
     if (query.sortField && query.sortDirection) {
-      result.sort((left, right) => {
+      result = [...result].sort((left, right) => {
         const leftRecord = left as unknown as Record<string, unknown>;
         const rightRecord = right as unknown as Record<string, unknown>;
         return compareValues(

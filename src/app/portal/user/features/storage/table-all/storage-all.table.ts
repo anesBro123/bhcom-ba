@@ -3,6 +3,10 @@ import { LucideEye, LucideSend } from '@lucide/angular';
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_STORAGE_API } from '../data/storage.constants';
+import {
+  STORAGE_ALL_FILTER_STORAGE_KEY,
+  STORAGE_TABLE_FILTERS,
+} from '../data/storage-table-filters';
 import type { Storage } from '../data/storage.model';
 
 export const StorageAllTable = defineTable<Storage>()({
@@ -12,6 +16,7 @@ export const StorageAllTable = defineTable<Storage>()({
   defaultPageSize: 10,
   defaultSort: { field: 'availableFrom', direction: 'desc' },
   trackBy: 'id',
+  filterStorageKey: STORAGE_ALL_FILTER_STORAGE_KEY,
   columns: [
     {
       key: 'warehouseLabel',
@@ -60,16 +65,7 @@ export const StorageAllTable = defineTable<Storage>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'warehouseLabel',
-      type: 'search',
-      titleKey: 'portal.user.features.storage.table.filters.search',
-      placeholderKey: 'portal.user.features.storage.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['warehouseLabel', 'warehouseName', 'warehouseCity', 'description'],
-    },
-  ],
+  filters: STORAGE_TABLE_FILTERS,
 });
 
 export const storageAllStatusCellKey = tableCellKey(StorageAllTable, 'status');

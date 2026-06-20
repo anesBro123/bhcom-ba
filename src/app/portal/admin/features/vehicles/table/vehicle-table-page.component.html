@@ -5,8 +5,8 @@
 
 @if (tableMounted()) {
   <app-data-table [definition]="table" [loader]="loadVehicles" (rowAction)="onRowAction($event)">
-    <ng-template [appTableCell]="vrstaVozilaKey" let-row>
-      <span>{{ vrstaVozilaLabel(row.vrstaVozila) | translate }}</span>
+    <ng-template [appTableCell]="vehicleTypeKey" let-row>
+      <app-vehicle-type-display [vehicleType]="asVehicleType(row.vehicleType)" />
     </ng-template>
   </app-data-table>
 }

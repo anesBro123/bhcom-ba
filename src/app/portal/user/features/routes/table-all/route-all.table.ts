@@ -3,6 +3,10 @@ import { LucideEye, LucideSend } from '@lucide/angular';
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import { USER_ROUTES_API } from '../data/route.constants';
+import {
+  ROUTE_ALL_FILTER_STORAGE_KEY,
+  ROUTE_TABLE_FILTERS,
+} from '../data/route-table-filters';
 import type { Route } from '../data/route.model';
 
 export const RouteAllTable = defineTable<Route>()({
@@ -12,6 +16,7 @@ export const RouteAllTable = defineTable<Route>()({
   defaultPageSize: 10,
   defaultSort: { field: 'transportStartDate', direction: 'desc' },
   trackBy: 'id',
+  filterStorageKey: ROUTE_ALL_FILTER_STORAGE_KEY,
   columns: [
     {
       key: 'origin',
@@ -34,6 +39,13 @@ export const RouteAllTable = defineTable<Route>()({
       sortable: true,
       cell: 'custom',
       width: '14rem',
+    },
+    {
+      key: 'vehicleType',
+      titleKey: 'portal.user.features.routes.table.columns.vehicleType',
+      sortable: true,
+      cell: 'custom',
+      width: '11rem',
     },
     {
       key: 'transportStartDate',
@@ -64,19 +76,11 @@ export const RouteAllTable = defineTable<Route>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'origin',
-      type: 'search',
-      titleKey: 'portal.user.features.routes.table.filters.search',
-      placeholderKey: 'portal.user.features.routes.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['origin', 'destination', 'vehiclePlate', 'vehicleName', 'description'],
-    },
-  ],
+  filters: ROUTE_TABLE_FILTERS,
 });
 
 export const routeAllCellKey = tableCellKey(RouteAllTable, 'origin');
 export const routeAllStatusCellKey = tableCellKey(RouteAllTable, 'status');
 export const routeAllVehicleCellKey = tableCellKey(RouteAllTable, 'vehiclePlate');
+export const routeAllVehicleTypeCellKey = tableCellKey(RouteAllTable, 'vehicleType');
 export const routeAllPeriodCellKey = tableCellKey(RouteAllTable, 'transportStartDate');

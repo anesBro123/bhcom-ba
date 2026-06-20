@@ -136,7 +136,7 @@ export class VehicleFormPageComponent implements OnInit {
       tipVozila: [''],
       komercijalnaOznaka: [''],
       brojSasije: ['', Validators.required],
-      vrstaVozila: [''],
+      vehicleType: [''],
       boja: [''],
 
       najvecaDozvoljenaMasa: [null as number | null],

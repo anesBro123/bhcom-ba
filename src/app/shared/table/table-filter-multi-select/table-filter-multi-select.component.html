@@ -1,0 +1,123 @@
+<div class="table-filter-multi-select">
+  <span class="table-filter-multi-select__label">{{ titleKey() | translate }}</span>
+
+  <div class="table-filter-multi-select__control">
+    <button
+      type="button"
+      class="table-filter-multi-select__trigger"
+      [class.table-filter-multi-select__trigger--active]="selected().length > 0"
+      [attr.aria-expanded]="panelOpen()"
+      (click)="togglePanel()"
+    >
+      <span class="table-filter-multi-select__trigger-text">
+        @if (showBadgeTrigger()) {
+          <span class="table-filter-multi-select__trigger-badges">
+            @for (value of selected(); track value) {
+              <app-status-badge [status]="statusValue(value)" />
+            }
+          </span>
+        } @else if (selected().length > 0) {
+          {{ selectedSummary() }}
+        } @else {
+          {{ placeholderKey() | translate }}
+        }
+      </span>
+      <span class="table-filter-multi-select__trigger-icon">
+        <svg lucideChevronDown [size]="16" />
+      </span>
+    </button>
+
+    @if (panelOpen()) {
+      <div class="table-filter-multi-select__panel" role="listbox">
+        @if (searchable()) {
+          <label class="table-filter-multi-select__search">
+            <span class="table-filter-multi-select__search-icon">
+              <svg lucideSearch [size]="14" />
+            </span>
+            <input
+              type="search"
+              class="table-filter-multi-select__search-input"
+              [placeholder]="'shared.table.filters.searchOptions' | translate"
+              [value]="searchQuery()"
+              (input)="searchQuery.set($any($event.target).value)"
+            />
+          </label>
+        }
+
+        <ul class="table-filter-multi-select__options">
+          @if (selectedOptions().length > 0) {
+            <li class="table-filter-multi-select__section-header">
+              <span class="table-filter-multi-select__section-label">
+                {{ 'shared.table.filters.selectedSection' | translate }}
+              </span>
+              <button
+                type="button"
+                class="table-filter-multi-select__clear"
+                (click)="clearSelection()"
+              >
+                {{ 'shared.table.filters.clearSelection' | translate }}
+              </button>
+            </li>
+            @for (option of selectedOptions(); track option.value) {
+              <li>
+                <ng-container
+                  *ngTemplateOutlet="optionRow; context: { $implicit: option }"
+                />
+              </li>
+            }
+            @if (unselectedOptions().length > 0) {
+              <li class="table-filter-multi-select__divider" aria-hidden="true"></li>
+            }
+          }
+
+          @for (option of unselectedOptions(); track option.value) {
+            <li>
+              <ng-container
+                *ngTemplateOutlet="optionRow; context: { $implicit: option }"
+              />
+            </li>
+          } @empty {
+            @if (selectedOptions().length === 0) {
+              <li class="table-filter-multi-select__empty">
+                {{ 'shared.table.filters.noOptions' | translate }}
+              </li>
+            }
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</div>
+
+<ng-template #optionRow let-option>
+  <label class="table-filter-multi-select__option">
+    <input
+      type="checkbox"
+      [checked]="isSelected(option.value)"
+      (change)="onToggleOption(option.value, $any($event.target).checked)"
+    />
+    @if (showStatusBadge(option.value)) {
+      <app-status-badge [status]="statusValue(option.value)" />
+    } @else {
+      @if (showOptionIcons() && optionIcon(option.value); as vehicleType) {
+        <span class="table-filter-multi-select__option-icon">
+          @switch (vehicleType) {
+            @case ('putnicko') { <svg lucideCar [size]="16" /> }
+            @case ('teretno') { <svg lucideTruck [size]="16" /> }
+            @case ('motocikl') { <svg lucideBike [size]="16" /> }
+            @case ('autobus') { <svg lucideBus [size]="16" /> }
+            @case ('prikljucno') { <svg lucideCaravan [size]="16" /> }
+            @case ('radno') { <svg lucideTractor [size]="16" /> }
+          }
+        </span>
+      }
+      <span class="table-filter-multi-select__option-label">
+        @if (isLabelKey(option)) {
+          {{ option.labelKey | translate }}
+        } @else {
+          {{ option.label ?? option.value }}
+        }
+      </span>
+    }
+  </label>
+</ng-template>

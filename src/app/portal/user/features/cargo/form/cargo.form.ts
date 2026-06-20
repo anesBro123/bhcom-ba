@@ -3,8 +3,8 @@ import { LucideMapPin, LucidePackage, LucidePlus, LucideSave } from '@lucide/ang
 import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
 import { defineForm } from '../../../../../shared/form';
 
-import { CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
-import type { CargoFormModel } from '../data/cargo.model';
+import { CARGO_SIZE_UNIT_BY_TYPE, CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
+import type { CargoFormModel, CargoType } from '../data/cargo.model';
 
 export const CargoForm = defineForm<CargoFormModel>()({
   mode: 'single',
@@ -62,8 +62,8 @@ export const CargoForm = defineForm<CargoFormModel>()({
             },
             {
               key: 'size',
-              type: 'text',
-              labelKey: 'portal.user.features.cargo.form.fields.size',
+              type: 'number',
+              labelKey: 'portal.user.features.cargo.form.fields.sizeWithUnit.pallets',
               placeholderKey: 'portal.user.features.cargo.form.placeholders.size',
               colSpan: 2,
             },
@@ -95,3 +95,29 @@ export const CargoForm = defineForm<CargoFormModel>()({
 export const CargoFormEditActions = {
   submit: { labelKey: 'portal.user.features.cargo.form.actions.update', icon: LucideSave },
 };
+
+function sizeFieldLabelKey(cargoType: CargoType): string {
+  return `portal.user.features.cargo.form.fields.sizeWithUnit.${CARGO_SIZE_UNIT_BY_TYPE[cargoType]}`;
+}
+
+export function buildCargoForm(cargoType: CargoType) {
+  return {
+    ...CargoForm,
+    steps: CargoForm.steps.map((formStep) => ({
+      ...formStep,
+      sections: formStep.sections?.map((section) => ({
+        ...section,
+        fields: section.fields?.map((field) => {
+          if (field.key !== 'size') {
+            return field;
+          }
+
+          return {
+            ...field,
+            labelKey: sizeFieldLabelKey(cargoType),
+          };
+        }),
+      })),
+    })),
+  };
+}

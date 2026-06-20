@@ -1,6 +1,6 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `table-filters.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
@@ -93,6 +93,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
 - **Display date formatting:** `shared/utils/format-display-date.ts` — `formatDisplayDate()` for tables, date-range display, detail modal
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
+- **Table filters (user portal):** `shared/table/` filter bar, chips, collapsible panel, multi-select/date/number-range controls; per-page defs in `portal/user/features/*/data/*-table-filters.ts`; see `table-filters.mdc`. References: `route-table-filters.ts`, `cargo-table-filters.ts`, `storage-table-filters.ts`
 - **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination with neutral chips in tables
 - **Date range display UI:** `shared/ui/date-range-display/` — `DateRangeDisplayComponent` (`app-date-range-display`) for merged period / single-date columns
 - **Vehicle display UI:** `shared/ui/vehicle-display/` — `VehicleDisplayComponent` (`app-vehicle-display`) for vehicle name + plate in tables
@@ -119,6 +120,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
 | `tables.mdc` | `shared/table/**`, `*.table.ts`, `*-table-page.component.*` — table defs + list pages (incl. create CTA) |
+| `table-filters.mdc` | `shared/table/**`, `*-table-filters.ts` — advanced filter defs, panel/chips UX, persistence |
 | `confirm.mdc` | `shared/confirm/**`, destructive-action flows |
 | `portal-feature.mdc` | `portal/**/features/**` — CRUD layout (vehicles reference) |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
@@ -129,5 +131,5 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 ## Responsive conventions
 
-- **Breakpoint:** 768px — `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
+- **Breakpoint:** 768px — `src/styles/_breakpoints.scss` (`below-md`), `portal/shell/viewport.ts`; filter grid also uses `below-lg` (1100px) for 2-column layout
 - **Tables (mobile):** card list inside `DataTableComponent` — not horizontal table scroll

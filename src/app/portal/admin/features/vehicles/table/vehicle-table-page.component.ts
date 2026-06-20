@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
-import {ConfirmService } from '../../../../../shared/confirm';
+import { ConfirmService } from '../../../../../shared/confirm';
 import { ADMIN_CREATE_VEHICLE_URL, adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { VehicleTypeDisplayComponent } from '../../../../../shared/ui/vehicle-type-display/vehicle-type-display.component';
+import type { VehicleType } from '../../../../../shared/constants/vehicle-type';
 
 import {
   DataTableComponent,
@@ -27,10 +28,10 @@ import { VehicleTable } from './vehicle.table';
   imports: [
     DataTableComponent,
     TableCellTemplateDirective,
-    TranslatePipe,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
+    VehicleTypeDisplayComponent,
   ],
   templateUrl: './vehicle-table-page.component.html',
   styleUrl: './vehicle-table-page.component.scss',
@@ -46,14 +47,14 @@ export class VehicleTablePageComponent {
   protected readonly pageIcon = AdminPageIcons.vehicles;
   protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
   protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
-  protected readonly vrstaVozilaKey = tableCellKey(VehicleTable, 'vrstaVozila');
+  protected readonly vehicleTypeKey = tableCellKey(VehicleTable, 'vehicleType');
   protected readonly tableMounted = signal(true);
 
   protected readonly loadVehicles: TableLoader<Vehicle> = (query) =>
     this.vehicleService.list(query);
 
-  protected vrstaVozilaLabel(vrsta: string): string {
-    return `portal.admin.features.vehicles.form.vrstaVozila.${vrsta}`;
+  protected asVehicleType(value: string): VehicleType {
+    return value as VehicleType;
   }
 
   protected onRowAction(event: RowActionEvent<Vehicle>): void {

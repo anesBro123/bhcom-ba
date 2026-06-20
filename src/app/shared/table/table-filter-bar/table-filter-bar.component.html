@@ -1,40 +1,88 @@
 <div class="table-filter-bar">
-  @for (filter of filters(); track filter.key) {
-    @switch (filter.type) {
-      @case ('search') {
-        <label class="table-filter-bar__search">
-          <span class="table-filter-bar__search-icon">
-            <svg lucideSearch [size]="16" />
-          </span>
-          <input
-            type="search"
-            class="table-filter-bar__search-input"
-            [placeholder]="filter.placeholderKey | translate"
-            [value]="filterValue(filter.key)"
-            (input)="onSearchInput(filter, $any($event.target).value)"
-          />
-        </label>
-      }
-      @case ('select') {
-        <label class="table-filter-bar__select">
-          <span class="table-filter-bar__select-label">{{ filter.titleKey | translate }}</span>
-          <span class="table-filter-bar__select-wrap">
-            <select
-              class="table-filter-bar__select-input"
-              [value]="filterValue(filter.key)"
-              (change)="onSelectChange(filter.key, $any($event.target).value)"
-            >
-              <option value="">{{ filter.placeholderKey | translate }}</option>
-              @for (option of filter.options; track option.value) {
-                <option [value]="option.value">{{ option.labelKey | translate }}</option>
-              }
-            </select>
-            <span class="table-filter-bar__select-icon">
-              <svg lucideChevronDown [size]="16" />
-            </span>
-          </span>
-        </label>
-      }
+  @for (group of filterGroups(); track group.titleKey ?? group.filters[0]?.key) {
+    @if (group.titleKey) {
+      <h3 class="table-filter-bar__group-title">{{ group.titleKey | translate }}</h3>
     }
+
+    <div class="table-filter-bar__grid">
+      @for (filter of group.filters; track filter.key) {
+        @switch (filter.type) {
+          @case ('search') {
+            <label class="table-filter-bar__search table-filter-bar__field--full">
+              <span class="table-filter-bar__search-icon">
+                <svg lucideSearch [size]="16" />
+              </span>
+              <input
+                type="search"
+                class="table-filter-bar__search-input"
+                [placeholder]="filter.placeholderKey | translate"
+                [value]="filterValue(filter.key)"
+                (input)="onSearchInput(filter, $any($event.target).value)"
+              />
+            </label>
+          }
+          @case ('select') {
+            <label class="table-filter-bar__select">
+              <span class="table-filter-bar__select-label">{{ filter.titleKey | translate }}</span>
+              <span class="table-filter-bar__select-wrap">
+                <select
+                  class="table-filter-bar__select-input"
+                  [value]="filterValue(filter.key)"
+                  (change)="onSelectChange(filter.key, $any($event.target).value)"
+                >
+                  <option value="">{{ filter.placeholderKey | translate }}</option>
+                  @for (option of filter.options; track option.value) {
+                    <option [value]="option.value">
+                      @if (option.labelKey) {
+                        {{ option.labelKey | translate }}
+                      } @else {
+                        {{ option.label }}
+                      }
+                    </option>
+                  }
+                </select>
+                <span class="table-filter-bar__select-icon">
+                  <svg lucideChevronDown [size]="16" />
+                </span>
+              </span>
+            </label>
+          }
+          @case ('multiSelect') {
+            <app-table-filter-multi-select
+              class="table-filter-bar__field"
+              [titleKey]="filter.titleKey"
+              [placeholderKey]="filter.placeholderKey"
+              [options]="filter.options"
+              [selected]="multiSelectValue(filter.key)"
+              [searchable]="filter.searchable ?? true"
+              [showOptionIcons]="filter.showOptionIcons ?? false"
+              [showStatusBadges]="filter.showStatusBadges ?? false"
+              [closeDropdownsToken]="closeDropdownsToken()"
+              (valueChange)="onFilterValueChange(filter.key, $event.length ? $event : undefined)"
+            />
+          }
+          @case ('dateRange') {
+            <app-table-filter-date-range
+              class="table-filter-bar__field"
+              [titleKey]="filter.titleKey"
+              [value]="dateRangeValue(filter.key)"
+              (valueChange)="onFilterValueChange(filter.key, $event)"
+            />
+          }
+          @case ('numberRange') {
+            <app-table-filter-number-range
+              class="table-filter-bar__field"
+              [titleKey]="filter.titleKey"
+              [value]="numberRangeValue(filter.key)"
+              [min]="filter.min"
+              [max]="filter.max"
+              [step]="filter.step ?? 1"
+              [unitSuffixKey]="filter.unitSuffixKey"
+              (valueChange)="onFilterValueChange(filter.key, $event)"
+            />
+          }
+        }
+      }
+    </div>
   }
 </div>

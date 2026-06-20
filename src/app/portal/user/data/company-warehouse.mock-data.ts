@@ -7,4 +7,7 @@ export const COMPANY_WAREHOUSE_MOCK_DATA: CompanyWarehouse[] = [
   { id: 'wh-004', name: 'South Terminal', city: 'Mostar' },
   { id: 'wh-005', name: 'Tuzla Industrial Park', city: 'Tuzla' },
   { id: 'wh-006', name: 'Adriatic Cold Chain', city: 'Neum' },
+  { id: 'wh-007', name: 'Drina Valley Depot', city: 'Goražde' },
+  { id: 'wh-008', name: 'Una Border Warehouse', city: 'Bihać' },
+  { id: 'wh-ext-003', name: 'Pannonian Storage', city: 'Gradačac' },
 ];

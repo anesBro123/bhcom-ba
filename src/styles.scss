@@ -45,8 +45,10 @@
   --table-cell-secondary-color: var(--text-section);
   --table-cell-line-height: 1.5;
   --bg-table-row-hover: rgba(255, 255, 255, 0.04);
-  --bg-table-filter: transparent;
+  --bg-table-filter: var(--bg-form-input);
+  --bg-table-filter-panel: #151c2e;
   --border-table-filter: rgba(255, 255, 255, 0.12);
+  --shadow-table-filter-panel: var(--shadow-table-actions-menu);
   --bg-pagination-active: #f8fafc;
   --text-pagination-active: #0b0f19;
   --text-pagination-muted: #94a3b8;
@@ -156,7 +158,9 @@
   --table-cell-primary-weight: 400;
   --bg-table-row-hover: #f1f5f9;
   --bg-table-filter: #ffffff;
+  --bg-table-filter-panel: #ffffff;
   --border-table-filter: rgba(0, 0, 0, 0.12);
+  --shadow-table-filter-panel: var(--shadow-table-actions-menu);
   --bg-pagination-active: #1e293b;
   --text-pagination-active: #ffffff;
   --text-pagination-muted: #64748b;

@@ -64,12 +64,33 @@
       "common": {
         "loading": "Učitavanje...",
         "empty": "Nema pronađenih zapisa.",
+        "emptyFiltered": "Nijedan zapis ne odgovara vašim filterima.",
         "loadError": "Nije moguće učitati podatke tabele.",
         "previous": "Prethodna",
         "next": "Sljedeća",
         "showingSummary": "Prikazano {{from}} do {{to}} od {{total}} {{entity}}",
         "actions": "Akcije reda",
         "actionsMenu": "Akcije"
+      },
+      "filters": {
+        "clearAll": "Očisti filtere",
+        "from": "Od",
+        "to": "Do",
+        "anyRange": "Bilo koje – Bilo koje",
+        "activeCount": "{{count}} aktivno",
+        "selectedSection": "Odabrano",
+        "selectedCount": "{{count}} odabrano",
+        "searchOptions": "Pretraži opcije...",
+        "noOptions": "Nema pronađenih opcija",
+        "clearSelection": "Očisti odabir",
+        "removeChip": "Ukloni filter",
+        "toggle": "Filteri",
+        "toggleExpand": "Prikaži filtere",
+        "toggleCollapse": "Sakrij filtere",
+        "units": {
+          "kg": "kg",
+          "m2": "m²"
+        }
       }
     },
     "confirm": {
@@ -102,6 +123,14 @@
       "inProgress": "U toku",
       "canceled": "Otkazano",
       "closed": "Zatvoreno"
+    },
+    "vehicleType": {
+      "putnicko": "Putničko",
+      "teretno": "Teretno",
+      "motocikl": "Motocikl",
+      "autobus": "Autobus",
+      "prikljucno": "Priključno",
+      "radno": "Radno vozilo"
     }
   },
   "guest": {
@@ -457,7 +486,7 @@
               "tipVozila": "Tip vozila (D.2)",
               "komercijalnaOznaka": "Komercijalna oznaka / model (D.3)",
               "brojSasije": "Broj šasije (E)",
-              "vrstaVozila": "Vrsta vozila (J)",
+              "vehicleType": "Vrsta vozila (J)",
               "boja": "Boja vozila (R)",
               "najvecaDozvoljenaMasa": "Najveća dozvoljena masa (F.1)",
               "masaVozila": "Masa vozila (G)",
@@ -491,7 +520,7 @@
               "tipVozila": "Tačna varijanta prema tehničkoj dokumentaciji",
               "komercijalnaOznaka": "npr. Sprinter",
               "brojSasije": "17-karakterni VIN",
-              "vrstaVozila": "Odaberite vrstu",
+              "vehicleType": "Odaberite vrstu",
               "boja": "Zvanična boja vozila",
               "najvecaDozvoljenaMasa": "kg",
               "masaVozila": "Prazna masa u kg",
@@ -536,7 +565,7 @@
               "marka": "Marka",
               "komercijalnaOznaka": "Model",
               "brojSasije": "Broj šasije",
-              "vrstaVozila": "Vrsta vozila",
+              "vehicleType": "Vrsta vozila",
               "vazenjeRegistracije": "Važenje registracije"
             },
             "actions": {
@@ -550,8 +579,8 @@
             "filters": {
               "search": "Pretraga",
               "searchPlaceholder": "Pretraži po tablici, šasiji, marki, modelu...",
-              "vrstaVozila": "Vrsta vozila",
-              "allVrste": "Sve vrste"
+              "vehicleType": "Vrsta vozila",
+              "allTypes": "Sve vrste"
             }
           }
         },
@@ -753,11 +782,11 @@
         },
         "allRoutes": {
           "title": "Sve rute",
-          "subtitle": "Pregledajte rute objavljene od drugih kompanija i pošaljite zahtjeve za transport."
+          "subtitle": "Filtrirajte i pregledajte rute drugih kompanija, zatim pošaljite zahtjev za transport."
         },
         "myRoutes": {
           "title": "Moje rute",
-          "subtitle": "Upravljajte rutama vaše kompanije — pregledajte, uredite ili uklonite oglase."
+          "subtitle": "Filtrirajte i upravljajte rutama vaše kompanije — pregledajte, uredite ili uklonite oglase."
         },
         "createRoute": {
           "title": "Objavi rutu",
@@ -773,11 +802,11 @@
         },
         "allCargo": {
           "title": "Sav teret",
-          "subtitle": "Pregledajte teret objavljen od drugih kompanija i pošaljite zahtjeve za transport."
+          "subtitle": "Filtrirajte i pregledajte teret drugih kompanija, zatim pošaljite zahtjev za transport."
         },
         "myCargo": {
           "title": "Moj teret",
-          "subtitle": "Upravljajte teretom vaše kompanije — pregledajte, uredite ili uklonite oglase."
+          "subtitle": "Filtrirajte i upravljajte teretom vaše kompanije — pregledajte, uredite ili uklonite oglase."
         },
         "createCargo": {
           "title": "Objavi teret",
@@ -793,11 +822,11 @@
         },
         "allStorage": {
           "title": "Sva skladišta",
-          "subtitle": "Pregledajte skladišni prostor objavljen od drugih kompanija i pošaljite zahtjeve za najam."
+          "subtitle": "Filtrirajte i pregledajte skladišni prostor drugih kompanija, zatim pošaljite zahtjev za najam."
         },
         "myStorage": {
           "title": "Moja skladišta",
-          "subtitle": "Upravljajte skladišnim prostorom vaše kompanije — pregledajte, uredite ili uklonite oglase."
+          "subtitle": "Filtrirajte i upravljajte skladišnim prostorom vaše kompanije — pregledajte, uredite ili uklonite oglase."
         },
         "createStorage": {
           "title": "Objavi skladište",
@@ -900,6 +929,7 @@
               "route": "Ruta",
               "status": "Status",
               "vehicle": "Vozilo",
+              "vehicleType": "Tip vozila",
               "period": "Period",
               "transportStartDate": "Početni datum",
               "transportEndDate": "Završni datum",
@@ -912,8 +942,22 @@
               "delete": "Obriši"
             },
             "filters": {
+              "origin": "Polazište",
+              "allOrigins": "Sva polazišta",
+              "destination": "Odredište",
+              "allDestinations": "Sva odredišta",
+              "status": "Status",
+              "allStatuses": "Svi statusi",
+              "vehicleType": "Tip vozila",
+              "allVehicleTypes": "Svi tipovi vozila",
+              "period": "Period transporta",
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži rute, vozila, opise..."
+              "searchPlaceholder": "Pretraži vozila, opise..."
+            },
+            "filterGroups": {
+              "route": "Ruta",
+              "attributes": "Atributi",
+              "dates": "Datumi"
             },
             "deleteConfirm": {
               "title": "Obrisati rutu?",
@@ -958,16 +1002,27 @@
               "size": "Veličina",
               "weightKg": "Težina (kg)",
               "cargoType": "Tip tereta",
-              "description": "Opis"
+              "description": "Opis",
+              "sizeWithUnit": {
+                "pallets": "Veličina (palete)",
+                "m3": "Veličina (m³)",
+                "units": "Veličina (jedinice)"
+              }
             },
             "placeholders": {
               "origin": "Unesite mjesto preuzimanja",
               "destination": "Unesite mjesto dostave",
               "neededByDate": "Odaberite datum",
-              "size": "npr. 4 palete, 12 m³",
+              "size": "Unesite količinu",
               "weightKg": "Unesite ukupnu težinu u kg",
               "cargoType": "Odaberite tip tereta",
               "description": "Opcione instrukcije za rukovanje..."
+            },
+            "sizeUnits": {
+              "pallets": "paleta",
+              "m3": "m³",
+              "units": "jedinica",
+              "unit": "jedinica"
             },
             "cargoTypes": {
               "pallet": "Paleta",
@@ -998,10 +1053,25 @@
               "delete": "Obriši"
             },
             "filters": {
-              "search": "Pretraga",
-              "searchPlaceholder": "Pretraži rute, veličine, opise...",
+              "origin": "Polazište",
+              "allOrigins": "Sva polazišta",
+              "destination": "Odredište",
+              "allDestinations": "Sva odredišta",
+              "status": "Status",
+              "allStatuses": "Svi statusi",
               "cargoType": "Tip tereta",
-              "allTypes": "Svi tipovi"
+              "allTypes": "Svi tipovi",
+              "size": "Veličina",
+              "weightKg": "Težina (kg)",
+              "weightChip": "Težina",
+              "neededByDate": "Potrebno do",
+              "search": "Pretraga",
+              "searchPlaceholder": "Pretraži opise..."
+            },
+            "filterGroups": {
+              "route": "Ruta",
+              "attributes": "Atributi",
+              "dates": "Datumi"
             },
             "deleteConfirm": {
               "title": "Obrisati teret?",
@@ -1076,8 +1146,19 @@
               "delete": "Obriši"
             },
             "filters": {
+              "city": "Grad",
+              "allCities": "Svi gradovi",
+              "status": "Status",
+              "allStatuses": "Svi statusi",
+              "availabilityPeriod": "Period dostupnosti",
+              "spaceM2": "Prostor (m²)",
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži skladišta, opise..."
+              "searchPlaceholder": "Pretraži opise..."
+            },
+            "filterGroups": {
+              "location": "Lokacija",
+              "attributes": "Atributi",
+              "dates": "Datumi"
             },
             "deleteConfirm": {
               "title": "Obrisati skladište?",

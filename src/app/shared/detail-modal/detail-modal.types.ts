@@ -22,6 +22,7 @@ export interface DetailKeyedFieldDef<T, K extends keyof T & string = keyof T & s
   key: K;
   type: 'text' | 'date' | 'number' | 'status';
   suffixKey?: string;
+  suffixKeyFn?: (data: T) => string | undefined;
 }
 
 export interface DetailRouteFieldDef<T> extends DetailFieldDefBase<T> {

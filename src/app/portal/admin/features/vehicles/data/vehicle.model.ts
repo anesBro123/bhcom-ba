@@ -18,7 +18,7 @@ export interface VehicleFormModel {
   tipVozila: string;
   komercijalnaOznaka: string;
   brojSasije: string;
-  vrstaVozila: string;
+  vehicleType: string;
   boja: string;
 
   najvecaDozvoljenaMasa: number | null;
@@ -43,13 +43,5 @@ export interface VehicleFormModel {
 export interface Vehicle extends VehicleFormModel {
   id: string;
 }
-
-export type VrstaVozila =
-  | 'putnicko'
-  | 'teretno'
-  | 'motocikl'
-  | 'autobus'
-  | 'prikljucno'
-  | 'radno';
 
 export type VrstaGoriva = 'benzin' | 'dizel' | 'gas' | 'elektricni' | 'hibrid';

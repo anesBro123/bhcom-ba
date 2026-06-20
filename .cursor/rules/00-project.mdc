@@ -84,6 +84,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Stepper create + edit: `portal/admin/features/vehicles/form/` — `[stepperMode]` + `[stepperDataReady]`
 - Stepper framework: `shared/form/form-page/`, `shared/form/form-stepper/`, `form.utils.ts` (`ValidationState`, free navigation, mobile chip rail) — see `forms.mdc`
 - Table page (service loader + delete): `portal/admin/features/vehicles/table/` — see `portal-feature.mdc`, `confirm.mdc`
+- **User table filters:** `shared/table/` filter framework in `DataTableComponent`; defs in `portal/user/features/*/data/*-table-filters.ts` — see `table-filters.mdc`
 - Guest login: `guest/pages/login/user-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - Dashboard KPI card: `shared/ui/metric-card/` — `MetricCardComponent` for title + value + subtitle stats; parent wraps in `routerLink` when tile should navigate

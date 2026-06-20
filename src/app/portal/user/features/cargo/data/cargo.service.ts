@@ -3,12 +3,12 @@ import { delay, Observable, of, throwError } from 'rxjs';
 
 import { AuthService } from '../../../../../shared/core/auth/auth.service';
 import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
-import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { applyTableFilters } from '../../../../../shared/table/apply-table-filters';
+import type { PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
+import { CARGO_TABLE_FILTERS } from './cargo-table-filters';
 import { CARGO_MOCK_DATA } from './cargo.mock-data';
 import type { Cargo, CargoFormModel } from './cargo.model';
-import { CargoAllTable } from '../table-all/cargo-all.table';
-import { CargoMyTable } from '../table-my/cargo-my.table';
 
 @Injectable({ providedIn: 'root' })
 export class UserCargoService {
@@ -18,17 +18,13 @@ export class UserCargoService {
   listMine(query: TableQuery): Observable<PaginatedResponse<Cargo>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, CargoMyTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   listAll(query: TableQuery): Observable<PaginatedResponse<Cargo>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, CargoAllTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   getById(id: string): Observable<Cargo> {
@@ -78,37 +74,11 @@ export class UserCargoService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(
-    items: Cargo[],
-    query: TableQuery,
-    filters: FilterDef<Cargo>[] | undefined,
-  ): Cargo[] {
-    let result = items;
-
-    for (const [key, value] of Object.entries(query.filters)) {
-      if (value === null || value === undefined || value === '') {
-        continue;
-      }
-
-      const filterDef = filters?.find((filter) => filter.key === key);
-      result = result.filter((item) => {
-        const record = item as unknown as Record<string, unknown>;
-
-        if (filterDef?.type === 'search') {
-          const fields = filterDef.searchFields ?? [filterDef.key];
-          const needle = String(value).toLowerCase();
-          return fields.some((field) => {
-            const fieldValue = record[field];
-            return fieldValue !== null && String(fieldValue).toLowerCase().includes(needle);
-          });
-        }
-
-        return String(record[key]) === String(value);
-      });
-    }
+  private applyQuery(items: Cargo[], query: TableQuery): Cargo[] {
+    let result = applyTableFilters(items, query, CARGO_TABLE_FILTERS);
 
     if (query.sortField && query.sortDirection) {
-      result.sort((left, right) => {
+      result = [...result].sort((left, right) => {
         const leftRecord = left as unknown as Record<string, unknown>;
         const rightRecord = right as unknown as Record<string, unknown>;
         return compareValues(

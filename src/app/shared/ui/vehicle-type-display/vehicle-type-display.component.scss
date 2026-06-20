@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+}
+
+.vehicle-type-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vehicle-type-display__icon {
+  display: inline-flex;
+  color: var(--text-secondary, var(--table-cell-secondary-color));
+  flex-shrink: 0;
+}
+
+.vehicle-type-display__label {
+  font-size: var(--table-cell-primary-size, 0.875rem);
+  font-weight: var(--table-cell-primary-weight, 400);
+  line-height: var(--table-cell-line-height, 1.4);
+  color: var(--table-cell-primary-color, var(--text-primary));
+}

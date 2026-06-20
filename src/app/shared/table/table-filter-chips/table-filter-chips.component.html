@@ -1,0 +1,28 @@
+@if (chips().length) {
+  <div class="table-filter-chips" [class.table-filter-chips--pad-top]="padTop()">
+    @for (chip of chips(); track chip.filterKey) {
+      <span class="table-filter-chips__chip">
+        <span class="table-filter-chips__label">{{ chip.titleKey | translate }}:</span>
+        @if (chip.statuses?.length) {
+          <span class="table-filter-chips__badges">
+            @for (status of chip.statuses; track status) {
+              <app-status-badge [status]="status" />
+            }
+          </span>
+        } @else if (chip.valueKey) {
+          <span class="table-filter-chips__value">{{ chip.valueKey | translate }}</span>
+        } @else {
+          <span class="table-filter-chips__value">{{ chip.valueText }}</span>
+        }
+        <button
+          type="button"
+          class="table-filter-chips__remove"
+          [attr.aria-label]="'shared.table.filters.removeChip' | translate"
+          (click)="onRemove(chip)"
+        >
+          <svg lucideX [size]="12" />
+        </button>
+      </span>
+    }
+  </div>
+}

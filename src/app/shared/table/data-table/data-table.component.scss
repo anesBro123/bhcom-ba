@@ -18,6 +18,49 @@
   overflow: hidden;
 }
 
+.data-table-filters {
+  border-bottom: 1px solid var(--border-table);
+}
+
+.data-table-filters--active .data-table-filters__header {
+  border-left: 3px solid var(--border-table-filter, var(--border-table));
+  padding-left: calc(var(--table-card-padding-x) - 3px);
+}
+
+.data-table-filters__active-count {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.data-table-filters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem var(--table-card-padding-x);
+}
+
+.data-table-filters__toggle,
+.data-table-filters__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2rem;
+  padding: 0 0.625rem;
+  border: 1px solid var(--border-table-filter, var(--border-table));
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--bg-active);
+    color: var(--text-primary);
+  }
+}
+
 .data-table-card__state {
   padding: 2rem var(--table-card-padding-x);
   text-align: center;
@@ -118,6 +161,22 @@
   color: var(--text-muted);
 }
 
+.data-table__empty-clear {
+  display: inline;
+  margin-left: 0.375rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-size: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
 .data-table-cards {
   display: flex;
   flex-direction: column;
@@ -155,11 +214,24 @@
   color: var(--text-muted);
   font-size: 0.9375rem;
   list-style: none;
+
+  .data-table__empty-clear {
+    display: block;
+    margin: 0.5rem auto 0;
+  }
 }
 
 @include below-md {
   .data-table-card__state {
     padding: 1.5rem var(--table-card-padding-x-mobile);
+  }
+
+  .data-table-filters__header {
+    padding: 0.75rem var(--table-card-padding-x-mobile);
+  }
+
+  .data-table-filters--active .data-table-filters__header {
+    padding-left: calc(var(--table-card-padding-x-mobile) - 3px);
   }
 
   .data-table th,

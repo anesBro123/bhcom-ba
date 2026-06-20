@@ -32,7 +32,8 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.sidebar.*` | Portal sidebar chrome |
 | `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), leave-form discard dialog (`discardChanges.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
-| `shared.table.common.*` | Table loading, empty, pagination, row actions |
+| `shared.table.common.*` | Table loading, empty, emptyFiltered, pagination, row actions |
+| `shared.table.filters.*` | Filter panel toggle, chips, multi-select, sliders, units (`kg`, `m²`) |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
@@ -40,6 +41,8 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user routes/cargo/storage); per-entity keys later under `portal.*.features.<entity>.status.*` |
 
 Table **merged period** column headers: `portal.user.features.routes.table.columns.period`, `portal.user.features.storage.table.columns.period` (distinct from form field keys like `transportStartDate`).
+
+Table **filter labels**: `portal.user.features.<entity>.table.filters.*`; section groups: `…table.filterGroups.{route|attributes|dates|location}`.
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 ### Guest (`guest.*`)

@@ -6,7 +6,7 @@ export interface CargoFormModel {
   origin: string;
   destination: string;
   neededByDate: string;
-  size: string;
+  size: number | null;
   weightKg: number | null;
   cargoType: CargoType;
   description: string;

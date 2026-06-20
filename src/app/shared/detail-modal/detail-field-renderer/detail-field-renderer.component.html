@@ -13,7 +13,12 @@
     <span class="detail-field__value">
       @if (numberValue(asTextField().key)) {
         {{ numberValue(asTextField().key) }}
-        @if (asTextField().suffixKey) {
+        @if (asTextField().suffixKeyFn; as suffixFn) {
+          @let suffixKey = suffixFn(data());
+          @if (suffixKey) {
+            <span class="detail-field__suffix">{{ suffixKey | translate }}</span>
+          }
+        } @else if (asTextField().suffixKey) {
           <span class="detail-field__suffix">{{ asTextField().suffixKey | translate }}</span>
         }
       } @else {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, of } from 'rxjs';
 
+import type { VehicleType } from '../../../shared/constants/vehicle-type';
 import type { SelectOption } from '../../../shared/form/form.types';
 
 import { COMPANY_VEHICLE_MOCK_DATA } from './company-vehicle.mock-data';
@@ -25,13 +26,17 @@ export class CompanyVehicleService {
     );
   }
 
-  getDisplay(id: string): { plate: string; name: string } {
+  getDisplay(id: string): { plate: string; name: string; vehicleType: VehicleType } {
     const vehicle = this.store.find((item) => item.id === id);
     if (!vehicle) {
-      return { plate: id, name: id };
+      return { plate: id, name: id, vehicleType: 'teretno' };
     }
 
-    return { plate: vehicle.plate, name: `${vehicle.make} ${vehicle.model}`.trim() };
+    return {
+      plate: vehicle.plate,
+      name: `${vehicle.make} ${vehicle.model}`.trim(),
+      vehicleType: vehicle.vehicleType,
+    };
   }
 
   getLabel(id: string): string {

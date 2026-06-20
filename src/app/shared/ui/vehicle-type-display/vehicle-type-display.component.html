@@ -1,0 +1,18 @@
+<span
+  class="vehicle-type-display"
+  [attr.aria-label]="labelKey(vehicleType()) | translate"
+>
+  <span class="vehicle-type-display__icon" aria-hidden="true">
+    @switch (vehicleType()) {
+      @case ('putnicko') { <svg lucideCar [size]="18" /> }
+      @case ('teretno') { <svg lucideTruck [size]="18" /> }
+      @case ('motocikl') { <svg lucideBike [size]="18" /> }
+      @case ('autobus') { <svg lucideBus [size]="18" /> }
+      @case ('prikljucno') { <svg lucideCaravan [size]="18" /> }
+      @case ('radno') { <svg lucideTractor [size]="18" /> }
+    }
+  </span>
+  @if (showLabel()) {
+    <span class="vehicle-type-display__label">{{ labelKey(vehicleType()) | translate }}</span>
+  }
+</span>

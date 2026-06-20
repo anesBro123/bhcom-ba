@@ -3,11 +3,64 @@
 
   <div class="data-table-card">
     @if (hasFilters()) {
-      <app-table-filter-bar
-        [filters]="definition().filters!"
-        [values]="tableStore.query().filters"
-        (filterChange)="onFilterChange($event)"
-      />
+      <div
+        class="data-table-filters"
+        [class.data-table-filters--collapsed]="!filtersPanelExpanded()"
+        [class.data-table-filters--active]="!filtersPanelExpanded() && tableStore.hasActiveFilters()"
+      >
+        <div class="data-table-filters__header">
+          <button
+            type="button"
+            class="data-table-filters__toggle"
+            [attr.aria-expanded]="filtersPanelExpanded()"
+            [attr.aria-label]="
+              (filtersPanelExpanded()
+                ? 'shared.table.filters.toggleCollapse'
+                : 'shared.table.filters.toggleExpand'
+              ) | translate
+            "
+            (click)="toggleFilterPanel()"
+          >
+            <svg lucideListFilter [size]="16" />
+            <span>{{ 'shared.table.filters.toggle' | translate }}</span>
+            @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
+              <span class="data-table-filters__active-count">
+                {{ 'shared.table.filters.activeCount' | translate: { count: activeFilterCount() } }}
+              </span>
+            }
+            @if (filtersPanelExpanded()) {
+              <svg lucideChevronUp [size]="16" />
+            } @else {
+              <svg lucideChevronDown [size]="16" />
+            }
+          </button>
+
+          @if (tableStore.hasActiveFilters()) {
+            <button type="button" class="data-table-filters__clear" (click)="onClearFilters()">
+              <svg lucideX [size]="14" />
+              {{ 'shared.table.filters.clearAll' | translate }}
+            </button>
+          }
+        </div>
+
+        @if (filtersPanelExpanded()) {
+          <app-table-filter-bar
+            [filters]="definition().filters!"
+            [values]="tableStore.query().filters"
+            [closeDropdownsToken]="closeFilterDropdownsToken()"
+            (filterChange)="onFilterChange($event)"
+          />
+        }
+
+        @if (showFilterChips() && tableStore.hasActiveFilters()) {
+          <app-table-filter-chips
+            [filters]="definition().filters!"
+            [values]="tableStore.query().filters"
+            [padTop]="!filtersPanelExpanded()"
+            (chipRemove)="onChipRemove($event)"
+          />
+        }
+      </div>
     }
 
     @if (tableStore.loading()) {
@@ -71,7 +124,14 @@
           </li>
         } @empty {
           <li class="data-table-row-card__empty">
-            {{ 'shared.table.common.empty' | translate }}
+            @if (tableStore.hasActiveFilters()) {
+              <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
+              <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
+                {{ 'shared.table.filters.clearAll' | translate }}
+              </button>
+            } @else {
+              {{ 'shared.table.common.empty' | translate }}
+            }
           </li>
         }
       </ul>
@@ -173,7 +233,14 @@
                     (hasActions() ? 1 : 0)
                   "
                 >
-                  {{ 'shared.table.common.empty' | translate }}
+                  @if (tableStore.hasActiveFilters()) {
+                    <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
+                    <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
+                      {{ 'shared.table.filters.clearAll' | translate }}
+                    </button>
+                  } @else {
+                    {{ 'shared.table.common.empty' | translate }}
+                  }
                 </td>
               </tr>
             }

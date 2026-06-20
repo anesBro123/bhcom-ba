@@ -1,11 +1,4 @@
-export const VRSTA_VOZILA_OPTIONS = [
-  { value: 'putnicko', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.putnicko' },
-  { value: 'teretno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.teretno' },
-  { value: 'motocikl', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.motocikl' },
-  { value: 'autobus', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.autobus' },
-  { value: 'prikljucno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.prikljucno' },
-  { value: 'radno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.radno' },
-] as const;
+export { VEHICLE_TYPE_OPTIONS } from '../../../../../shared/constants/vehicle-type';
 
 export const VRSTA_GORIVA_OPTIONS = [
   { value: 'benzin', labelKey: 'portal.admin.features.vehicles.form.vrstaGoriva.benzin' },

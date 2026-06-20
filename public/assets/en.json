@@ -64,12 +64,33 @@
       "common": {
         "loading": "Loading...",
         "empty": "No records found.",
+        "emptyFiltered": "No records match your filters.",
         "loadError": "Unable to load table data.",
         "previous": "Previous",
         "next": "Next",
         "showingSummary": "Showing {{from}} to {{to}} of {{total}} {{entity}}",
         "actions": "Row actions",
         "actionsMenu": "Actions"
+      },
+      "filters": {
+        "clearAll": "Clear filters",
+        "from": "From",
+        "to": "To",
+        "anyRange": "Any – Any",
+        "activeCount": "{{count}} active",
+        "selectedSection": "Selected",
+        "selectedCount": "{{count}} selected",
+        "searchOptions": "Search options...",
+        "noOptions": "No options found",
+        "clearSelection": "Clear selection",
+        "removeChip": "Remove filter",
+        "toggle": "Filters",
+        "toggleExpand": "Show filters",
+        "toggleCollapse": "Hide filters",
+        "units": {
+          "kg": "kg",
+          "m2": "m²"
+        }
       }
     },
     "confirm": {
@@ -102,6 +123,14 @@
       "inProgress": "In Progress",
       "canceled": "Canceled",
       "closed": "Closed"
+    },
+    "vehicleType": {
+      "putnicko": "Passenger",
+      "teretno": "Cargo",
+      "motocikl": "Motorcycle",
+      "autobus": "Bus",
+      "prikljucno": "Trailer",
+      "radno": "Work vehicle"
     }
   },
   "guest": {
@@ -457,7 +486,7 @@
               "tipVozila": "Vehicle Type (D.2)",
               "komercijalnaOznaka": "Commercial Name / Model (D.3)",
               "brojSasije": "Chassis Number (E)",
-              "vrstaVozila": "Vehicle Category (J)",
+              "vehicleType": "Vehicle Category (J)",
               "boja": "Vehicle Color (R)",
               "najvecaDozvoljenaMasa": "Maximum Permitted Mass (F.1)",
               "masaVozila": "Vehicle Mass (G)",
@@ -491,7 +520,7 @@
               "tipVozila": "Exact variant per technical docs",
               "komercijalnaOznaka": "e.g. Sprinter",
               "brojSasije": "17-character VIN",
-              "vrstaVozila": "Select category",
+              "vehicleType": "Select category",
               "boja": "Official registered color",
               "najvecaDozvoljenaMasa": "kg",
               "masaVozila": "Empty mass in kg",
@@ -536,7 +565,7 @@
               "marka": "Make",
               "komercijalnaOznaka": "Model",
               "brojSasije": "Chassis Number",
-              "vrstaVozila": "Vehicle Category",
+              "vehicleType": "Vehicle Category",
               "vazenjeRegistracije": "Registration Valid Until"
             },
             "actions": {
@@ -550,8 +579,8 @@
             "filters": {
               "search": "Search",
               "searchPlaceholder": "Search by plate, VIN, make, model...",
-              "vrstaVozila": "Vehicle Category",
-              "allVrste": "All categories"
+              "vehicleType": "Vehicle Category",
+              "allTypes": "All categories"
             }
           }
         },
@@ -753,11 +782,11 @@
         },
         "allRoutes": {
           "title": "All Routes",
-          "subtitle": "Browse routes published by other companies and send transport requests."
+          "subtitle": "Filter and browse routes published by other companies, then send transport requests."
         },
         "myRoutes": {
           "title": "My Routes",
-          "subtitle": "Manage your company's published routes — view, edit, or remove listings."
+          "subtitle": "Filter and manage your company's published routes — view, edit, or remove listings."
         },
         "createRoute": {
           "title": "Post Route",
@@ -773,11 +802,11 @@
         },
         "allCargo": {
           "title": "All Cargo",
-          "subtitle": "Browse cargo published by other companies and send transport requests."
+          "subtitle": "Filter and browse cargo published by other companies, then send transport requests."
         },
         "myCargo": {
           "title": "My Cargo",
-          "subtitle": "Manage your company's published cargo — view, edit, or remove listings."
+          "subtitle": "Filter and manage your company's published cargo — view, edit, or remove listings."
         },
         "createCargo": {
           "title": "Post Cargo",
@@ -793,11 +822,11 @@
         },
         "allStorage": {
           "title": "All Storage",
-          "subtitle": "Browse warehouse space published by other companies and send rental requests."
+          "subtitle": "Filter and browse warehouse space published by other companies, then send rental requests."
         },
         "myStorage": {
           "title": "My Storage",
-          "subtitle": "Manage your company's published warehouse space — view, edit, or remove listings."
+          "subtitle": "Filter and manage your company's published warehouse space — view, edit, or remove listings."
         },
         "createStorage": {
           "title": "Post Storage",
@@ -900,6 +929,7 @@
               "route": "Route",
               "status": "Status",
               "vehicle": "Vehicle",
+              "vehicleType": "Vehicle Type",
               "period": "Period",
               "transportStartDate": "Start Date",
               "transportEndDate": "End Date",
@@ -912,8 +942,22 @@
               "delete": "Delete"
             },
             "filters": {
+              "origin": "Origin",
+              "allOrigins": "All origins",
+              "destination": "Destination",
+              "allDestinations": "All destinations",
+              "status": "Status",
+              "allStatuses": "All statuses",
+              "vehicleType": "Vehicle type",
+              "allVehicleTypes": "All vehicle types",
+              "period": "Transport period",
               "search": "Search",
-              "searchPlaceholder": "Search routes, vehicles, descriptions..."
+              "searchPlaceholder": "Search vehicles, descriptions..."
+            },
+            "filterGroups": {
+              "route": "Route",
+              "attributes": "Attributes",
+              "dates": "Dates"
             },
             "deleteConfirm": {
               "title": "Delete route?",
@@ -958,16 +1002,27 @@
               "size": "Size",
               "weightKg": "Weight (kg)",
               "cargoType": "Cargo Type",
-              "description": "Description"
+              "description": "Description",
+              "sizeWithUnit": {
+                "pallets": "Size (pallets)",
+                "m3": "Size (m³)",
+                "units": "Size (units)"
+              }
             },
             "placeholders": {
               "origin": "Enter pickup location",
               "destination": "Enter delivery location",
               "neededByDate": "Select needed-by date",
-              "size": "e.g. 4 pallets, 12 m³",
+              "size": "Enter quantity",
               "weightKg": "Enter total weight in kg",
               "cargoType": "Select cargo type",
               "description": "Optional handling instructions or notes..."
+            },
+            "sizeUnits": {
+              "pallets": "pallets",
+              "m3": "m³",
+              "units": "units",
+              "unit": "unit"
             },
             "cargoTypes": {
               "pallet": "Pallet",
@@ -998,10 +1053,25 @@
               "delete": "Delete"
             },
             "filters": {
+              "origin": "Origin",
+              "allOrigins": "All origins",
+              "destination": "Destination",
+              "allDestinations": "All destinations",
+              "status": "Status",
+              "allStatuses": "All statuses",
+              "cargoType": "Cargo type",
+              "allTypes": "All types",
+              "size": "Size",
+              "weightKg": "Weight (kg)",
+              "weightChip": "Weight",
+              "neededByDate": "Needed by",
               "search": "Search",
-              "searchPlaceholder": "Search routes, sizes, descriptions...",
-              "cargoType": "Cargo Type",
-              "allTypes": "All types"
+              "searchPlaceholder": "Search descriptions..."
+            },
+            "filterGroups": {
+              "route": "Route",
+              "attributes": "Attributes",
+              "dates": "Dates"
             },
             "deleteConfirm": {
               "title": "Delete cargo?",
@@ -1076,8 +1146,19 @@
               "delete": "Delete"
             },
             "filters": {
+              "city": "City",
+              "allCities": "All cities",
+              "status": "Status",
+              "allStatuses": "All statuses",
+              "availabilityPeriod": "Availability period",
+              "spaceM2": "Space (m²)",
               "search": "Search",
-              "searchPlaceholder": "Search warehouses, descriptions..."
+              "searchPlaceholder": "Search descriptions..."
+            },
+            "filterGroups": {
+              "location": "Location",
+              "attributes": "Attributes",
+              "dates": "Dates"
             },
             "deleteConfirm": {
               "title": "Delete storage?",

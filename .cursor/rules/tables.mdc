@@ -6,6 +6,8 @@ alwaysApply: false
 
 # Tables (`src/app/shared/table`)
 
+**Advanced filtering:** see `table-filters.mdc` for filter defs, panel/chips UX, persistence, and per-page `*-table-filters.ts` wiring.
+
 1. Row type in `*.model.ts`.
 2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.
 3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells.

@@ -1,0 +1,20 @@
+<label class="table-filter-date-range">
+  <span class="table-filter-date-range__label">{{ titleKey() | translate }}</span>
+  <span class="table-filter-date-range__inputs">
+    <input
+      type="date"
+      class="table-filter-date-range__input"
+      [attr.aria-label]="'shared.table.filters.from' | translate"
+      [value]="value().from ?? ''"
+      (change)="onFromChange($any($event.target).value)"
+    />
+    <span class="table-filter-date-range__sep">{{ 'shared.table.filters.to' | translate }}</span>
+    <input
+      type="date"
+      class="table-filter-date-range__input"
+      [attr.aria-label]="'shared.table.filters.to' | translate"
+      [value]="value().to ?? ''"
+      (change)="onToChange($any($event.target).value)"
+    />
+  </span>
+</label>

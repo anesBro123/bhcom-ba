@@ -1,6 +1,9 @@
 import { computed, signal, type WritableSignal } from '@angular/core';
 
-import type { SortDirection, TableDefinition, TableQuery } from './table.types';
+import { countActiveFilters, isActiveFilterValueForDef } from './apply-table-filters';
+import { clearStoredFilters, loadStoredFilters, saveStoredFilters } from './table-filter-storage';
+import { sanitizeNumberRangeValue } from './number-range-filter.utils';
+import type { NumberRangeFilterValue, SortDirection, TableDefinition, TableQuery } from './table.types';
 
 export class TableStore<T> {
   readonly query: WritableSignal<TableQuery>;
@@ -9,6 +12,10 @@ export class TableStore<T> {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly selectedIds = signal<Set<string>>(new Set());
+
+  readonly hasActiveFilters = computed(
+    () => countActiveFilters(this.query().filters, this.definition.filters) > 0,
+  );
 
   readonly allSelected = computed(() => {
     const rows = this.rows();
@@ -22,7 +29,10 @@ export class TableStore<T> {
     return rows.some((row) => selected.has(this.getRowId(row))) && !this.allSelected();
   });
 
+  private readonly filterStorageKey: string | undefined;
+
   constructor(private readonly definition: TableDefinition<T>) {
+    this.filterStorageKey = definition.filterStorageKey;
     this.query = signal(this.createInitialQuery());
   }
 
@@ -59,14 +69,28 @@ export class TableStore<T> {
   }
 
   setFilter(key: string, value: unknown): void {
-    this.query.update((query) => ({
-      ...query,
-      filters: { ...query.filters, [key]: value || undefined },
-      page: 1,
-    }));
+    const filterDef = this.definition.filters?.find((filter) => filter.key === key);
+
+    this.query.update((query) => {
+      const normalized = isActiveFilterValueForDef(filterDef, value) ? value : undefined;
+      const nextFilters = { ...query.filters, [key]: normalized };
+      if (normalized === undefined) {
+        delete nextFilters[key];
+      }
+      this.persistFilters(nextFilters);
+      return {
+        ...query,
+        filters: nextFilters,
+        page: 1,
+      };
+    });
   }
 
   clearFilters(): void {
+    if (this.filterStorageKey) {
+      clearStoredFilters(this.filterStorageKey);
+    }
+
     this.query.update((query) => ({ ...query, filters: {}, page: 1 }));
   }
 
@@ -126,13 +150,49 @@ export class TableStore<T> {
   }
 
   private createInitialQuery(): TableQuery {
+    const storedFilters = this.filterStorageKey
+      ? this.sanitizeStoredFilters(loadStoredFilters(this.filterStorageKey))
+      : {};
+
     return {
       page: 1,
       pageSize: this.definition.defaultPageSize ?? 25,
       sortField: this.definition.defaultSort?.field ?? null,
       sortDirection: this.definition.defaultSort?.direction ?? null,
-      filters: {},
+      filters: storedFilters,
     };
+  }
+
+  private persistFilters(filters: Record<string, unknown>): void {
+    if (!this.filterStorageKey) {
+      return;
+    }
+
+    saveStoredFilters(this.filterStorageKey, filters);
+  }
+
+  private sanitizeStoredFilters(filters: Record<string, unknown>): Record<string, unknown> {
+    const result = { ...filters };
+
+    for (const filter of this.definition.filters ?? []) {
+      if (filter.type !== 'numberRange' || !(filter.key in result)) {
+        continue;
+      }
+
+      const cleaned = sanitizeNumberRangeValue(
+        result[filter.key] as NumberRangeFilterValue,
+        filter.min,
+        filter.max,
+      );
+
+      if (Object.keys(cleaned).length === 0) {
+        delete result[filter.key];
+      } else {
+        result[filter.key] = cleaned;
+      }
+    }
+
+    return result;
   }
 
   private pruneSelection(rows: T[]): void {

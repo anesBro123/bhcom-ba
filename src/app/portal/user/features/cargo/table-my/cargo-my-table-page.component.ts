@@ -12,6 +12,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
+import { CargoSizeDisplayComponent } from '../ui/cargo-size-display/cargo-size-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -28,6 +29,7 @@ import {
   cargoMyNeededByDateCellKey,
   cargoMyRouteCellKey,
   cargoMyStatusCellKey,
+  cargoMySizeCellKey,
   cargoMyTypeCellKey,
 } from './cargo-my.table';
 
@@ -40,6 +42,7 @@ import {
     RouteDisplayComponent,
     DateRangeDisplayComponent,
     StatusBadgeComponent,
+    CargoSizeDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -61,6 +64,7 @@ export class CargoMyTablePageComponent {
   protected readonly routeKey = cargoMyRouteCellKey;
   protected readonly statusKey = cargoMyStatusCellKey;
   protected readonly cargoTypeKey = cargoMyTypeCellKey;
+  protected readonly sizeKey = cargoMySizeCellKey;
   protected readonly neededByDateKey = cargoMyNeededByDateCellKey;
   protected readonly tableMounted = signal(true);
 

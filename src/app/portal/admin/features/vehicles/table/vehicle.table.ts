@@ -1,6 +1,7 @@
 import { LucidePencil, LucideTrash } from '@lucide/angular';
 
 import { defineTable } from '../../../../../shared/table';
+import { VEHICLE_TYPE_OPTIONS } from '../../../../../shared/constants/vehicle-type';
 
 import type { Vehicle } from '../data/vehicle.model';
 import { ADMIN_VEHICLES_API } from '../data/vehicle.constants';
@@ -39,8 +40,8 @@ export const VehicleTable = defineTable<Vehicle>()({
       width: '180px',
     },
     {
-      key: 'vrstaVozila',
-      titleKey: 'portal.admin.features.vehicles.table.columns.vrstaVozila',
+      key: 'vehicleType',
+      titleKey: 'portal.admin.features.vehicles.table.columns.vehicleType',
       sortable: true,
       cell: 'custom',
     },
@@ -73,18 +74,11 @@ export const VehicleTable = defineTable<Vehicle>()({
       searchFields: ['registarskaOznaka', 'brojSasije', 'marka', 'komercijalnaOznaka'],
     },
     {
-      key: 'vrstaVozila',
+      key: 'vehicleType',
       type: 'select',
-      titleKey: 'portal.admin.features.vehicles.table.filters.vrstaVozila',
-      placeholderKey: 'portal.admin.features.vehicles.table.filters.allVrste',
-      options: [
-        { value: 'putnicko', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.putnicko' },
-        { value: 'teretno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.teretno' },
-        { value: 'motocikl', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.motocikl' },
-        { value: 'autobus', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.autobus' },
-        { value: 'prikljucno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.prikljucno' },
-        { value: 'radno', labelKey: 'portal.admin.features.vehicles.form.vrstaVozila.radno' },
-      ],
+      titleKey: 'portal.admin.features.vehicles.table.filters.vehicleType',
+      placeholderKey: 'portal.admin.features.vehicles.table.filters.allTypes',
+      options: [...VEHICLE_TYPE_OPTIONS],
     },
   ],
 });

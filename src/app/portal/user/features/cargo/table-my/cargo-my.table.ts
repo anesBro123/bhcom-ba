@@ -2,7 +2,11 @@ import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
 import { defineTable, tableCellKey } from '../../../../../shared/table';
 
-import { USER_CARGO_API, CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
+import { USER_CARGO_API } from '../data/cargo.constants';
+import {
+  CARGO_MY_FILTER_STORAGE_KEY,
+  CARGO_TABLE_FILTERS,
+} from '../data/cargo-table-filters';
 import type { Cargo } from '../data/cargo.model';
 
 export const CargoMyTable = defineTable<Cargo>()({
@@ -12,6 +16,7 @@ export const CargoMyTable = defineTable<Cargo>()({
   defaultPageSize: 10,
   defaultSort: { field: 'neededByDate', direction: 'desc' },
   trackBy: 'id',
+  filterStorageKey: CARGO_MY_FILTER_STORAGE_KEY,
   columns: [
     {
       key: 'origin',
@@ -38,6 +43,7 @@ export const CargoMyTable = defineTable<Cargo>()({
       key: 'size',
       titleKey: 'portal.user.features.cargo.table.columns.size',
       sortable: true,
+      cell: 'custom',
     },
     {
       key: 'weightKg',
@@ -69,26 +75,11 @@ export const CargoMyTable = defineTable<Cargo>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'origin',
-      type: 'search',
-      titleKey: 'portal.user.features.cargo.table.filters.search',
-      placeholderKey: 'portal.user.features.cargo.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['origin', 'destination', 'size', 'description'],
-    },
-    {
-      key: 'cargoType',
-      type: 'select',
-      titleKey: 'portal.user.features.cargo.table.filters.cargoType',
-      placeholderKey: 'portal.user.features.cargo.table.filters.allTypes',
-      options: [...CARGO_TYPE_OPTIONS],
-    },
-  ],
+  filters: CARGO_TABLE_FILTERS,
 });
 
 export const cargoMyTypeCellKey = tableCellKey(CargoMyTable, 'cargoType');
 export const cargoMyRouteCellKey = tableCellKey(CargoMyTable, 'origin');
 export const cargoMyStatusCellKey = tableCellKey(CargoMyTable, 'status');
+export const cargoMySizeCellKey = tableCellKey(CargoMyTable, 'size');
 export const cargoMyNeededByDateCellKey = tableCellKey(CargoMyTable, 'neededByDate');

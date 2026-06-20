@@ -1,0 +1,70 @@
+<label class="table-filter-number-range">
+  <span class="table-filter-number-range__label">{{ titleKey() | translate }}</span>
+
+  <span
+    class="table-filter-number-range__summary"
+    [class.table-filter-number-range__summary--placeholder]="!isFiltering()"
+  >{{ rangeSummary() }}</span>
+
+  <div
+    class="table-filter-number-range__track"
+    [class.table-filter-number-range__track--inactive]="!isFiltering()"
+  >
+    <div class="table-filter-number-range__track-bg" aria-hidden="true"></div>
+    <div
+      class="table-filter-number-range__track-fill"
+      aria-hidden="true"
+      [style.left.%]="fillLeftPercent()"
+      [style.width.%]="fillWidthPercent()"
+    ></div>
+
+    @if (showMinTooltip()) {
+      <span
+        class="table-filter-number-range__tooltip"
+        aria-hidden="true"
+        [style.left.%]="fillLeftPercent()"
+      >
+        {{ tooltipValue(currentMin()) }}
+      </span>
+    }
+
+    @if (showMaxTooltip()) {
+      <span
+        class="table-filter-number-range__tooltip"
+        aria-hidden="true"
+        [style.left.%]="maxThumbPercent()"
+      >
+        {{ tooltipValue(currentMax()) }}
+      </span>
+    }
+
+    <input
+      type="range"
+      class="table-filter-number-range__thumb table-filter-number-range__thumb--min"
+      [attr.aria-label]="'shared.table.filters.from' | translate"
+      [attr.aria-valuetext]="formatValue(currentMin())"
+      [min]="min()"
+      [max]="max()"
+      [step]="step()"
+      [value]="currentMin()"
+      (pointerdown)="onMinPointerDown()"
+      (mouseenter)="onMinEnter()"
+      (mouseleave)="onMinLeave()"
+      (input)="onMinSlider($any($event.target).value)"
+    />
+    <input
+      type="range"
+      class="table-filter-number-range__thumb table-filter-number-range__thumb--max"
+      [attr.aria-label]="'shared.table.filters.to' | translate"
+      [attr.aria-valuetext]="formatValue(currentMax())"
+      [min]="min()"
+      [max]="max()"
+      [step]="step()"
+      [value]="currentMax()"
+      (pointerdown)="onMaxPointerDown()"
+      (mouseenter)="onMaxEnter()"
+      (mouseleave)="onMaxLeave()"
+      (input)="onMaxSlider($any($event.target).value)"
+    />
+  </div>
+</label>

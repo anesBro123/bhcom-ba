@@ -3,12 +3,13 @@ import { delay, Observable, of, throwError } from 'rxjs';
 
 import { AuthService } from '../../../../../shared/core/auth/auth.service';
 import { belongsToCompany, isExternalToCompany } from '../../../../../shared/constants/user-list-scope';
-import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { applyTableFilters } from '../../../../../shared/table/apply-table-filters';
+import type { PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { CompanyVehicleService } from '../../../data/company-vehicle.service';
 
+import { ROUTE_TABLE_FILTERS } from './route-table-filters';
 import { ROUTE_MOCK_DATA } from './route.mock-data';
 import type { Route, RouteFormModel } from './route.model';
-import { RouteAllTable } from '../table-all/route-all.table';
-import { RouteMyTable } from '../table-my/route-my.table';
 
 export interface RouteCreatePayload extends RouteFormModel {
   vehiclePlate: string;
@@ -18,22 +19,19 @@ export interface RouteCreatePayload extends RouteFormModel {
 @Injectable({ providedIn: 'root' })
 export class UserRouteService {
   private readonly authService = inject(AuthService);
+  private readonly companyVehicleService = inject(CompanyVehicleService);
   private readonly store: Route[] = structuredClone(ROUTE_MOCK_DATA);
 
   listMine(query: TableQuery): Observable<PaginatedResponse<Route>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => belongsToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, RouteMyTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   listAll(query: TableQuery): Observable<PaginatedResponse<Route>> {
     const companyId = this.authService.user()!.companyId;
     const scoped = this.store.filter((item) => isExternalToCompany(item, companyId));
-    return of(this.paginate(this.applyQuery([...scoped], query, RouteAllTable.filters), query)).pipe(
-      delay(200),
-    );
+    return of(this.paginate(this.applyQuery([...scoped], query), query)).pipe(delay(200));
   }
 
   getById(id: string): Observable<Route> {
@@ -47,6 +45,7 @@ export class UserRouteService {
 
   create(payload: RouteCreatePayload): Observable<Route> {
     const user = this.authService.user()!;
+    const display = this.companyVehicleService.getDisplay(payload.vehicleId);
     const item: Route = {
       id: crypto.randomUUID(),
       publishedAt: new Date().toISOString(),
@@ -54,6 +53,9 @@ export class UserRouteService {
       companyId: user.companyId,
       publisherId: user.id,
       ...payload,
+      vehiclePlate: display.plate,
+      vehicleName: display.name,
+      vehicleType: display.vehicleType,
     };
     this.store.unshift(item);
     return of(structuredClone(item)).pipe(delay(250));
@@ -65,9 +67,13 @@ export class UserRouteService {
       return throwError(() => new Error(`Route not found: ${id}`)).pipe(delay(150));
     }
 
+    const display = this.companyVehicleService.getDisplay(payload.vehicleId);
     const updated: Route = {
       ...this.store[index],
       ...payload,
+      vehiclePlate: display.plate,
+      vehicleName: display.name,
+      vehicleType: display.vehicleType,
     };
     this.store[index] = updated;
     return of(structuredClone(updated)).pipe(delay(250));
@@ -83,37 +89,11 @@ export class UserRouteService {
     return of(undefined).pipe(delay(200));
   }
 
-  private applyQuery(
-    items: Route[],
-    query: TableQuery,
-    filters: FilterDef<Route>[] | undefined,
-  ): Route[] {
-    let result = items;
-
-    for (const [key, value] of Object.entries(query.filters)) {
-      if (value === null || value === undefined || value === '') {
-        continue;
-      }
-
-      const filterDef = filters?.find((filter) => filter.key === key);
-      result = result.filter((item) => {
-        const record = item as unknown as Record<string, unknown>;
-
-        if (filterDef?.type === 'search') {
-          const fields = filterDef.searchFields ?? [filterDef.key];
-          const needle = String(value).toLowerCase();
-          return fields.some((field) => {
-            const fieldValue = record[field];
-            return fieldValue !== null && String(fieldValue).toLowerCase().includes(needle);
-          });
-        }
-
-        return String(record[key]) === String(value);
-      });
-    }
+  private applyQuery(items: Route[], query: TableQuery): Route[] {
+    let result = applyTableFilters(items, query, ROUTE_TABLE_FILTERS);
 
     if (query.sortField && query.sortDirection) {
-      result.sort((left, right) => {
+      result = [...result].sort((left, right) => {
         const leftRecord = left as unknown as Record<string, unknown>;
         const rightRecord = right as unknown as Record<string, unknown>;
         return compareValues(

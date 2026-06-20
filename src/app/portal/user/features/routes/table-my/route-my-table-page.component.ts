@@ -15,6 +15,7 @@ import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-d
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
+import { VehicleTypeDisplayComponent } from '../../../../../shared/ui/vehicle-type-display/vehicle-type-display.component';
 import {
   DataTableComponent,
   TableCellTemplateDirective,
@@ -32,6 +33,7 @@ import {
   routeMyPeriodCellKey,
   routeMyStatusCellKey,
   routeMyVehicleCellKey,
+  routeMyVehicleTypeCellKey,
 } from './route-my.table';
 
 @Component({
@@ -43,6 +45,7 @@ import {
     DateRangeDisplayComponent,
     StatusBadgeComponent,
     VehicleDisplayComponent,
+    VehicleTypeDisplayComponent,
     PageHeaderComponent,
     PageTitleComponent,
     PrimaryActionLinkComponent,
@@ -64,6 +67,7 @@ export class RouteMyTablePageComponent {
   protected readonly routeKey = routeMyCellKey;
   protected readonly statusKey = routeMyStatusCellKey;
   protected readonly vehicleKey = routeMyVehicleCellKey;
+  protected readonly vehicleTypeKey = routeMyVehicleTypeCellKey;
   protected readonly periodKey = routeMyPeriodCellKey;
   protected readonly tableMounted = signal(true);
 

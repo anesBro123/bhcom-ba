@@ -11,7 +11,7 @@ import {
 
 import { defineForm } from '../../../../../shared/form';
 
-import { VRSTA_GORIVA_OPTIONS, VRSTA_VOZILA_OPTIONS } from '../data/vehicle.constants';
+import { VRSTA_GORIVA_OPTIONS, VEHICLE_TYPE_OPTIONS } from '../data/vehicle.constants';
 import type { VehicleFormModel } from '../data/vehicle.model';
 
 export const AdminVehicleForm = defineForm<VehicleFormModel>()({
@@ -184,12 +184,12 @@ export const AdminVehicleForm = defineForm<VehicleFormModel>()({
               colSpan: 2,
             },
             {
-              key: 'vrstaVozila',
+              key: 'vehicleType',
               type: 'select',
-              labelKey: 'portal.admin.features.vehicles.form.fields.vrstaVozila',
-              placeholderKey: 'portal.admin.features.vehicles.form.placeholders.vrstaVozila',
+              labelKey: 'portal.admin.features.vehicles.form.fields.vehicleType',
+              placeholderKey: 'portal.admin.features.vehicles.form.placeholders.vehicleType',
               colSpan: 2,
-              options: [...VRSTA_VOZILA_OPTIONS],
+              options: [...VEHICLE_TYPE_OPTIONS],
             },
             {
               key: 'boja',

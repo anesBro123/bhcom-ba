@@ -18,7 +18,15 @@ import {
   signal,
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LucideArrowDown, LucideArrowUp, LucideArrowUpDown } from '@lucide/angular';
+import {
+  LucideArrowDown,
+  LucideArrowUp,
+  LucideArrowUpDown,
+  LucideChevronDown,
+  LucideChevronUp,
+  LucideListFilter,
+  LucideX,
+} from '@lucide/angular';
 import { Subscription } from 'rxjs';
 
 import { bindTableDataSource } from '../table-data-source';
@@ -34,6 +42,13 @@ import type {
 } from '../table.types';
 import { TablePaginationComponent } from '../table-pagination/table-pagination.component';
 import { TableFilterBarComponent } from '../table-filter-bar/table-filter-bar.component';
+import { TableFilterChipsComponent } from '../table-filter-chips/table-filter-chips.component';
+import { countActiveFilters } from '../apply-table-filters';
+import {
+  filterPanelStorageKey,
+  loadFilterPanelExpanded,
+  saveFilterPanelExpanded,
+} from '../table-filter-storage';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
 import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
 import { formatDisplayDate } from '../../utils/format-display-date';
@@ -45,10 +60,15 @@ import { formatDisplayDate } from '../../utils/format-display-date';
     TranslatePipe,
     TablePaginationComponent,
     TableFilterBarComponent,
+    TableFilterChipsComponent,
     TableRowActionsComponent,
     LucideArrowUp,
     LucideArrowDown,
     LucideArrowUpDown,
+    LucideListFilter,
+    LucideChevronUp,
+    LucideChevronDown,
+    LucideX,
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
@@ -71,6 +91,12 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   protected tableStore!: TableStore<T>;
   protected readonly cellTemplateMap = signal(new Map<string, TemplateRef<TableCellContext<T>>>());
   protected readonly isMobileLayout = signal(false);
+  protected readonly filtersPanelExpanded = signal(true);
+  protected readonly closeFilterDropdownsToken = signal(0);
+
+  protected readonly activeFilterCount = computed(() =>
+    countActiveFilters(this.tableStore.query().filters, this.definition().filters),
+  );
 
   protected readonly visibleColumns = computed(() =>
     this.definition().columns.filter((column) => !column.hidden),
@@ -101,7 +127,36 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   }
 
   protected onFilterChange(event: { key: string; value: unknown }): void {
+    const hadActive = this.tableStore.hasActiveFilters();
     this.tableStore.setFilter(event.key, event.value);
+
+    if (!hadActive && this.tableStore.hasActiveFilters() && !this.filtersPanelExpanded()) {
+      this.filtersPanelExpanded.set(true);
+      this.persistFilterPanelExpanded(true);
+    }
+  }
+
+  protected onClearFilters(): void {
+    this.tableStore.clearFilters();
+  }
+
+  protected toggleFilterPanel(): void {
+    this.filtersPanelExpanded.update((expanded) => {
+      const next = !expanded;
+      if (!next) {
+        this.closeFilterDropdownsToken.update((token) => token + 1);
+      }
+      this.persistFilterPanelExpanded(next);
+      return next;
+    });
+  }
+
+  protected onChipRemove(event: { filterKey: string }): void {
+    this.tableStore.setFilter(event.filterKey, undefined);
+  }
+
+  protected showFilterChips(): boolean {
+    return this.definition().showFilterChips ?? true;
   }
 
   protected actionsWidth(): string {
@@ -215,6 +270,7 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     this.dataSubscription?.unsubscribe();
 
     this.tableStore = new TableStore(this.definition());
+    this.hydrateFilterPanelExpanded();
     this.dataSubscription = bindTableDataSource(
       this.tableStore,
       this.definition(),
@@ -236,6 +292,27 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     }
 
     this.cellTemplateMap.set(map);
+  }
+
+  private hydrateFilterPanelExpanded(): void {
+    const storageKey = this.definition().filterStorageKey;
+    if (!storageKey) {
+      this.filtersPanelExpanded.set(true);
+      return;
+    }
+
+    this.filtersPanelExpanded.set(
+      loadFilterPanelExpanded(filterPanelStorageKey(storageKey)),
+    );
+  }
+
+  private persistFilterPanelExpanded(expanded: boolean): void {
+    const storageKey = this.definition().filterStorageKey;
+    if (!storageKey) {
+      return;
+    }
+
+    saveFilterPanelExpanded(filterPanelStorageKey(storageKey), expanded);
   }
 }
 

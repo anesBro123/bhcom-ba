@@ -1,6 +1,6 @@
 import { defineDetail } from '../../../../../shared/detail-modal';
 
-import { CARGO_TYPE_OPTIONS } from '../data/cargo.constants';
+import { CARGO_TYPE_OPTIONS, cargoSizeUnitLabelKey } from '../data/cargo.constants';
 import type { Cargo } from '../data/cargo.model';
 
 export const CargoDetail = defineDetail<Cargo>()({
@@ -22,8 +22,9 @@ export const CargoDetail = defineDetail<Cargo>()({
         },
         {
           key: 'size',
-          type: 'text',
+          type: 'number',
           labelKey: 'portal.user.features.cargo.form.fields.size',
+          suffixKeyFn: (cargo) => cargoSizeUnitLabelKey(cargo.cargoType, cargo.size),
         },
         {
           key: 'weightKg',
