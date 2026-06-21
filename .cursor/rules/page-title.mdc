@@ -1,6 +1,6 @@
 ---
 description: Portal page title — PageTitleComponent
-globs: src/app/portal/**/features/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**,src/app/shared/ui/page-back-link/**
+globs: src/app/portal/**/features/**,src/app/shared/ui/page-title/**,src/app/shared/ui/page-header/**,src/app/shared/ui/primary-action-link/**,src/app/shared/ui/page-back-link/**,src/styles/_page-hub-header.scss
 alwaysApply: false
 ---
 
@@ -50,10 +50,11 @@ Static keys:
 
 ## Page icon (entity)
 
-- **Required** on every portal page — muted Lucide icon left of the `h1`.
+- **Required** on every portal page — Lucide entity icon left of the `h1`, inside a rounded square container.
 - Source: `AdminPageIcons` (`portal/admin/admin-page-icons.ts`) or `UserPageIcons` (`portal/user/user-page-icons.ts`). Nav list items import the same constants — do not duplicate Lucide imports on pages.
 - Use the **entity** icon (e.g. `LucideTruck` for vehicles), **not** `LucideSquarePlus`. Reserve `+` for sidebar create links and `PrimaryActionLinkComponent` only.
 - Same icon on **list, create, and edit** pages for a feature — title copy differentiates the task.
+- Icon size: **20px** inside a **2.25rem** square (`page-title.component.ts` → `iconInputs`).
 
 ```typescript
 import { AdminPageIcons } from '../../../admin-page-icons';
@@ -61,14 +62,76 @@ import { AdminPageIcons } from '../../../admin-page-icons';
 protected readonly pageIcon = AdminPageIcons.vehicles;
 ```
 
+## Visual styling (`page-title.component.scss`)
+
+All page title chrome lives in `shared/ui/page-title/page-title.component.scss` — do not duplicate on feature pages.
+
+**Icon container**
+
+- `2.25rem` square, `0.5rem` radius, `1px` `--border-subtle` border.
+- Background: `--bg-surface` (white in light mode — contrasts with `--bg-app`; subtle tint in dark mode). **Do not** use `--metric-variant-default-bg` on page titles — in light mode it matches `--bg-app` and the container disappears.
+- Icon color: `--metric-variant-default-icon`.
+
+**Typography**
+
+- Title: `1.5rem` / `700`, `line-height: 1.2`, `letter-spacing: -0.02em`; `1.25rem` on mobile.
+- Subtitle: `0.875rem`, `line-height: 1.5`, `--text-muted`, `max-width: 42rem`.
+
+**Spacing**
+
+- Default block margin-bottom: `1.25rem`.
+- Inside `.page-hub-header`: margin-bottom `0` (hub wrapper owns outer spacing) — via `:host-context(.page-hub-header)`.
+
 ## Layout (icon + title rows)
 
 CSS grid inside `PageTitleComponent`:
 
-- **Row 1:** entity icon (col 1) + `h1` title (col 2), vertically centered
-- **Row 2:** subtitle spans full width (`grid-column: 1 / -1`) — left edge aligns with icon, runs under both icon and title
+- **Row 1:** entity icon (col 1) + `h1` title (col 2), **vertically centered** (`align-items: center` on grid; icon box and title share the same row centerline).
+- **Row 2:** subtitle spans full width (`grid-column: 1 / -1`) — left edge aligns with icon, runs under both icon and title (`align-self: start` on subtitle).
 
 Do not nest subtitle under the title column only — keeps subtitle aligned with icon per design.
+
+## `PageHeaderComponent` (title + create CTA row)
+
+| Item | Value |
+|------|-------|
+| Path | `shared/ui/page-header/page-header.component.ts` |
+| Selector | `app-page-header` |
+| Layout | Flex row: projected `app-page-title` (left) + `app-primary-action-link` or `[pageHeaderActions]` (right) |
+| Alignment | `align-items: center` — CTA vertically centered against the full title block (icon + title + subtitle) |
+
+Inside `.page-hub-header`, `PageHeaderComponent` drops its bottom margin — tabs follow in the same header zone. See **User hub header** below.
+
+## User hub header (Find / Our listings)
+
+Find and Our listings group page title (+ optional `PageHeader` on Our listings) and `EntityTabsComponent` in a **`.page-hub-header`** wrapper — shared styles in `src/styles/_page-hub-header.scss`.
+
+Hub page SCSS: `@use 'styles/page-hub-header';`
+
+**Find** — title + tabs only:
+
+```html
+<div class="page-hub-header">
+  <app-page-title … />
+  <app-entity-tabs … />
+</div>
+```
+
+**Our listings** — `PageHeader` (title + tab-specific create CTA) + tabs:
+
+```html
+<div class="page-hub-header">
+  <app-page-header>
+    <app-page-title … />
+    <app-primary-action-link … />
+  </app-page-header>
+  <app-entity-tabs … />
+</div>
+```
+
+Wrapper: `padding-bottom: 1rem`, `border-bottom: 1px solid var(--border-subtle)`, `margin-bottom: 1.25rem` before table content. `EntityTabsComponent` tightens top margin (`0.875rem`) inside the wrapper via `:host-context(.page-hub-header)`.
+
+Reference: `portal/user/features/find/`, `portal/user/features/our-listings/`. See `entity-tabs.mdc`.
 
 ## Subtitle copy (UX)
 
@@ -173,7 +236,9 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - Do not add per-page back/cancel buttons in the form footer — use `PageBackLinkComponent` in the page template instead.
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
-- Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss`.
+- Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss` (+ `styles/_page-hub-header.scss` for hub wrappers only).
+- Use `--metric-variant-default-bg` for page title icon containers — use `--bg-surface` + `--border-subtle` so light mode stays visible on `--bg-app`.
+- Put Find / Our listings title and tabs as siblings without `.page-hub-header` — always wrap per **User hub header** above.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Put `LucideSquarePlus` on page titles — use entity icons from `AdminPageIcons` / `UserPageIcons`; `+` stays on create action links only.
@@ -182,7 +247,9 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 
 - Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
 - Form (create/edit with back link): `portal/admin/features/vehicles/form/vehicle-form-page.component.*`
-- Dashboard: `portal/admin/features/dashboard/admin-dashboard-page.component.*`
+- Dashboard / Home (standalone title): `portal/admin/features/dashboard/`, `portal/user/features/home/`
 - Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
+- User hub (title + tabs): `portal/user/features/find/find-page.component.*`
+- User hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`
 
-Related: `layout.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`
+Related: `layout.mdc`, `entity-tabs.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

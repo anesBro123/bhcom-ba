@@ -33,6 +33,7 @@ import { WarehouseOurTablePageComponent } from '../warehouse/table-our/warehouse
     WarehouseOurTablePageComponent,
   ],
   templateUrl: './our-listings-page.component.html',
+  styleUrl: './our-listings-page.component.scss',
 })
 export class OurListingsPageComponent {
   private readonly route = inject(ActivatedRoute);

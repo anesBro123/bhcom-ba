@@ -1,14 +1,16 @@
-<app-page-title
-  titleKey="portal.user.pages.find.title"
-  subtitleKey="portal.user.pages.find.subtitle"
-  [icon]="pageIcon"
-/>
+<div class="page-hub-header">
+  <app-page-title
+    titleKey="portal.user.pages.find.title"
+    subtitleKey="portal.user.pages.find.subtitle"
+    [icon]="pageIcon"
+  />
 
-<app-entity-tabs
-  [activeTab]="activeTab()"
-  [tabs]="entityTabs"
-  (tabChange)="onTabChange($event)"
-/>
+  <app-entity-tabs
+    [activeTab]="activeTab()"
+    [tabs]="entityTabs"
+    (tabChange)="onTabChange($event)"
+  />
+</div>
 
 @switch (activeTab()) {
   @case ('freight') {

@@ -56,8 +56,8 @@ Service naming: `AdminVehicleService` (portal prefix when helpful). Swap mock st
 
 | Feature folder | Route | Role |
 |----------------|-------|------|
-| `features/find/` | `/find?tab=` | `PageTitleComponent` + `EntityTabsComponent` + embedded `*AllTablePageComponent` (`[embedded]="true"`); no create CTA |
-| `features/our-listings/` | `/our-listings?tab=` | `PageHeaderComponent` + tab-specific `PrimaryActionLink` + `EntityTabsComponent` + embedded `*OurTablePageComponent` (`[embedded]="true"`) |
+| `features/find/` | `/find?tab=` | `.page-hub-header` → `PageTitleComponent` + `EntityTabsComponent` + embedded `*AllTablePageComponent` (`[embedded]="true"`); no create CTA |
+| `features/our-listings/` | `/our-listings?tab=` | `.page-hub-header` → `PageHeaderComponent` + tab-specific `PrimaryActionLink` + `EntityTabsComponent` + embedded `*OurTablePageComponent` (`[embedded]="true"`) |
 
 Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG`.
 

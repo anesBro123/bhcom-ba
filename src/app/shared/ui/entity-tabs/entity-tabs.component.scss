@@ -4,6 +4,11 @@
   display: block;
 }
 
+:host-context(.page-hub-header) .entity-tabs {
+  margin-top: 0.875rem;
+  margin-bottom: 0;
+}
+
 .entity-tabs {
   display: flex;
   gap: 0.5rem;

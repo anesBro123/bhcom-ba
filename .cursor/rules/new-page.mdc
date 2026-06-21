@@ -33,7 +33,7 @@ Follow **`entity-tabs.mdc`** — reference: `portal/user/features/find/`, `porta
 
 1. Add `USER_FIND_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userFindUrl` / `userOurListingsUrl` for TS; `userFindRoute` / `userOurListingsRoute` for templates).
 2. Register `find` and `our-listings` routes in `user.routes.ts` — **do not** register standalone entity list routes.
-3. Hub page: `PageTitleComponent` (+ `PageHeaderComponent` + tab-specific `PrimaryActionLink` on Our listings only) + `EntityTabsComponent` + embedded table page components with `[embedded]="true"`.
+3. Hub page: wrap title (+ `PageHeaderComponent` + tab-specific `PrimaryActionLink` on Our listings only) and `EntityTabsComponent` in **`.page-hub-header`** (`@use 'styles/page-hub-header'` in page SCSS) + embedded table page components with `[embedded]="true"` below the wrapper.
 4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=` query param; navigate with `userFindUrl()` / `userOurListingsUrl()` on tab change.
 5. Sidebar active state: `navLinkActiveOptions(exact)` on hub nav links — see `layout.mdc`.
 6. i18n: `portal.user.pages.find.*`, `portal.user.pages.ourListings.*`, `portal.user.features.entityTabs.*` in both locale files.

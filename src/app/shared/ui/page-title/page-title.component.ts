@@ -14,5 +14,5 @@ export class PageTitleComponent {
   readonly subtitleKey = input<string>();
   readonly icon = input.required<LucideIcon>();
 
-  protected readonly iconInputs = { size: 22 };
+  protected readonly iconInputs = { size: 20 };
 }
