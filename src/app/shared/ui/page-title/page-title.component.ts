@@ -12,6 +12,7 @@ import type { LucideIcon } from '@lucide/angular';
 export class PageTitleComponent {
   readonly titleKey = input.required<string>();
   readonly subtitleKey = input<string>();
+  readonly subtitleParams = input<Record<string, string>>();
   readonly icon = input.required<LucideIcon>();
 
   protected readonly iconInputs = { size: 20 };

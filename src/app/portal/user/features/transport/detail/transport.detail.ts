@@ -1,4 +1,4 @@
-import { defineDetail } from '../../../../../shared/detail-modal';
+import { defineDetail } from '../../../../../shared/detail';
 
 import type { Transport } from '../data/transport.model';
 
@@ -8,11 +8,6 @@ export const TransportDetail = defineDetail<Transport>()({
       id: 'schedule',
       titleKey: 'portal.user.features.transport.detail.sections.schedule',
       fields: [
-        {
-          key: 'status',
-          type: 'status',
-          labelKey: 'portal.user.features.transport.table.columns.status',
-        },
         {
           key: 'transportStartDate',
           type: 'date',
@@ -31,15 +26,9 @@ export const TransportDetail = defineDetail<Transport>()({
       ],
     },
     {
-      id: 'route',
-      titleKey: 'portal.user.features.transport.detail.sections.route',
+      id: 'vehicle',
+      titleKey: 'portal.user.features.transport.detail.sections.vehicle',
       fields: [
-        {
-          type: 'route',
-          labelKey: 'portal.user.features.transport.table.columns.route',
-          originKey: 'origin',
-          destinationKey: 'destination',
-        },
         {
           type: 'vehicle',
           labelKey: 'portal.user.features.transport.table.columns.vehicle',

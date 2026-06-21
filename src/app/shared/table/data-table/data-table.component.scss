@@ -186,6 +186,15 @@
   background: var(--bg-table-row-hover);
 }
 
+.data-table__row--clickable,
+.data-table-row-card--clickable {
+  cursor: pointer;
+}
+
+.data-table-row-card--clickable:hover {
+  background: var(--bg-table-row-hover);
+}
+
 .data-table__checkbox-col {
   width: 3rem;
   padding-left: var(--table-card-padding-x) !important;

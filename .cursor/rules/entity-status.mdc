@@ -1,6 +1,6 @@
 ---
 description: Entity status field, status badges, and per-entity status conventions
-globs: src/app/shared/constants/user-entity-status.ts,src/app/shared/ui/status-badge/**,src/app/portal/**/data/*.model.ts,src/app/portal/**/data/*.service.ts,src/app/portal/**/table/**
+globs: src/app/shared/constants/user-entity-status.ts,src/app/shared/ui/status-badge/**,src/app/shared/ui/entity-detail-summary/**,src/app/portal/**/data/*.model.ts,src/app/portal/**/data/*.service.ts,src/app/portal/**/table/**,src/app/portal/user/**/detail/**
 alwaysApply: false
 ---
 
@@ -51,6 +51,10 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 ```
 
 Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/table/`.
+
+## Detail page display
+
+User portal detail pages show status in **`EntityDetailSummaryComponent`** (right side of summary band) — not in `DetailView` / `*.detail.ts`. Same rule: status badge is the **only colored pill** on the page. See `detail-page.mdc`.
 
 ## Checklist for a new entity
 

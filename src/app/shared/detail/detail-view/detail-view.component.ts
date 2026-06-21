@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { DetailFieldRendererComponent } from '../detail-field-renderer/detail-field-renderer.component';
-import type { DetailDefinition } from '../detail-modal.types';
+import type { DetailDefinition } from '../detail.types';
 
 @Component({
   selector: 'app-detail-view',

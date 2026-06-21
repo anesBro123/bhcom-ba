@@ -9,6 +9,8 @@
   <app-data-table
     [definition]="table"
     [loader]="loadStorage"
+    [rowClickEnabled]="true"
+    (rowClick)="onRowClick($event)"
     (rowAction)="onRowAction($event)"
   >
     <ng-template [appTableCell]="warehouseKey" let-row>

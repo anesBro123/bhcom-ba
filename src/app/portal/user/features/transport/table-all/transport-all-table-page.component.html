@@ -6,6 +6,8 @@
   <app-data-table
     [definition]="table"
     [loader]="loadRoutes"
+    [rowClickEnabled]="true"
+    (rowClick)="onRowClick($event)"
     (rowAction)="onRowAction($event)"
   >
     <ng-template [appTableCell]="transportKey" let-row>

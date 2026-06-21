@@ -72,31 +72,6 @@ export interface DetailActionDef {
   labelKey: string;
   icon?: LucideIcon;
   variant?: 'primary' | 'secondary';
-}
-
-export interface DetailModalOptions<T extends object> {
-  titleKey: string;
-  subtitleKey?: string;
-  subtitleParams?: Record<string, string>;
-  definition: DetailDefinition<T>;
-  data: T;
-  actions: DetailActionDef[];
-}
-
-export interface ResolvedDetailModalOptions<T> {
-  titleKey: string;
-  subtitleKey?: string;
-  subtitleParams?: Record<string, string>;
-  definition: DetailDefinition<T>;
-  data: T;
-  actions: DetailActionDef[];
-}
-
-export interface DetailModalResult {
-  actionId: string;
-}
-
-export interface ActiveDetailModalRequest {
-  options: ResolvedDetailModalOptions<object>;
-  resolve: (result: DetailModalResult) => void;
+  danger?: boolean;
+  route?: string;
 }

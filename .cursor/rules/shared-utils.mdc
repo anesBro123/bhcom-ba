@@ -56,7 +56,7 @@ this.form.get('transportStartDate')?.valueChanges
 
 | Export | Role |
 |--------|------|
-| `formatDisplayDate(value)` | Formats ISO/date values as `Jul 3, 2026` — used by `DataTableComponent`, `DateRangeDisplayComponent`, and detail modal |
+| `formatDisplayDate(value)` | Formats ISO/date values as `Jul 3, 2026` — used by `DataTableComponent`, `DateRangeDisplayComponent`, and detail pages |
 
 Do not duplicate date formatting in feature code — import `formatDisplayDate` from `shared/utils/format-display-date.ts`.
 

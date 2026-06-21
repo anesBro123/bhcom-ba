@@ -1,0 +1,26 @@
+@use 'styles/breakpoints' as *;
+
+.detail-page-card {
+  padding: 1.25rem 1.5rem 1.125rem;
+  border: 1px solid var(--border-form-card);
+  border-radius: var(--radius-form-card);
+  background: var(--bg-form-card);
+}
+
+.detail-page-card--loading,
+.detail-page-card--error {
+  padding: 2rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+.detail-page-card--error {
+  color: var(--text-danger, #dc2626);
+}
+
+@include below-md {
+  .detail-page-card {
+    padding: 1rem 1.125rem;
+  }
+}

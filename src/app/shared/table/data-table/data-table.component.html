@@ -83,7 +83,14 @@
       @if (isMobileLayout()) {
       <ul class="data-table-cards" role="list">
         @for (row of tableStore.rows(); track trackRow(row)) {
-          <li class="data-table-row-card" role="listitem">
+          <li
+            class="data-table-row-card"
+            [class.data-table-row-card--clickable]="rowClickEnabled()"
+            role="listitem"
+            [attr.tabindex]="rowClickEnabled() ? 0 : null"
+            (click)="onRowNavigate(row, $event)"
+            (keydown)="onRowKeydown(row, $event)"
+          >
             <div class="data-table-row-card__header">
               @if (definition().selectable) {
                 <input
@@ -191,7 +198,13 @@
 
           <tbody>
             @for (row of tableStore.rows(); track trackRow(row)) {
-              <tr class="data-table__row">
+              <tr
+                class="data-table__row"
+                [class.data-table__row--clickable]="rowClickEnabled()"
+                [attr.tabindex]="rowClickEnabled() ? 0 : null"
+                (click)="onRowNavigate(row, $event)"
+                (keydown)="onRowKeydown(row, $event)"
+              >
                 @if (definition().selectable) {
                   <td class="data-table__checkbox-col">
                     <input

@@ -4,7 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { DetailModalService } from '../../../../../shared/detail-modal';
+import { userFreightDetailUrl } from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
@@ -17,9 +17,9 @@ import {
   type TableLoader,
 } from '../../../../../shared/table';
 
+import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Freight } from '../data/freight.model';
 import { UserFreightService } from '../data/freight.service';
-import { openFreightDetailModal } from '../detail/open-freight-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   FreightAllTable,
@@ -49,7 +49,6 @@ export class FreightAllTablePageComponent {
 
   private readonly cargoService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
-  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = FreightAllTable;
@@ -69,10 +68,14 @@ export class FreightAllTablePageComponent {
     return `portal.user.features.freight.form.freightTypes.${type}`;
   }
 
+  protected onRowClick(row: Freight): void {
+    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'find');
+  }
+
   protected onRowAction(event: RowActionEvent<Freight>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        openFreightDetailModal(this.detailModalService, this.router, event.row, 'all');
+        this.onRowClick(event.row);
         break;
       case 'sendRequest':
         this.confirmService

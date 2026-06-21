@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { DetailModalService } from '../../../../../shared/detail-modal';
 import {
   USER_CREATE_TRANSPORT_URL,
   userEditTransportUrl,
+  userTransportDetailUrl,
 } from '../../../../../shared/constants/app-urls';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
@@ -23,9 +23,9 @@ import {
   type TableLoader,
 } from '../../../../../shared/table';
 
+import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Transport } from '../data/transport.model';
 import { UserTransportService } from '../data/transport.service';
-import { openTransportDetailModal } from '../detail/open-transport-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   TransportOurTable,
@@ -57,7 +57,6 @@ export class TransportOurTablePageComponent {
 
   private readonly routeService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
-  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = TransportOurTable;
@@ -75,10 +74,14 @@ export class TransportOurTablePageComponent {
 
   protected readonly loadRoutes: TableLoader<Transport> = (query) => this.routeService.listOurs(query);
 
+  protected onRowClick(row: Transport): void {
+    navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'our');
+  }
+
   protected onRowAction(event: RowActionEvent<Transport>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        openTransportDetailModal(this.detailModalService, this.router, event.row, 'my');
+        this.onRowClick(event.row);
         break;
       case 'edit':
         void this.router.navigateByUrl(userEditTransportUrl(event.row.id));

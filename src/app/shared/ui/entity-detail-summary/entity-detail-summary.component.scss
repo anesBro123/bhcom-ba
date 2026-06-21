@@ -1,0 +1,56 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.entity-detail-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-form-card);
+  border-radius: var(--radius-form-card);
+  background: var(--bg-form-card);
+}
+
+.entity-detail-summary__location {
+  min-width: 0;
+  flex: 1;
+
+  ::ng-deep .route-display__chip {
+    padding: 0.3125rem 0.625rem;
+    font-size: 0.9375rem;
+  }
+
+  ::ng-deep .route-display__arrow {
+    font-size: 0.9375rem;
+  }
+
+  ::ng-deep .warehouse-display__name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  ::ng-deep .warehouse-display__city {
+    font-size: 0.875rem;
+  }
+}
+
+.entity-detail-summary__status {
+  flex-shrink: 0;
+}
+
+@include below-md {
+  .entity-detail-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .entity-detail-summary__location {
+    width: 100%;
+  }
+}

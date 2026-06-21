@@ -109,6 +109,11 @@
         "edit": "Uredi"
       }
     },
+    "detail": {
+      "common": {
+        "actions": "Akcije"
+      }
+    },
     "route": {
       "fromTo": "Od {{origin}} do {{destination}}"
     },
@@ -845,6 +850,21 @@
         "editWarehouse": {
           "title": "Uredi skladište",
           "subtitle": "Ažurirajte skladište, datume dostupnosti, veličinu prostora ili opis."
+        },
+        "viewTransport": {
+          "title": "Detalji prevoza",
+          "subtitleFind": "Pregledajte rutu, raspored i vozilo prije slanja zahtjeva.",
+          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za prevoz koji je objavila vaša kompanija."
+        },
+        "viewFreight": {
+          "title": "Detalji tereta",
+          "subtitleFind": "Pregledajte informacije o pošiljci i rutu prije slanja zahtjeva.",
+          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za teret koji je objavila vaša kompanija."
+        },
+        "viewWarehouse": {
+          "title": "Detalji skladišta",
+          "subtitleFind": "Pregledajte dostupnost, prostor i lokaciju prije slanja zahtjeva.",
+          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za skladište koji je objavila vaša kompanija."
         }
       },
       "features": {
@@ -933,8 +953,8 @@
             "title": "Detalji rute",
             "subtitle": "Detaljne informacije o ruti {{id}}",
             "sections": {
-              "schedule": "Raspored i status",
-              "route": "Ruta i vozilo"
+              "schedule": "Raspored",
+              "vehicle": "Vozilo i opis"
             },
             "fields": {
               "publishedAt": "Objavljeno"

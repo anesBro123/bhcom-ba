@@ -166,4 +166,4 @@ export const warehouseCellKey = tableCellKey(StorageTable, 'warehouseLabel');
 </ng-template>
 ```
 
-Entity stores denormalized `warehouseName` / `warehouseCity` (like `vehicleName` / `vehiclePlate` on routes). Set on form submit via `CompanyWarehouseService.getDisplay()`; keep `warehouseLabel` for select labels and search. Page `imports`: `WarehouseDisplayComponent` from `shared/ui/warehouse-display/warehouse-display.component.ts`. Detail modal: `type: 'warehouse'` with `nameKey` / `cityKey` — see `detail-modal.mdc`.
+Entity stores denormalized `warehouseName` / `warehouseCity` (like `vehicleName` / `vehiclePlate` on routes). Set on form submit via `CompanyWarehouseService.getDisplay()`; keep `warehouseLabel` for select labels and search. Page `imports`: `WarehouseDisplayComponent` from `shared/ui/warehouse-display/warehouse-display.component.ts`. Detail page summary band: `EntityDetailSummaryComponent` with `kind="warehouse"` — not in `*.detail.ts` — see `detail-page.mdc`.

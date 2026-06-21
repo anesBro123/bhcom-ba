@@ -1,0 +1,11 @@
+<div class="entity-detail-summary">
+  <div class="entity-detail-summary__location">
+    @if (kind() === 'route') {
+      <app-route-display [origin]="origin()!" [destination]="destination()!" />
+    } @else {
+      <app-warehouse-display [name]="warehouseName()!" [city]="warehouseCity()!" />
+    }
+  </div>
+
+  <app-status-badge class="entity-detail-summary__status" [status]="status()" />
+</div>

@@ -1,0 +1,142 @@
+---
+description: Entity detail pages (DetailViewComponent) for user portal transport/freight/warehouse
+globs: src/app/shared/detail/**,src/app/shared/ui/detail-*/**,src/app/shared/ui/entity-detail-summary/**,src/app/portal/user/**/detail/**,src/app/portal/user/common/entity-detail-navigation.ts,src/styles/_detail-page.scss
+---
+
+# Detail pages (`src/app/shared/detail`)
+
+Read-only entity detail **pages** for user portal tables. Do not use `DetailModalService` or ad-hoc modal markup.
+
+## Structure
+
+| File | Role |
+|------|------|
+| `detail.types.ts` | `DetailDefinition`, `DetailFieldDef`, `DetailActionDef` |
+| `define-detail.ts` | `defineDetail<T>()` |
+| `detail-page.constants.ts` | `buildDetailPageActions()`, action id constants |
+| `detail-view/` | Renders `DetailDefinition` + entity data |
+| `detail-field-renderer/` | Built-in field widgets (text, date, status, route, vehicle, warehouse, translate) |
+| `index.ts` | Barrel |
+
+## Layout components
+
+| Component | Path | Role |
+|-----------|------|------|
+| `DetailPageLayoutComponent` | `shared/ui/detail-page-layout/` | Slots: `[detailBack]`, `app-page-title`, `[detailHeaderActions]`, `[detailSummary]`, `[detailContent]` |
+| `EntityDetailSummaryComponent` | `shared/ui/entity-detail-summary/` | Primary glance band — **location left**, **status badge right** |
+| `DetailActionBarComponent` | `shared/ui/detail-action-bar/` | Header action buttons; `layout: 'inline' \| 'stack'` |
+
+### Summary band (`EntityDetailSummaryComponent`)
+
+- **Transport / freight:** `kind="route"` + `[origin]` + `[destination]` → `RouteDisplayComponent`
+- **Warehouse:** `kind="warehouse"` + `[warehouseName]` + `[warehouseCity]` → `WarehouseDisplayComponent`
+- **Status:** `[status]` → `StatusBadgeComponent` (only colored pill on the page)
+- Desktop: location left / status right. Mobile: stacks (location first, status below)
+- Project with `detailSummary` attribute into `DetailPageLayoutComponent`
+
+**Do not** duplicate status or location in `*.detail.ts` — they live only in the summary band.
+
+## Navigation helpers (`portal/user/common/entity-detail-navigation.ts`)
+
+| Export | Role |
+|--------|------|
+| `navigateToEntityDetail(router, detailUrl, origin)` | Table row click / viewDetails — passes `detailOrigin: 'find' \| 'our'` in router state |
+| `readEntityDetailOrigin()` | Read `detailOrigin` from `history.state` on detail page load |
+| `resolveDetailBack(tab, isOwnListing, origin?)` | Back link URL + `labelKey` (Find vs Our listings tab) |
+| `resolveDetailSubtitleKey(pageKey, isOwnListing, origin?)` | `subtitleFind` vs `subtitleOur` i18n key |
+| `isOwnListingEntity(entity, companyId)` | Ownership check for actions + fallbacks |
+
+## Per-entity pattern
+
+1. **Definition** — `detail/<entity>.detail.ts` with `defineDetail<Entity>()({ sections: [...] })` — **no** status, route, or warehouse fields (in summary band).
+2. **Page** — `detail/<entity>-detail-page.component.*` loads `getById`, composes layout + summary + `DetailView`.
+3. **Table pages** — `[rowClickEnabled]="true"` + `(rowClick)` + `viewDetails` action → `navigateToEntityDetail()`.
+
+## Routes + URLs
+
+Detail routes in `user.routes.ts` (after `create` and `:id/edit`):
+
+- `transport/:id` → `TransportDetailPageComponent`
+- `freight/:id` → `FreightDetailPageComponent`
+- `warehouse/:id` → `WarehouseDetailPageComponent`
+
+URL builders in `user-urls.ts`: `userTransportDetailUrl(id)`, `userFreightDetailUrl(id)`, `userWarehouseDetailUrl(id)`.
+
+## Page header
+
+- **Title:** static `portal.user.pages.view*.title`
+- **Subtitle:** static UX copy — **never** entity data (no `origin → destination`, no warehouse name). Use computed `pageSubtitleKey()` from `resolveDetailSubtitleKey()`:
+  - `portal.user.pages.viewTransport.subtitleFind` / `.subtitleOur` (same for freight, warehouse)
+- **Back link:** `PageBackLinkComponent` without `[form]` (read-only)
+- **Actions:** `DetailActionBarComponent` in `[detailHeaderActions]` — Edit/Delete (own) or Send request (Find)
+
+## Page template
+
+Use **separate `@if` blocks** per projected slot — Angular control flow breaks multi-node projection (NG8011).
+
+```html
+<app-detail-page-layout>
+  <app-page-back-link detailBack [route]="back().url" [labelKey]="back().labelKey" />
+  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
+
+  @if (!loading() && entity()) {
+    <app-detail-action-bar detailHeaderActions [actions]="detailActions()" layout="inline" (action)="onDetailAction($event)" />
+  }
+
+  @if (loading()) {
+    <section detailContent class="detail-page-card detail-page-card--loading">…</section>
+  } @else if (entity(); as row) {
+    <app-entity-detail-summary detailSummary kind="route" [status]="row.status" [origin]="row.origin" [destination]="row.destination" />
+  }
+
+  @if (!loading() && entity(); as row) {
+    <section detailContent class="detail-page-card">
+      <app-detail-view [definition]="TransportDetail" [data]="row" />
+    </section>
+  }
+</app-detail-page-layout>
+```
+
+Warehouse: `kind="warehouse"` + `[warehouseName]` + `[warehouseCity]`.
+
+Shared card styles: `styles/_detail-page.scss` (`.detail-page-card`).
+
+## Actions
+
+`buildDetailPageActions(entityKind, { isOwnListing, editRoute })`:
+
+| Scope | Actions |
+|-------|---------|
+| External (Find) | Send request (primary) |
+| Own (Our listings) | Edit (primary link) + Delete (danger) |
+
+Handle `sendRequest` / `delete` in page TS with `ConfirmService`; edit uses `route` on action def.
+
+## Detail definition sections (current)
+
+| Entity | Sections | Excluded from card (in summary) |
+|--------|----------|----------------------------------|
+| Transport | Schedule (dates), Vehicle & description (vehicle, description) | status, route |
+| Freight | Shipment (type, size, weight, dates, description) | status, route |
+| Warehouse | Availability (dates, space), Details (description) | status, warehouse |
+
+## Table row click
+
+`DataTableComponent`: `[rowClickEnabled]="true"` + `(rowClick)="onRowClick($event)"`. Row actions menu stops propagation.
+
+## i18n
+
+| Path | Use for |
+|------|---------|
+| `portal.user.pages.viewTransport\|viewFreight\|viewWarehouse.title` | Page title |
+| `portal.user.pages.view*.subtitleFind` | Find / external context subtitle |
+| `portal.user.pages.view*.subtitleOur` | Our listings / own context subtitle |
+| `portal.user.features.<entity>.detail.sections.*` | Section headings in DetailView |
+
+## Examples
+
+- Transport: `portal/user/features/transport/detail/`
+- Freight: `portal/user/features/freight/detail/`
+- Warehouse: `portal/user/features/warehouse/detail/`
+
+Do not reintroduce global detail modal host or sidebar action layout experiments.

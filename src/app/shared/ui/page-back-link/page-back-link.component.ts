@@ -19,10 +19,11 @@ export class PageBackLinkComponent {
 
   readonly route = input.required<string>();
   readonly labelKey = input.required<string>();
-  readonly form = input.required<FormGroup>();
+  readonly form = input<FormGroup | null>(null);
 
   protected onActivate(): void {
-    if (!this.form().dirty) {
+    const form = this.form();
+    if (!form || !form.dirty) {
       void this.router.navigateByUrl(this.route());
       return;
     }

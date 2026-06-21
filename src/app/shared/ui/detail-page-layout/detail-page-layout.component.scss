@@ -1,0 +1,46 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.detail-page-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-page-layout__page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.detail-page-layout__page-header-title {
+  flex: 1;
+  min-width: 0;
+
+  ::ng-deep .page-title-block {
+    margin-bottom: 0;
+  }
+}
+
+.detail-page-layout__page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+@include below-md {
+  .detail-page-layout__page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .detail-page-layout__page-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -4,8 +4,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { DetailModalService } from '../../../../../shared/detail-modal';
-import { USER_CREATE_FREIGHT_URL, userEditFreightUrl } from '../../../../../shared/constants/app-urls';
+import {
+  USER_CREATE_FREIGHT_URL,
+  userEditFreightUrl,
+  userFreightDetailUrl,
+} from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
@@ -20,9 +23,9 @@ import {
   type TableLoader,
 } from '../../../../../shared/table';
 
+import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Freight } from '../data/freight.model';
 import { UserFreightService } from '../data/freight.service';
-import { openFreightDetailModal } from '../detail/open-freight-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   FreightOurTable,
@@ -54,7 +57,6 @@ export class FreightOurTablePageComponent {
 
   private readonly cargoService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
-  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = FreightOurTable;
@@ -76,10 +78,14 @@ export class FreightOurTablePageComponent {
     return `portal.user.features.freight.form.freightTypes.${type}`;
   }
 
+  protected onRowClick(row: Freight): void {
+    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'our');
+  }
+
   protected onRowAction(event: RowActionEvent<Freight>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        openFreightDetailModal(this.detailModalService, this.router, event.row, 'my');
+        this.onRowClick(event.row);
         break;
       case 'edit':
         void this.router.navigateByUrl(userEditFreightUrl(event.row.id));

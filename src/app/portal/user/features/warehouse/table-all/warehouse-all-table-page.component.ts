@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { DetailModalService } from '../../../../../shared/detail-modal';
+import { userWarehouseDetailUrl } from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
@@ -15,9 +15,9 @@ import {
   type TableLoader,
 } from '../../../../../shared/table';
 
+import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Warehouse } from '../data/warehouse.model';
 import { UserWarehouseService } from '../data/warehouse.service';
-import { openWarehouseDetailModal } from '../detail/open-warehouse-detail-modal';
 import { UserPageIcons } from '../../../user-page-icons';
 import {
   WarehouseAllTable,
@@ -43,7 +43,6 @@ export class WarehouseAllTablePageComponent {
 
   private readonly storageService = inject(UserWarehouseService);
   private readonly confirmService = inject(ConfirmService);
-  private readonly detailModalService = inject(DetailModalService);
   private readonly router = inject(Router);
 
   protected readonly table = WarehouseAllTable;
@@ -58,10 +57,14 @@ export class WarehouseAllTablePageComponent {
   protected readonly loadStorage: TableLoader<Warehouse> = (query) =>
     this.storageService.listAll(query);
 
+  protected onRowClick(row: Warehouse): void {
+    navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'find');
+  }
+
   protected onRowAction(event: RowActionEvent<Warehouse>): void {
     switch (event.actionId) {
       case 'viewDetails':
-        openWarehouseDetailModal(this.detailModalService, this.router, event.row, 'all');
+        this.onRowClick(event.row);
         break;
       case 'sendRequest':
         this.confirmService

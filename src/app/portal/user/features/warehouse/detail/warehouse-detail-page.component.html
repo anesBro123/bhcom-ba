@@ -1,0 +1,38 @@
+<app-detail-page-layout>
+  <app-page-back-link detailBack [route]="back().url" [labelKey]="back().labelKey" />
+
+  <app-page-title
+    [titleKey]="pageTitleKey"
+    [subtitleKey]="pageSubtitleKey()"
+    [icon]="pageIcon"
+  />
+
+  @if (!loading() && entity()) {
+    <app-detail-action-bar
+      detailHeaderActions
+      [actions]="detailActions()"
+      layout="inline"
+      (action)="onDetailAction($event)"
+    />
+  }
+
+  @if (loading()) {
+    <section detailContent class="detail-page-card detail-page-card--loading">
+      {{ 'shared.table.common.loading' | translate }}
+    </section>
+  } @else if (entity(); as row) {
+    <app-entity-detail-summary
+      detailSummary
+      kind="warehouse"
+      [status]="row.status"
+      [warehouseName]="row.warehouseName"
+      [warehouseCity]="row.warehouseCity"
+    />
+  }
+
+  @if (!loading() && entity(); as row) {
+    <section detailContent class="detail-page-card">
+      <app-detail-view [definition]="WarehouseDetail" [data]="row" />
+    </section>
+  }
+</app-detail-page-layout>

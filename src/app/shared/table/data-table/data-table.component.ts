@@ -80,7 +80,9 @@ import { formatDisplayDate } from '../../utils/format-display-date';
 export class DataTableComponent<T extends object> implements OnInit, AfterContentInit, OnDestroy {
   definition = input.required<TableDefinition<T>>();
   loader = input<TableLoader<T>>();
+  rowClickEnabled = input(false);
   rowAction = output<RowActionEvent<T>>();
+  rowClick = output<T>();
 
   @ContentChildren(TableCellTemplateDirective)
   private readonly cellTemplateDirectives!: QueryList<TableCellTemplateDirective>;
@@ -217,6 +219,44 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
 
   protected onRowAction(event: RowActionEvent<T>): void {
     this.rowAction.emit(event);
+  }
+
+  protected onRowNavigate(row: T, event: Event): void {
+    if (!this.rowClickEnabled()) {
+      return;
+    }
+
+    if (this.shouldIgnoreRowNavigate(event)) {
+      return;
+    }
+
+    this.rowClick.emit(row);
+  }
+
+  protected onRowKeydown(row: T, event: KeyboardEvent): void {
+    if (!this.rowClickEnabled()) {
+      return;
+    }
+
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    this.rowClick.emit(row);
+  }
+
+  private shouldIgnoreRowNavigate(event: Event): boolean {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return false;
+    }
+
+    return Boolean(
+      target.closest(
+        'button, a, input, textarea, select, label, app-table-row-actions, .table-row-actions',
+      ),
+    );
   }
 
   constructor() {

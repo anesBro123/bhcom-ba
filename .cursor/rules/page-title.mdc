@@ -139,6 +139,7 @@ Reference: `portal/user/features/find/`, `portal/user/features/our-listings/`. S
 - List pages: search, filter, or manage context.
 - Stepper forms: mention the guided flow (e.g. *"Follow the steps below to create and schedule your shipment"*).
 - Create vs edit: use different subtitles when it helps.
+- **Detail pages (user portal):** static purpose copy only — **never** put route or warehouse data in the subtitle. Use `subtitleFind` / `subtitleOur` keys resolved by `resolveDetailSubtitleKey()`; entity identity (location + status) belongs in `EntityDetailSummaryComponent` — see `detail-page.mdc`.
 
 ## i18n key sources
 
@@ -151,6 +152,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Table list | `pageTitleKey` / `pageSubtitleKey` constants | `portal.admin.pages.vehicles.title` |
 | Form create | `pageTitleKey` / `pageSubtitleKey` constants or computed | `portal.admin.pages.createUser.title` |
 | Form edit | computed from `isEdit()` | `portal.admin.pages.editUser.title` |
+| Detail (user portal) | computed `pageSubtitleKey()` via `resolveDetailSubtitleKey()` | `portal.user.pages.viewTransport.subtitleFind` / `.subtitleOur` |
 | Dashboard / settings | static in template | `portal.admin.pages.dashboard.title` |
 
 ## Where to render
@@ -163,6 +165,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Table list (read-only) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` | `<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />` |
 | Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
 | Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
+| Detail (user portal) | `pageTitleKey` + computed `pageSubtitleKey()` + `pageIcon` + `PageBackLinkComponent` (no `[form]`) | See `detail-page.mdc` |
 | Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` + `pageIcon` | See static-keys example above |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.

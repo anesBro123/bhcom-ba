@@ -1,4 +1,4 @@
-import { defineDetail } from '../../../../../shared/detail-modal';
+import { defineDetail } from '../../../../../shared/detail';
 
 import type { Warehouse } from '../data/warehouse.model';
 
@@ -8,17 +8,6 @@ export const WarehouseDetail = defineDetail<Warehouse>()({
       id: 'availability',
       titleKey: 'portal.user.features.warehouse.detail.sections.availability',
       fields: [
-        {
-          key: 'status',
-          type: 'status',
-          labelKey: 'portal.user.features.warehouse.table.columns.status',
-        },
-        {
-          type: 'warehouse',
-          labelKey: 'portal.user.features.warehouse.table.columns.warehouse',
-          nameKey: 'warehouseName',
-          cityKey: 'warehouseCity',
-        },
         {
           key: 'availableFrom',
           type: 'date',

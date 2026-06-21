@@ -37,18 +37,30 @@ export function userOurListingsRoute(tab: UserEntityTab = 'transport'): UserEnti
 
 const USER_TRANSPORT_PATH = '/transport';
 export const USER_CREATE_TRANSPORT_URL = `${USER_TRANSPORT_PATH}/create`;
+export function userTransportDetailUrl(id: string): string {
+  return `${USER_TRANSPORT_PATH}/${id}`;
+}
+
 export function userEditTransportUrl(id: string): string {
   return `${USER_TRANSPORT_PATH}/${id}/edit`;
 }
 
 const USER_FREIGHT_PATH = '/freight';
 export const USER_CREATE_FREIGHT_URL = `${USER_FREIGHT_PATH}/create`;
+export function userFreightDetailUrl(id: string): string {
+  return `${USER_FREIGHT_PATH}/${id}`;
+}
+
 export function userEditFreightUrl(id: string): string {
   return `${USER_FREIGHT_PATH}/${id}/edit`;
 }
 
 const USER_WAREHOUSE_PATH = '/warehouse';
 export const USER_CREATE_WAREHOUSE_URL = `${USER_WAREHOUSE_PATH}/create`;
+export function userWarehouseDetailUrl(id: string): string {
+  return `${USER_WAREHOUSE_PATH}/${id}`;
+}
+
 export function userEditWarehouseUrl(id: string): string {
   return `${USER_WAREHOUSE_PATH}/${id}/edit`;
 }

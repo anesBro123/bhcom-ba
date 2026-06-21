@@ -57,7 +57,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Features: `portal/user/features/` (home, find, our-listings, offer, transport, freight, warehouse); `portal/admin/features/` (dashboard, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, entity-tabs, page-title, page-back-link, page-header, primary-action-link, **route-display**, **date-range-display**, **vehicle-display**, **warehouse-display**, **status-badge**
+- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, entity-tabs, page-title, page-back-link, page-header, primary-action-link, **detail-page-layout**, **entity-detail-summary**, **detail-action-bar**, route-display, date-range-display, vehicle-display, warehouse-display, status-badge
 
 ## Auth routing (guards)
 
@@ -98,3 +98,4 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - **Status badge cell:** `StatusBadgeComponent` (`shared/ui/status-badge/`) — **only colored semantic pill** in user route/cargo/storage table rows; all entities will get status over time — see `entity-status.mdc`, `tables.mdc`
 - **BiH city autocomplete:** `BIH_CITY_OPTIONS` + `type: 'autocomplete'` — see `shared-constants.mdc`, `forms.mdc`
 - **Table page create CTA:** list pages with a create route use `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent` — page owns `createUrl` / `createLabelKey`; see `page-title.mdc`, `portal-feature.mdc`
+- **User entity detail pages:** `portal/user/features/{transport,freight,warehouse}/detail/` — row click navigates to `/transport|freight|warehouse/:id`; `shared/detail/` + `EntityDetailSummaryComponent` (location left, status right); static Find/Our subtitles; `entity-detail-navigation.ts`; see `detail-page.mdc`

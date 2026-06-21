@@ -109,6 +109,11 @@
         "edit": "Edit"
       }
     },
+    "detail": {
+      "common": {
+        "actions": "Actions"
+      }
+    },
     "route": {
       "fromTo": "From {{origin}} to {{destination}}"
     },
@@ -845,6 +850,21 @@
         "editWarehouse": {
           "title": "Edit warehouse",
           "subtitle": "Update warehouse, availability dates, space size, or description."
+        },
+        "viewTransport": {
+          "title": "Transport details",
+          "subtitleFind": "Review route, schedule, and vehicle before sending a request.",
+          "subtitleOur": "View and manage this transport listing your company published."
+        },
+        "viewFreight": {
+          "title": "Freight details",
+          "subtitleFind": "Review shipment info and route before sending a request.",
+          "subtitleOur": "View and manage this freight listing your company published."
+        },
+        "viewWarehouse": {
+          "title": "Warehouse details",
+          "subtitleFind": "Review availability, space, and location before sending a request.",
+          "subtitleOur": "View and manage this warehouse listing your company published."
         }
       },
       "features": {
@@ -933,8 +953,8 @@
             "title": "Transport Details",
             "subtitle": "Detailed information about route {{id}}",
             "sections": {
-              "schedule": "Schedule & Status",
-              "route": "Transport & Vehicle"
+              "schedule": "Schedule",
+              "vehicle": "Vehicle & description"
             },
             "fields": {
               "publishedAt": "Published"

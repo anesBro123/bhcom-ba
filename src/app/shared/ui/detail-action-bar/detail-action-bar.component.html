@@ -1,0 +1,44 @@
+<div
+  class="detail-action-bar"
+  [class.detail-action-bar--stack]="layout() === 'stack'"
+  [class.detail-action-bar--inline]="layout() === 'inline'"
+>
+  @for (item of actions(); track item.id; let index = $index) {
+    @if (item.danger && layout() === 'stack' && index > 0) {
+      <div class="detail-action-bar__divider" role="separator"></div>
+    }
+
+    @if (item.route) {
+      <a
+        class="detail-action-bar__btn"
+        [class.detail-action-bar__btn--primary]="item.variant === 'primary'"
+        [class.detail-action-bar__btn--secondary]="item.variant !== 'primary'"
+        [class.detail-action-bar__btn--danger]="item.danger"
+        [routerLink]="item.route"
+      >
+        @if (item.icon) {
+          <span class="detail-action-bar__btn-icon">
+            <ng-container *ngComponentOutlet="item.icon; inputs: iconInputs" />
+          </span>
+        }
+        {{ item.labelKey | translate }}
+      </a>
+    } @else {
+      <button
+        type="button"
+        class="detail-action-bar__btn"
+        [class.detail-action-bar__btn--primary]="item.variant === 'primary'"
+        [class.detail-action-bar__btn--secondary]="item.variant !== 'primary'"
+        [class.detail-action-bar__btn--danger]="item.danger"
+        (click)="onAction(item)"
+      >
+        @if (item.icon) {
+          <span class="detail-action-bar__btn-icon">
+            <ng-container *ngComponentOutlet="item.icon; inputs: iconInputs" />
+          </span>
+        }
+        {{ item.labelKey | translate }}
+      </button>
+    }
+  }
+</div>

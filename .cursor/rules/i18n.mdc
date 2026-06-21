@@ -21,7 +21,7 @@ portal.admin.nav.*                — admin sidebar
 portal.admin.pages.*              — admin route page header ({ title, subtitle })
 portal.admin.features.<feature>.* — admin feature (form, table)
 portal.user.nav.*             — user sidebar
-portal.user.pages.*           — user route page header ({ title, subtitle })
+portal.user.pages.*           — user route page header ({ title, subtitle } or view detail: { title, subtitleFind, subtitleOur })
 portal.user.features.<domain>.<feature>.* — user feature (form, table)
 ```
 

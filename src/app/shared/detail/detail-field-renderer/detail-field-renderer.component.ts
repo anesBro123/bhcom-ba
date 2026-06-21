@@ -18,7 +18,7 @@ import type {
   DetailTranslateFieldDef,
   DetailVehicleFieldDef,
   DetailWarehouseFieldDef,
-} from '../detail-modal.types';
+} from '../detail.types';
 
 @Component({
   selector: 'app-detail-field-renderer',

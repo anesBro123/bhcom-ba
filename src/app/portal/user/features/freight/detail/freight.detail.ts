@@ -1,4 +1,4 @@
-import { defineDetail } from '../../../../../shared/detail-modal';
+import { defineDetail } from '../../../../../shared/detail';
 
 import { FREIGHT_TYPE_OPTIONS, freightSizeUnitLabelKey } from '../data/freight.constants';
 import type { Freight } from '../data/freight.model';
@@ -9,11 +9,6 @@ export const FreightDetail = defineDetail<Freight>()({
       id: 'shipment',
       titleKey: 'portal.user.features.freight.detail.sections.shipment',
       fields: [
-        {
-          key: 'status',
-          type: 'status',
-          labelKey: 'portal.user.features.freight.table.columns.status',
-        },
         {
           key: 'freightType',
           type: 'translate',
@@ -40,18 +35,6 @@ export const FreightDetail = defineDetail<Freight>()({
           key: 'publishedAt',
           type: 'date',
           labelKey: 'portal.user.features.freight.detail.fields.publishedAt',
-        },
-      ],
-    },
-    {
-      id: 'route',
-      titleKey: 'portal.user.features.freight.detail.sections.route',
-      fields: [
-        {
-          type: 'route',
-          labelKey: 'portal.user.features.freight.table.columns.route',
-          originKey: 'origin',
-          destinationKey: 'destination',
         },
         {
           key: 'description',
