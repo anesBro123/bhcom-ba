@@ -7,29 +7,35 @@ import {
   OnInit,
   output,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LucideChevronDown, LucideSearch } from '@lucide/angular';
 import { debounceTime, Subject } from 'rxjs';
 
+import { buildFilterSummary } from '../filter-chips.utils';
 import { TableFilterDateRangeComponent } from '../table-filter-date-range/table-filter-date-range.component';
 import { TableFilterMultiSelectComponent } from '../table-filter-multi-select/table-filter-multi-select.component';
 import { TableFilterNumberRangeComponent } from '../table-filter-number-range/table-filter-number-range.component';
+import { TableFilterOptionTilesComponent } from '../table-filter-option-tiles/table-filter-option-tiles.component';
+import { TableFilterFieldComponent } from '../table-filter-field/table-filter-field.component';
 import type {
   DateRangeFilterValue,
   FilterDef,
   NumberRangeFilterValue,
 } from '../table.types';
 
-interface FilterGroup<T extends object> {
-  titleKey?: string;
-  filters: FilterDef<T>[];
-}
+export type TableFilterBarLayout = 'inline' | 'flyout';
 
 @Component({
   selector: 'app-table-filter-bar',
+  host: {
+    '[class.table-filter-bar--flyout]': 'layout() === "flyout"',
+    '[class.table-filter-bar--inline]': 'layout() === "inline"',
+  },
   imports: [
+    NgTemplateOutlet,
     FormsModule,
     TranslatePipe,
     LucideSearch,
@@ -37,6 +43,8 @@ interface FilterGroup<T extends object> {
     TableFilterMultiSelectComponent,
     TableFilterDateRangeComponent,
     TableFilterNumberRangeComponent,
+    TableFilterOptionTilesComponent,
+    TableFilterFieldComponent,
   ],
   templateUrl: './table-filter-bar.component.html',
   styleUrl: './table-filter-bar.component.scss',
@@ -45,13 +53,20 @@ export class TableFilterBarComponent<T extends object> implements OnInit {
   filters = input.required<FilterDef<T>[]>();
   values = input.required<Record<string, unknown>>();
   closeDropdownsToken = input(0);
+  layout = input<TableFilterBarLayout>('flyout');
+  excludeTypes = input<FilterDef<T>['type'][]>(['search']);
 
   filterChange = output<{ key: string; value: unknown }>();
 
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
   private readonly searchInput$ = new Subject<{ key: string; value: string; debounceMs: number }>();
 
-  protected readonly filterGroups = computed(() => buildFilterGroups(this.filters()));
+  protected readonly visibleFilters = computed(() =>
+    this.filters().filter((filter) => !this.excludeTypes().includes(filter.type)),
+  );
+
+  protected readonly isFlyout = computed(() => this.layout() === 'flyout');
 
   ngOnInit(): void {
     this.searchInput$
@@ -89,6 +104,10 @@ export class TableFilterBarComponent<T extends object> implements OnInit {
     return value as NumberRangeFilterValue;
   }
 
+  protected filterSummary(filter: FilterDef<T>) {
+    return buildFilterSummary(filter, this.values()[filter.key], this.translate);
+  }
+
   protected onSearchInput(filter: FilterDef<T>, value: string): void {
     if (filter.type !== 'search') {
       return;
@@ -108,22 +127,4 @@ export class TableFilterBarComponent<T extends object> implements OnInit {
   protected onFilterValueChange(key: string, value: unknown): void {
     this.filterChange.emit({ key, value });
   }
-}
-
-function buildFilterGroups<T extends object>(filters: FilterDef<T>[]): FilterGroup<T>[] {
-  const groups: FilterGroup<T>[] = [];
-  let current: FilterGroup<T> | null = null;
-
-  for (const filter of filters) {
-    const titleKey = filter.groupTitleKey;
-
-    if (!current || current.titleKey !== titleKey) {
-      current = { titleKey, filters: [] };
-      groups.push(current);
-    }
-
-    current.filters.push(filter);
-  }
-
-  return groups;
 }

@@ -37,7 +37,7 @@ Second column after the primary identifier; `cell: 'custom'`, `sortable: true`, 
 
 **Visual rule:** `StatusBadgeComponent` is the **only colored pill** in a table row. Route chips use neutral `--chip-neutral-*` tokens; dates use plain `DateRangeDisplayComponent` text — see `tables.mdc`.
 
-**Filter chips / multi-select:** status filters use `showStatusBadges: true` — badge is the value (no duplicate label text). See `table-filters.mdc`.
+**Filter chips / multi-select / option tiles / collapsed flyout summary:** status filters use `showStatusBadges: true` — `StatusBadgeComponent` only (no duplicate label text). Vehicle type filters use `showOptionIcons: true` — `VehicleTypeDisplayComponent` only (no inline Lucide icons). See `table-filters.mdc`.
 
 ```typescript
 { key: 'status', titleKey: '…table.columns.status', sortable: true, cell: 'custom', width: '9rem' }

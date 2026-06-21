@@ -1,0 +1,102 @@
+<div
+  class="table-filter-field"
+  [class.table-filter-field--collapsible]="collapsible()"
+  [class.table-filter-field--expanded]="expanded()"
+>
+  @if (collapsible()) {
+    <div class="table-filter-field__header">
+      <button
+        type="button"
+        class="table-filter-field__toggle"
+        [attr.aria-expanded]="expanded()"
+        (click)="toggleExpanded()"
+      >
+        <span class="table-filter-field__label">{{ titleKey() | translate }}</span>
+        @if (!expanded()) {
+          @if (summary().statuses?.length || summary().vehicleTypes?.length || summary().labels?.length) {
+            <span class="table-filter-field__summary-content">
+              @if (summary().statuses?.length) {
+                <span class="table-filter-field__summary-visual">
+                  @for (status of summary().statuses; track status) {
+                    <app-status-badge [status]="status" />
+                  }
+                </span>
+              } @else if (summary().vehicleTypes?.length) {
+                <span class="table-filter-field__summary-visual">
+                  @for (vehicleType of summary().vehicleTypes; track vehicleType) {
+                    <app-vehicle-type-display [vehicleType]="vehicleType" />
+                  }
+                </span>
+              } @else if (summary().labels?.length) {
+                <span class="table-filter-field__summary-text-values">
+                  {{ summary().labels!.join(', ') }}
+                </span>
+              }
+              @if (summary().overflowCount) {
+                <span class="table-filter-field__summary-overflow">+{{ summary().overflowCount }}</span>
+              }
+            </span>
+          } @else {
+            <span
+              class="table-filter-field__summary"
+              [class.table-filter-field__summary--placeholder]="summary().isPlaceholder"
+            >
+              {{ summary().text }}
+            </span>
+          }
+        }
+      </button>
+
+      <div class="table-filter-field__header-actions">
+        @if (showClear()) {
+          <button
+            type="button"
+            class="table-filter-field__clear"
+            [attr.aria-label]="'shared.table.filters.clearSelection' | translate"
+            (click)="onClear($event)"
+          >
+            {{ 'shared.table.filters.clearShort' | translate }}
+          </button>
+        }
+        <button
+          type="button"
+          class="table-filter-field__chevron"
+          [attr.aria-expanded]="expanded()"
+          [attr.aria-label]="
+            expanded()
+              ? ('shared.table.filters.collapseFilter' | translate)
+              : ('shared.table.filters.expandFilter' | translate)
+          "
+          (click)="toggleExpanded()"
+        >
+          @if (expanded()) {
+            <svg lucideChevronUp [size]="16" />
+          } @else {
+            <svg lucideChevronDown [size]="16" />
+          }
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="table-filter-field__header table-filter-field__header--static">
+      <span class="table-filter-field__label">{{ titleKey() | translate }}</span>
+      @if (showClear()) {
+        <button
+          type="button"
+          class="table-filter-field__clear"
+          [attr.aria-label]="'shared.table.filters.clearSelection' | translate"
+          (click)="onClear($event)"
+        >
+          {{ 'shared.table.filters.clearShort' | translate }}
+        </button>
+      }
+    </div>
+  }
+
+  <div
+    class="table-filter-field__control"
+    [class.table-filter-field__control--collapsed]="collapsible() && !expanded()"
+  >
+    <ng-content />
+  </div>
+</div>

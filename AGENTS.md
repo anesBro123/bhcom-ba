@@ -97,7 +97,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
 - **Display date formatting:** `shared/utils/format-display-date.ts` — `formatDisplayDate()` for tables, date-range display, detail modal
 - **Shared UI frameworks:** `shared/form/`, `shared/table/`, `shared/confirm/` (`ConfirmService`, `ConfirmDialogComponent` in `app.html`)
-- **Table filters (user portal):** `shared/table/` filter bar, chips, collapsible panel, multi-select/date/number-range controls; per-page defs in `portal/user/features/*/data/*-table-filters.ts`; see `table-filters.mdc`. References: `transport-table-filters.ts`, `freight-table-filters.ts`, `warehouse-table-filters.ts`
+- **Table filters (user portal):** `shared/table/` flyout panel, toolbar search, chips, per-filter accordion (`table-filter-field/`), `buildFilterSummary()` / `buildFilterChips()`; `optionTiles` + `StatusBadgeComponent` / `VehicleTypeDisplayComponent`; multi-select / date / number-range; defs in `portal/user/features/*/data/*-table-filters.ts` — see `table-filters.mdc`. References: `transport-table-filters.ts`, `freight-table-filters.ts`, `warehouse-table-filters.ts`
 - **Route display UI:** `shared/ui/route-display/` — `RouteDisplayComponent` (`app-route-display`) for origin → destination with neutral chips in tables
 - **Date range display UI:** `shared/ui/date-range-display/` — `DateRangeDisplayComponent` (`app-date-range-display`) for merged period / single-date columns
 - **Vehicle display UI:** `shared/ui/vehicle-display/` — `VehicleDisplayComponent` (`app-vehicle-display`) for vehicle name + plate in tables

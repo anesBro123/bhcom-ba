@@ -1,7 +1,8 @@
 import type { TranslateService } from '@ngx-translate/core';
 
 import { formatDisplayDate } from '../utils/format-display-date';
-import type { UserEntityStatus } from '../constants/user-entity-status';
+import { isUserEntityStatus, type UserEntityStatus } from '../constants/user-entity-status';
+import { isVehicleType, type VehicleType } from '../constants/vehicle-type';
 
 import { isNarrowedNumberRange } from './number-range-filter.utils';
 import type {
@@ -17,7 +18,20 @@ export interface FilterChip {
   valueKey?: string;
   valueText?: string;
   statuses?: UserEntityStatus[];
+  vehicleTypes?: VehicleType[];
 }
+
+export interface FilterSummary {
+  text: string;
+  isPlaceholder: boolean;
+  labels?: string[];
+  statuses?: UserEntityStatus[];
+  vehicleTypes?: VehicleType[];
+  overflowCount?: number;
+}
+
+export const FILTER_SUMMARY_MAX_VISIBLE = 3;
+export const FILTER_SUMMARY_TEXT_MAX_VISIBLE = 2;
 
 export function buildFilterChips<T>(
   filters: FilterDef<T>[],
@@ -49,7 +63,8 @@ export function buildFilterChips<T>(
         });
         break;
 
-      case 'multiSelect': {
+      case 'multiSelect':
+      case 'optionTiles': {
         const selected = raw as string[];
         const chip: FilterChip = {
           filterKey: filter.key,
@@ -57,7 +72,9 @@ export function buildFilterChips<T>(
         };
 
         if (filter.showStatusBadges) {
-          chip.statuses = selected as UserEntityStatus[];
+          chip.statuses = selected.filter(isUserEntityStatus) as UserEntityStatus[];
+        } else if (filter.showOptionIcons) {
+          chip.vehicleTypes = selected.filter(isVehicleType) as VehicleType[];
         } else {
           chip.valueText = selected
             .map((value) => optionLabel(filter.options, value, translate))
@@ -103,6 +120,118 @@ export function buildFilterChips<T>(
   return chips;
 }
 
+export function buildFilterSummary<T>(
+  filter: FilterDef<T>,
+  value: unknown,
+  translate: TranslateService,
+): FilterSummary {
+  if (!isActiveFilterValue(filter, value)) {
+    return {
+      text: filterSummaryPlaceholder(filter, translate),
+      isPlaceholder: true,
+    };
+  }
+
+  switch (filter.type) {
+    case 'search':
+      return { text: String(value), isPlaceholder: false };
+
+    case 'select':
+      return {
+        text: optionLabel(filter.options, String(value), translate),
+        isPlaceholder: false,
+      };
+
+    case 'multiSelect':
+    case 'optionTiles': {
+      const selected = value as string[];
+
+      if (filter.showStatusBadges) {
+        const statuses = selected.filter(isUserEntityStatus) as UserEntityStatus[];
+        const maxVisible =
+          statuses.length > FILTER_SUMMARY_TEXT_MAX_VISIBLE
+            ? FILTER_SUMMARY_TEXT_MAX_VISIBLE
+            : FILTER_SUMMARY_MAX_VISIBLE;
+        const { visible, overflowCount } = truncateFilterSelection(statuses, maxVisible);
+        return {
+          text: '',
+          isPlaceholder: false,
+          statuses: visible,
+          overflowCount: overflowCount || undefined,
+        };
+      }
+
+      if (filter.showOptionIcons) {
+        const vehicleTypes = selected.filter(isVehicleType) as VehicleType[];
+        const maxVisible =
+          vehicleTypes.length > FILTER_SUMMARY_TEXT_MAX_VISIBLE
+            ? FILTER_SUMMARY_TEXT_MAX_VISIBLE
+            : FILTER_SUMMARY_MAX_VISIBLE;
+        const { visible, overflowCount } = truncateFilterSelection(vehicleTypes, maxVisible);
+        return {
+          text: '',
+          isPlaceholder: false,
+          vehicleTypes: visible,
+          overflowCount: overflowCount || undefined,
+        };
+      }
+
+      const labels = selected.map((item) => optionLabel(filter.options, item, translate));
+      const maxVisible =
+        labels.length > FILTER_SUMMARY_TEXT_MAX_VISIBLE
+          ? FILTER_SUMMARY_TEXT_MAX_VISIBLE
+          : FILTER_SUMMARY_MAX_VISIBLE;
+      const { visible, overflowCount } = truncateFilterSelection(labels, maxVisible);
+      return {
+        text: '',
+        isPlaceholder: false,
+        labels: visible,
+        overflowCount: overflowCount || undefined,
+      };
+    }
+
+    case 'dateRange': {
+      const range = value as DateRangeFilterValue;
+      const from = range.from ? formatDisplayDate(range.from) : '…';
+      const to = range.to ? formatDisplayDate(range.to) : '…';
+      return { text: `${from} – ${to}`, isPlaceholder: false };
+    }
+
+    case 'numberRange': {
+      const range = value as NumberRangeFilterValue;
+      const min = range.min ?? filter.min;
+      const max = range.max ?? filter.max;
+      const unit = filter.unitSuffixKey ? translate.instant(filter.unitSuffixKey) : '';
+      const rangeText = `${formatChipRangeNumber(min, filter.step)} – ${formatChipRangeNumber(max, filter.step)}`;
+      return {
+        text: unit ? `${rangeText} ${unit}` : rangeText,
+        isPlaceholder: false,
+      };
+    }
+
+    default:
+      return { text: '', isPlaceholder: true };
+  }
+}
+
+function filterSummaryPlaceholder<T>(_filter: FilterDef<T>, translate: TranslateService): string {
+  return translate.instant('shared.table.filters.all');
+}
+
+export function truncateFilterSelection<T>(
+  items: T[],
+  maxVisible = FILTER_SUMMARY_MAX_VISIBLE,
+): { visible: T[]; overflowCount: number } {
+  if (items.length <= maxVisible) {
+    return { visible: items, overflowCount: 0 };
+  }
+
+  return {
+    visible: items.slice(0, maxVisible),
+    overflowCount: items.length - maxVisible,
+  };
+}
+
 function isActiveFilterValue<T>(filter: FilterDef<T>, value: unknown): boolean {
   if (value === undefined || value === null || value === '') {
     return false;
@@ -114,6 +243,7 @@ function isActiveFilterValue<T>(filter: FilterDef<T>, value: unknown): boolean {
       return true;
 
     case 'multiSelect':
+    case 'optionTiles':
       return Array.isArray(value) && value.length > 0;
 
     case 'dateRange': {

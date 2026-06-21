@@ -6,11 +6,7 @@
   gap: 0.5rem;
   list-style: none;
   margin: 0;
-  padding: 0 var(--table-card-padding-x) 0.75rem;
-
-  &--pad-top {
-    padding-top: 0.75rem;
-  }
+  padding: 0.75rem var(--table-card-padding-x);
 }
 
 .table-filter-chips__chip {
@@ -45,6 +41,22 @@
   }
 }
 
+.table-filter-chips__vehicle-types {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: center;
+
+  .vehicle-type-display__label {
+    font-size: 0.75rem;
+  }
+
+  .vehicle-type-display__icon svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
 .table-filter-chips__remove {
   display: inline-flex;
   align-items: center;
@@ -63,6 +75,6 @@
 
 @include below-md {
   .table-filter-chips {
-    padding: 0 var(--table-card-padding-x-mobile) 0.75rem;
+    padding: 0.75rem var(--table-card-padding-x-mobile);
   }
 }

@@ -1,6 +1,11 @@
-<div class="table-filter-multi-select">
-  <span class="table-filter-multi-select__label">{{ titleKey() | translate }}</span>
-
+<app-table-filter-field
+  [titleKey]="titleKey()"
+  [collapsible]="collapsible()"
+  [summary]="summary()"
+  [showClear]="selected().length > 0"
+  (expandedChange)="onAccordionExpanded($event)"
+  (clear)="clearSelection()"
+>
   <div class="table-filter-multi-select__control">
     <button
       type="button"
@@ -10,10 +15,26 @@
       (click)="togglePanel()"
     >
       <span class="table-filter-multi-select__trigger-text">
-        @if (showBadgeTrigger()) {
+        @if (triggerStatuses().visible.length > 0) {
           <span class="table-filter-multi-select__trigger-badges">
-            @for (value of selected(); track value) {
-              <app-status-badge [status]="statusValue(value)" />
+            @for (status of triggerStatuses().visible; track status) {
+              <app-status-badge [status]="status" />
+            }
+            @if (triggerStatuses().overflowCount > 0) {
+              <span class="table-filter-multi-select__trigger-overflow">
+                +{{ triggerStatuses().overflowCount }}
+              </span>
+            }
+          </span>
+        } @else if (triggerVehicleTypes().visible.length > 0) {
+          <span class="table-filter-multi-select__trigger-vehicle-types">
+            @for (vehicleType of triggerVehicleTypes().visible; track vehicleType) {
+              <app-vehicle-type-display [vehicleType]="vehicleType" />
+            }
+            @if (triggerVehicleTypes().overflowCount > 0) {
+              <span class="table-filter-multi-select__trigger-overflow">
+                +{{ triggerVehicleTypes().overflowCount }}
+              </span>
             }
           </span>
         } @else if (selected().length > 0) {
@@ -50,13 +71,6 @@
               <span class="table-filter-multi-select__section-label">
                 {{ 'shared.table.filters.selectedSection' | translate }}
               </span>
-              <button
-                type="button"
-                class="table-filter-multi-select__clear"
-                (click)="clearSelection()"
-              >
-                {{ 'shared.table.filters.clearSelection' | translate }}
-              </button>
             </li>
             @for (option of selectedOptions(); track option.value) {
               <li>
@@ -87,7 +101,7 @@
       </div>
     }
   </div>
-</div>
+</app-table-filter-field>
 
 <ng-template #optionRow let-option>
   <label class="table-filter-multi-select__option">
@@ -98,19 +112,9 @@
     />
     @if (showStatusBadge(option.value)) {
       <app-status-badge [status]="statusValue(option.value)" />
+    } @else if (vehicleTypeValue(option.value); as vehicleType) {
+      <app-vehicle-type-display [vehicleType]="vehicleType" />
     } @else {
-      @if (showOptionIcons() && optionIcon(option.value); as vehicleType) {
-        <span class="table-filter-multi-select__option-icon">
-          @switch (vehicleType) {
-            @case ('putnicko') { <svg lucideCar [size]="16" /> }
-            @case ('teretno') { <svg lucideTruck [size]="16" /> }
-            @case ('motocikl') { <svg lucideBike [size]="16" /> }
-            @case ('autobus') { <svg lucideBus [size]="16" /> }
-            @case ('prikljucno') { <svg lucideCaravan [size]="16" /> }
-            @case ('radno') { <svg lucideTractor [size]="16" /> }
-          }
-        </span>
-      }
       <span class="table-filter-multi-select__option-label">
         @if (isLabelKey(option)) {
           {{ option.labelKey | translate }}

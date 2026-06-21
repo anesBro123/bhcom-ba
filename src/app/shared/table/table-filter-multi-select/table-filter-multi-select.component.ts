@@ -12,24 +12,20 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import {
-  LucideBike,
-  LucideBus,
-  LucideCar,
-  LucideCaravan,
-  LucideChevronDown,
-  LucideSearch,
-  LucideTractor,
-  LucideTruck,
-} from '@lucide/angular';
+import { LucideChevronDown, LucideSearch } from '@lucide/angular';
 
 import { isUserEntityStatus, type UserEntityStatus } from '../../constants/user-entity-status';
-import { isVehicleType } from '../../constants/vehicle-type';
+import { isVehicleType, type VehicleType } from '../../constants/vehicle-type';
 import { StatusBadgeComponent } from '../../ui/status-badge/status-badge.component';
+import { VehicleTypeDisplayComponent } from '../../ui/vehicle-type-display/vehicle-type-display.component';
 import { normalizeForSearch } from '../../utils/normalize-for-search';
+import {
+  FILTER_SUMMARY_MAX_VISIBLE,
+  truncateFilterSelection,
+  type FilterSummary,
+} from '../filter-chips.utils';
+import { TableFilterFieldComponent } from '../table-filter-field/table-filter-field.component';
 import type { FilterOption } from '../table.types';
-
-const STATUS_BADGE_TRIGGER_MAX = 3;
 
 @Component({
   selector: 'app-table-filter-multi-select',
@@ -38,14 +34,10 @@ const STATUS_BADGE_TRIGGER_MAX = 3;
     FormsModule,
     TranslatePipe,
     StatusBadgeComponent,
+    VehicleTypeDisplayComponent,
+    TableFilterFieldComponent,
     LucideChevronDown,
     LucideSearch,
-    LucideCar,
-    LucideTruck,
-    LucideBike,
-    LucideBus,
-    LucideCaravan,
-    LucideTractor,
   ],
   templateUrl: './table-filter-multi-select.component.html',
   styleUrl: './table-filter-multi-select.component.scss',
@@ -58,6 +50,8 @@ export class TableFilterMultiSelectComponent {
   readonly searchable = input(true);
   readonly showOptionIcons = input(false);
   readonly showStatusBadges = input(false);
+  readonly collapsible = input(false);
+  readonly summary = input<FilterSummary>({ text: '', isPlaceholder: false });
   readonly closeDropdownsToken = input(0);
 
   valueChange = output<string[]>();
@@ -85,12 +79,23 @@ export class TableFilterMultiSelectComponent {
     return selected.map((value) => this.resolveOptionLabel(value)).join(', ');
   });
 
-  protected readonly showBadgeTrigger = computed(
-    () =>
-      this.showStatusBadges() &&
-      this.selected().length > 0 &&
-      this.selected().length <= STATUS_BADGE_TRIGGER_MAX,
-  );
+  protected readonly triggerStatuses = computed(() => {
+    if (!this.showStatusBadges()) {
+      return { visible: [] as UserEntityStatus[], overflowCount: 0 };
+    }
+
+    const statuses = this.selected().filter(isUserEntityStatus) as UserEntityStatus[];
+    return truncateFilterSelection(statuses, FILTER_SUMMARY_MAX_VISIBLE);
+  });
+
+  protected readonly triggerVehicleTypes = computed(() => {
+    if (!this.showOptionIcons()) {
+      return { visible: [] as VehicleType[], overflowCount: 0 };
+    }
+
+    const vehicleTypes = this.selected().filter(isVehicleType) as VehicleType[];
+    return truncateFilterSelection(vehicleTypes, FILTER_SUMMARY_MAX_VISIBLE);
+  });
 
   protected readonly selectedOptions = computed(() => {
     const selected = new Set(this.selected());
@@ -156,6 +161,13 @@ export class TableFilterMultiSelectComponent {
     this.valueChange.emit([]);
   }
 
+  protected onAccordionExpanded(expanded: boolean): void {
+    if (!expanded) {
+      this.panelOpen.set(false);
+      this.searchQuery.set('');
+    }
+  }
+
   protected showStatusBadge(value: string): boolean {
     return this.showStatusBadges() && isUserEntityStatus(value);
   }
@@ -164,7 +176,7 @@ export class TableFilterMultiSelectComponent {
     return value as UserEntityStatus;
   }
 
-  protected optionIcon(value: string) {
+  protected vehicleTypeValue(value: string): VehicleType | null {
     if (!this.showOptionIcons() || !isVehicleType(value)) {
       return null;
     }

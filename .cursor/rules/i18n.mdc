@@ -33,7 +33,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), leave-form discard dialog (`discardChanges.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, emptyFiltered, pagination, row actions |
-| `shared.table.filters.*` | Filter panel toggle, chips, multi-select, sliders, units (`kg`, `m²`) |
+| `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`) |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
@@ -42,7 +42,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 
 Table **merged period** column headers: `portal.user.features.transport.table.columns.period`, `portal.user.features.warehouse.table.columns.period` (distinct from form field keys like `transportStartDate`).
 
-Table **filter labels**: `portal.user.features.<entity>.table.filters.*`; section groups: `…table.filterGroups.{route|attributes|dates|location}`.
+Table **filter labels**: `portal.user.features.<entity>.table.filters.*`. Legacy `…table.filterGroups.*` keys may remain on defs but are not shown in flyout UI.
 | `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 ### Guest (`guest.*`)

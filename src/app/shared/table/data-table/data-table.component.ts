@@ -4,30 +4,34 @@ import {
   Component,
   ContentChildren,
   DestroyRef,
+  ElementRef,
+  HostListener,
   Injector,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   QueryList,
   TemplateRef,
+  ViewChild,
   afterNextRender,
   computed,
+  effect,
   inject,
   input,
   output,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   LucideArrowDown,
   LucideArrowUp,
   LucideArrowUpDown,
-  LucideChevronDown,
-  LucideChevronUp,
   LucideListFilter,
+  LucideSearch,
   LucideX,
 } from '@lucide/angular';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 
 import { bindTableDataSource } from '../table-data-source';
 import { TableApiService } from '../table-api.service';
@@ -35,6 +39,7 @@ import { TableCellTemplateDirective } from '../table-cell-template.directive';
 import { TableStore } from '../table.store';
 import type {
   ColumnDef,
+  FilterDef,
   RowActionEvent,
   TableCellContext,
   TableDefinition,
@@ -66,8 +71,7 @@ import { formatDisplayDate } from '../../utils/format-display-date';
     LucideArrowDown,
     LucideArrowUpDown,
     LucideListFilter,
-    LucideChevronUp,
-    LucideChevronDown,
+    LucideSearch,
     LucideX,
   ],
   templateUrl: './data-table.component.html',
@@ -81,22 +85,33 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   @ContentChildren(TableCellTemplateDirective)
   private readonly cellTemplateDirectives!: QueryList<TableCellTemplateDirective>;
 
+  @ViewChild('filterFlyoutClose')
+  private filterFlyoutClose?: ElementRef<HTMLButtonElement>;
+
   private readonly api = inject(TableApiService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly injector = inject(Injector);
   private readonly platformId = inject(PLATFORM_ID);
   private dataSubscription: Subscription | null = null;
   private mediaQuery: MediaQueryList | null = null;
+  private readonly searchInput$ = new Subject<{ key: string; value: string }>();
 
   protected tableStore!: TableStore<T>;
   protected readonly cellTemplateMap = signal(new Map<string, TemplateRef<TableCellContext<T>>>());
   protected readonly isMobileLayout = signal(false);
-  protected readonly filtersPanelExpanded = signal(true);
+  protected readonly filtersPanelExpanded = signal(false);
   protected readonly closeFilterDropdownsToken = signal(0);
 
   protected readonly activeFilterCount = computed(() =>
     countActiveFilters(this.tableStore.query().filters, this.definition().filters),
   );
+
+  protected readonly searchFilters = computed((): Extract<FilterDef<T>, { type: 'search' }>[] => {
+    const filters = this.definition().filters ?? [];
+    return filters.filter(
+      (filter): filter is Extract<FilterDef<T>, { type: 'search' }> => filter.type === 'search',
+    );
+  });
 
   protected readonly visibleColumns = computed(() =>
     this.definition().columns.filter((column) => !column.hidden),
@@ -130,9 +145,18 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     const hadActive = this.tableStore.hasActiveFilters();
     this.tableStore.setFilter(event.key, event.value);
 
-    if (!hadActive && this.tableStore.hasActiveFilters() && !this.filtersPanelExpanded()) {
+    const filterDef = this.definition().filters?.find((filter) => filter.key === event.key);
+    const isSearchFilter = filterDef?.type === 'search';
+
+    if (
+      !isSearchFilter &&
+      !hadActive &&
+      this.tableStore.hasActiveFilters() &&
+      !this.filtersPanelExpanded()
+    ) {
       this.filtersPanelExpanded.set(true);
       this.persistFilterPanelExpanded(true);
+      this.syncFlyoutBodyScroll(true);
     }
   }
 
@@ -147,8 +171,36 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
         this.closeFilterDropdownsToken.update((token) => token + 1);
       }
       this.persistFilterPanelExpanded(next);
+      this.syncFlyoutBodyScroll(next);
       return next;
     });
+  }
+
+  protected closeFilterPanel(): void {
+    if (!this.filtersPanelExpanded()) {
+      return;
+    }
+
+    this.filtersPanelExpanded.set(false);
+    this.closeFilterDropdownsToken.update((token) => token + 1);
+    this.persistFilterPanelExpanded(false);
+    this.syncFlyoutBodyScroll(false);
+  }
+
+  @HostListener('document:keydown.escape')
+  protected onEscapeKey(): void {
+    if (this.filtersPanelExpanded()) {
+      this.closeFilterPanel();
+    }
+  }
+
+  protected searchFilterValue(key: string): string {
+    const value = this.tableStore.query().filters[key];
+    return value === null || value === undefined ? '' : String(value);
+  }
+
+  protected onSearchInput(filter: Extract<FilterDef<T>, { type: 'search' }>, value: string): void {
+    this.searchInput$.next({ key: filter.key, value });
   }
 
   protected onChipRemove(event: { filterKey: string }): void {
@@ -168,6 +220,14 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   }
 
   constructor() {
+    effect(() => {
+      if (!this.filtersPanelExpanded()) {
+        return;
+      }
+
+      queueMicrotask(() => this.filterFlyoutClose?.nativeElement.focus());
+    });
+
     afterNextRender(() => {
       if (!isPlatformBrowser(this.platformId)) {
         return;
@@ -175,7 +235,16 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
 
       this.mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
       const updateLayout = (): void => {
-        this.isMobileLayout.set(this.mediaQuery?.matches ?? false);
+        const mobile = this.mediaQuery?.matches ?? false;
+        this.isMobileLayout.set(mobile);
+
+        if (!mobile || !this.filtersPanelExpanded()) {
+          if (isPlatformBrowser(this.platformId)) {
+            document.body.style.overflow = '';
+          }
+        } else {
+          this.syncFlyoutBodyScroll(true);
+        }
       };
 
       updateLayout();
@@ -189,10 +258,20 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
 
   ngOnInit(): void {
     this.bindDataSource();
+
+    this.searchInput$
+      .pipe(debounceTime(300), takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ key, value }) => {
+        this.onFilterChange({ key, value: value || undefined });
+      });
   }
 
   ngOnDestroy(): void {
     this.dataSubscription?.unsubscribe();
+
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = '';
+    }
   }
 
   ngAfterContentInit(): void {
@@ -297,13 +376,21 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   private hydrateFilterPanelExpanded(): void {
     const storageKey = this.definition().filterStorageKey;
     if (!storageKey) {
-      this.filtersPanelExpanded.set(true);
+      this.filtersPanelExpanded.set(false);
       return;
     }
 
     this.filtersPanelExpanded.set(
       loadFilterPanelExpanded(filterPanelStorageKey(storageKey)),
     );
+  }
+
+  private syncFlyoutBodyScroll(open: boolean): void {
+    if (!isPlatformBrowser(this.platformId) || !this.isMobileLayout()) {
+      return;
+    }
+
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
   private persistFilterPanelExpanded(expanded: boolean): void {

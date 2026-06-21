@@ -51,7 +51,7 @@ function matchesFilter<T extends object>(
     return String(record[field]) === String(value);
   }
 
-  if (filterDef?.type === 'multiSelect') {
+  if (filterDef?.type === 'multiSelect' || filterDef?.type === 'optionTiles') {
     const selected = value as string[];
     if (!Array.isArray(selected) || selected.length === 0) {
       return true;

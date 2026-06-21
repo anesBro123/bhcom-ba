@@ -71,6 +71,15 @@ export type FilterDef<T> =
     } & FilterGroupMeta)
   | ({
       key: string;
+      type: 'optionTiles';
+      titleKey: string;
+      options: FilterOption[];
+      showOptionIcons?: boolean;
+      showStatusBadges?: boolean;
+      field?: keyof T & string;
+    } & FilterGroupMeta)
+  | ({
+      key: string;
       type: 'dateRange';
       titleKey: string;
       field: keyof T & string;

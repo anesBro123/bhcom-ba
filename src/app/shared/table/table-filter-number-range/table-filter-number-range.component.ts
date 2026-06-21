@@ -2,11 +2,13 @@ import { Component, HostListener, computed, input, output, signal } from '@angul
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { isNarrowedNumberRange } from '../number-range-filter.utils';
+import { TableFilterFieldComponent } from '../table-filter-field/table-filter-field.component';
+import type { FilterSummary } from '../filter-chips.utils';
 import type { NumberRangeFilterValue } from '../table.types';
 
 @Component({
   selector: 'app-table-filter-number-range',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, TableFilterFieldComponent],
   templateUrl: './table-filter-number-range.component.html',
   styleUrl: './table-filter-number-range.component.scss',
 })
@@ -17,6 +19,8 @@ export class TableFilterNumberRangeComponent {
   readonly max = input.required<number>();
   readonly step = input(1);
   readonly unitSuffixKey = input<string | undefined>(undefined);
+  readonly collapsible = input(false);
+  readonly summary = input<FilterSummary>({ text: '', isPlaceholder: false });
 
   valueChange = output<NumberRangeFilterValue>();
 
@@ -33,6 +37,10 @@ export class TableFilterNumberRangeComponent {
   protected readonly isFiltering = computed(() =>
     isNarrowedNumberRange(this.value(), this.min(), this.max()),
   );
+
+  protected clearRange(): void {
+    this.valueChange.emit({});
+  }
 
   protected currentMin(): number {
     return this.value().min ?? this.min();

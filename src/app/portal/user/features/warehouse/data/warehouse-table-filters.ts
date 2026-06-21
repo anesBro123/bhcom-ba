@@ -16,9 +16,8 @@ export const WAREHOUSE_TABLE_FILTERS: FilterDef<Warehouse>[] = [
   },
   {
     key: 'status',
-    type: 'multiSelect',
+    type: 'optionTiles',
     titleKey: 'portal.user.features.warehouse.table.filters.status',
-    placeholderKey: 'portal.user.features.warehouse.table.filters.allStatuses',
     options: [...USER_ENTITY_STATUS_OPTIONS],
     showStatusBadges: true,
     groupTitleKey: 'portal.user.features.warehouse.table.filterGroups.attributes',
