@@ -1,12 +1,24 @@
 @use 'styles/breakpoints' as *;
 
+.table-filter-chips-section {
+  padding: 0.625rem var(--table-card-padding-x) 0.75rem;
+  background: var(--bg-table-filter-chips);
+  border-top: 1px solid var(--border-table-filter-band, var(--border-table));
+}
+
+.table-filter-chips-section .table-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .table-filter-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   list-style: none;
   margin: 0;
-  padding: 0.75rem var(--table-card-padding-x);
+  padding: 0;
 }
 
 .table-filter-chips__chip {
@@ -74,7 +86,7 @@
 }
 
 @include below-md {
-  .table-filter-chips {
-    padding: 0.75rem var(--table-card-padding-x-mobile);
+  .table-filter-chips-section {
+    padding: 0.625rem var(--table-card-padding-x-mobile) 0.75rem;
   }
 }

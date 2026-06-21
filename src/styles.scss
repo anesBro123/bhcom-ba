@@ -32,7 +32,7 @@
   --text-table-header-size: 0.875rem;
   --bg-table-card: transparent;
   --border-table: rgba(255, 255, 255, 0.06);
-  --bg-table-header: transparent;
+  --bg-table-header: rgba(255, 255, 255, 0.03);
   --text-table-header: #64748b;
   --text-table-header-weight: 500;
   --text-table-body: #f3f4f6;
@@ -45,6 +45,11 @@
   --table-cell-secondary-color: var(--text-section);
   --table-cell-line-height: 1.5;
   --bg-table-row-hover: rgba(255, 255, 255, 0.04);
+  --bg-table-filter-toolbar: rgba(255, 255, 255, 0.05);
+  --bg-table-filter-chips: rgba(255, 255, 255, 0.03);
+  --border-table-filter-band: rgba(255, 255, 255, 0.1);
+  --border-table-filter-accent: rgba(255, 255, 255, 0.28);
+  --bg-table-control: rgba(255, 255, 255, 0.08);
   --bg-table-filter: var(--bg-form-input);
   --bg-table-filter-panel: #151c2e;
   --border-table-filter: rgba(255, 255, 255, 0.12);
@@ -158,6 +163,11 @@
   --table-cell-primary-color: #020817;
   --table-cell-primary-weight: 400;
   --bg-table-row-hover: #f1f5f9;
+  --bg-table-filter-toolbar: #f8fafc;
+  --bg-table-filter-chips: var(--bg-table-card);
+  --border-table-filter-band: rgba(0, 0, 0, 0.1);
+  --border-table-filter-accent: #64748b;
+  --bg-table-control: var(--bg-table-card);
   --bg-table-filter: #ffffff;
   --bg-table-filter-panel: #ffffff;
   --border-table-filter: rgba(0, 0, 0, 0.12);
