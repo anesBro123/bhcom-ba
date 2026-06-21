@@ -22,7 +22,7 @@ Read-only entity detail **pages** for user portal tables. Do not use `DetailModa
 
 | Component | Path | Role |
 |-----------|------|------|
-| `DetailPageLayoutComponent` | `shared/ui/detail-page-layout/` | Slots: `[detailBack]`, `app-page-title`, `[detailHeaderActions]`, `[detailSummary]`, `[detailContent]` |
+| `DetailPageLayoutComponent` | `shared/ui/detail-page-layout/` | Slots: `[detailBack]`, `app-page-title`, `[detailSummary]`, `[detailContent]`, `[detailFooterActions]` |
 | `EntityDetailSummaryComponent` | `shared/ui/entity-detail-summary/` | Primary glance band — **location left**, **status badge right** |
 | `DetailActionBarComponent` | `shared/ui/detail-action-bar/` | Header action buttons; `layout: 'inline' \| 'stack'` |
 
@@ -68,7 +68,7 @@ URL builders in `user-urls.ts`: `userTransportDetailUrl(id)`, `userFreightDetail
 - **Subtitle:** static UX copy — **never** entity data (no `origin → destination`, no warehouse name). Use computed `pageSubtitleKey()` from `resolveDetailSubtitleKey()`:
   - `portal.user.pages.viewTransport.subtitleFind` / `.subtitleOur` (same for freight, warehouse)
 - **Back link:** `PageBackLinkComponent` without `[form]` (read-only)
-- **Actions:** `DetailActionBarComponent` in `[detailHeaderActions]` — Edit/Delete (own) or Send request (Find)
+- **Actions:** `DetailActionBarComponent` in `[detailFooterActions]` below the details card — right-aligned; Edit/Delete (own) or Send request (Find)
 
 ## Page template
 
@@ -78,10 +78,6 @@ Use **separate `@if` blocks** per projected slot — Angular control flow breaks
 <app-detail-page-layout>
   <app-page-back-link detailBack [route]="back().url" [labelKey]="back().labelKey" />
   <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
-
-  @if (!loading() && entity()) {
-    <app-detail-action-bar detailHeaderActions [actions]="detailActions()" layout="inline" (action)="onDetailAction($event)" />
-  }
 
   @if (loading()) {
     <section detailContent class="detail-page-card detail-page-card--loading">…</section>
@@ -93,6 +89,10 @@ Use **separate `@if` blocks** per projected slot — Angular control flow breaks
     <section detailContent class="detail-page-card">
       <app-detail-view [definition]="TransportDetail" [data]="row" />
     </section>
+  }
+
+  @if (!loading() && entity()) {
+    <app-detail-action-bar detailFooterActions [actions]="detailActions()" layout="inline" (action)="onDetailAction($event)" />
   }
 </app-detail-page-layout>
 ```

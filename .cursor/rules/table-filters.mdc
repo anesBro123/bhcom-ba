@@ -84,7 +84,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 ## UX conventions (do not regress)
 
 ### Filter flyout
-- Toolbar: Filters toggle + Clear all + inline **search**; chips below toolbar when active.
+- Toolbar: inline **search** on the **left**; Filters toggle + Clear all on the **right** (aligns with right-side flyout); chips below toolbar when active.
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
 - `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
@@ -148,7 +148,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 ### Layout
 - Flyout filter bar: single column (`table-filter-bar--flyout`); `padding` on each `.table-filter-bar__field` row.
 - Inline filter bar (if used): 3 cols desktop, 2 cols tablet (`below-lg`), 1 col mobile — static `TableFilterFieldComponent` (no accordion).
-- Dark mode: `--bg-table-filter`, `--bg-table-filter-panel`, `--border-filter-divider`, `--shadow-table-filter-panel` in `styles.scss`.
+- Surface stack: table card = `--bg-surface`; toolbar band = `--bg-inset`; search/buttons = `--bg-control`; chips = `--bg-surface`. See `theme-tokens.mdc` for full layer map. Filter panel/flyout: `--bg-table-filter-panel` (= `--bg-surface`), `--border-filter-divider`, `--shadow-table-filter-panel`.
 
 ## i18n
 
@@ -184,6 +184,7 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 
 | Area | Rule |
 |------|------|
+| Surface / toolbar layers | `theme-tokens.mdc` |
 | Table defs / cells | `tables.mdc` |
 | Status badges | `entity-status.mdc` |
 | Vehicle type display | `shared/ui/vehicle-type-display/` + `shared.vehicleType.*` i18n |

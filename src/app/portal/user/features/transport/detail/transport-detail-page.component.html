@@ -7,15 +7,6 @@
     [icon]="pageIcon"
   />
 
-  @if (!loading() && entity()) {
-    <app-detail-action-bar
-      detailHeaderActions
-      [actions]="detailActions()"
-      layout="inline"
-      (action)="onDetailAction($event)"
-    />
-  }
-
   @if (loading()) {
     <section detailContent class="detail-page-card detail-page-card--loading">
       {{ 'shared.table.common.loading' | translate }}
@@ -34,5 +25,14 @@
     <section detailContent class="detail-page-card">
       <app-detail-view [definition]="TransportDetail" [data]="row" />
     </section>
+  }
+
+  @if (!loading() && entity()) {
+    <app-detail-action-bar
+      detailFooterActions
+      [actions]="detailActions()"
+      layout="inline"
+      (action)="onDetailAction($event)"
+    />
   }
 </app-detail-page-layout>

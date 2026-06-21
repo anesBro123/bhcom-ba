@@ -1,3 +1,5 @@
+@use 'styles/interaction' as interaction;
+
 .confirm-dialog {
   position: fixed;
   inset: 0;
@@ -29,15 +31,15 @@
 
 .confirm-dialog__title {
   margin: 0;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: var(--font-size-section-title);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
 }
 
 .confirm-dialog__message {
   margin: 0.75rem 0 0;
-  font-size: 0.9375rem;
-  line-height: 1.5;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
   color: var(--text-muted);
 }
 
@@ -56,9 +58,15 @@
   min-height: 2.625rem;
   padding: 0 1.125rem;
   border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+
+  &:focus-visible {
+    @include interaction.focus-ring-neutral;
+  }
 }
 
 .confirm-dialog__btn--secondary {
@@ -67,7 +75,7 @@
   color: var(--text-primary);
 
   &:hover {
-    background: var(--bg-table-row-hover);
+    background: var(--bg-hover-row);
   }
 }
 
@@ -76,11 +84,8 @@
   border: 1px solid var(--bg-form-btn-primary);
   background: var(--bg-form-btn-primary);
   color: var(--text-form-btn-primary);
-  font-weight: 600;
-
-  &:hover {
-    opacity: 0.92;
-  }
+  font-weight: var(--font-weight-semibold);
+  @include interaction.interactive-primary-btn;
 }
 
 .confirm-dialog__btn--danger {
@@ -89,7 +94,8 @@
   color: #ffffff;
 
   &:hover {
-    opacity: 0.92;
+    background: color-mix(in srgb, var(--accent-danger) 88%, #000000);
+    border-color: color-mix(in srgb, var(--accent-danger) 88%, #000000);
   }
 }
 

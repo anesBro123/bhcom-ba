@@ -1,6 +1,6 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `forms.mdc` / `tables.mdc` / `table-filters.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `theme-tokens.mdc` for surfaces/typography/hover, `forms.mdc` / `tables.mdc` / `table-filters.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
@@ -109,11 +109,13 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, page-title, page-back-link, page-header, primary-action-link, detail-page-layout, entity-detail-summary, detail-action-bar, route-display, date-range-display, vehicle-display, warehouse-display, status-badge)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
 - **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
-- **User intent card:** `shared/ui/intent-card/` — `IntentCardComponent` (`app-intent-card`); static panel, icon + title header, text-link actions with `→` and optional `queryParams`; optional `clickableCard` for Offer (whole-card link, hover border)
+- **User intent card:** `shared/ui/intent-card/` — `IntentCardComponent` (`app-intent-card`); bare header icon; multi-action cards: links with `→`, **`justify-content: space-between` on desktop** (stack on mobile); Home `.home-page__journey-grid` caps at **24rem** per column, left-aligned; Offer uses `clickableCard` (whole-card `<a>`, stretch height)
 - **Entity tabs (user hubs):** `shared/ui/entity-tabs/` — `EntityTabsComponent` (`app-entity-tabs`); config `portal/user/user-entity-tabs.config.ts`; Find/Our listings wrap title + tabs in `.page-hub-header` (`styles/_page-hub-header.scss`); programmatic nav: `userFindUrl()` / `userOurListingsUrl()`; template links: `userFindRoute()` / `userOurListingsRoute()` — see `entity-tabs.mdc`, `page-title.mdc`
-- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — required `titleKey` + `subtitleKey` + `pageIcon` on the page component; entity icon (20px) in rounded `--bg-surface` container; subtitle `max-width: 42rem`. `PageHeaderComponent` vertically centers create CTA with title block. See `page-title.mdc`.
+- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — flex row: bare decorative icon (20px) vertically centered beside `.page-title__text` (title + subtitle, `gap: 0.25rem`); subtitle `max-width: 42rem`; standalone pages get `border-bottom` header divider; hubs use `.page-hub-header` instead. `PageHeaderComponent` draws divider for title + create CTA rows. See `page-title.mdc`.
+- **Form section header:** `FormSectionComponent` — same flex icon + text pattern as page title inside form cards; bare icons — see `forms.mdc`.
 - **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`, `app-page-back-link`) — required on portal create/edit form pages above `PageTitleComponent`; inputs: `route` (list URL from `app-urls.ts`), `labelKey` (reuse `portal.*.nav.all*` or `portal.user.nav.our*`), `form` (dirty → `ConfirmService` + `shared.form.common.discardChanges.*`). Admin → entity list; user → `userOurListingsUrl(matchingEntity)`. See `page-title.mdc`.
 - **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
+- **Theme tokens:** `src/styles.scss` + `src/styles/_interaction.scss` — 4-layer surfaces (`--bg-chrome` → `--bg-app` → `--bg-surface` → `--bg-inset` / `--bg-control`), typography scale (`--font-size-*`), interaction mixins (`interactive-surface`, `interactive-text-link`, `interactive-primary-btn`, etc.). Cards/tables/forms use `--bg-surface`; no `translateY` card lift or opacity primary hovers in portal. See `theme-tokens.mdc`.
 
 ## Cursor rules
 
@@ -123,6 +125,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `app-urls.mdc` | Always — route URLs via `shared/constants/app-urls.ts` only |
 | `angular.mdc` | `src/**/*.{ts,html,scss}` |
 | `guest.mdc` | `src/app/guest/**` |
+| `theme-tokens.mdc` | `src/**/*.scss`, `src/styles/**` — surface layers, typography scale, hover/focus mixins |
 | `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` — sidebar sections, flyout, nav icon rules |
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |

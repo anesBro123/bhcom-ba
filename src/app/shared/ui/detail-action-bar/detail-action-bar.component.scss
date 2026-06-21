@@ -1,4 +1,5 @@
 @use 'styles/breakpoints' as *;
+@use 'styles/interaction' as interaction;
 
 .detail-action-bar {
   display: flex;
@@ -26,11 +27,17 @@
   min-height: 2.625rem;
   padding: 0 1.125rem;
   border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+
+  &:focus-visible {
+    @include interaction.focus-ring-neutral;
+  }
 }
 
 .detail-action-bar--stack .detail-action-bar__btn {
@@ -46,11 +53,8 @@
   border: 1px solid var(--bg-form-btn-primary);
   background: var(--bg-form-btn-primary);
   color: var(--text-form-btn-primary);
-  font-weight: 600;
-
-  &:hover {
-    opacity: 0.92;
-  }
+  font-weight: var(--font-weight-semibold);
+  @include interaction.interactive-primary-btn;
 }
 
 .detail-action-bar__btn--secondary {
@@ -59,7 +63,7 @@
   color: var(--text-primary);
 
   &:hover {
-    background: var(--bg-table-row-hover);
+    background: var(--bg-hover-row);
   }
 }
 

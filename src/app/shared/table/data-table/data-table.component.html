@@ -8,6 +8,21 @@
         [class.data-table-filters--active]="!filtersPanelExpanded() && tableStore.hasActiveFilters()"
       >
         <div class="data-table-filters__header">
+          @for (searchFilter of searchFilters(); track searchFilter.key) {
+            <label class="data-table-filters__search">
+              <span class="data-table-filters__search-icon">
+                <svg lucideSearch [size]="16" />
+              </span>
+              <input
+                type="search"
+                class="data-table-filters__search-input"
+                [placeholder]="searchFilter.placeholderKey | translate"
+                [value]="searchFilterValue(searchFilter.key)"
+                (input)="onSearchInput(searchFilter, $any($event.target).value)"
+              />
+            </label>
+          }
+
           <div class="data-table-filters__actions">
             <button
               type="button"
@@ -38,21 +53,6 @@
               </button>
             }
           </div>
-
-          @for (searchFilter of searchFilters(); track searchFilter.key) {
-            <label class="data-table-filters__search">
-              <span class="data-table-filters__search-icon">
-                <svg lucideSearch [size]="16" />
-              </span>
-              <input
-                type="search"
-                class="data-table-filters__search-input"
-                [placeholder]="searchFilter.placeholderKey | translate"
-                [value]="searchFilterValue(searchFilter.key)"
-                (input)="onSearchInput(searchFilter, $any($event.target).value)"
-              />
-            </label>
-          }
         </div>
 
         @if (showFilterChips() && tableStore.hasActiveFilters()) {

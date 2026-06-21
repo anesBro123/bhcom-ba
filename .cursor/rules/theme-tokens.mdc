@@ -1,0 +1,137 @@
+---
+description: Theme surface layers, typography scale, and interaction hover/focus tokens
+globs: src/**/*.scss,src/styles/**
+alwaysApply: false
+---
+
+# Theme tokens (`src/styles.scss` + `src/styles/_interaction.scss`)
+
+Portal and shared UI use a **4-layer surface stack** mirrored semantically in light and dark. Do not hardcode hex in component SCSS — use CSS variables from `styles.scss`. Do not reintroduce flat dark chrome or translucent card backgrounds.
+
+## Surface layers
+
+| Layer | Token | Light | Dark | Used by |
+|-------|-------|-------|------|---------|
+| Chrome | `--bg-chrome` | `#ffffff` | `#0b0f19` | sidebar, topbar |
+| Canvas | `--bg-app` | `#f1f5f9` | `#0d1220` | body, portal scroll area, hub tab sticky bg |
+| Surface | `--bg-surface` | `#ffffff` | `#151c2e` | cards, table shell, form sections, dialogs |
+| Inset | `--bg-inset` | `#f8fafc` | `#111827` | filter toolbar band, table header row |
+| Control | `--bg-control` | `#ffffff` | `rgba(255,255,255,0.08)` | inputs, filter search/buttons, form fields |
+
+**Aliases** (prefer semantic tokens in new code; aliases exist for backward compat):
+
+- `--bg-sidebar`, `--bg-topbar` → `--bg-chrome`
+- `--bg-form-card`, `--bg-table-card`, `--bg-confirm-dialog`, `--bg-detail-modal`, `--bg-table-filter-panel`, `--bg-sidebar-flyout` → `--bg-surface`
+- `--bg-form-input`, `--bg-table-control` → `--bg-control`
+- `--bg-table-filter-toolbar`, `--bg-table-header` → `--bg-inset`
+- `--bg-table-filter-chips` → `--bg-surface`
+
+**Card emphasis (both themes):** surfaces contrast with canvas. In light, surface equals chrome; in dark, surface is intentionally lighter than chrome/canvas.
+
+**Elevation:** light surfaces may use `--shadow-surface` (`0 1px 3px rgb(0 0 0 / 0.06)`); dark uses border + color step only (`--shadow-surface: none`).
+
+## Table filter toolbar stack
+
+Inside `DataTableComponent` (`.data-table-card`):
+
+```text
+Surface (--bg-surface)
+  └─ Inset toolbar band (--bg-inset) — search left, Filter/Clear right
+       └─ Control inputs (--bg-control)
+  └─ Chips row (--bg-surface)
+  └─ Inset table header (--bg-inset)
+  └─ Rows — hover via --bg-table-row-hover
+```
+
+Active filters: left `3px` accent on `.data-table-filters--active` — no count badge on toggle (see `table-filters.mdc`).
+
+Search input focus: `--border-form-input-focus` (not `--text-muted`).
+
+## Typography scale
+
+Defined in `:root` / theme blocks — use instead of hardcoded `font-size` / `font-weight` in shared UI:
+
+| Token | Value | Typical use |
+|-------|-------|-------------|
+| `--font-size-page-title` | `1.5rem` (`--font-size-page-title-mobile`: `1.25rem`) | `PageTitleComponent` h1 |
+| `--font-size-section-title` | `1.125rem` (`--font-size-section-title-mobile`: `1rem`) | form section h2, dialog title |
+| `--font-size-card-title` | `1rem` | intent card, metric card title |
+| `--font-size-body` | `0.875rem` | body, subtitles, buttons, tabs |
+| `--font-size-body-sm` | `0.8125rem` | hints, back link, filter controls |
+| `--font-size-caption` | `0.75rem` | status badges, filter active count |
+| `--font-size-overline` | `0.6875rem` | sidebar section titles, journey group labels |
+| `--font-weight-regular` … `--font-weight-bold` | 400–700 | semantic weights |
+| `--line-height-tight` / `snug` / `normal` | 1.2 / 1.35 / 1.5 | |
+| `--letter-spacing-tight` / `--letter-spacing-overline` | page titles / uppercase labels |
+
+**Text roles:**
+
+- `--text-primary` — headings, body
+- `--text-muted` — subtitles, helpers
+- `--text-section` — overline labels (uppercase nav section titles)
+- `--text-secondary` — alias of `--text-muted`; default state for text links
+- `--table-cell-primary-color` — always `var(--text-primary)` (no separate dark body color)
+
+## Interaction tokens
+
+In `styles.scss`:
+
+- `--transition-fast: 0.15s ease`
+- `--border-hover: var(--text-muted)`
+- `--bg-hover-subtle: var(--bg-active)`
+- `--bg-hover-row: var(--bg-table-row-hover)`
+- `--bg-primary-hover` — `color-mix` on `--bg-form-btn-primary` per theme (not opacity)
+- `--shadow-hover-surface: var(--shadow-table-actions-menu)`
+
+Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as interaction;`:
+
+| Mixin | Use for |
+|-------|---------|
+| `interactive-surface` | Clickable cards (intent `--clickable`, quick-action, metric link wrapper) — border + shadow hover; **no `translateY` lift** |
+| `interactive-text-link` | Text links — `--text-secondary` → `--text-primary` + underline on hover/focus |
+| `interactive-control` | Tabs, filter buttons, outlined controls — `--bg-hover-subtle` fill |
+| `interactive-primary-btn` | Primary CTAs — `--bg-primary-hover` (not `opacity: 0.92`) |
+| `focus-ring-neutral` | Portal focus rings — `outline: 2px solid var(--text-muted)`; **not `--portal-accent`** on portal content |
+
+**Hover rules (do not regress):**
+
+1. No `translateY` / card lift on portal dashboard or content cards.
+2. No opacity-only primary button hover — use `--bg-primary-hover`.
+3. Secondary buttons: `--bg-hover-row` or `--bg-hover-subtle`.
+4. Text links: color shift + underline (never opacity alone).
+5. Table rows / mobile cards: `--bg-table-row-hover`.
+6. Portal page content: neutral focus rings and hovers — `--portal-accent` is **sidebar only** (see `layout.mdc`).
+
+## Reference implementations
+
+| Pattern | File |
+|---------|------|
+| Page title typography | `shared/ui/page-title/page-title.component.scss` |
+| Form section card | `shared/form/form-section/form-section.component.scss` |
+| Intent / quick-action / metric cards | `shared/ui/intent-card/`, `quick-action-card/`, `metric-card/` |
+| Primary CTA | `shared/ui/primary-action-link/primary-action-link.component.scss` |
+| Form footer buttons | `shared/form/form-footer/form-footer.component.scss` |
+| Entity tabs | `shared/ui/entity-tabs/entity-tabs.component.scss` |
+| Home snapshot + links | `portal/user/features/home/home-page.component.scss` |
+| Table filter toolbar | `shared/table/data-table/data-table.component.scss` |
+
+## Do not
+
+- Hardcode hex colors in component SCSS when a token exists.
+- Use `--bg-card` (undefined) — use `--bg-surface`.
+- Set dark `--bg-table-card: transparent` or translucent `--bg-form-card` overlays for main content panels.
+- Add `translateY(-1px)` hover lift on portal cards.
+- Use `opacity: 0.92` for primary button hover in portal.
+- Use `--portal-accent` for focus rings or hovers on portal page content (cards, links, buttons).
+- Duplicate typography sizes in new shared widgets — use the scale tokens.
+- Import interaction mixins into very large SCSS files if it pushes past component budget — inline equivalent token-based rules instead (see `data-table.component.scss`).
+
+## Related rules
+
+| Area | Rule |
+|------|------|
+| Shell / cards / accent scope | `layout.mdc` |
+| Table filter UX | `table-filters.mdc` |
+| Page title | `page-title.mdc` |
+| Confirm dialog tokens | `confirm.mdc` |
+| Angular SCSS conventions | `angular.mdc` |

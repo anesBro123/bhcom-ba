@@ -10,10 +10,14 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 :host-context(.page-hub-header) .page-header {
   margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .page-header__title {

@@ -16,7 +16,7 @@ export class FormSectionComponent {
   readonly showFooter = input(false);
   readonly flat = input(false);
 
-  protected readonly iconInputs = { size: 16 };
+  protected readonly iconInputs = { size: 20 };
 
   protected hasHeader(): boolean {
     return !!(this.titleKey() || this.subtitleKey() || this.icon());

@@ -2,20 +2,53 @@
 
 :root,
 [data-theme='dark'] {
-  --bg-app: #0b0f19;
-  --bg-sidebar: #0b0f19;
+  /* Typography scale (theme-independent) */
+  --font-size-page-title: 1.5rem;
+  --font-size-page-title-mobile: 1.25rem;
+  --font-size-section-title: 1.125rem;
+  --font-size-section-title-mobile: 1rem;
+  --font-size-card-title: 1rem;
+  --font-size-body: 0.875rem;
+  --font-size-body-sm: 0.8125rem;
+  --font-size-caption: 0.75rem;
+  --font-size-overline: 0.6875rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-overline: 0.06em;
+
+  /* Interaction */
+  --transition-fast: 0.15s ease;
+  --border-hover: var(--text-muted);
+  --bg-hover-subtle: var(--bg-active);
+  --bg-hover-row: var(--bg-table-row-hover);
+  --shadow-hover-surface: var(--shadow-table-actions-menu);
+
+  /* Surface layers */
+  --bg-chrome: #0b0f19;
+  --bg-app: #0d1220;
+  --bg-surface: #151c2e;
+  --bg-inset: #111827;
+  --bg-control: rgba(255, 255, 255, 0.08);
+  --shadow-surface: none;
+
+  --bg-sidebar: var(--bg-chrome);
   --bg-active: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --text-primary: #f8fafc;
   --text-muted: #94a3b8;
   --text-section: #64748b;
   --accent-danger: #ef4444;
-  --bg-topbar: #0b0f19;
+  --bg-topbar: var(--bg-chrome);
   --bg-icon-btn: rgba(255, 255, 255, 0.08);
   --bg-icon-btn-hover: rgba(255, 255, 255, 0.12);
   /* Standalone page semantics (login, etc.) */
   --bg-page: var(--bg-app);
-  --bg-surface: rgba(255, 255, 255, 0.06);
   --bg-muted: var(--bg-active);
   --border-default: var(--border-form-input);
   --text-secondary: var(--text-muted);
@@ -29,29 +62,29 @@
   --layout-padding-y-mobile: 1rem;
   --table-card-padding-x: 1.25rem;
   --table-card-padding-x-mobile: 1rem;
-  --text-table-header-size: 0.875rem;
-  --bg-table-card: transparent;
+  --text-table-header-size: var(--font-size-body);
+  --bg-table-card: var(--bg-surface);
   --border-table: rgba(255, 255, 255, 0.06);
-  --bg-table-header: rgba(255, 255, 255, 0.03);
+  --bg-table-header: var(--bg-inset);
   --text-table-header: #64748b;
-  --text-table-header-weight: 500;
+  --text-table-header-weight: var(--font-weight-medium);
   --text-table-body: #f3f4f6;
   --table-cell-padding-y: 1.125rem;
-  --table-cell-primary-size: 0.875rem;
-  --table-cell-primary-weight: 400;
+  --table-cell-primary-size: var(--font-size-body);
+  --table-cell-primary-weight: var(--font-weight-regular);
   --table-cell-primary-color: var(--text-primary);
-  --table-cell-secondary-size: 0.75rem;
-  --table-cell-secondary-weight: 400;
+  --table-cell-secondary-size: var(--font-size-caption);
+  --table-cell-secondary-weight: var(--font-weight-regular);
   --table-cell-secondary-color: var(--text-section);
-  --table-cell-line-height: 1.5;
+  --table-cell-line-height: var(--line-height-normal);
   --bg-table-row-hover: rgba(255, 255, 255, 0.04);
-  --bg-table-filter-toolbar: rgba(255, 255, 255, 0.05);
-  --bg-table-filter-chips: rgba(255, 255, 255, 0.03);
+  --bg-table-filter-toolbar: var(--bg-inset);
+  --bg-table-filter-chips: var(--bg-surface);
   --border-table-filter-band: rgba(255, 255, 255, 0.1);
   --border-table-filter-accent: rgba(255, 255, 255, 0.28);
-  --bg-table-control: rgba(255, 255, 255, 0.08);
+  --bg-table-control: var(--bg-control);
   --bg-table-filter: var(--bg-form-input);
-  --bg-table-filter-panel: #151c2e;
+  --bg-table-filter-panel: var(--bg-surface);
   --border-table-filter: rgba(255, 255, 255, 0.12);
   --border-filter-divider: rgba(255, 255, 255, 0.1);
   --shadow-table-filter-panel: var(--shadow-table-actions-menu);
@@ -60,15 +93,15 @@
   --text-pagination-muted: #94a3b8;
   --bg-pagination-btn: transparent;
   --border-pagination-btn: rgba(255, 255, 255, 0.12);
-  --bg-table-actions-menu: var(--bg-app);
+  --bg-table-actions-menu: var(--bg-surface);
   --border-table-actions-menu: rgba(255, 255, 255, 0.08);
   --shadow-table-actions-menu: 0 8px 24px rgb(0 0 0 / 0.35);
-  --bg-sidebar-flyout: var(--bg-app);
+  --bg-sidebar-flyout: var(--bg-surface);
   --border-sidebar-flyout: rgba(255, 255, 255, 0.08);
   --shadow-sidebar-flyout: 0 8px 24px rgb(0 0 0 / 0.35);
-  --bg-form-card: rgba(255, 255, 255, 0.02);
-  --bg-confirm-dialog: #151c2e;
-  --bg-detail-modal: #151c2e;
+  --bg-form-card: var(--bg-surface);
+  --bg-confirm-dialog: var(--bg-surface);
+  --bg-detail-modal: var(--bg-surface);
   --border-form-card: rgba(255, 255, 255, 0.1);
   --border-confirm-dialog: rgba(255, 255, 255, 0.12);
   --border-detail-modal: rgba(255, 255, 255, 0.12);
@@ -76,7 +109,7 @@
   --shadow-detail-modal: 0 16px 48px rgb(0 0 0 / 0.45);
   --radius-form-card: 0.75rem;
   --gap-form-sections: 1.25rem;
-  --bg-form-input: rgba(255, 255, 255, 0.08);
+  --bg-form-input: var(--bg-control);
   --border-form-input: rgba(255, 255, 255, 0.1);
   --border-form-input-focus: rgba(255, 255, 255, 0.2);
   --text-form-label: #94a3b8;
@@ -102,6 +135,7 @@
   --text-form-step-active-neutral: #f8fafc;
   --bg-form-btn-primary: #f8fafc;
   --text-form-btn-primary: #0b0f19;
+  --bg-primary-hover: color-mix(in srgb, var(--bg-form-btn-primary) 92%, #ffffff);
   --bg-form-btn-secondary: transparent;
   --border-form-btn-secondary: rgba(255, 255, 255, 0.12);
   --bg-form-section-footer: rgba(255, 255, 255, 0.02);
@@ -136,40 +170,45 @@
 }
 
 [data-theme='light'] {
+  --bg-chrome: #ffffff;
   --bg-app: #f1f5f9;
-  --bg-sidebar: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-inset: #f8fafc;
+  --bg-control: #ffffff;
+  --shadow-surface: 0 1px 3px rgb(0 0 0 / 0.06);
+
+  --bg-sidebar: var(--bg-chrome);
   --bg-active: rgba(0, 0, 0, 0.06);
   --border-subtle: rgba(0, 0, 0, 0.08);
   --text-primary: #0f172a;
   --text-muted: #64748b;
   --text-section: #94a3b8;
   --accent-danger: #ef4444;
-  --bg-topbar: #ffffff;
+  --bg-topbar: var(--bg-chrome);
   --bg-icon-btn: #eef1f5;
   --bg-icon-btn-hover: #e4e8ee;
   /* Standalone page semantics (login, etc.) */
   --bg-page: var(--bg-app);
-  --bg-surface: #ffffff;
   --bg-muted: var(--bg-active);
   --border-default: var(--border-form-input);
   --text-secondary: var(--text-muted);
-  --text-table-header-size: 0.875rem;
-  --bg-table-card: #ffffff;
+  --text-table-header-size: var(--font-size-body);
+  --bg-table-card: var(--bg-surface);
   --border-table: rgba(0, 0, 0, 0.08);
-  --bg-table-header: #f8fafc;
+  --bg-table-header: var(--bg-inset);
   --text-table-header: #64748b;
-  --text-table-header-weight: 500;
+  --text-table-header-weight: var(--font-weight-medium);
   --text-table-body: #1e293b;
-  --table-cell-primary-color: #020817;
-  --table-cell-primary-weight: 400;
+  --table-cell-primary-color: var(--text-primary);
+  --table-cell-primary-weight: var(--font-weight-regular);
   --bg-table-row-hover: #f1f5f9;
-  --bg-table-filter-toolbar: #f8fafc;
-  --bg-table-filter-chips: var(--bg-table-card);
+  --bg-table-filter-toolbar: var(--bg-inset);
+  --bg-table-filter-chips: var(--bg-surface);
   --border-table-filter-band: rgba(0, 0, 0, 0.1);
   --border-table-filter-accent: #64748b;
-  --bg-table-control: var(--bg-table-card);
-  --bg-table-filter: #ffffff;
-  --bg-table-filter-panel: #ffffff;
+  --bg-table-control: var(--bg-control);
+  --bg-table-filter: var(--bg-control);
+  --bg-table-filter-panel: var(--bg-surface);
   --border-table-filter: rgba(0, 0, 0, 0.12);
   --border-filter-divider: rgba(0, 0, 0, 0.08);
   --shadow-table-filter-panel: var(--shadow-table-actions-menu);
@@ -178,15 +217,15 @@
   --text-pagination-muted: #64748b;
   --bg-pagination-btn: #ffffff;
   --border-pagination-btn: rgba(0, 0, 0, 0.12);
-  --bg-table-actions-menu: var(--bg-table-card);
+  --bg-table-actions-menu: var(--bg-surface);
   --border-table-actions-menu: rgba(0, 0, 0, 0.08);
   --shadow-table-actions-menu: 0 4px 16px rgb(0 0 0 / 0.1);
-  --bg-sidebar-flyout: var(--bg-table-card);
+  --bg-sidebar-flyout: var(--bg-surface);
   --border-sidebar-flyout: rgba(0, 0, 0, 0.08);
   --shadow-sidebar-flyout: 0 4px 16px rgb(0 0 0 / 0.1);
-  --bg-form-card: #ffffff;
-  --bg-confirm-dialog: #ffffff;
-  --bg-detail-modal: #ffffff;
+  --bg-form-card: var(--bg-surface);
+  --bg-confirm-dialog: var(--bg-surface);
+  --bg-detail-modal: var(--bg-surface);
   --border-form-card: rgba(0, 0, 0, 0.08);
   --border-confirm-dialog: rgba(0, 0, 0, 0.08);
   --border-detail-modal: rgba(0, 0, 0, 0.08);
@@ -194,7 +233,7 @@
   --shadow-detail-modal: 0 16px 48px rgb(0 0 0 / 0.12);
   --radius-form-card: 0.75rem;
   --gap-form-sections: 1.25rem;
-  --bg-form-input: #ffffff;
+  --bg-form-input: var(--bg-control);
   --border-form-input: rgba(0, 0, 0, 0.12);
   --border-form-input-focus: rgba(0, 0, 0, 0.24);
   --text-form-label: #64748b;
@@ -220,6 +259,7 @@
   --text-form-step-active-neutral: #0f172a;
   --bg-form-btn-primary: #1e293b;
   --text-form-btn-primary: #ffffff;
+  --bg-primary-hover: color-mix(in srgb, var(--bg-form-btn-primary) 88%, #000000);
   --bg-form-btn-secondary: #ffffff;
   --border-form-btn-secondary: rgba(0, 0, 0, 0.12);
   --bg-form-section-footer: #f8fafc;
@@ -263,6 +303,8 @@ body {
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
   background-color: var(--bg-app);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;

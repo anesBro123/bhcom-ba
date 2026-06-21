@@ -1,3 +1,5 @@
+@use 'styles/interaction' as interaction;
+
 .primary-action-link {
   display: inline-flex;
   align-items: center;
@@ -10,14 +12,14 @@
   border-radius: 0.5rem;
   background: var(--bg-form-btn-primary);
   color: var(--text-form-btn-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity 0.15s ease;
+  @include interaction.interactive-primary-btn;
 
-  &:hover {
-    opacity: 0.92;
+  &:focus-visible {
+    @include interaction.focus-ring-neutral;
   }
 }
 

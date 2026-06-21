@@ -1,0 +1,65 @@
+@mixin focus-ring-neutral {
+  outline: 2px solid var(--text-muted);
+  outline-offset: 2px;
+}
+
+@mixin interactive-surface {
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-hover-surface);
+  }
+
+  &:focus-visible {
+    @include focus-ring-neutral;
+  }
+}
+
+@mixin interactive-text-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    @include focus-ring-neutral;
+    border-radius: 2px;
+  }
+}
+
+@mixin interactive-control {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+
+  &:hover {
+    background: var(--bg-hover-subtle);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--border-form-input-focus);
+  }
+}
+
+@mixin interactive-primary-btn {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-primary-hover);
+    border-color: var(--bg-primary-hover);
+  }
+}

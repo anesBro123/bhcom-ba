@@ -1,4 +1,5 @@
 @use 'styles/breakpoints' as *;
+@use 'styles/interaction' as interaction;
 
 :host {
   display: block;
@@ -12,15 +13,20 @@
   border: 1px solid var(--border-form-card);
   border-radius: var(--radius-form-card);
   background: var(--bg-form-card);
+  box-shadow: var(--shadow-surface);
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 :host-context(a:hover) .metric-card,
 :host-context(a:focus-visible) .metric-card {
-  border-color: var(--text-muted);
-  box-shadow: var(--shadow-table-actions-menu);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-hover-surface);
+}
+
+:host-context(a:focus-visible) .metric-card {
+  @include interaction.focus-ring-neutral;
 }
 
 .metric-card__header {
@@ -32,9 +38,9 @@
 
 .metric-card__title {
   margin: 0;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
   color: var(--text-primary);
 }
 
@@ -73,15 +79,15 @@
 .metric-card__value {
   margin: 0;
   font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
   color: var(--text-primary);
 }
 
 .metric-card__subtitle {
   margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.45;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
   color: var(--text-muted);
 }
 

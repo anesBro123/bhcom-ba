@@ -1,16 +1,13 @@
 <div class="detail-page-layout">
   <ng-content select="[detailBack]" />
 
-  <header class="detail-page-layout__page-header">
-    <div class="detail-page-layout__page-header-title">
-      <ng-content select="app-page-title" />
-    </div>
-    <div class="detail-page-layout__page-header-actions">
-      <ng-content select="[detailHeaderActions]" />
-    </div>
-  </header>
+  <ng-content select="app-page-title" />
 
   <ng-content select="[detailSummary]" />
 
   <ng-content select="[detailContent]" />
+
+  <div class="detail-page-layout__actions">
+    <ng-content select="[detailFooterActions]" />
+  </div>
 </div>

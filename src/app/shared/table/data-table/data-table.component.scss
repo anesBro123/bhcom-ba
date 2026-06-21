@@ -25,7 +25,6 @@
 .data-table-filters__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
   padding: 0.75rem var(--table-card-padding-x);
@@ -52,6 +51,7 @@
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .data-table-filters__search {
@@ -60,7 +60,6 @@
   flex: 1 1 12rem;
   min-width: min(100%, 12rem);
   max-width: 24rem;
-  margin-left: auto;
   position: relative;
 }
 
@@ -78,7 +77,7 @@
   padding: 0 0.875rem 0 2.5rem;
   border: 1px solid var(--border-table-filter, var(--border-table));
   border-radius: 0.375rem;
-  background: var(--bg-table-control, var(--bg-table-card));
+  background: var(--bg-table-control, var(--bg-control));
   color: var(--text-table-body, var(--text-primary));
   font-size: 0.8125rem;
 
@@ -88,7 +87,7 @@
 
   &:focus {
     outline: none;
-    border-color: var(--text-muted);
+    border-color: var(--border-form-input-focus);
   }
 }
 
@@ -101,7 +100,7 @@
   padding: 0 0.625rem;
   border: 1px solid var(--border-table-filter, var(--border-table));
   border-radius: 0.375rem;
-  background: var(--bg-table-control, var(--bg-table-card));
+  background: var(--bg-table-control, var(--bg-control));
   color: var(--text-secondary);
   font-size: 0.8125rem;
   cursor: pointer;
@@ -293,6 +292,9 @@
   .data-table-filters__search {
     flex: 1 1 100%;
     max-width: none;
+  }
+
+  .data-table-filters__actions {
     margin-left: 0;
   }
 

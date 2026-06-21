@@ -50,11 +50,11 @@ Static keys:
 
 ## Page icon (entity)
 
-- **Required** on every portal page — Lucide entity icon left of the `h1`, inside a rounded square container.
+- **Required** on every portal page — Lucide entity icon left of the `h1` (decorative — no border or background).
 - Source: `AdminPageIcons` (`portal/admin/admin-page-icons.ts`) or `UserPageIcons` (`portal/user/user-page-icons.ts`). Nav list items import the same constants — do not duplicate Lucide imports on pages.
 - Use the **entity** icon (e.g. `LucideTruck` for vehicles), **not** `LucideSquarePlus`. Reserve `+` for sidebar create links and `PrimaryActionLinkComponent` only.
 - Same icon on **list, create, and edit** pages for a feature — title copy differentiates the task.
-- Icon size: **20px** inside a **2.25rem** square (`page-title.component.ts` → `iconInputs`).
+- Icon size: **20px** in a **2.25rem** alignment box (`page-title.component.ts` → `iconInputs`).
 
 ```typescript
 import { AdminPageIcons } from '../../../admin-page-icons';
@@ -66,30 +66,41 @@ protected readonly pageIcon = AdminPageIcons.vehicles;
 
 All page title chrome lives in `shared/ui/page-title/page-title.component.scss` — do not duplicate on feature pages.
 
-**Icon container**
+**Icon**
 
-- `2.25rem` square, `0.5rem` radius, `1px` `--border-subtle` border.
-- Background: `--bg-surface` (white in light mode — contrasts with `--bg-app`; subtle tint in dark mode). **Do not** use `--metric-variant-default-bg` on page titles — in light mode it matches `--bg-app` and the container disappears.
-- Icon color: `--metric-variant-default-icon`.
+- **Bare Lucide icon** — no border or background (decorative, not a control). Reserve bordered/filled icon chrome for clickable targets (buttons, tabs, icon buttons).
+- `2.25rem` alignment box; icon color: `--metric-variant-default-icon`.
 
-**Typography**
+**Typography** (tokens from `theme-tokens.mdc` — do not hardcode sizes on feature pages)
 
-- Title: `1.5rem` / `700`, `line-height: 1.2`, `letter-spacing: -0.02em`; `1.25rem` on mobile.
-- Subtitle: `0.875rem`, `line-height: 1.5`, `--text-muted`, `max-width: 42rem`.
+- Title: `--font-size-page-title` / `--font-weight-bold`, `--line-height-tight`, `--letter-spacing-tight`; `--font-size-page-title-mobile` on mobile.
+- Subtitle: `--font-size-body`, `--line-height-normal`, `--text-muted`, `max-width: 42rem`.
 
 **Spacing**
 
-- Default block margin-bottom: `1.25rem`.
-- Inside `.page-hub-header`: margin-bottom `0` (hub wrapper owns outer spacing) — via `:host-context(.page-hub-header)`.
+- Title ↔ subtitle flex gap: `0.25rem` inside `.page-title__text`.
+- Default block: `padding-bottom: 1rem`, `border-bottom: 1px solid var(--border-subtle)`, `margin-bottom: 1.25rem` — separates header from page body.
+- Inside `.page-hub-header`: no border/padding on title block — hub wrapper owns the divider (after tabs).
+- Inside `app-page-header` (title + create CTA): no border on title block — `PageHeaderComponent` draws the full-width divider when not in a hub.
 
 ## Layout (icon + title rows)
 
-CSS grid inside `PageTitleComponent`:
+Flex row inside `PageTitleComponent`:
 
-- **Row 1:** entity icon (col 1) + `h1` title (col 2), **vertically centered** (`align-items: center` on grid; icon box and title share the same row centerline).
-- **Row 2:** subtitle spans full width (`grid-column: 1 / -1`) — left edge aligns with icon, runs under both icon and title (`align-self: start` on subtitle).
+- **Column 1:** entity icon (`2.25rem` alignment box), **vertically centered** against the text block (`align-items: center` on `.page-title-block`).
+- **Column 2:** `.page-title__text` — title + subtitle stacked (`gap: 0.25rem`). Subtitle `max-width: 42rem`.
 
-Do not nest subtitle under the title column only — keeps subtitle aligned with icon per design.
+Same flex pattern in `FormSectionComponent` (`.form-section-card__text`) — see `forms.mdc`.
+
+## Header divider (page body separation)
+
+| Context | Divider location |
+|---------|------------------|
+| Standalone `<app-page-title>` (Home, Offer, dashboard, forms, detail) | `.page-title-block` — `border-bottom` + `padding-bottom: 1rem` |
+| `<app-page-header>` + create CTA (admin tables) | `.page-header` — full-width `border-bottom` |
+| `.page-hub-header` (Find, Our listings) | Wrapper only — after tabs; no border on title or page-header inside |
+
+Do not stack duplicate borders — `:host-context(.page-hub-header)` and `:host-context(.page-header)` remove border from `.page-title-block`.
 
 ## `PageHeaderComponent` (title + create CTA row)
 
@@ -99,8 +110,9 @@ Do not nest subtitle under the title column only — keeps subtitle aligned with
 | Selector | `app-page-header` |
 | Layout | Flex row: projected `app-page-title` (left) + `app-primary-action-link` or `[pageHeaderActions]` (right) |
 | Alignment | `align-items: center` — CTA vertically centered against the full title block (icon + title + subtitle) |
+| Divider | When **not** inside `.page-hub-header`: `padding-bottom: 1rem`, `border-bottom: 1px solid var(--border-subtle)`, `margin-bottom: 1.25rem` on `.page-header` — full-width divider under title + CTA. Title block inside has no border (via `:host-context(.page-header)`). |
 
-Inside `.page-hub-header`, `PageHeaderComponent` drops its bottom margin — tabs follow in the same header zone. See **User hub header** below.
+Inside `.page-hub-header`, `PageHeaderComponent` drops border and bottom margin — tabs follow in the same header zone. See **User hub header** below.
 
 ## User hub header (Find / Our listings)
 
@@ -240,10 +252,10 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss` (+ `styles/_page-hub-header.scss` for hub wrappers only).
-- Use `--metric-variant-default-bg` for page title icon containers — use `--bg-surface` + `--border-subtle` so light mode stays visible on `--bg-app`.
 - Put Find / Our listings title and tabs as siblings without `.page-hub-header` — always wrap per **User hub header** above.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
+- Put border or background on page title icons — bare decorative icon only; use chrome on clickable controls.
 - Put `LucideSquarePlus` on page titles — use entity icons from `AdminPageIcons` / `UserPageIcons`; `+` stays on create action links only.
 
 ## Reference implementations

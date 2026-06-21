@@ -11,7 +11,7 @@ alwaysApply: false
 - Prefer signals/computed in stores (`FormStore`, `TableStore`) — match existing code.
 - One component per folder: `.ts`, `.html`, `.scss` (`styleUrl`, `templateUrl`).
 - Icons: import from `@lucide/angular` (same as form/table defs).
-- Styling: use CSS variables from `styles.scss`; avoid hard-coded hex in components.
+- Styling: use CSS variables from `styles.scss`; avoid hard-coded hex in components. Surface layers, typography scale, and hover mixins: see `theme-tokens.mdc`. Component SCSS: `@use 'styles/interaction' as interaction;` for shared hover/focus mixins when file size allows.
 - No NgModules unless the codebase already uses them in that area.
 - **No unit tests** — do not add or extend `*.spec.ts` / Vitest files (see `00-project.mdc`).
 

@@ -21,7 +21,16 @@ Declarative form framework used by guest pages, portal features, and shared logi
 | `form-page/` | Orchestrator: `validateStep` write-path, stepper state, navigation |
 | `form-stepper/` | Progress segments + step pills (desktop + mobile layouts) |
 | `form-footer/` | Previous / Next / Submit |
-| `form-section/`, `form-grid/`, `form-field-renderer/` | Section chrome + field widgets |
+| `form-section/`, `form-grid/`, `form-field-renderer/` | Section card chrome + field widgets — see **Form section header** below |
+
+## Form section header (`FormSectionComponent`)
+
+Matches `PageTitleComponent` header pattern inside form cards (`form-section.component.*`):
+
+- **Layout:** flex row — bare icon (`2.25rem`, 20px Lucide, `--metric-variant-default-icon`) vertically centered beside `.form-section-card__text`.
+- **Text column:** title (`h2`) + subtitle stacked with `gap: 0.25rem`.
+- **No icon border/background** — decorative only; card border provides framing.
+- Do not duplicate page-title SCSS on feature pages.
 | `fields/form-autocomplete-field/` | City-style autocomplete (`type: 'autocomplete'`) |
 | `fields/form-text-field/` | text, email, tel, number, **date** (calendar icon, min/max) |
 | `form-control-error.ts` | `getControlErrorKey`, `DEFAULT_ERROR_KEYS` (incl. `minDate`, `dateRange`) |
@@ -208,7 +217,8 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 - `shared.form.common.validationState.*` — pill aria-labels
 - `shared.form.common.errors.*` — field errors
 - Step `titleKey` on pills: keep short; section headers carry full titles.
-- Stepper tokens in `src/styles.scss`: `--bg-form-step-active-pill`, `--bg-form-step-active-valid`, `--bg-form-step-active-invalid`, `--border-form-step-active`, `--border-form-step-active-valid`, `--border-form-step-active-invalid`, `--text-form-step-active-neutral`, plus complete/error/inactive tokens.
+- Stepper tokens in `src/styles.scss`: `--bg-form-step-active-pill`, … (see `theme-tokens.mdc` for surface/typography/interaction tokens).
+- Form section cards: `--bg-surface` via `--bg-form-card`; inputs: `--bg-control` via `--bg-form-input`. Footer primary button: `--bg-primary-hover` via `interactive-primary-btn` mixin — not opacity hover.
 
 ## Examples by shape
 

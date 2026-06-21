@@ -45,7 +45,14 @@ Follow **`entity-tabs.mdc`** — reference: `portal/user/features/find/`, `porta
    - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL`, `UserPageIcons.home` / `AdminPageIcons.dashboard` on `NavSection.icon`, overview item (`exact: true`)
    - **i18n:** `portal.<portal>.features.dashboard.metrics.*`, `…quickActions.title`, `…actions.*.description`; add `portal.admin.nav.sections.dashboard` + `portal.admin.nav.overview` for admin
    - **User (implemented):** `user-dashboard-page.*`, `user-dashboard.actions.config.ts`, `data/user-dashboard.service.ts`
-7. **Dashboard overview** — feature folder `portal/{user|admin}/features/dashboard/`:
+
+## User home page (`portal/user/features/home/`)
+
+- Standalone `<app-page-title>` with header divider (not `.page-hub-header`).
+- Journey section: grouped cards (PREVOZ / SKLADIŠTE) via `journeyGroups` in page TS.
+- Grid per group in `home-page.component.scss`: `repeat(auto-fit, minmax(min(100%, 24rem), 24rem))`, `justify-content: start`.
+- Cards: `IntentCardComponent` multi-action — links `space-between` on desktop. Do not center the grid container.
+- Reference: `home-page.component.*`, `layout.mdc` (IntentCardComponent + Home journey cards).
 
 ## Guest page
 

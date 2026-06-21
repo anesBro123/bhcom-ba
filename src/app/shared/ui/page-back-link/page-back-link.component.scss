@@ -1,3 +1,5 @@
+@use 'styles/interaction' as interaction;
+
 .page-back-link {
   display: inline-flex;
   align-items: center;
@@ -8,31 +10,25 @@
   border: none;
   border-radius: 0.375rem;
   background: transparent;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
   line-height: 1.4;
-  color: var(--text-muted);
   cursor: pointer;
-  transition:
-    color 0.15s ease,
-    background-color 0.15s ease;
+  @include interaction.interactive-text-link;
 
-  &:hover {
-    color: var(--text-primary);
-    background: var(--bg-active);
-  }
-
+  &:hover,
   &:focus-visible {
-    outline: 2px solid var(--text-muted);
-    outline-offset: 2px;
+    background: var(--bg-hover-subtle);
+    text-decoration: none;
   }
 }
 
 .page-back-link__icon {
   flex-shrink: 0;
-  transition: transform 0.15s ease;
+  transition: transform var(--transition-fast);
 }
 
-.page-back-link:hover .page-back-link__icon {
+.page-back-link:hover .page-back-link__icon,
+.page-back-link:focus-visible .page-back-link__icon {
   transform: translateX(-2px);
 }

@@ -58,11 +58,12 @@ Callers pass **title + message only** in most cases. Override `confirmLabelKey` 
 
 ## Styling
 
-Theme tokens in `src/styles.scss` (not `--bg-form-card`, which is translucent in dark mode):
+Theme tokens in `src/styles.scss` (see `theme-tokens.mdc`):
 
-- `--bg-confirm-dialog`
+- `--bg-confirm-dialog` — aliases `--bg-surface` (solid in both themes)
 - `--border-confirm-dialog`
 - `--shadow-confirm-dialog`
+- Primary button hover: `--bg-primary-hover` via `interactive-primary-btn` mixin — not opacity
 
 Dialog `z-index: 250` (above mobile sidebar `200`). Body scroll locked while open.
 
