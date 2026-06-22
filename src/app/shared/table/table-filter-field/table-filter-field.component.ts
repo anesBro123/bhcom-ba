@@ -21,7 +21,7 @@ export class TableFilterFieldComponent {
   clear = output<void>();
   expandedChange = output<boolean>();
 
-  protected readonly expanded = signal(true);
+  protected readonly expanded = signal(false);
 
   protected toggleExpanded(): void {
     if (!this.collapsible()) {
