@@ -1,70 +1,72 @@
 <section class="data-table-page">
   <ng-content select="[tableToolbar]" />
 
-  <div class="data-table-card">
-    @if (hasFilters()) {
-      <div
-        class="data-table-filters"
-        [class.data-table-filters--active]="!filtersPanelExpanded() && tableStore.hasActiveFilters()"
-      >
-        <div class="data-table-filters__header">
-          @for (searchFilter of searchFilters(); track searchFilter.key) {
-            <label class="data-table-filters__search">
-              <span class="data-table-filters__search-icon">
-                <svg lucideSearch [size]="16" />
+  <ng-template #filtersBlock>
+    <div
+      class="data-table-filters"
+      [class.data-table-filters--active]="!filtersPanelExpanded() && tableStore.hasActiveFilters()"
+    >
+      <div class="data-table-filters__header">
+        @for (searchFilter of searchFilters(); track searchFilter.key) {
+          <label class="data-table-filters__search">
+            <span class="data-table-filters__search-icon">
+              <svg lucideSearch [size]="16" />
+            </span>
+            <input
+              type="search"
+              class="data-table-filters__search-input"
+              [placeholder]="searchFilter.placeholderKey | translate"
+              [value]="searchFilterValue(searchFilter.key)"
+              (input)="onSearchInput(searchFilter, $any($event.target).value)"
+            />
+          </label>
+        }
+
+        <div class="data-table-filters__actions">
+          <button
+            type="button"
+            class="data-table-filters__toggle"
+            [attr.aria-expanded]="filtersPanelExpanded()"
+            [attr.aria-haspopup]="'dialog'"
+            [attr.aria-label]="
+              (filtersPanelExpanded()
+                ? 'shared.table.filters.toggleCollapse'
+                : 'shared.table.filters.toggleExpand'
+              ) | translate
+            "
+            (click)="toggleFilterPanel()"
+          >
+            <svg lucideListFilter [size]="16" />
+            <span>{{ 'shared.table.filters.toggle' | translate }}</span>
+            @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
+              <span class="data-table-filters__active-count">
+                {{ 'shared.table.filters.activeCount' | translate: { count: activeFilterCount() } }}
               </span>
-              <input
-                type="search"
-                class="data-table-filters__search-input"
-                [placeholder]="searchFilter.placeholderKey | translate"
-                [value]="searchFilterValue(searchFilter.key)"
-                (input)="onSearchInput(searchFilter, $any($event.target).value)"
-              />
-            </label>
-          }
-
-          <div class="data-table-filters__actions">
-            <button
-              type="button"
-              class="data-table-filters__toggle"
-              [attr.aria-expanded]="filtersPanelExpanded()"
-              [attr.aria-haspopup]="'dialog'"
-              [attr.aria-label]="
-                (filtersPanelExpanded()
-                  ? 'shared.table.filters.toggleCollapse'
-                  : 'shared.table.filters.toggleExpand'
-                ) | translate
-              "
-              (click)="toggleFilterPanel()"
-            >
-              <svg lucideListFilter [size]="16" />
-              <span>{{ 'shared.table.filters.toggle' | translate }}</span>
-              @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
-                <span class="data-table-filters__active-count">
-                  {{ 'shared.table.filters.activeCount' | translate: { count: activeFilterCount() } }}
-                </span>
-              }
-            </button>
-
-            @if (tableStore.hasActiveFilters()) {
-              <button type="button" class="data-table-filters__clear" (click)="onClearFilters()">
-                <svg lucideX [size]="14" />
-                {{ 'shared.table.filters.clearAll' | translate }}
-              </button>
             }
-          </div>
-        </div>
+          </button>
 
-        @if (showFilterChips() && tableStore.hasActiveFilters()) {
+          @if (tableStore.hasActiveFilters()) {
+            <button type="button" class="data-table-filters__clear" (click)="onClearFilters()">
+              <svg lucideX [size]="14" />
+              {{ 'shared.table.filters.clearAll' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (showFilterChips() && tableStore.hasActiveFilters()) {
+        <div class="data-table-filters__chips-band">
           <app-table-filter-chips
             [filters]="definition().filters!"
             [values]="tableStore.query().filters"
             (chipRemove)="onChipRemove($event)"
           />
-        }
-      </div>
-    }
+        </div>
+      }
+    </div>
+  </ng-template>
 
+  <ng-template #dataBlock>
     @if (tableStore.loading()) {
       <div class="data-table-card__state">{{ 'shared.table.common.loading' | translate }}</div>
     } @else if (tableStore.error()) {
@@ -81,187 +83,187 @@
       </ng-template>
 
       @if (isMobileLayout()) {
-      <ul class="data-table-cards" role="list">
-        @for (row of tableStore.rows(); track trackRow(row)) {
-          <li
-            class="data-table-row-card"
-            [class.data-table-row-card--clickable]="rowClickEnabled()"
-            role="listitem"
-            [attr.tabindex]="rowClickEnabled() ? 0 : null"
-            (click)="onRowNavigate(row, $event)"
-            (keydown)="onRowKeydown(row, $event)"
-          >
-            <div class="data-table-row-card__header">
-              @if (definition().selectable) {
-                <input
-                  type="checkbox"
-                  class="data-table__checkbox"
-                  [checked]="isSelected(row)"
-                  (change)="onToggleRow(row)"
-                />
-              }
-
-              @if (primaryColumn(); as primary) {
-                <div class="data-table-row-card__primary">
-                  <ng-container
-                    *ngTemplateOutlet="cellContent; context: { row: row, column: primary }"
-                  />
-                </div>
-              }
-
-              @if (hasActions()) {
-                <app-table-row-actions
-                  [actions]="definition().actions!.items"
-                  [row]="row"
-                  (action)="onRowAction($event)"
-                />
-              }
-            </div>
-
-            <dl class="data-table-row-card__fields">
-              @for (column of cardBodyColumns(); track column.key) {
-                <div class="data-table-row-card__field">
-                  <dt>{{ column.titleKey | translate }}</dt>
-                  <dd [attr.data-column]="column.key">
-                    <ng-container
-                      *ngTemplateOutlet="cellContent; context: { row: row, column: column }"
-                    />
-                  </dd>
-                </div>
-              }
-            </dl>
-          </li>
-        } @empty {
-          <li class="data-table-row-card__empty">
-            @if (tableStore.hasActiveFilters()) {
-              <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
-              <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
-                {{ 'shared.table.filters.clearAll' | translate }}
-              </button>
-            } @else {
-              {{ 'shared.table.common.empty' | translate }}
-            }
-          </li>
-        }
-      </ul>
-      } @else {
-      <div class="data-table-card__scroll">
-        <table class="data-table">
-          <thead>
-            <tr>
-              @if (definition().selectable) {
-                <th class="data-table__checkbox-col">
+        <ul class="data-table-cards" role="list">
+          @for (row of tableStore.rows(); track trackRow(row)) {
+            <li
+              class="data-table-row-card"
+              [class.data-table-row-card--clickable]="rowClickEnabled()"
+              role="listitem"
+              [attr.tabindex]="rowClickEnabled() ? 0 : null"
+              (click)="onRowNavigate(row, $event)"
+              (keydown)="onRowKeydown(row, $event)"
+            >
+              <div class="data-table-row-card__header">
+                @if (definition().selectable) {
                   <input
                     type="checkbox"
                     class="data-table__checkbox"
-                    [checked]="tableStore.allSelected()"
-                    [indeterminate]="tableStore.someSelected()"
-                    (change)="onToggleAll()"
+                    [checked]="isSelected(row)"
+                    (change)="onToggleRow(row)"
                   />
-                </th>
-              }
-
-              @for (column of visibleColumns(); track column.key) {
-                <th
-                  [attr.data-column]="column.key"
-                  [style.width]="column.width"
-                  [style.text-align]="column.align ?? 'left'"
-                  [class.data-table__th--sortable]="column.sortable"
-                  (click)="onSort(column)"
-                >
-                  <span class="data-table__th-content">
-                    <span>{{ column.titleKey | translate }}</span>
-                    @if (column.sortable) {
-                      <span class="data-table__sort-icon">
-                        @if (!isSorted(column)) {
-                          <svg lucideArrowUpDown [size]="14" />
-                        } @else if (sortDirection(column) === 'asc') {
-                          <svg lucideArrowUp [size]="14" />
-                        } @else {
-                          <svg lucideArrowDown [size]="14" />
-                        }
-                      </span>
-                    }
-                  </span>
-                </th>
-              }
-
-              @if (hasActions()) {
-                <th class="data-table__actions-col" [style.width]="actionsWidth()">
-                  @if (definition().actions?.titleKey) {
-                    {{ definition().actions!.titleKey! | translate }}
-                  }
-                </th>
-              }
-            </tr>
-          </thead>
-
-          <tbody>
-            @for (row of tableStore.rows(); track trackRow(row)) {
-              <tr
-                class="data-table__row"
-                [class.data-table__row--clickable]="rowClickEnabled()"
-                [attr.tabindex]="rowClickEnabled() ? 0 : null"
-                (click)="onRowNavigate(row, $event)"
-                (keydown)="onRowKeydown(row, $event)"
-              >
-                @if (definition().selectable) {
-                  <td class="data-table__checkbox-col">
-                    <input
-                      type="checkbox"
-                      class="data-table__checkbox"
-                      [checked]="isSelected(row)"
-                      (change)="onToggleRow(row)"
-                    />
-                  </td>
                 }
 
-                @for (column of visibleColumns(); track column.key) {
-                  <td
-                    [attr.data-column]="column.key"
-                    [style.width]="column.width"
-                    [style.text-align]="column.align ?? 'left'"
-                  >
+                @if (primaryColumn(); as primary) {
+                  <div class="data-table-row-card__primary">
                     <ng-container
-                      *ngTemplateOutlet="cellContent; context: { row: row, column: column }"
+                      *ngTemplateOutlet="cellContent; context: { row: row, column: primary }"
                     />
-                  </td>
+                  </div>
                 }
 
                 @if (hasActions()) {
-                  <td class="data-table__actions-col" [style.width]="actionsWidth()">
-                    <app-table-row-actions
-                      [actions]="definition().actions!.items"
-                      [row]="row"
-                      (action)="onRowAction($event)"
+                  <app-table-row-actions
+                    [actions]="definition().actions!.items"
+                    [row]="row"
+                    (action)="onRowAction($event)"
+                  />
+                }
+              </div>
+
+              <dl class="data-table-row-card__fields">
+                @for (column of cardBodyColumns(); track column.key) {
+                  <div class="data-table-row-card__field">
+                    <dt>{{ column.titleKey | translate }}</dt>
+                    <dd [attr.data-column]="column.key">
+                      <ng-container
+                        *ngTemplateOutlet="cellContent; context: { row: row, column: column }"
+                      />
+                    </dd>
+                  </div>
+                }
+              </dl>
+            </li>
+          } @empty {
+            <li class="data-table-row-card__empty">
+              @if (tableStore.hasActiveFilters()) {
+                <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
+                <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
+                  {{ 'shared.table.filters.clearAll' | translate }}
+                </button>
+              } @else {
+                {{ 'shared.table.common.empty' | translate }}
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="data-table-card__scroll">
+          <table class="data-table">
+            <thead>
+              <tr>
+                @if (definition().selectable) {
+                  <th class="data-table__checkbox-col">
+                    <input
+                      type="checkbox"
+                      class="data-table__checkbox"
+                      [checked]="tableStore.allSelected()"
+                      [indeterminate]="tableStore.someSelected()"
+                      (change)="onToggleAll()"
                     />
-                  </td>
+                  </th>
+                }
+
+                @for (column of visibleColumns(); track column.key) {
+                  <th
+                    [attr.data-column]="column.key"
+                    [style.width]="column.width"
+                    [style.text-align]="column.align ?? 'left'"
+                    [class.data-table__th--sortable]="column.sortable"
+                    (click)="onSort(column)"
+                  >
+                    <span class="data-table__th-content">
+                      <span>{{ column.titleKey | translate }}</span>
+                      @if (column.sortable) {
+                        <span class="data-table__sort-icon">
+                          @if (!isSorted(column)) {
+                            <svg lucideArrowUpDown [size]="14" />
+                          } @else if (sortDirection(column) === 'asc') {
+                            <svg lucideArrowUp [size]="14" />
+                          } @else {
+                            <svg lucideArrowDown [size]="14" />
+                          }
+                        </span>
+                      }
+                    </span>
+                  </th>
+                }
+
+                @if (hasActions()) {
+                  <th class="data-table__actions-col" [style.width]="actionsWidth()">
+                    @if (definition().actions?.titleKey) {
+                      {{ definition().actions!.titleKey! | translate }}
+                    }
+                  </th>
                 }
               </tr>
-            } @empty {
-              <tr>
-                <td
-                  class="data-table__empty"
-                  [attr.colspan]="
-                    visibleColumns().length +
-                    (definition().selectable ? 1 : 0) +
-                    (hasActions() ? 1 : 0)
-                  "
+            </thead>
+
+            <tbody>
+              @for (row of tableStore.rows(); track trackRow(row)) {
+                <tr
+                  class="data-table__row"
+                  [class.data-table__row--clickable]="rowClickEnabled()"
+                  [attr.tabindex]="rowClickEnabled() ? 0 : null"
+                  (click)="onRowNavigate(row, $event)"
+                  (keydown)="onRowKeydown(row, $event)"
                 >
-                  @if (tableStore.hasActiveFilters()) {
-                    <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
-                    <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
-                      {{ 'shared.table.filters.clearAll' | translate }}
-                    </button>
-                  } @else {
-                    {{ 'shared.table.common.empty' | translate }}
+                  @if (definition().selectable) {
+                    <td class="data-table__checkbox-col">
+                      <input
+                        type="checkbox"
+                        class="data-table__checkbox"
+                        [checked]="isSelected(row)"
+                        (change)="onToggleRow(row)"
+                      />
+                    </td>
                   }
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+
+                  @for (column of visibleColumns(); track column.key) {
+                    <td
+                      [attr.data-column]="column.key"
+                      [style.width]="column.width"
+                      [style.text-align]="column.align ?? 'left'"
+                    >
+                      <ng-container
+                        *ngTemplateOutlet="cellContent; context: { row: row, column: column }"
+                      />
+                    </td>
+                  }
+
+                  @if (hasActions()) {
+                    <td class="data-table__actions-col" [style.width]="actionsWidth()">
+                      <app-table-row-actions
+                        [actions]="definition().actions!.items"
+                        [row]="row"
+                        (action)="onRowAction($event)"
+                      />
+                    </td>
+                  }
+                </tr>
+              } @empty {
+                <tr>
+                  <td
+                    class="data-table__empty"
+                    [attr.colspan]="
+                      visibleColumns().length +
+                      (definition().selectable ? 1 : 0) +
+                      (hasActions() ? 1 : 0)
+                    "
+                  >
+                    @if (tableStore.hasActiveFilters()) {
+                      <span>{{ 'shared.table.common.emptyFiltered' | translate }}</span>
+                      <button type="button" class="data-table__empty-clear" (click)="onClearFilters()">
+                        {{ 'shared.table.filters.clearAll' | translate }}
+                      </button>
+                    } @else {
+                      {{ 'shared.table.common.empty' | translate }}
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
       <app-table-pagination
@@ -273,7 +275,30 @@
         (pageChange)="tableStore.setPage($event)"
       />
     }
-  </div>
+  </ng-template>
+
+  @if (isSplitCardLayout()) {
+    @if (hasFilters()) {
+      <div
+        class="data-table-controls-card"
+        [class.data-table-controls-card--active]="!filtersPanelExpanded() && tableStore.hasActiveFilters()"
+      >
+        <ng-container *ngTemplateOutlet="filtersBlock" />
+      </div>
+    }
+
+    <div class="data-table-data-card">
+      <ng-container *ngTemplateOutlet="dataBlock" />
+    </div>
+  } @else {
+    <div class="data-table-card">
+      @if (hasFilters()) {
+        <ng-container *ngTemplateOutlet="filtersBlock" />
+      }
+
+      <ng-container *ngTemplateOutlet="dataBlock" />
+    </div>
+  }
 
   @if (hasFilters() && filtersPanelExpanded()) {
     <div

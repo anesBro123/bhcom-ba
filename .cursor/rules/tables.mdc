@@ -10,7 +10,7 @@ alwaysApply: false
 
 1. Row type in `*.model.ts`.
 2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.
-3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells.
+3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells. Optional `entityTab` (user hub tables) and `tableChromeVariant` (default `'splitCard'` — see `table-filters.mdc`).
 4. **Page title row:** `PageTitleComponent` in the **page template** above `<app-data-table>`. See `page-title.mdc`. `DataTableComponent` does not render page titles.
 5. **Create CTA (required on list pages with a create route):** `PageHeaderComponent` + `PrimaryActionLinkComponent` composed with `PageTitleComponent` — **not** inside `DataTableComponent` or `PageTitleComponent`. Parent page owns `createUrl` + `createLabelKey`. Reference: `portal/admin/features/vehicles/table/vehicle-table-page.component.*`. Skip CTA only when the list has no create flow (read-only).
 6. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
@@ -30,7 +30,7 @@ Marketplace (`table-all/`) and our (`table-our/`) table page components are **no
 
 See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
 
-**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — filter toolbar accent, row hover, mobile card spine. Styles in `_entity-service-accent.scss`. See `entity-service-colors.mdc`.
+**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — controls-card accent, row hover, mobile card spine. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 
 ## Table cell visual hierarchy (user portal lists)
 

@@ -154,3 +154,6 @@ export interface TableCellContext<T> {
 }
 
 export type TableLoader<T> = (query: TableQuery) => import('rxjs').Observable<PaginatedResponse<T>>;
+
+/** Table filter/header chrome layout — used for A/B comparison until a winner is chosen. */
+export type TableChromeVariant = 'bandLadder' | 'splitCard' | 'bandLadderLabeled';

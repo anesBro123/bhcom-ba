@@ -1,5 +1,7 @@
 @use 'styles/portal-accent';
 @use 'styles/entity-service-accent';
+@use 'styles/table-chrome-band-ladder';
+@use 'styles/table-chrome-split-card';
 
 :root,
 [data-theme='dark'] {
@@ -63,12 +65,14 @@
   --layout-padding-y-mobile: 1rem;
   --table-card-padding-x: 1.25rem;
   --table-card-padding-x-mobile: 1rem;
-  --text-table-header-size: var(--font-size-body);
+  --text-table-header-size: var(--font-size-caption);
   --bg-table-card: var(--bg-surface);
   --border-table: rgba(255, 255, 255, 0.06);
   --bg-table-header: var(--bg-inset);
   --text-table-header: #64748b;
-  --text-table-header-weight: var(--font-weight-medium);
+  --text-table-header-weight: var(--font-weight-semibold);
+  --border-table-header-strong: rgba(255, 255, 255, 0.14);
+  --shadow-table-header-sticky: 0 1px 0 var(--border-table-header-strong);
   --text-table-body: #f3f4f6;
   --table-cell-padding-y: 1.125rem;
   --table-cell-primary-size: var(--font-size-body);
@@ -79,8 +83,8 @@
   --table-cell-secondary-color: var(--text-section);
   --table-cell-line-height: var(--line-height-normal);
   --bg-table-row-hover: rgba(255, 255, 255, 0.04);
-  --bg-table-filter-toolbar: var(--bg-inset);
-  --bg-table-filter-chips: var(--bg-surface);
+  --bg-table-filter-toolbar: var(--bg-surface);
+  --bg-table-filter-chips: var(--bg-inset);
   --border-table-filter-band: rgba(255, 255, 255, 0.1);
   --border-table-filter-accent: rgba(255, 255, 255, 0.28);
   --bg-table-control: var(--bg-control);
@@ -193,18 +197,20 @@
   --bg-muted: var(--bg-active);
   --border-default: var(--border-form-input);
   --text-secondary: var(--text-muted);
-  --text-table-header-size: var(--font-size-body);
+  --text-table-header-size: var(--font-size-caption);
   --bg-table-card: var(--bg-surface);
   --border-table: rgba(0, 0, 0, 0.08);
   --bg-table-header: var(--bg-inset);
   --text-table-header: #64748b;
-  --text-table-header-weight: var(--font-weight-medium);
+  --text-table-header-weight: var(--font-weight-semibold);
+  --border-table-header-strong: rgba(0, 0, 0, 0.12);
+  --shadow-table-header-sticky: 0 1px 0 var(--border-table-header-strong);
   --text-table-body: #1e293b;
   --table-cell-primary-color: var(--text-primary);
   --table-cell-primary-weight: var(--font-weight-regular);
   --bg-table-row-hover: #f1f5f9;
-  --bg-table-filter-toolbar: var(--bg-inset);
-  --bg-table-filter-chips: var(--bg-surface);
+  --bg-table-filter-toolbar: var(--bg-surface);
+  --bg-table-filter-chips: var(--bg-inset);
   --border-table-filter-band: rgba(0, 0, 0, 0.1);
   --border-table-filter-accent: #64748b;
   --bg-table-control: var(--bg-control);

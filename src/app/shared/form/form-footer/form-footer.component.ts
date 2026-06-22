@@ -23,9 +23,9 @@ export class FormFooterComponent {
   next = output<void>();
   submit = output<void>();
 
+  protected readonly iconInputs = { size: 16 };
+
   protected submitIcon(): LucideIcon | undefined {
     return this.actions().submit?.icon;
   }
-
-  protected readonly iconInputs = { size: 16 };
 }

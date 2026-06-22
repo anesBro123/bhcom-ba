@@ -15,11 +15,11 @@
   border: 1px solid var(--border-table);
   border-radius: 0.75rem;
   background: var(--bg-table-card);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .data-table-filters {
-  border-bottom: 1px solid var(--border-table-filter-band, var(--border-table));
+  border-bottom: none;
 }
 
 .data-table-filters__header {

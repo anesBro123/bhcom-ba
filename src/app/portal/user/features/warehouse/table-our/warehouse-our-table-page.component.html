@@ -1,7 +1,11 @@
 @if (!embedded()) {
   <app-page-header>
     <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
-    <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
+    <app-primary-action-link
+      [route]="createUrl"
+      [labelKey]="createLabelKey"
+      entityTab="warehouse"
+    />
   </app-page-header>
 }
 

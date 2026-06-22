@@ -12,12 +12,12 @@ User portal list pages (transport, freight, warehouse — All + My) use the shar
 
 | Piece | Path |
 |-------|------|
-| Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta` |
+| Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta`, `TableChromeVariant` |
 | Apply logic | `shared/table/apply-table-filters.ts` — `applyTableFilters()`, `isActiveFilterValueForDef()`, `countActiveFilters()` |
 | Chip + summary utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()`, `buildFilterSummary()`, `truncateFilterSelection()` |
 | Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()` |
 | Persistence | `shared/table/table-filter-storage.ts` — filter values + `panelExpanded` in localStorage |
-| Flyout shell | `shared/table/data-table/` — toolbar, chips, right overlay flyout (full-screen ≤768px) |
+| Flyout shell | `shared/table/data-table/` — controls card + data card (default), toolbar, chips, right overlay flyout (full-screen ≤768px) |
 | Filter bar | `shared/table/table-filter-bar/` — flat per-filter accordion list; `layout: 'flyout'` single column |
 | Multi-select | `shared/table/table-filter-multi-select/` — searchable long lists (cities) |
 | Option tiles | `shared/table/table-filter-option-tiles/` — short enum toggle tiles (status, vehicle type, cargo type) |
@@ -88,7 +88,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
 - `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
-- **Collapsed + active filters:** left border on toolbar; muted `{{count}} active` — **no** numeric badge on toggle. On user hub tables with `entityTab`, toolbar **always** shows entity top/left accent — see `entity-service-colors.mdc`.
+- **Collapsed + active filters:** muted `{{count}} active` on toggle — **no** numeric badge. **Split-card (default):** left spine on `.data-table-controls-card` only — entity `2px` top + `3px` left when `entityTab` is set; neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
 - Auto-open flyout on first non-search filter; close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
 - Escape, backdrop, and close button dismiss flyout.
 - Row dividers: `--border-filter-divider` between filters in flyout list.
@@ -146,9 +146,32 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 - When `hasActiveFilters()` and zero rows: `shared.table.common.emptyFiltered` + inline Clear filters link.
 
 ### Layout
+
+**Default chrome — split card** (`tableChromeVariant` default `'splitCard'` on `DataTableComponent`):
+
+```text
+.data-table-page (gap shows --bg-app canvas)
+  ├─ .data-table-controls-card  — search + Filter/Clear + chips band
+  └─ .data-table-data-card      — table / mobile cards + pagination
+```
+
+- Filters + chips live in **controls card**; table body + pagination in **data card** — visually separates “configure” from “read data”.
+- Template uses shared `#filtersBlock` / `#dataBlock` `ng-template`s — do not duplicate table markup per variant.
+- Optional `tableChromeVariant`: `'splitCard'` (default) | `'bandLadder'` (legacy single-card bands) | `'bandLadderLabeled'` (reserved). Host modifier: `data-table--split-card` etc. Global layout SCSS: `src/styles/_table-chrome-split-card.scss`, `src/styles/_table-chrome-band-ladder.scss`.
+
+**Band stack inside controls card** (toolbar / chips separation):
+
+| Band | Background token | Notes |
+|------|------------------|-------|
+| Toolbar | `--bg-table-filter-toolbar` → `--bg-surface` | search left; Filter + Clear right |
+| Inputs/buttons | `--bg-table-control` → `--bg-control` | |
+| Chips band | `.data-table-filters__chips-band` → `--bg-table-filter-chips` → `--bg-inset` | entity soft wash when `entityTab` set; padding on band wrapper — not on `table-filter-chips` section |
+
+**Data card header row:** `--bg-table-header` (inset), `--text-table-header-size` (caption), semibold, uppercase, sticky + `--shadow-table-header-sticky`, `--border-table-header-strong` bottom rule.
+
 - Flyout filter bar: single column (`table-filter-bar--flyout`); `padding` on each `.table-filter-bar__field` row.
 - Inline filter bar (if used): 3 cols desktop, 2 cols tablet (`below-lg`), 1 col mobile — static `TableFilterFieldComponent` (no accordion).
-- Surface stack: table card = `--bg-surface`; toolbar band = `--bg-inset`; search/buttons = `--bg-control`; chips = `--bg-surface`. See `theme-tokens.mdc` for full layer map. Filter panel/flyout: `--bg-table-filter-panel` (= `--bg-surface`), `--border-filter-divider`, `--shadow-table-filter-panel`.
+- Filter panel/flyout: `--bg-table-filter-panel` (= `--bg-surface`), `--border-filter-divider`, `--shadow-table-filter-panel`. Full token map: `theme-tokens.mdc`.
 
 ## i18n
 
@@ -178,7 +201,7 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 - Use inline Lucide icons for vehicle type in filters/chips — use `VehicleTypeDisplayComponent`.
 - Treat full number-range bounds as an active filter.
 - Use portal accent on filter controls (sliders, checkboxes, clear links stay neutral).
-- Use `--entity-*` service colors on filter **toolbar chrome** only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`.
+- Use `--entity-*` service colors on filter **controls-card** chrome only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`. Never stack entity spine on `.data-table-controls-card` **and** a grey `border-left` on inner `.data-table-filters--active`.
 - Re-add count badge on Filters toggle.
 
 ## Related rules

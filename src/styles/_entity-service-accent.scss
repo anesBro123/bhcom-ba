@@ -1,17 +1,17 @@
 // Entity service accent colors (transport, freight, warehouse).
 // Context chrome only — not for status badges, route chips, or primary actions.
 //
-// Palette D (freight + warehouse) with vivid cyan transport — clear of bg chrome and portal green.
+// Palette D (freight + warehouse) with sky-blue transport — clear of portal green sidebar accent.
 
 :root,
 [data-theme='dark'] {
-  --entity-transport-base: #06b6d4;
+  --entity-transport-base: #38bdf8;
   --entity-freight-base: #fed7aa;
   --entity-warehouse-base: #f0abfc;
 }
 
 [data-theme='light'] {
-  --entity-transport-base: #0e7490;
+  --entity-transport-base: #0284c7;
   --entity-freight-base: #ea580c;
   --entity-warehouse-base: #a21caf;
 }
@@ -46,10 +46,14 @@
 }
 
 // Data table entity context (global — keeps data-table.component.scss under budget)
-app-data-table[class*='entity-context--'] {
+app-data-table.data-table--band-ladder[class*='entity-context--'] {
   .data-table-filters {
     border-top: 2px solid var(--entity-filter-accent);
     border-left: 3px solid var(--entity-filter-accent);
+  }
+
+  .data-table-filters__chips-band {
+    background: color-mix(in srgb, var(--entity-accent-soft) 55%, var(--bg-table-filter-chips));
   }
 
   .data-table-filters--active .data-table-filters__active-count {
@@ -67,12 +71,48 @@ app-data-table[class*='entity-context--'] {
 }
 
 @media (max-width: 768px) {
-  app-data-table[class*='entity-context--'] .data-table-row-card {
+  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card {
     border-left-width: 3px;
     border-left-color: var(--entity-accent-spine);
   }
 
-  app-data-table[class*='entity-context--'] .data-table-row-card--clickable:active {
+  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card--clickable:active {
+    border-left-color: var(--entity-accent-spine-strong);
+  }
+}
+
+// Split-card entity context — accent on controls card, not the data card
+app-data-table.data-table--split-card[class*='entity-context--'] {
+  .data-table-controls-card {
+    border-top: 2px solid var(--entity-filter-accent);
+    border-left: 3px solid var(--entity-filter-accent);
+  }
+
+  .data-table-filters__chips-band {
+    background: color-mix(in srgb, var(--entity-accent-soft) 55%, var(--bg-table-filter-chips));
+  }
+
+  .data-table-filters--active .data-table-filters__active-count {
+    color: var(--entity-filter-accent);
+  }
+
+  .data-table__row:hover td {
+    background: var(--entity-accent-row-hover);
+  }
+
+  .data-table-row-card--clickable:hover,
+  .data-table-row-card--clickable:active {
+    background: var(--entity-accent-row-hover);
+  }
+}
+
+@media (max-width: 768px) {
+  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card {
+    border-left-width: 3px;
+    border-left-color: var(--entity-accent-spine);
+  }
+
+  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card--clickable:active {
     border-left-color: var(--entity-accent-spine-strong);
   }
 }

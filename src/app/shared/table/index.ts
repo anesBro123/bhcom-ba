@@ -20,6 +20,7 @@ export type {
   RowActionsConfig,
   SortDirection,
   TableCellContext,
+  TableChromeVariant,
   TableDefinition,
   TableLoader,
   TableQuery,

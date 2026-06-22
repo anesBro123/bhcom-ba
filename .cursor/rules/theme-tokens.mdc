@@ -15,7 +15,7 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 | Chrome | `--bg-chrome` | `#ffffff` | `#0b0f19` | sidebar, topbar |
 | Canvas | `--bg-app` | `#f1f5f9` | `#0d1220` | body, portal scroll area, hub tab sticky bg |
 | Surface | `--bg-surface` | `#ffffff` | `#151c2e` | cards, table shell, form sections, dialogs |
-| Inset | `--bg-inset` | `#f8fafc` | `#111827` | filter toolbar band, table header row |
+| Inset | `--bg-inset` | `#f8fafc` | `#111827` | chips band, table header row |
 | Control | `--bg-control` | `#ffffff` | `rgba(255,255,255,0.08)` | inputs, filter search/buttons, form fields |
 
 **Aliases** (prefer semantic tokens in new code; aliases exist for backward compat):
@@ -23,31 +23,35 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 - `--bg-sidebar`, `--bg-topbar` → `--bg-chrome`
 - `--bg-form-card`, `--bg-table-card`, `--bg-confirm-dialog`, `--bg-detail-modal`, `--bg-table-filter-panel`, `--bg-sidebar-flyout` → `--bg-surface`
 - `--bg-form-input`, `--bg-table-control` → `--bg-control`
-- `--bg-table-filter-toolbar`, `--bg-table-header` → `--bg-inset`
-- `--bg-table-filter-chips` → `--bg-surface`
+- `--bg-table-filter-toolbar` → `--bg-surface`
+- `--bg-table-filter-chips`, `--bg-table-header` → `--bg-inset`
 
 **Card emphasis (both themes):** surfaces contrast with canvas. In light, surface equals chrome; in dark, surface is intentionally lighter than chrome/canvas.
 
 **Elevation:** light surfaces may use `--shadow-surface` (`0 1px 3px rgb(0 0 0 / 0.06)`); dark uses border + color step only (`--shadow-surface: none`).
 
-## Table filter toolbar stack
+## Table chrome (split card — default)
 
-Inside `DataTableComponent` (`.data-table-card`):
+`DataTableComponent` default `tableChromeVariant` is `'splitCard'`. Layout global styles: `src/styles/_table-chrome-split-card.scss`.
 
 ```text
-Surface (--bg-surface)
-  └─ Inset toolbar band (--bg-inset) — search left, Filter/Clear right
-       └─ Control inputs (--bg-control)
-  └─ Chips row (--bg-surface)
-  └─ Inset table header (--bg-inset)
-  └─ Rows — hover via --bg-table-row-hover
+Canvas (--bg-app) visible between cards
+  ├─ Controls card (--bg-surface) — toolbar (--bg-surface) + chips band (--bg-inset)
+  │    └─ Control inputs (--bg-control)
+  └─ Data card (--bg-surface)
+       └─ Sticky table header (--bg-inset, caption/semibold/uppercase)
+       └─ Rows — hover via --bg-table-row-hover
 ```
 
-Active filters: left `3px` accent on `.data-table-filters--active` — no count badge on toggle (see `table-filters.mdc`).
+**Active filters (split card):** left spine on `.data-table-controls-card` — entity accent when `entityTab` set; neutral `--border-table-filter-accent` on `.data-table-controls-card--active` when not. Inner `.data-table-filters--active` must **not** add its own `border-left` (duplicate grey line). See `table-filters.mdc`.
 
-**User hub tables:** when `DataTableComponent` has `entityTab`, filter toolbar **always** shows entity `2px` top + `3px` left accent (`--entity-filter-accent`) — not only when filters active. See `entity-service-colors.mdc`.
+**User hub tables:** when `entityTab` is set, controls card **always** shows entity `2px` top + `3px` left (`--entity-filter-accent`) — not the data card. See `entity-service-colors.mdc`.
+
+**Table header tokens:** `--border-table-header-strong`, `--shadow-table-header-sticky`, `--text-table-header-size` (caption), `--text-table-header-weight` (semibold).
 
 Search input focus: `--border-form-input-focus` (not `--text-muted`).
+
+**Legacy variant:** `'bandLadder'` — single `.data-table-card` with three bands; styles in `src/styles/_table-chrome-band-ladder.scss`.
 
 ## Typography scale
 
@@ -115,7 +119,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 | Form footer buttons | `shared/form/form-footer/form-footer.component.scss` |
 | Entity tabs | `shared/ui/entity-tabs/entity-tabs.component.scss` |
 | Home snapshot + links | `portal/user/features/home/home-page.component.scss` |
-| Table filter toolbar | `shared/table/data-table/data-table.component.scss` |
+| Table filter / split-card chrome | `src/styles/_table-chrome-split-card.scss`, `shared/table/data-table/data-table.component.scss` |
 
 ## Do not
 

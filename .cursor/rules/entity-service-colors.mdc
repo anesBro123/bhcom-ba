@@ -1,6 +1,6 @@
 ---
 description: User portal service-type colors (transport, freight, warehouse) — context chrome only
-globs: src/styles/_entity-service-accent.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/portal/user/features/home/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/offer/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
+globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/portal/user/features/home/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/offer/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
 alwaysApply: false
 ---
 
@@ -20,7 +20,7 @@ Subtle **transport / freight / warehouse** identity on user portal content — *
 
 | Service | Light | Dark |
 |---------|-------|------|
-| Transport | `#0e7490` (vivid cyan) | `#06b6d4` |
+| Transport | `#0284c7` (sky blue) | `#38bdf8` |
 | Freight | `#ea580c` | `#fed7aa` |
 | Warehouse | `#a21caf` | `#f0abfc` |
 
@@ -49,20 +49,25 @@ Icons + labels remain required (color-blind safe).
 | `IntentCardComponent` | `entityTab` | Home journey, Offer picker |
 | `QuickActionCardComponent` | `entityTab`, `queryParams?` | User home quick actions; **omit** on admin dashboard (neutral) |
 | `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
-| `DataTableComponent` | `entityTab` | User embedded hub tables (`table-all/`, `table-our/`) |
+| `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
 | `EntityTabsComponent` | (active tab) | Applies `entity-context--*` on **active** pill only |
 
 Apply class via `entityContextClass()` or host/`ngClass` — do not hardcode hex in component SCSS.
 
 ## Hub tables (`DataTableComponent`)
 
+Default layout is **split card** (`tableChromeVariant` default `'splitCard'`): filters in `.data-table-controls-card`, table in `.data-table-data-card`. Entity chrome styles in `_entity-service-accent.scss` under `app-data-table.data-table--split-card`.
+
 When `entityTab` is set on host:
 
-- Filter toolbar: **always** `2px` top + `3px` left `--entity-filter-accent` (not only when filters active)
+- **Controls card** (not data card, not inner filters block): **always** `2px` top + `3px` left `--entity-filter-accent`
+- **Chips band:** `--entity-accent-soft` wash mixed into `--bg-table-filter-chips`
 - Row / mobile card hover: `--entity-accent-row-hover`
 - Mobile row cards: left spine at rest
 
-Table entity chrome lives in `_entity-service-accent.scss` (global) to stay within component SCSS budget.
+**Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — active spine lives on the controls card only (`table-filters.mdc`).
+
+Table entity chrome lives in `_entity-service-accent.scss` + `_table-chrome-split-card.scss` (global) to stay within component SCSS budget.
 
 ## User home (`portal/user/features/home/`)
 

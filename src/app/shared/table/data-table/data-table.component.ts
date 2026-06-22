@@ -42,9 +42,16 @@ import type {
   FilterDef,
   RowActionEvent,
   TableCellContext,
+  TableChromeVariant,
   TableDefinition,
   TableLoader,
 } from '../table.types';
+
+const TABLE_CHROME_CLASS: Record<TableChromeVariant, string> = {
+  bandLadder: 'data-table--band-ladder',
+  splitCard: 'data-table--split-card',
+  bandLadderLabeled: 'data-table--band-ladder-labeled',
+};
 import { TablePaginationComponent } from '../table-pagination/table-pagination.component';
 import { TableFilterBarComponent } from '../table-filter-bar/table-filter-bar.component';
 import { TableFilterChipsComponent } from '../table-filter-chips/table-filter-chips.component';
@@ -79,7 +86,7 @@ import { formatDisplayDate } from '../../utils/format-display-date';
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
   host: {
-    '[class]': 'entityHostClass()',
+    '[class]': 'hostClasses()',
   },
 })
 export class DataTableComponent<T extends object> implements OnInit, AfterContentInit, OnDestroy {
@@ -88,6 +95,8 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   rowClickEnabled = input(false);
   /** When set, applies subtle entity accent to table chrome and row hover. */
   entityTab = input<UserEntityTab>();
+  /** Filter toolbar / chips / header layout variant for UX comparison. */
+  tableChromeVariant = input<TableChromeVariant>('splitCard');
   rowAction = output<RowActionEvent<T>>();
   rowClick = output<T>();
 
@@ -115,7 +124,17 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     countActiveFilters(this.tableStore.query().filters, this.definition().filters),
   );
 
-  protected readonly entityHostClass = computed(() => entityContextClass(this.entityTab()));
+  protected readonly hostClasses = computed(() => {
+    const classes: string[] = [];
+    const entityClass = entityContextClass(this.entityTab());
+    if (entityClass) {
+      classes.push(entityClass);
+    }
+    classes.push(TABLE_CHROME_CLASS[this.tableChromeVariant()]);
+    return classes.join(' ');
+  });
+
+  protected readonly isSplitCardLayout = computed(() => this.tableChromeVariant() === 'splitCard');
 
   protected readonly searchFilters = computed((): Extract<FilterDef<T>, { type: 'search' }>[] => {
     const filters = this.definition().filters ?? [];

@@ -1,0 +1,54 @@
+// Option B — controls card + data card with canvas gap between them.
+
+app-data-table.data-table--split-card {
+  .data-table-page {
+    gap: 0.875rem;
+  }
+
+  .data-table-controls-card,
+  .data-table-data-card {
+    border: 1px solid var(--border-table);
+    border-radius: 0.75rem;
+    background: var(--bg-table-card);
+    overflow: clip;
+  }
+
+  // Active-state spine lives on the controls card — not the inner filters block
+  .data-table-filters--active {
+    border-left: none;
+  }
+
+  &:not([class*='entity-context--']) .data-table-controls-card--active {
+    border-left: 3px solid var(--border-table-filter-accent, var(--border-table-filter));
+  }
+
+  .data-table-filters {
+    border-bottom: none;
+  }
+
+  .data-table-filters__chips-band {
+    padding: 0.625rem var(--table-card-padding-x) 0.75rem;
+    background: var(--bg-table-filter-chips);
+    border-top: 1px solid var(--border-table-filter-band, var(--border-table));
+  }
+
+  .data-table thead tr {
+    border-bottom: none;
+  }
+
+  .data-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    letter-spacing: var(--letter-spacing-overline);
+    text-transform: uppercase;
+    box-shadow: var(--shadow-table-header-sticky);
+    border-bottom: 2px solid var(--border-table-header-strong);
+  }
+}
+
+@media (max-width: 768px) {
+  app-data-table.data-table--split-card .data-table-filters__chips-band {
+    padding: 0.625rem var(--table-card-padding-x-mobile) 0.75rem;
+  }
+}
