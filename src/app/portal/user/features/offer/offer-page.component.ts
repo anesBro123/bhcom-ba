@@ -9,6 +9,7 @@ import {
   USER_CREATE_WAREHOUSE_URL,
   USER_HOME_URL,
 } from '../../../../shared/constants/app-urls';
+import type { UserEntityTab } from '../../../../shared/constants/user-urls';
 import {
   IntentCardAction,
   IntentCardComponent,
@@ -20,6 +21,7 @@ interface OfferOption {
   titleKey: string;
   descriptionKey: string;
   icon: LucideIcon;
+  entityTab: UserEntityTab;
   actions: IntentCardAction[];
 }
 
@@ -38,6 +40,7 @@ export class OfferPageComponent {
       titleKey: 'portal.user.features.offer.transport.title',
       descriptionKey: 'portal.user.features.offer.transport.description',
       icon: UserPageIcons.transport,
+      entityTab: 'transport',
       actions: [
         {
           labelKey: 'portal.user.features.offer.continue',
@@ -49,6 +52,7 @@ export class OfferPageComponent {
       titleKey: 'portal.user.features.offer.freight.title',
       descriptionKey: 'portal.user.features.offer.freight.description',
       icon: UserPageIcons.freight,
+      entityTab: 'freight',
       actions: [
         {
           labelKey: 'portal.user.features.offer.continue',
@@ -60,6 +64,7 @@ export class OfferPageComponent {
       titleKey: 'portal.user.features.offer.warehouse.title',
       descriptionKey: 'portal.user.features.offer.warehouse.description',
       icon: UserPageIcons.warehouse,
+      entityTab: 'warehouse',
       actions: [
         {
           labelKey: 'portal.user.features.offer.continue',

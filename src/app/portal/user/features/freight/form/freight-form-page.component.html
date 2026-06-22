@@ -1,6 +1,11 @@
 <app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />
 
-<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
+<app-page-title
+  [titleKey]="pageTitleKey()"
+  [subtitleKey]="pageSubtitleKey()"
+  [icon]="pageIcon"
+  entityTab="freight"
+/>
 
 <app-form-page
   [definition]="formDef()"

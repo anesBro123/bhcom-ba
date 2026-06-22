@@ -4,6 +4,7 @@
 
 @if (tableMounted()) {
   <app-data-table
+    entityTab="transport"
     [definition]="table"
     [loader]="loadRoutes"
     [rowClickEnabled]="true"

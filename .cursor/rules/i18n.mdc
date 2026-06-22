@@ -73,7 +73,9 @@ portal.admin.pages.vehicles.subtitle
 portal.admin.pages.createVehicle.title
 ```
 
-Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for quick-action card titles; add `…dashboard.actions.*.description` only for helper text.
+Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for admin quick-action card titles; add `…dashboard.actions.*.description` only for helper text.
+
+User home quick actions: titles `portal.user.nav.findTransport|findFreight|findWarehouse` + `offerTransport|…`; descriptions `portal.user.features.home.actions.*`; panel title `portal.user.features.home.quickActions.title`. Journey copy stays under `portal.user.features.home.journey.*`. See `entity-service-colors.mdc`.
 
 ### Portal user feature example
 
@@ -88,6 +90,11 @@ portal.user.nav.find
 portal.user.nav.ourListings
 portal.user.nav.offer
 portal.user.pages.home.title
+portal.user.features.home.quickActions.title
+portal.user.features.home.actions.findTransport.description
+portal.user.features.home.journey.heading
+portal.user.nav.findTransport
+portal.user.nav.offerTransport
 portal.user.pages.offer.title
 portal.user.pages.find.title
 portal.user.pages.find.subtitle

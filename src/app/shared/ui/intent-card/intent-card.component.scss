@@ -35,6 +35,30 @@
   }
 }
 
+.intent-card[class*='entity-context--'] {
+  border-left-width: 3px;
+  border-left-color: var(--entity-accent-spine);
+
+  .intent-card__icon {
+    color: var(--entity-accent-icon);
+  }
+}
+
+.intent-card--clickable[class*='entity-context--'] {
+  &:hover,
+  &:focus-visible {
+    border-color: var(--entity-accent-border);
+    border-left-color: var(--entity-accent-spine-strong);
+    background: var(--entity-accent-hover-bg);
+    box-shadow: var(--shadow-hover-surface);
+  }
+
+  &:active {
+    border-left-color: var(--entity-accent-spine-strong);
+    background: var(--entity-accent-hover-bg);
+  }
+}
+
 .intent-card__header {
   display: flex;
   align-items: center;

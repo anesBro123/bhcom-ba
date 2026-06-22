@@ -44,15 +44,16 @@ Follow **`entity-tabs.mdc`** — reference: `portal/user/features/find/`, `porta
    - **Admin layout:** 3 entity columns (browse + create stacked per entity); settings action alone on its own row below
    - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL`, `UserPageIcons.home` / `AdminPageIcons.dashboard` on `NavSection.icon`, overview item (`exact: true`)
    - **i18n:** `portal.<portal>.features.dashboard.metrics.*`, `…quickActions.title`, `…actions.*.description`; add `portal.admin.nav.sections.dashboard` + `portal.admin.nav.overview` for admin
-   - **User (implemented):** `user-dashboard-page.*`, `user-dashboard.actions.config.ts`, `data/user-dashboard.service.ts`
+   - **User (implemented):** `portal/user/features/home/` — snapshot + quick actions (`home.actions.config.ts`) + journey; see `entity-service-colors.mdc`, not legacy `user-dashboard-page`
 
 ## User home page (`portal/user/features/home/`)
 
 - Standalone `<app-page-title>` with header divider (not `.page-hub-header`).
-- Journey section: grouped cards (PREVOZ / SKLADIŠTE) via `journeyGroups` in page TS.
-- Grid per group in `home-page.component.scss`: `repeat(auto-fit, minmax(min(100%, 24rem), 24rem))`, `justify-content: start`.
-- Cards: `IntentCardComponent` multi-action — links `space-between` on desktop. Do not center the grid container.
-- Reference: `home-page.component.*`, `layout.mdc` (IntentCardComponent + Home journey cards).
+- **Order:** company snapshot → **quick actions** panel → **journey** section → browse marketplace footer.
+- **Quick actions:** `home.actions.config.ts` → `HOME_ENTITY_ACTION_GROUPS`; admin-style 3-column panel (`home-page.component.scss` subgrid for equal card heights); `QuickActionCardComponent` with `[entityTab]`, `[queryParams]` for Find rows; titles `portal.user.nav.find*` + `offer*`; descriptions `portal.user.features.home.actions.*`. See `entity-service-colors.mdc`.
+- **Journey:** grouped scenario cards via `journeyGroups`; `IntentCardComponent` with `[clickableCard]="true"`, `[entityTab]`, Continue label `portal.user.features.offer.continue`.
+- Journey grid: `repeat(auto-fit, minmax(min(100%, 24rem), 24rem))`, `justify-content: start`.
+- Reference: `home-page.component.*`, `home.actions.config.ts`, `entity-service-colors.mdc`.
 
 ## Guest page
 

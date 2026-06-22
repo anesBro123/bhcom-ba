@@ -30,6 +30,8 @@ Marketplace (`table-all/`) and our (`table-our/`) table page components are **no
 
 See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
 
+**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — filter toolbar accent, row hover, mobile card spine. Styles in `_entity-service-accent.scss`. See `entity-service-colors.mdc`.
+
 ## Table cell visual hierarchy (user portal lists)
 
 When a table shows route/cargo/storage-style rows, reuse shared display widgets — **do not** invent per-feature badge/chip markup or use status colors on non-status data.
@@ -38,7 +40,7 @@ When a table shows route/cargo/storage-style rows, reuse shared display widgets 
 |----------|--------|-------|---------|
 | Primary identifier | `RouteDisplayComponent` | Neutral outline chips (`--chip-neutral-*`) | Origin → destination |
 | Primary identifier | `WarehouseDisplayComponent` | Two-line primary/secondary text | Warehouse name + city |
-| Workflow | `StatusBadgeComponent` | **Only colored semantic pill** in the row (`--status-*`) | Entity `status` |
+| Workflow | `StatusBadgeComponent` | **Only colored semantic pill** in the row (`--status-*`) | Entity `status` — **not** service-type colors; see `entity-service-colors.mdc` |
 | Period / deadline | `DateRangeDisplayComponent` | Compact inline text, tabular nums, `nowrap` | Merged from–to dates or single date |
 | Secondary | `VehicleDisplayComponent` | Two-line primary/secondary text | Vehicle name + plate |
 | Other | plain `format: 'text'` / `'number'` | Default table cell tokens | Description, size, weight, etc. |

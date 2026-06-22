@@ -27,7 +27,7 @@ Canonical top-level heading for **portal shell pages** (dashboard, table, form, 
 |------|-------|
 | Path | `shared/ui/page-title/page-title.component.ts` |
 | Selector | `app-page-title` |
-| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**); `icon` (required `LucideIcon` — entity icon from portal page-icons) |
+| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**); `icon` (required `LucideIcon` — entity icon from portal page-icons); `entityTab` (optional `UserEntityTab` — tints decorative icon on user entity form/detail pages) |
 | Import | Direct path — no barrel; add to page component `imports: [PageTitleComponent]` |
 
 ```typescript
@@ -35,8 +35,10 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 ```
 
 ```html
-<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
+<app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" entityTab="transport" />
 ```
+
+User entity create/edit/detail pages: pass matching `entityTab` — see `entity-service-colors.mdc`. Hub / admin pages: omit (neutral icon).
 
 Static keys:
 
@@ -267,4 +269,4 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - User hub (title + tabs): `portal/user/features/find/find-page.component.*`
 - User hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`
 
-Related: `layout.mdc`, `entity-tabs.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`
+Related: `layout.mdc`, `entity-tabs.mdc`, `entity-service-colors.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

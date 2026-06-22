@@ -45,7 +45,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Guest routes: `guest/guest.routes.ts`
 - Portal routes: `portal/user/user.routes.ts`, `portal/admin/admin.routes.ts`
 - App URLs + portal kind: `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts` — **never hardcode route paths**; see `.cursor/rules/app-urls.mdc`
-- Shared data: `shared/constants/bih-cities.ts` (`BIH_CITY_OPTIONS`); `shared/constants/user-entity-status.ts` (`UserEntityStatus` — interim); portal icons: `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — see `shared-constants.mdc`, `entity-status.mdc`
+- Shared data: `shared/constants/bih-cities.ts` (`BIH_CITY_OPTIONS`); `shared/constants/user-entity-status.ts` (`UserEntityStatus` — interim); `shared/constants/entity-context-class.ts` (`entityContextClass()`); portal icons: `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — see `shared-constants.mdc`, `entity-status.mdc`, `entity-service-colors.mdc`
 - Shared utils: `shared/utils/date-input.ts`, `shared/utils/format-display-date.ts`, `shared/utils/normalize-for-search.ts` — see `shared-utils.mdc`
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session` in `auth.model.ts`); stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`
 - Guards: `guest/guards/guest.guard.ts` (`guestGuard`); `portal/guards/portal-match.guard.ts`
@@ -56,7 +56,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`); Confirm: `shared/confirm/` (`ConfirmService`, global `ConfirmDialogComponent` in `app.html`)
 - Features: `portal/user/features/` (home, find, our-listings, offer, transport, freight, warehouse); `portal/admin/features/` (dashboard, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
-- Theme/breakpoints: `src/styles.scss`, `src/styles/_interaction.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts` — surface layers, typography scale, hover mixins: see `theme-tokens.mdc`
+- Theme/breakpoints: `src/styles.scss`, `src/styles/_entity-service-accent.scss`, `src/styles/_interaction.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts` — surface layers, typography scale, hover mixins, entity service hues: see `theme-tokens.mdc`, `entity-service-colors.mdc`
 - Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, entity-tabs, page-title, page-back-link, page-header, primary-action-link, **detail-page-layout**, **entity-detail-summary**, **detail-action-bar**, route-display, date-range-display, vehicle-display, warehouse-display, status-badge
 
 ## Auth routing (guards)
@@ -86,10 +86,12 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Guest login: `guest/pages/login/user-login-page.*`, `admin-login-page.*`
 - Guest register: `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - Dashboard KPI card: `shared/ui/metric-card/` — `MetricCardComponent` for title + value + subtitle stats; parent wraps in `routerLink` when tile should navigate
-- Dashboard action tile: `shared/ui/quick-action-card/` — `QuickActionCardComponent` for portal quick-action grids (monochrome icon, `routerLink`)
-- User intent card: `shared/ui/intent-card/` — `IntentCardComponent` for Home journey + Offer picker; bare header icon; multi-action links `space-between` on desktop; Home grid **24rem** max per card; Offer uses `clickableCard`
+- Dashboard action tile: `shared/ui/quick-action-card/` — `QuickActionCardComponent`; admin dashboard = neutral icons; **user home** passes `[entityTab]` for colored spine + icon — see `entity-service-colors.mdc`
+- User intent card: `shared/ui/intent-card/` — `IntentCardComponent`; optional `[entityTab]` for colored spine + icon; Home journey + Offer picker; `[clickableCard]` for single-action links — see `entity-service-colors.mdc`
+- **Entity service colors:** `src/styles/_entity-service-accent.scss` + `entityContextClass()` — transport/freight/warehouse context chrome on user cards, tabs, tables, form/detail titles — see `entity-service-colors.mdc`
 - Admin dashboard (reference): `portal/admin/features/dashboard/` — `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`; admin nav Dashboard section uses `AdminPageIcons.dashboard` on `NavSection.icon`
-- **Portal page title:** `PageTitleComponent` — flex row with bare decorative entity icon (no border/background) beside title + subtitle; header `border-bottom` on standalone pages; Find/Our listings use `.page-hub-header` (`styles/_page-hub-header.scss`); see `page-title.mdc`, `entity-tabs.mdc`
+- **User home:** `portal/user/features/home/` — snapshot + **quick actions** (`home.actions.config.ts`, colored `QuickActionCardComponent`) + **journey** (`IntentCardComponent`) + browse footer — see `entity-service-colors.mdc`, `new-page.mdc`
+- **Portal page title:** `PageTitleComponent` — optional `[entityTab]` tints entity icon on user create/edit/detail pages — see `entity-service-colors.mdc`, `page-title.mdc`
 - **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`) — above `PageTitleComponent` on create/edit forms; `backUrl` + nav `backLabelKey` + `[form]`; dirty → `ConfirmService` + `shared.form.common.discardChanges.*`; see `page-title.mdc`
 - **Route display cell:** `RouteDisplayComponent` (`shared/ui/route-display/`) — origin → destination with neutral chips in route/cargo tables; see `tables.mdc`
 - **Date range cell:** `DateRangeDisplayComponent` (`shared/ui/date-range-display/`) — merged period column or single date; see `tables.mdc`

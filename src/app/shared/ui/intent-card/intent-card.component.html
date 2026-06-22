@@ -3,6 +3,7 @@
     [routerLink]="actions()[0].route"
     [queryParams]="actions()[0].queryParams ?? null"
     class="intent-card intent-card--clickable"
+    [ngClass]="entityClass()"
   >
     <div class="intent-card__header">
       <span class="intent-card__icon" aria-hidden="true">
@@ -16,7 +17,7 @@
     </span>
   </a>
 } @else {
-  <article class="intent-card">
+  <article class="intent-card" [ngClass]="entityClass()">
     <div class="intent-card__header">
       <span class="intent-card__icon" aria-hidden="true">
         <ng-container *ngComponentOutlet="icon(); inputs: iconInputs" />

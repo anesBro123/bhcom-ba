@@ -51,6 +51,30 @@
     </section>
   }
 
+  <section class="home-page__quick-actions">
+    <div class="home-page__quick-actions-panel">
+      <h2 class="home-page__section-title">
+        {{ 'portal.user.features.home.quickActions.title' | translate }}
+      </h2>
+      <div class="home-page__action-grid">
+        @for (group of entityActionGroups; track group[0].entityTab) {
+          <div class="home-page__action-column">
+            @for (action of group; track action.route + (action.queryParams?.['tab'] ?? '')) {
+              <app-quick-action-card
+                [titleKey]="action.titleKey"
+                [descriptionKey]="action.descriptionKey"
+                [route]="action.route"
+                [queryParams]="action.queryParams"
+                [icon]="action.icon"
+                [entityTab]="action.entityTab"
+              />
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
   <section class="home-page__journey">
     <h2 class="home-page__journey-heading">
       {{ 'portal.user.features.home.journey.heading' | translate }}
@@ -69,6 +93,8 @@
               [titleKey]="card.titleKey"
               [descriptionKey]="card.bodyKey"
               [actions]="card.actions"
+              [clickableCard]="true"
+              [entityTab]="group.entityTab"
             />
           }
         </div>

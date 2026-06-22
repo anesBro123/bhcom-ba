@@ -88,7 +88,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
 - `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
-- **Collapsed + active filters:** left border on toolbar; muted `{{count}} active` — **no** numeric badge on toggle.
+- **Collapsed + active filters:** left border on toolbar; muted `{{count}} active` — **no** numeric badge on toggle. On user hub tables with `entityTab`, toolbar **always** shows entity top/left accent — see `entity-service-colors.mdc`.
 - Auto-open flyout on first non-search filter; close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
 - Escape, backdrop, and close button dismiss flyout.
 - Row dividers: `--border-filter-divider` between filters in flyout list.
@@ -178,6 +178,7 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 - Use inline Lucide icons for vehicle type in filters/chips — use `VehicleTypeDisplayComponent`.
 - Treat full number-range bounds as an active filter.
 - Use portal accent on filter controls (sliders, checkboxes, clear links stay neutral).
+- Use `--entity-*` service colors on filter **toolbar chrome** only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`.
 - Re-add count badge on Filters toggle.
 
 ## Related rules

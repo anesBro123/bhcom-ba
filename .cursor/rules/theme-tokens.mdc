@@ -45,6 +45,8 @@ Surface (--bg-surface)
 
 Active filters: left `3px` accent on `.data-table-filters--active` — no count badge on toggle (see `table-filters.mdc`).
 
+**User hub tables:** when `DataTableComponent` has `entityTab`, filter toolbar **always** shows entity `2px` top + `3px` left accent (`--entity-filter-accent`) — not only when filters active. See `entity-service-colors.mdc`.
+
 Search input focus: `--border-form-input-focus` (not `--text-muted`).
 
 ## Typography scale
@@ -132,6 +134,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 |------|------|
 | Shell / cards / accent scope | `layout.mdc` |
 | Table filter UX | `table-filters.mdc` |
+| Entity service colors | `entity-service-colors.mdc` |
 | Page title | `page-title.mdc` |
 | Confirm dialog tokens | `confirm.mdc` |
 | Angular SCSS conventions | `angular.mdc` |

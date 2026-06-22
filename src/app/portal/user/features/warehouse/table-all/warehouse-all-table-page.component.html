@@ -4,6 +4,7 @@
 
 @if (tableMounted()) {
   <app-data-table
+    entityTab="warehouse"
     [definition]="table"
     [loader]="loadStorage"
     [rowClickEnabled]="true"

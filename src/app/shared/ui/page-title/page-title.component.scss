@@ -26,6 +26,10 @@
   color: var(--metric-variant-default-icon);
 }
 
+:host[class*='entity-context--'] .page-title__icon {
+  color: var(--entity-accent-icon);
+}
+
 .page-title__text {
   display: flex;
   flex-direction: column;

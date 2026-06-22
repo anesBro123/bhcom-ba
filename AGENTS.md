@@ -1,6 +1,6 @@
 # Agent context — bhcom-ba
 
-Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `theme-tokens.mdc` for surfaces/typography/hover, `forms.mdc` / `tables.mdc` / `table-filters.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
+Angular 21 logistics SPA with **admin** and **user** portals. Before implementing UI, check `.cursor/rules/` (especially `portal-feature.mdc` for CRUD features, plus `theme-tokens.mdc` for surfaces/typography/hover, `entity-service-colors.mdc` for user service-type chrome, `forms.mdc` / `tables.mdc` / `table-filters.mdc` / `confirm.mdc` / `layout.mdc` / `guest.mdc` / `shared-constants.mdc` / `shared-utils.mdc` when touching those areas).
 
 ## App structure (`src/app/`)
 
@@ -80,7 +80,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Guest shell:** `src/app/guest/shell/`
 - **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`); shared nav panel: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
 - **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.route` user flat links, `NavSection.items` admin groups); `user-nav.config.ts` (Home, Find, Our listings, Offer); `nav-link-active-options.ts` for hub `?tab=` active state; hub pages use `EntityTabsComponent` — see `entity-tabs.mdc`, `layout.mdc`
-- **User home (journey hub):** `portal/user/features/home/` — scenario cards, company snapshot; hub links via `userFindRoute()` / `userOurListingsRoute()` on `[routerLink]`; `navigateByUrl(userFindUrl())` in TS
+- **User home (hub):** `portal/user/features/home/` — company snapshot → **quick actions** (`home.actions.config.ts`, colored `QuickActionCardComponent` 3×2 grid) → **journey** (`IntentCardComponent` with `[entityTab]`) → browse footer; hub links via `userFindRoute()` / `userOurListingsRoute()` — see `entity-service-colors.mdc`, `new-page.mdc`
 - **User find hub:** `portal/user/features/find/` — `.page-hub-header` (`styles/_page-hub-header.scss`) wraps `PageTitleComponent` + `EntityTabsComponent` + embedded marketplace tables (`/find?tab=`)
 - **User our listings hub:** `portal/user/features/our-listings/` — `.page-hub-header` wraps `PageHeaderComponent` (tab-specific create CTA) + `EntityTabsComponent` + embedded our tables (`/our-listings?tab=`)
 - **User offer picker:** `portal/user/features/offer/` — entity picker → create forms; page title `portal.user.pages.offer.title` (Offer service / Ponudite uslugu); entry via `USER_OFFER_URL`
@@ -93,6 +93,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **BiH cities:** `shared/constants/bih-cities.ts` — `BIH_CITY_OPTIONS` for autocomplete origin/destination fields
 - **User entity status (interim):** `shared/constants/user-entity-status.ts` — `UserEntityStatus`; all entities will get their own status unions later — see `entity-status.mdc`
+- **Entity service colors (user portal):** `src/styles/_entity-service-accent.scss` + `entityContextClass()` in `shared/constants/entity-context-class.ts` — transport/freight/warehouse context chrome on cards, tabs, hub tables, form/detail titles; **not** status badges or sidebar accent — see `entity-service-colors.mdc`
 - **Portal page icons:** `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — sidebar link icons, page titles (`UserPageIcons.home` = `LucideHome`)
 - **Date form utils:** `shared/utils/date-input.ts` — `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate`/`maxDate` on field defs
 - **Display date formatting:** `shared/utils/format-display-date.ts` — `formatDisplayDate()` for tables, date-range display, detail pages
@@ -108,14 +109,14 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, page-title, page-back-link, page-header, primary-action-link, detail-page-layout, entity-detail-summary, detail-action-bar, route-display, date-range-display, vehicle-display, warehouse-display, status-badge)
 - **Dashboard KPI card:** `shared/ui/metric-card/` — `MetricCardComponent` (`app-metric-card`); inputs: `titleKey`, `value`, `subtitleKey`, `icon`, `variant`; wrap in `routerLink` on dashboard pages for clickable tiles; prefer `variant="default"` for neutral icon tint
-- **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`; monochrome Lucide icon (no colored badge); `routerLink` card for portal quick actions
-- **User intent card:** `shared/ui/intent-card/` — `IntentCardComponent` (`app-intent-card`); bare header icon; multi-action cards: links with `→`, **`justify-content: space-between` on desktop** (stack on mobile); Home `.home-page__journey-grid` caps at **24rem** per column, left-aligned; Offer uses `clickableCard` (whole-card `<a>`, stretch height)
-- **Entity tabs (user hubs):** `shared/ui/entity-tabs/` — `EntityTabsComponent` (`app-entity-tabs`); config `portal/user/user-entity-tabs.config.ts`; Find/Our listings wrap title + tabs in `.page-hub-header` (`styles/_page-hub-header.scss`); programmatic nav: `userFindUrl()` / `userOurListingsUrl()`; template links: `userFindRoute()` / `userOurListingsRoute()` — see `entity-tabs.mdc`, `page-title.mdc`
-- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — flex row: bare decorative icon (20px) vertically centered beside `.page-title__text` (title + subtitle, `gap: 0.25rem`); subtitle `max-width: 42rem`; standalone pages get `border-bottom` header divider; hubs use `.page-hub-header` instead. `PageHeaderComponent` draws divider for title + create CTA rows. See `page-title.mdc`.
+- **Dashboard action tile:** `shared/ui/quick-action-card/` — `QuickActionCardComponent` (`app-quick-action-card`); inputs: `titleKey`, `descriptionKey`, `route`, `icon`, optional `queryParams`, optional `entityTab`; admin dashboard = neutral icons; **user home** passes `[entityTab]` for colored spine + icon — see `entity-service-colors.mdc`
+- **User intent card:** `shared/ui/intent-card/` — `IntentCardComponent` (`app-intent-card`); optional `[entityTab]` for colored spine + icon; Home journey + Offer use `clickableCard` with single Continue action; Home `.home-page__journey-grid` caps at **24rem** per column, left-aligned — see `entity-service-colors.mdc`
+- **Entity tabs (user hubs):** `shared/ui/entity-tabs/` — `EntityTabsComponent` (`app-entity-tabs`); active tab gets entity colors; config `portal/user/user-entity-tabs.config.ts`; Find/Our listings wrap title + tabs in `.page-hub-header` (`styles/_page-hub-header.scss`); programmatic nav: `userFindUrl()` / `userOurListingsUrl()`; template links: `userFindRoute()` / `userOurListingsRoute()` — see `entity-tabs.mdc`, `entity-service-colors.mdc`
+- **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — flex row: bare decorative icon (20px) vertically centered beside `.page-title__text` (title + subtitle, `gap: 0.25rem`); optional `[entityTab]` tints icon on user entity create/edit/detail pages; subtitle `max-width: 42rem`; standalone pages get `border-bottom` header divider; hubs use `.page-hub-header` instead. `PageHeaderComponent` draws divider for title + create CTA rows. See `page-title.mdc`, `entity-service-colors.mdc`.
 - **Form section header:** `FormSectionComponent` — same flex icon + text pattern as page title inside form cards; bare icons — see `forms.mdc`.
 - **Form page back link:** `PageBackLinkComponent` (`shared/ui/page-back-link/`, `app-page-back-link`) — required on portal create/edit form pages above `PageTitleComponent`; inputs: `route` (list URL from `app-urls.ts`), `labelKey` (reuse `portal.*.nav.all*` or `portal.user.nav.our*`), `form` (dirty → `ConfirmService` + `shared.form.common.discardChanges.*`). Admin → entity list; user → `userOurListingsUrl(matchingEntity)`. See `page-title.mdc`.
 - **Table page create CTA:** when a list page has a create route, compose `app-page-header` with `app-page-title` + `app-primary-action-link` — page owns `createUrl` / `createLabelKey`; not inside `PageTitleComponent` or `DataTableComponent`. See `page-title.mdc`, `portal-feature.mdc`.
-- **Theme tokens:** `src/styles.scss` + `src/styles/_interaction.scss` — 4-layer surfaces (`--bg-chrome` → `--bg-app` → `--bg-surface` → `--bg-inset` / `--bg-control`), typography scale (`--font-size-*`), interaction mixins (`interactive-surface`, `interactive-text-link`, `interactive-primary-btn`, etc.). Cards/tables/forms use `--bg-surface`; no `translateY` card lift or opacity primary hovers in portal. See `theme-tokens.mdc`.
+- **Theme tokens:** `src/styles.scss`, `src/styles/_entity-service-accent.scss`, `src/styles/_interaction.scss` — 4-layer surfaces (`--bg-chrome` → `--bg-app` → `--bg-surface` → `--bg-inset` / `--bg-control`), typography scale (`--font-size-*`), interaction mixins (`interactive-surface`, `interactive-text-link`, `interactive-primary-btn`, etc.), entity service hues (`--entity-*`). Cards/tables/forms use `--bg-surface`; no `translateY` card lift or opacity primary hovers in portal. See `theme-tokens.mdc`, `entity-service-colors.mdc`.
 
 ## Cursor rules
 
@@ -125,7 +126,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `app-urls.mdc` | Always — route URLs via `shared/constants/app-urls.ts` only |
 | `angular.mdc` | `src/**/*.{ts,html,scss}` |
 | `guest.mdc` | `src/app/guest/**` |
-| `theme-tokens.mdc` | `src/**/*.scss`, `src/styles/**` — surface layers, typography scale, hover/focus mixins |
+| `theme-tokens.mdc` | `src/**/*.scss`, `src/styles/**` — surface layers, typography scale, hover/focus mixins; links to `entity-service-colors.mdc` |
 | `layout.mdc` | `guest/shell/**`, `portal/shell/**`, `shared/ui/**` — sidebar sections, flyout, nav icon rules |
 | `i18n.mdc` | TS/HTML + `public/assets/*.json` — key namespaces |
 | `forms.mdc` | `shared/form/**`, `*.form.ts` |
@@ -136,8 +137,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `portal-feature.mdc` | `portal/**/features/**` — CRUD layout (vehicles reference) |
 | `new-page.mdc` | `portal/**/features/**`, route files, nav configs, guest pages |
 | `page-title.mdc` | Portal page templates + `shared/ui/page-title/` + `shared/ui/page-back-link/` — title, back link, icon, table create CTA |
-| `shared-constants.mdc` | `bih-cities.ts`, `user-entity-status.ts`, `admin-page-icons.ts`, `user-page-icons.ts` |
+| `shared-constants.mdc` | `bih-cities.ts`, `user-entity-status.ts`, `entity-context-class.ts`, `admin-page-icons.ts`, `user-page-icons.ts` |
 | `entity-status.mdc` | Entity `status` field, `StatusBadgeComponent`, per-entity status conventions |
+| `entity-service-colors.mdc` | User portal transport/freight/warehouse accent system — `_entity-service-accent.scss`, `entityTab` on shared widgets, home quick actions |
 | `entity-tabs.mdc` | User Find / Our listings hub pages, `EntityTabsComponent`, tab URL builders |
 | `shared-utils.mdc` | `date-input.ts`, `format-display-date.ts`, `normalize-for-search.ts` |
 

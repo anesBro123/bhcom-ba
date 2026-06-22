@@ -2,8 +2,7 @@
   @for (tab of tabs(); track tab.id) {
     <button
       type="button"
-      class="entity-tabs__tab"
-      [class.entity-tabs__tab--active]="activeTab() === tab.id"
+      [class]="tabClassList(tab.id)"
       [attr.aria-current]="activeTab() === tab.id ? 'page' : null"
       (click)="selectTab(tab.id)"
     >

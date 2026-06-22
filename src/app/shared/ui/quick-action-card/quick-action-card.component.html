@@ -1,4 +1,9 @@
-<a class="quick-action-card" [routerLink]="route()">
+<a
+  class="quick-action-card"
+  [ngClass]="entityHostClass()"
+  [routerLink]="route()"
+  [queryParams]="queryParams() ?? null"
+>
   <span class="quick-action-card__icon">
     <ng-container *ngComponentOutlet="icon(); inputs: iconInputs" />
   </span>

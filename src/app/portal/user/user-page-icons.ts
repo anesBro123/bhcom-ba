@@ -1,10 +1,10 @@
 import {
   LucideClipboardList,
   LucideHome,
-  LucideMap,
   LucidePackage,
   LucideSearch,
   LucideSquarePlus,
+  LucideTruck,
   LucideWarehouse,
 } from '@lucide/angular';
 import type { LucideIcon } from '@lucide/angular';
@@ -14,7 +14,7 @@ export const UserPageIcons = {
   find: LucideSearch,
   ourListings: LucideClipboardList,
   offer: LucideSquarePlus,
-  transport: LucideMap,
+  transport: LucideTruck,
   freight: LucidePackage,
   warehouse: LucideWarehouse,
 } as const satisfies Record<string, LucideIcon>;

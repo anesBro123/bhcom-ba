@@ -3,6 +3,7 @@ import { Component, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import type { LucideIcon } from '@lucide/angular';
 
+import { entityContextClass } from '../../constants/entity-context-class';
 import type { UserEntityTab } from '../../constants/user-urls';
 
 export interface EntityTabConfig {
@@ -29,5 +30,13 @@ export class EntityTabsComponent {
     if (tab !== this.activeTab()) {
       this.tabChange.emit(tab);
     }
+  }
+
+  protected tabClassList(tab: UserEntityTab): string {
+    const classes = ['entity-tabs__tab'];
+    if (this.activeTab() === tab) {
+      classes.push('entity-tabs__tab--active', entityContextClass(tab));
+    }
+    return classes.join(' ');
   }
 }

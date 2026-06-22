@@ -56,6 +56,8 @@ import {
 } from '../table-filter-storage';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
 import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
+import { entityContextClass } from '../../constants/entity-context-class';
+import type { UserEntityTab } from '../../constants/user-urls';
 import { formatDisplayDate } from '../../utils/format-display-date';
 
 @Component({
@@ -76,11 +78,16 @@ import { formatDisplayDate } from '../../utils/format-display-date';
   ],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss',
+  host: {
+    '[class]': 'entityHostClass()',
+  },
 })
 export class DataTableComponent<T extends object> implements OnInit, AfterContentInit, OnDestroy {
   definition = input.required<TableDefinition<T>>();
   loader = input<TableLoader<T>>();
   rowClickEnabled = input(false);
+  /** When set, applies subtle entity accent to table chrome and row hover. */
+  entityTab = input<UserEntityTab>();
   rowAction = output<RowActionEvent<T>>();
   rowClick = output<T>();
 
@@ -107,6 +114,8 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   protected readonly activeFilterCount = computed(() =>
     countActiveFilters(this.tableStore.query().filters, this.definition().filters),
   );
+
+  protected readonly entityHostClass = computed(() => entityContextClass(this.entityTab()));
 
   protected readonly searchFilters = computed((): Extract<FilterDef<T>, { type: 'search' }>[] => {
     const filters = this.definition().filters ?? [];

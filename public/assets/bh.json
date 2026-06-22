@@ -717,8 +717,8 @@
               "phone": "Telefon",
               "dateOfBirth": "Datum rođenja",
               "jmbg": "JMBG",
-              "canCreateRoute": "Može kreirati rutu",
-              "canAcceptRoute": "Može prihvatiti rutu"
+              "canCreateRoute": "Može kreirati prevoz",
+              "canAcceptRoute": "Može prihvatiti prevoz"
             },
             "placeholders": {
               "firstName": "npr. Amir",
@@ -776,12 +776,15 @@
         "transport": "Prevoz",
         "freight": "Teret",
         "warehouse": "Skladište",
-        "ourTransport": "Naše rute",
+        "ourTransport": "Naš prevoz",
         "ourFreight": "Naš teret",
         "ourWarehouse": "Naša skladišta",
         "marketplaceTransport": "Prevoz na tržištu",
         "marketplaceFreight": "Teret na tržištu",
         "marketplaceWarehouse": "Skladište na tržištu",
+        "findTransport": "Pronađi prevoz",
+        "findFreight": "Pronađi teret",
+        "findWarehouse": "Pronađi skladište",
         "offerTransport": "Ponudi prevoz",
         "offerFreight": "Ponudi teret",
         "offerWarehouse": "Ponudi skladište"
@@ -813,15 +816,15 @@
         },
         "createTransport": {
           "title": "Objavi prevoz",
-          "subtitle": "Dodajte rutu i vozilo kako bi druge kompanije mogle zatražiti transport tereta."
+          "subtitle": "Dodajte prevoz i vozilo kako bi druge kompanije mogle zatražiti transport tereta."
         },
         "editTransport": {
           "title": "Uredi prevoz",
-          "subtitle": "Ažurirajte rutu, vozilo, datume ili opis ove objave."
+          "subtitle": "Ažurirajte prevoz, vozilo, datume ili opis ove objave."
         },
         "marketplaceFreight": {
           "title": "Teret na tržištu",
-          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pronađite pošiljke koje odgovaraju vašim rutama."
+          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pronađite pošiljke koje odgovaraju vašem prevozu."
         },
         "ourFreight": {
           "title": "Naš teret",
@@ -853,12 +856,12 @@
         },
         "viewTransport": {
           "title": "Detalji prevoza",
-          "subtitleFind": "Pregledajte rutu, raspored i vozilo prije slanja zahtjeva.",
+          "subtitleFind": "Pregledajte prevoz, raspored i vozilo prije slanja zahtjeva.",
           "subtitleOur": "Pregledajte i upravljajte ovim oglasom za prevoz koji je objavila vaša kompanija."
         },
         "viewFreight": {
           "title": "Detalji tereta",
-          "subtitleFind": "Pregledajte informacije o pošiljci i rutu prije slanja zahtjeva.",
+          "subtitleFind": "Pregledajte informacije o pošiljci i relaciju prije slanja zahtjeva.",
           "subtitleOur": "Pregledajte i upravljajte ovim oglasom za teret koji je objavila vaša kompanija."
         },
         "viewWarehouse": {
@@ -871,12 +874,12 @@
         "transport": {
           "form": {
             "steps": {
-              "main": "Detalji rute"
+              "main": "Detalji prevoza"
             },
             "sections": {
               "route": {
-                "title": "Ruta i vozilo",
-                "subtitle": "Odaberite vozilo kompanije i definirajte transportnu rutu"
+                "title": "Prevoz i vozilo",
+                "subtitle": "Odaberite vozilo kompanije i definirajte detalje prevoza"
               },
               "details": {
                 "title": "Dodatni detalji",
@@ -900,14 +903,14 @@
               "description": "Opcione napomene o dostupnom prostoru..."
             },
             "actions": {
-              "create": "Objavi rutu",
+              "create": "Objavi prevoz",
               "update": "Sačuvaj izmjene"
             }
           },
           "table": {
             "entity": "prevoz",
             "columns": {
-              "route": "Ruta",
+              "route": "Prevoz",
               "status": "Status",
               "vehicle": "Vozilo",
               "vehicleType": "Tip vozila",
@@ -936,22 +939,22 @@
               "searchPlaceholder": "Pretraži vozila, opise..."
             },
             "filterGroups": {
-              "route": "Ruta",
+              "route": "Prevoz",
               "attributes": "Atributi",
               "dates": "Datumi"
             },
             "deleteConfirm": {
-              "title": "Obrisati rutu?",
-              "message": "Ovo će trajno ukloniti objavljenu rutu. Ova radnja se ne može poništiti."
+              "title": "Obrisati prevoz?",
+              "message": "Ovo će trajno ukloniti objavljeni prevoz. Ova radnja se ne može poništiti."
             },
             "sendRequestConfirm": {
               "title": "Poslati zahtjev?",
-              "message": "Vaš zahtjev će biti poslan izdavaocu rute. Ovo je pregled — API za zahtjeve još nije povezan."
+              "message": "Vaš zahtjev će biti poslan izdavaocu prevoza. Ovo je pregled — API za zahtjeve još nije povezan."
             }
           },
           "detail": {
-            "title": "Detalji rute",
-            "subtitle": "Detaljne informacije o ruti {{id}}",
+            "title": "Detalji prevoza",
+            "subtitle": "Detaljne informacije o prevozu {{id}}",
             "sections": {
               "schedule": "Raspored",
               "vehicle": "Vozilo i opis"
@@ -968,7 +971,7 @@
             },
             "sections": {
               "route": {
-                "title": "Transportna ruta",
+                "title": "Relacija",
                 "subtitle": "Gdje teret treba i do kada"
               },
               "freight": {
@@ -1020,7 +1023,7 @@
           "table": {
             "entity": "teret",
             "columns": {
-              "route": "Ruta",
+              "route": "Relacija",
               "status": "Status",
               "freightType": "Tip",
               "size": "Veličina",
@@ -1050,7 +1053,7 @@
               "searchPlaceholder": "Pretraži opise..."
             },
             "filterGroups": {
-              "route": "Ruta",
+              "route": "Relacija",
               "attributes": "Atributi",
               "dates": "Datumi"
             },
@@ -1068,7 +1071,7 @@
             "subtitle": "Detaljne informacije o teretu {{id}}",
             "sections": {
               "shipment": "Informacije o pošiljci",
-              "route": "Transportna ruta"
+              "route": "Relacija"
             },
             "fields": {
               "publishedAt": "Objavljeno"
@@ -1182,34 +1185,60 @@
             "empty": "Vaša kompanija još nema objava.",
             "emptyCta": "Objavite prvu objavu"
           },
+          "quickActions": {
+            "title": "Brze akcije"
+          },
+          "actions": {
+            "findTransport": {
+              "description": "Pregledajte prevoz koji nude druge kompanije"
+            },
+            "offerTransport": {
+              "description": "Objavite prevoz koji vaša kompanija nudi"
+            },
+            "findFreight": {
+              "description": "Pregledajte teret koji su objavile druge kompanije"
+            },
+            "offerFreight": {
+              "description": "Objavite teret za koji vašoj kompaniji treba prevoz"
+            },
+            "findWarehouse": {
+              "description": "Pregledajte skladišni prostor koji nude druge kompanije"
+            },
+            "offerWarehouse": {
+              "description": "Objavite slobodan prostor u skladištu vaše kompanije"
+            }
+          },
           "journey": {
             "heading": "Šta vam treba danas?",
             "subheading": "Odaberite situaciju — odvest ćemo vas na pravo mjesto.",
             "groups": {
               "transport": "Prevoz",
+              "freight": "Teret",
               "warehouse": "Skladište"
             },
-            "moveGoods": {
-              "title": "Treba mi transport robe",
-              "body": "Pronađite rutu prevoznika ili objavite teret koji vašoj kompaniji treba transport.",
-              "findTransport": "Pronađi prevoz",
-              "offerFreight": "Objavi teret"
+            "needTransport": {
+              "title": "Treba mi prevoz",
+              "body": "Pregledajte prevoz koji nude druge kompanije."
             },
-            "transportCapacity": {
-              "title": "Imam kapacitet za transport",
-              "body": "Pronađite teret za vožnju ili objavite rutu s slobodnim prostorom.",
-              "findFreight": "Pronađi teret",
-              "offerTransport": "Objavi prevoz"
+            "haveTransport": {
+              "title": "Imam kapacitet za prevoz",
+              "body": "Objavite prevoz koji vaša kompanija nudi."
+            },
+            "needFreight": {
+              "title": "Treba mi teret za vožnju",
+              "body": "Pregledajte teret koji su objavile druge kompanije."
+            },
+            "haveFreight": {
+              "title": "Imam teret za transport",
+              "body": "Objavite teret za koji vašoj kompaniji treba prevoz."
             },
             "needWarehouse": {
               "title": "Treba mi skladišni prostor",
-              "body": "Pregledajte skladišni prostor koji nude druge kompanije.",
-              "findWarehouse": "Pronađi skladište"
+              "body": "Pregledajte skladišni prostor koji nude druge kompanije."
             },
             "haveWarehouse": {
               "title": "Imam skladišni prostor",
-              "body": "Objavite slobodan prostor u skladištu vaše kompanije.",
-              "offerWarehouse": "Objavi skladište"
+              "body": "Objavite slobodan prostor u skladištu vaše kompanije."
             }
           },
           "browseMarketplace": "Ili pregledajte tržište"
@@ -1217,11 +1246,11 @@
         "offer": {
           "transport": {
             "title": "Ponudi prevoz",
-            "description": "Slobodan kapacitet vozila na ruti — drugi mogu zatražiti transport tereta."
+            "description": "Prevoz koji vaša kompanija nudi sa slobodnim kapacitetom vozila."
           },
           "freight": {
             "title": "Ponudi teret",
-            "description": "Roba koja treba transport — povežite s dostupnim rutama."
+            "description": "Teret za koji vašoj kompaniji treba prevoz."
           },
           "warehouse": {
             "title": "Ponudi skladište",

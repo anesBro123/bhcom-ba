@@ -52,6 +52,16 @@
   color: var(--text-primary);
 }
 
+.entity-tabs__tab--active[class*='entity-context--'] {
+  border-color: var(--entity-accent-border);
+  background: var(--entity-accent-active-bg);
+  color: var(--text-primary);
+
+  .entity-tabs__tab-icon {
+    color: var(--entity-accent-icon);
+  }
+}
+
 .entity-tabs__tab-icon {
   display: inline-flex;
   align-items: center;

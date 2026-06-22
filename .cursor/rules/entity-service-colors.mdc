@@ -1,0 +1,99 @@
+---
+description: User portal service-type colors (transport, freight, warehouse) — context chrome only
+globs: src/styles/_entity-service-accent.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/portal/user/features/home/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/offer/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
+alwaysApply: false
+---
+
+# Entity service colors (user portal)
+
+Subtle **transport / freight / warehouse** identity on user portal content — **not** status pills, route chips, sidebar accent, or primary buttons.
+
+## Source of truth
+
+| Piece | Path |
+|-------|------|
+| Base hues + derived tokens | `src/styles/_entity-service-accent.scss` (imported in `styles.scss`) |
+| Host class helper | `shared/constants/entity-context-class.ts` → `entityContextClass(tab)` → `entity-context--{transport\|freight\|warehouse}` |
+| Type | `UserEntityTab` in `shared/constants/user-urls.ts` |
+
+**Current bases** (change only in `_entity-service-accent.scss`):
+
+| Service | Light | Dark |
+|---------|-------|------|
+| Transport | `#0e7490` (vivid cyan) | `#06b6d4` |
+| Freight | `#ea580c` | `#fed7aa` |
+| Warehouse | `#a21caf` | `#f0abfc` |
+
+Transport uses **stronger** spine/icon/filter mixes (override in `.entity-context--transport`) — avoid pale blues that blend into `--bg-app` / `--bg-surface`.
+
+## Do not use for
+
+- `StatusBadgeComponent` / `--status-*` (workflow only)
+- Route chips (`--chip-neutral-*`)
+- `--portal-accent` (sidebar / guest login only)
+- Full card backgrounds or primary CTAs
+
+## UX pattern — “accent spine”
+
+| State | Cards (intent, quick-action) |
+|-------|------------------------------|
+| Rest | **3px left spine** + **colored icon** (`--entity-accent-icon`) |
+| Hover / focus | Stronger spine, `--entity-accent-border`, `--entity-accent-hover-bg`, shadow |
+
+Icons + labels remain required (color-blind safe).
+
+## Components with optional `entityTab`
+
+| Component | Input | When to set |
+|-----------|-------|-------------|
+| `IntentCardComponent` | `entityTab` | Home journey, Offer picker |
+| `QuickActionCardComponent` | `entityTab`, `queryParams?` | User home quick actions; **omit** on admin dashboard (neutral) |
+| `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
+| `DataTableComponent` | `entityTab` | User embedded hub tables (`table-all/`, `table-our/`) |
+| `EntityTabsComponent` | (active tab) | Applies `entity-context--*` on **active** pill only |
+
+Apply class via `entityContextClass()` or host/`ngClass` — do not hardcode hex in component SCSS.
+
+## Hub tables (`DataTableComponent`)
+
+When `entityTab` is set on host:
+
+- Filter toolbar: **always** `2px` top + `3px` left `--entity-filter-accent` (not only when filters active)
+- Row / mobile card hover: `--entity-accent-row-hover`
+- Mobile row cards: left spine at rest
+
+Table entity chrome lives in `_entity-service-accent.scss` (global) to stay within component SCSS budget.
+
+## User home (`portal/user/features/home/`)
+
+Order: **snapshot** → **quick actions** → **journey** → browse footer.
+
+| Section | Widget | Config |
+|---------|--------|--------|
+| Quick actions | `QuickActionCardComponent` | `home.actions.config.ts` — 3×2 grid (Find + Offer per entity); admin-style panel SCSS; desktop subgrid for equal card heights |
+| Journey | `IntentCardComponent` | `journeyGroups` in `home-page.component.ts` — scenario cards with `[entityTab]` |
+
+Quick action titles: `portal.user.nav.findTransport|findFreight|findWarehouse` + `offerTransport|…`. Descriptions: `portal.user.features.home.actions.*.description`.
+
+## i18n
+
+- `portal.user.features.home.quickActions.title`
+- `portal.user.features.home.actions.find*.description` / `offer*.description`
+- `portal.user.features.home.journey.*` (journey cards unchanged)
+- `portal.user.nav.findTransport|findFreight|findWarehouse`
+
+## Adding a fourth service type
+
+1. Extend `UserEntityTab` + `USER_ENTITY_TABS` in `user-urls.ts`
+2. Add bases + `.entity-context--*` block in `_entity-service-accent.scss`
+3. Wire tabs, home config, table pages, icons in `user-page-icons.ts`
+
+## Related rules
+
+| Area | Rule |
+|------|------|
+| Entity tabs | `entity-tabs.mdc` |
+| Status vs service color | `entity-status.mdc`, `tables.mdc` |
+| Home page checklist | `new-page.mdc` |
+| Page title icon tint | `page-title.mdc` |
+| Filter toolbar layers | `table-filters.mdc`, `theme-tokens.mdc` |

@@ -1,0 +1,78 @@
+// Entity service accent colors (transport, freight, warehouse).
+// Context chrome only — not for status badges, route chips, or primary actions.
+//
+// Palette D (freight + warehouse) with vivid cyan transport — clear of bg chrome and portal green.
+
+:root,
+[data-theme='dark'] {
+  --entity-transport-base: #06b6d4;
+  --entity-freight-base: #fed7aa;
+  --entity-warehouse-base: #f0abfc;
+}
+
+[data-theme='light'] {
+  --entity-transport-base: #0e7490;
+  --entity-freight-base: #ea580c;
+  --entity-warehouse-base: #a21caf;
+}
+
+@mixin entity-context-tokens($base) {
+  --entity-accent: #{$base};
+  --entity-accent-soft: color-mix(in srgb, #{$base} 10%, transparent);
+  --entity-accent-border: color-mix(in srgb, #{$base} 40%, var(--border-subtle));
+  --entity-accent-icon: color-mix(in srgb, #{$base} 65%, var(--text-muted));
+  --entity-accent-hover-bg: color-mix(in srgb, #{$base} 5%, var(--bg-surface));
+  --entity-accent-active-bg: color-mix(in srgb, #{$base} 8%, var(--bg-surface));
+  --entity-accent-row-hover: color-mix(in srgb, #{$base} 4%, var(--bg-table-row-hover));
+  --entity-accent-spine: color-mix(in srgb, #{$base} 30%, transparent);
+  --entity-accent-spine-strong: color-mix(in srgb, #{$base} 55%, transparent);
+  --entity-filter-accent: color-mix(in srgb, #{$base} 50%, var(--border-table-filter));
+}
+
+.entity-context--transport {
+  @include entity-context-tokens(var(--entity-transport-base));
+  --entity-accent-icon: color-mix(in srgb, var(--entity-transport-base) 78%, var(--text-muted));
+  --entity-accent-spine: color-mix(in srgb, var(--entity-transport-base) 42%, transparent);
+  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-transport-base) 62%, transparent);
+  --entity-filter-accent: color-mix(in srgb, var(--entity-transport-base) 58%, var(--border-table-filter));
+}
+
+.entity-context--freight {
+  @include entity-context-tokens(var(--entity-freight-base));
+}
+
+.entity-context--warehouse {
+  @include entity-context-tokens(var(--entity-warehouse-base));
+}
+
+// Data table entity context (global — keeps data-table.component.scss under budget)
+app-data-table[class*='entity-context--'] {
+  .data-table-filters {
+    border-top: 2px solid var(--entity-filter-accent);
+    border-left: 3px solid var(--entity-filter-accent);
+  }
+
+  .data-table-filters--active .data-table-filters__active-count {
+    color: var(--entity-filter-accent);
+  }
+
+  .data-table__row:hover td {
+    background: var(--entity-accent-row-hover);
+  }
+
+  .data-table-row-card--clickable:hover,
+  .data-table-row-card--clickable:active {
+    background: var(--entity-accent-row-hover);
+  }
+}
+
+@media (max-width: 768px) {
+  app-data-table[class*='entity-context--'] .data-table-row-card {
+    border-left-width: 3px;
+    border-left-color: var(--entity-accent-spine);
+  }
+
+  app-data-table[class*='entity-context--'] .data-table-row-card--clickable:active {
+    border-left-color: var(--entity-accent-spine-strong);
+  }
+}

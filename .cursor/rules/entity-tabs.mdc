@@ -24,6 +24,8 @@ Shared sticky tab bar for user portal **Find** (`/find`) and **Our listings** (`
 
 Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG` (icons from `UserPageIcons`).
 
+**Active tab styling:** active pill gets `entity-context--{tab}` — entity border, soft fill, tinted icon. Inactive tabs stay neutral. See `entity-service-colors.mdc`.
+
 ### i18n
 
 `portal.user.features.entityTabs.transport|freight|warehouse` + `…entityTabs.ariaLabel`

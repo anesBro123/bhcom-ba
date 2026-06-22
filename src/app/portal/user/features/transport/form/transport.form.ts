@@ -1,4 +1,4 @@
-import { LucideMap, LucidePlus, LucideSave, LucideTruck } from '@lucide/angular';
+import { LucidePlus, LucideSave, LucideTruck } from '@lucide/angular';
 
 import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
 import { defineForm } from '../../../../../shared/form';
@@ -18,7 +18,7 @@ export const TransportForm = defineForm<TransportFormModel>()({
           id: 'route',
           titleKey: 'portal.user.features.transport.form.sections.route.title',
           subtitleKey: 'portal.user.features.transport.form.sections.route.subtitle',
-          icon: LucideMap,
+          icon: LucideTruck,
           fields: [
             {
               key: 'vehicleId',

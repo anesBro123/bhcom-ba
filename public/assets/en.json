@@ -717,8 +717,8 @@
               "phone": "Phone",
               "dateOfBirth": "Date of Birth",
               "jmbg": "Personal ID (JMBG)",
-              "canCreateRoute": "Can Create Route",
-              "canAcceptRoute": "Can Accept Route"
+              "canCreateRoute": "Can create transport",
+              "canAcceptRoute": "Can accept transport"
             },
             "placeholders": {
               "firstName": "e.g. Amir",
@@ -782,6 +782,9 @@
         "marketplaceTransport": "Marketplace transport",
         "marketplaceFreight": "Marketplace freight",
         "marketplaceWarehouse": "Marketplace warehouse",
+        "findTransport": "Find transport",
+        "findFreight": "Find freight",
+        "findWarehouse": "Find warehouse",
         "offerTransport": "Offer transport",
         "offerFreight": "Offer freight",
         "offerWarehouse": "Offer warehouse"
@@ -813,15 +816,15 @@
         },
         "createTransport": {
           "title": "Publish transport",
-          "subtitle": "Add a route and vehicle so other companies can request cargo space."
+          "subtitle": "Add transport details and a vehicle so other companies can request cargo space."
         },
         "editTransport": {
           "title": "Edit transport",
-          "subtitle": "Update route, vehicle, dates, or description for this listing."
+          "subtitle": "Update transport details, vehicle, dates, or description for this listing."
         },
         "marketplaceFreight": {
           "title": "Freight on the marketplace",
-          "subtitle": "Browse freight published by other companies. Find shipments that match your routes."
+          "subtitle": "Browse freight published by other companies. Find shipments that match your transport."
         },
         "ourFreight": {
           "title": "Our freight",
@@ -853,12 +856,12 @@
         },
         "viewTransport": {
           "title": "Transport details",
-          "subtitleFind": "Review route, schedule, and vehicle before sending a request.",
+          "subtitleFind": "Review transport details, schedule, and vehicle before sending a request.",
           "subtitleOur": "View and manage this transport listing your company published."
         },
         "viewFreight": {
           "title": "Freight details",
-          "subtitleFind": "Review shipment info and route before sending a request.",
+          "subtitleFind": "Review shipment info and lane before sending a request.",
           "subtitleOur": "View and manage this freight listing your company published."
         },
         "viewWarehouse": {
@@ -876,7 +879,7 @@
             "sections": {
               "route": {
                 "title": "Transport & Vehicle",
-                "subtitle": "Select a company vehicle and define the transport route"
+                "subtitle": "Select a company vehicle and define the transport details"
               },
               "details": {
                 "title": "Additional Details",
@@ -941,17 +944,17 @@
               "dates": "Dates"
             },
             "deleteConfirm": {
-              "title": "Delete route?",
-              "message": "This will permanently remove the published route. This action cannot be undone."
+              "title": "Delete transport?",
+              "message": "This will permanently remove the published transport. This action cannot be undone."
             },
             "sendRequestConfirm": {
               "title": "Send request?",
-              "message": "Your request will be sent to the route publisher. This is a preview — the request API is not yet connected."
+              "message": "Your request will be sent to the transport publisher. This is a preview — the request API is not yet connected."
             }
           },
           "detail": {
             "title": "Transport Details",
-            "subtitle": "Detailed information about route {{id}}",
+            "subtitle": "Detailed information about transport {{id}}",
             "sections": {
               "schedule": "Schedule",
               "vehicle": "Vehicle & description"
@@ -968,7 +971,7 @@
             },
             "sections": {
               "route": {
-                "title": "Transport Transport",
+                "title": "Lane & timing",
                 "subtitle": "Where the freight needs to go and by when"
               },
               "freight": {
@@ -1020,7 +1023,7 @@
           "table": {
             "entity": "freight",
             "columns": {
-              "route": "Transport",
+              "route": "Lane",
               "status": "Status",
               "freightType": "Type",
               "size": "Size",
@@ -1050,7 +1053,7 @@
               "searchPlaceholder": "Search descriptions..."
             },
             "filterGroups": {
-              "route": "Transport",
+              "route": "Lane",
               "attributes": "Attributes",
               "dates": "Dates"
             },
@@ -1068,7 +1071,7 @@
             "subtitle": "Detailed information about freight {{id}}",
             "sections": {
               "shipment": "Shipment Information",
-              "route": "Transport Transport"
+              "route": "Lane"
             },
             "fields": {
               "publishedAt": "Published"
@@ -1182,34 +1185,60 @@
             "empty": "Your company has no listings yet.",
             "emptyCta": "Publish your first listing"
           },
+          "quickActions": {
+            "title": "Quick actions"
+          },
+          "actions": {
+            "findTransport": {
+              "description": "Browse transport offered by other companies"
+            },
+            "offerTransport": {
+              "description": "Publish transport your company can offer"
+            },
+            "findFreight": {
+              "description": "Browse freight published by other companies"
+            },
+            "offerFreight": {
+              "description": "Publish freight your company needs transported"
+            },
+            "findWarehouse": {
+              "description": "Browse warehouse space offered by other companies"
+            },
+            "offerWarehouse": {
+              "description": "Publish available space in your company's warehouse"
+            }
+          },
           "journey": {
             "heading": "What do you need today?",
             "subheading": "Pick a situation — we'll take you to the right place.",
             "groups": {
               "transport": "Transport",
+              "freight": "Freight",
               "warehouse": "Warehouse"
             },
-            "moveGoods": {
-              "title": "I need to move goods",
-              "body": "Find a carrier route or publish freight your company needs moved.",
-              "findTransport": "Find transport",
-              "offerFreight": "Publish freight"
+            "needTransport": {
+              "title": "I need transport",
+              "body": "Browse transport offered by other companies."
             },
-            "transportCapacity": {
+            "haveTransport": {
               "title": "I have transport capacity",
-              "body": "Find freight to fill your trip or publish transport with available space.",
-              "findFreight": "Find freight",
-              "offerTransport": "Publish transport"
+              "body": "Publish transport your company can offer."
+            },
+            "needFreight": {
+              "title": "I need freight to haul",
+              "body": "Browse freight published by other companies."
+            },
+            "haveFreight": {
+              "title": "I have freight to move",
+              "body": "Publish freight your company needs transported."
             },
             "needWarehouse": {
               "title": "I need warehouse space",
-              "body": "Browse warehouse space offered by other companies.",
-              "findWarehouse": "Find warehouse"
+              "body": "Browse warehouse space offered by other companies."
             },
             "haveWarehouse": {
               "title": "I have warehouse space",
-              "body": "Publish available space in your company's warehouse.",
-              "offerWarehouse": "Publish warehouse"
+              "body": "Publish available space in your company's warehouse."
             }
           },
           "browseMarketplace": "Or browse the marketplace"
@@ -1217,11 +1246,11 @@
         "offer": {
           "transport": {
             "title": "Offer transport",
-            "description": "Available truck capacity on a route — others can request cargo space."
+            "description": "Transport your company offers with available vehicle capacity."
           },
           "freight": {
             "title": "Offer freight",
-            "description": "Goods that need transport — match with available routes."
+            "description": "Freight your company needs transported."
           },
           "warehouse": {
             "title": "Offer warehouse",

@@ -1,5 +1,10 @@
 @use 'styles/interaction' as interaction;
 
+:host {
+  display: block;
+  height: 100%;
+}
+
 .quick-action-card {
   display: flex;
   flex-direction: column;
@@ -15,6 +20,27 @@
   text-align: center;
   text-decoration: none;
   @include interaction.interactive-surface;
+}
+
+.quick-action-card[class*='entity-context--'] {
+  border-left-width: 3px;
+  border-left-color: var(--entity-accent-spine);
+
+  .quick-action-card__icon {
+    color: var(--entity-accent-icon);
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--entity-accent-border);
+    border-left-color: var(--entity-accent-spine-strong);
+    background: var(--entity-accent-hover-bg);
+  }
+
+  &:active {
+    border-left-color: var(--entity-accent-spine-strong);
+    background: var(--entity-accent-hover-bg);
+  }
 }
 
 .quick-action-card__icon {
@@ -37,4 +63,5 @@
   font-size: var(--font-size-body-sm);
   line-height: var(--line-height-normal);
   color: var(--text-muted);
+  min-height: calc(var(--font-size-body-sm) * var(--line-height-normal) * 2);
 }
