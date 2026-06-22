@@ -52,7 +52,7 @@
   }
 
   <section class="home-page__quick-actions">
-    <div class="home-page__quick-actions-panel">
+    <div class="home-page__section-panel">
       <h2 class="home-page__section-title">
         {{ 'portal.user.features.home.quickActions.title' | translate }}
       </h2>
@@ -76,30 +76,34 @@
   </section>
 
   <section class="home-page__journey">
-    <h2 class="home-page__journey-heading">
-      {{ 'portal.user.features.home.journey.heading' | translate }}
-    </h2>
-    <p class="home-page__journey-subheading">
-      {{ 'portal.user.features.home.journey.subheading' | translate }}
-    </p>
-
-    @for (group of journeyGroups; track group.titleKey) {
-      <div class="home-page__journey-group">
-        <h3 class="home-page__journey-group-title">{{ group.titleKey | translate }}</h3>
-        <div class="home-page__journey-grid">
-          @for (card of group.cards; track card.titleKey) {
-            <app-intent-card
-              [icon]="card.icon"
-              [titleKey]="card.titleKey"
-              [descriptionKey]="card.bodyKey"
-              [actions]="card.actions"
-              [clickableCard]="true"
-              [entityTab]="group.entityTab"
-            />
-          }
-        </div>
+    <div class="home-page__section-panel">
+      <div class="home-page__journey-intro">
+        <h2 class="home-page__section-title">
+          {{ 'portal.user.features.home.journey.heading' | translate }}
+        </h2>
+        <p class="home-page__journey-subheading">
+          {{ 'portal.user.features.home.journey.subheading' | translate }}
+        </p>
       </div>
-    }
+
+      @for (group of journeyGroups; track group.titleKey) {
+        <div class="home-page__journey-group">
+          <h3 class="home-page__journey-group-title">{{ group.titleKey | translate }}</h3>
+          <div class="home-page__journey-grid">
+            @for (card of group.cards; track card.titleKey) {
+              <app-intent-card
+                [icon]="card.icon"
+                [titleKey]="card.titleKey"
+                [descriptionKey]="card.bodyKey"
+                [actions]="card.actions"
+                [clickableCard]="true"
+                [entityTab]="group.entityTab"
+              />
+            }
+          </div>
+        </div>
+      }
+    </div>
   </section>
 
   <footer class="home-page__browse">
