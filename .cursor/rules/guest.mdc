@@ -23,7 +23,7 @@ Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) a
 ## Shell (`guest/shell/`)
 
 - `GuestShellComponent` — reads deepest route `data.showFooter` / `data.showNavActions`
-- `GuestTopbarComponent` — brand, language/theme pickers (`shared/ui/`), conditional nav actions
+- `GuestTopbarComponent` — brand; `.topbar__actions`: theme then language (`shared/ui/`); conditional nav actions
 - `GuestFooterComponent` — landing footer links
 - `PortalCardComponent` — user/admin portal cards on sign-in page
 

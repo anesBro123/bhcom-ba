@@ -2,28 +2,10 @@
   <button
     type="button"
     class="lang-picker__trigger"
-    [attr.aria-label]="'shared.topbar.changeLanguage' | translate"
-    [attr.aria-expanded]="menuOpen()"
-    aria-haspopup="listbox"
-    (click)="toggleMenu()"
+    [attr.aria-label]="(isEnglish() ? 'shared.topbar.lang.switchToBh' : 'shared.topbar.lang.switchToEn') | translate"
+    [attr.title]="(isEnglish() ? 'shared.topbar.lang.switchToBh' : 'shared.topbar.lang.switchToEn') | translate"
+    (click)="toggleLanguage()"
   >
-    <svg lucideGlobe [size]="20" />
+    <span class="lang-picker__code" aria-hidden="true">{{ isEnglish() ? 'EN' : 'BS' }}</span>
   </button>
-
-  @if (menuOpen()) {
-    <ul class="lang-picker__menu" role="listbox">
-      @for (lang of languages; track lang.code) {
-        <li role="option" [attr.aria-selected]="languageService.lang() === lang.code">
-          <button
-            type="button"
-            class="lang-picker__option"
-            [class.lang-picker__option--active]="languageService.lang() === lang.code"
-            (click)="selectLanguage(lang.code)"
-          >
-            {{ lang.labelKey | translate }}
-          </button>
-        </li>
-      }
-    </ul>
-  }
 </div>

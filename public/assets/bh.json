@@ -26,7 +26,9 @@
       },
       "lang": {
         "en": "English",
-        "bh": "Bosanski"
+        "bh": "Bosanski",
+        "switchToEn": "Prebaci na engleski",
+        "switchToBh": "Prebaci na bosanski"
       }
     },
     "form": {

@@ -23,6 +23,10 @@ export class LanguageService {
     this.applyLanguage(lang);
   }
 
+  toggle(): void {
+    this.setLanguage(this._lang() === 'en' ? 'bh' : 'en');
+  }
+
   private applyLanguage(lang: AppLanguage): void {
     this.translate.use(lang);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);

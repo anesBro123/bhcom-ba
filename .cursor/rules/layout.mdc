@@ -14,9 +14,9 @@ alwaysApply: false
 - Nav types: `portal/common/models/nav.model.ts` (`NavSection.route?` for user flat links, `NavSection.items?` for admin groups); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
 - Active helpers: `portal/common/utils/is-nav-section-active.ts`; `portal/common/utils/nav-link-active-options.ts` (`navLinkActiveOptions()` — `queryParams: 'ignored'` for hub routes with `?tab=`).
 - `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
-- `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only), theme/notifications/profile actions.
-- `LanguagePickerComponent` (`shared/ui/language-picker/`) — globe language menu; shared by portal topbar and guest shared.topbar.
-- `ThemePickerComponent` (`shared/ui/theme-picker/`) — light/dark theme menu; shared by portal topbar and guest shared.topbar.
+- `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only); `.topbar__actions` order: **theme → language → notifications → account**.
+- `ThemePickerComponent` (`shared/ui/theme-picker/`) — single-click light/dark toggle (sun/moon icon); `ThemeService.toggle()`; shared by portal topbar and guest topbar.
+- `LanguagePickerComponent` (`shared/ui/language-picker/`) — single-click EN/BS toggle (shows active locale code); `LanguageService.toggle()`; shared by portal topbar and guest topbar. i18n aria: `shared.topbar.lang.switchToEn` / `switchToBh`.
 - **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No shared.sidebar.
 - Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
 - `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.

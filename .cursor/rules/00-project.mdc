@@ -50,14 +50,14 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session` in `auth.model.ts`); stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`
 - Guards: `guest/guards/guest.guard.ts` (`guestGuard`); `portal/guards/portal-match.guard.ts`
 - Portal config: `portal/common/models/portal-config.model.ts`, `portal/user/user-portal.config.ts`, `portal/admin/admin-portal.config.ts`
-- Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`, `PortalTopbarComponent`, `SidebarService`; shared nav panel SCSS: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
+- Portal shell: `portal/shell/` — `PortalShellComponent`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`, `PortalTopbarComponent`, `SidebarService`; topbar actions: theme → language → notifications → account; shared nav panel SCSS: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
 - Sidebar nav: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts` (types in `portal/common/models/nav.model.ts` — user `NavSection.route`, admin `NavSection.items`); active: `is-nav-section-active.ts`, `nav-link-active-options.ts`
 - Theme/i18n: `shared/core/theme/`, `shared/core/i18n/`
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`); Confirm: `shared/confirm/` (`ConfirmService`, global `ConfirmDialogComponent` in `app.html`)
 - Features: `portal/user/features/` (home, find, our-listings, offer, transport, freight, warehouse); `portal/admin/features/` (dashboard, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
 - Theme/breakpoints: `src/styles.scss`, `src/styles/_entity-service-accent.scss`, `src/styles/_table-chrome-split-card.scss`, `src/styles/_interaction.scss`, `src/styles/_breakpoints.scss`, `portal/shell/viewport.ts` — surface layers, typography scale, hover mixins, entity service hues, table split-card chrome: see `theme-tokens.mdc`, `table-filters.mdc`, `entity-service-colors.mdc`
-- Shared UI widgets: `shared/ui/` — brand-mark, language-picker, theme-picker, metric-card, quick-action-card, intent-card, entity-tabs, page-title, page-back-link, page-header, primary-action-link, **detail-page-layout**, **entity-detail-summary**, **detail-action-bar**, route-display, date-range-display, **date-period-picker**, vehicle-display, warehouse-display, status-badge
+- Shared UI widgets: `shared/ui/` — brand-mark, **theme-picker** / **language-picker** (single-click toggles; language shows EN/BS), metric-card, quick-action-card, intent-card, entity-tabs, page-title, page-back-link, page-header, primary-action-link, **detail-page-layout**, **entity-detail-summary**, **detail-action-bar**, route-display, date-range-display, **date-period-picker**, vehicle-display, warehouse-display, status-badge
 
 ## Auth routing (guards)
 

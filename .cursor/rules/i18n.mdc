@@ -30,7 +30,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | Path | Use for |
 |------|---------|
 | `shared.sidebar.*` | Portal sidebar chrome |
-| `shared.topbar.*` | Portal + shared topbar widgets (theme, language, account) |
+| `shared.topbar.*` | Portal + shared topbar widgets (theme toggle, language toggle, notifications, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), leave-form discard dialog (`discardChanges.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, emptyFiltered, pagination, row actions |
 | `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`) |
@@ -120,4 +120,5 @@ portal.user.pages.ourListings.subtitle
 ## Files
 
 - Translations: `public/assets/en.json`, `public/assets/bh.json`
-- Language switching: `shared/core/i18n/language.service.ts`
+- Language switching: `shared/core/i18n/language.service.ts` — `AppLanguage` (`'en'` \| `'bh'`), `setLanguage()`, `toggle()`; persists `bhcom-ba-language`; sets `document.documentElement.lang` to `en` or `bs`.
+- Topbar language toggle aria: `shared.topbar.lang.switchToEn`, `shared.topbar.lang.switchToBh` (button shows active code **EN** / **BS**).

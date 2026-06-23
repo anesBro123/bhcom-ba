@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
@@ -10,8 +10,8 @@ import {
   LucideUser,
 } from '@lucide/angular';
 import { AuthService } from '../../../shared/core/auth/auth.service';
-import { LanguagePickerComponent } from '../../../shared/ui/language-picker/language-picker.component';
 import { ThemePickerComponent } from '../../../shared/ui/theme-picker/theme-picker.component';
+import { LanguagePickerComponent } from '../../../shared/ui/language-picker/language-picker.component';
 import { LANDING_URL } from '../../../shared/constants/app-urls';
 import { SidebarService } from '../sidebar.service';
 
@@ -35,7 +35,6 @@ export class PortalTopbarComponent {
   private readonly elementRef = inject(ElementRef);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly languagePicker = viewChild(LanguagePickerComponent);
   protected readonly sidebarService = inject(SidebarService);
 
   protected readonly accountMenuOpen = signal(false);
@@ -47,13 +46,8 @@ export class PortalTopbarComponent {
     }
   }
 
-  protected onLanguagePickerOpened(): void {
-    this.accountMenuOpen.set(false);
-  }
-
   protected toggleAccountMenu(): void {
     this.accountMenuOpen.update((open) => !open);
-    this.languagePicker()?.close();
   }
 
   protected onProfileClick(): void {
