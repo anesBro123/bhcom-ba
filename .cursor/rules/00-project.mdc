@@ -98,7 +98,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - **Date period input:** `DatePeriodPickerComponent` (`shared/ui/date-period-picker/`) — calendar picker in filters + `type: 'datePeriod'` forms; see `forms.mdc`, `table-filters.mdc`
 - **Vehicle display cell:** `VehicleDisplayComponent` (`shared/ui/vehicle-display/`) — vehicle name + plate in user routes table; see `tables.mdc`
 - **Warehouse display cell:** `WarehouseDisplayComponent` (`shared/ui/warehouse-display/`) — warehouse name + city in user storage tables; see `tables.mdc`
-- **Status badge cell:** `StatusBadgeComponent` (`shared/ui/status-badge/`) — **only colored semantic pill** in user route/cargo/storage table rows; all entities will get status over time — see `entity-status.mdc`, `tables.mdc`
+- **Status badge cell:** `StatusBadgeComponent` (`shared/ui/status-badge/`) — **only colored semantic pill** in user route/cargo/storage table rows; workflow hues `--status-*` (`open` green, `closed` amber); all entities will get status over time — see `entity-status.mdc`, `tables.mdc`
 - **BiH city autocomplete:** `BIH_CITY_OPTIONS` + `type: 'autocomplete'` — see `shared-constants.mdc`, `forms.mdc`
 - **Table page create CTA:** list pages with a create route use `PageHeaderComponent` + `PageTitleComponent` + `PrimaryActionLinkComponent` — page owns `createUrl` / `createLabelKey`; see `page-title.mdc`, `portal-feature.mdc`
 - **User entity detail pages:** `portal/user/features/{transport,freight,warehouse}/detail/` — row click navigates to `/transport|freight|warehouse/:id`; `shared/detail/` + `EntityDetailSummaryComponent` (location left, status right); static Find/Our subtitles; `entity-detail-navigation.ts`; see `detail-page.mdc`

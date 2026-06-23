@@ -51,6 +51,19 @@ Canvas (--bg-app) visible between cards
 
 **Table header tokens:** `--border-table-header-strong`, `--shadow-table-header-sticky`, `--text-table-header-size` (caption), `--text-table-header-weight` (semibold).
 
+## Status workflow tokens
+
+`--status-*` in `styles.scss` — **workflow pills only** (`StatusBadgeComponent`). Not entity service colors (`--entity-*`) or dashboard metric variants (`--metric-variant-*`).
+
+| Status | Hue family | Tokens |
+|--------|------------|--------|
+| `open` | Green | `--status-open-bg`, `--status-open-text` |
+| `in_progress` | Blue | `--status-in-progress-bg`, `--status-in-progress-text` |
+| `canceled` | Red | `--status-canceled-bg`, `--status-canceled-text` |
+| `closed` | Amber | `--status-closed-bg`, `--status-closed-text` |
+
+Light theme mixes base hue 14% with `#ffffff`; dark theme mixes 22% with `transparent`. Full hex table: `entity-status.mdc`.
+
 Search input focus: `--border-form-input-focus` (not `--text-muted`).
 
 **Legacy variant:** `'bandLadder'` — single `.data-table-card` with three bands; styles in `src/styles/_table-chrome-band-ladder.scss`.
@@ -141,6 +154,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 | Shell / cards / accent scope | `layout.mdc` |
 | Table filter UX | `table-filters.mdc` |
 | Entity service colors | `entity-service-colors.mdc` |
+| Entity status colors | `entity-status.mdc` |
 | Page title | `page-title.mdc` |
 | Confirm dialog tokens | `confirm.mdc` |
 | Angular SCSS conventions | `angular.mdc` |

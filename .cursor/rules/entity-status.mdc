@@ -24,6 +24,19 @@ alwaysApply: false
 
 `UserEntityStatus`: `'open' | 'in_progress' | 'canceled' | 'closed'`.
 
+## Status colors
+
+Workflow hues in `styles.scss` (`--status-*-bg`, `--status-*-text`). Consumed **only** by `StatusBadgeComponent` — not entity service colors (`--entity-*`) or metric-card variants.
+
+| Status | Hue | Light text | Dark text | Meaning |
+|--------|-----|------------|-----------|---------|
+| `open` | Green (`#22c55e`) | `#16a34a` | `#4ade80` | Available / accepting interest |
+| `in_progress` | Blue (`#3b82f6`) | `#2563eb` | `#60a5fa` | Active deal in motion |
+| `canceled` | Red (`#ef4444`) | `#dc2626` | `#f87171` | Terminated |
+| `closed` | Amber (`#f59e0b`) | `#d97706` | `#fbbf24` | Finished / no longer active |
+
+**`open` is green** (not amber) so status pills stay distinct from freight entity chrome (`#ea580c`). Change hues only in `styles.scss` — do not hardcode status hex in components.
+
 ## Entity `data/` conventions
 
 - Add `status: …` on the **entity** interface (`Route`, `Cargo`, …) — **not** on form models unless status becomes user-editable.

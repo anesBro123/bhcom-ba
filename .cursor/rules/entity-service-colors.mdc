@@ -28,7 +28,7 @@ Transport uses **stronger** spine/icon/filter mixes (override in `.entity-contex
 
 ## Do not use for
 
-- `StatusBadgeComponent` / `--status-*` (workflow only)
+- `StatusBadgeComponent` / `--status-*` (workflow only — `open` = green, `closed` = amber; see `entity-status.mdc`)
 - Route chips (`--chip-neutral-*`)
 - `--portal-accent` (sidebar / guest login only)
 - Full card backgrounds or primary CTAs
