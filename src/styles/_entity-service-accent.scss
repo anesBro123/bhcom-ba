@@ -26,7 +26,11 @@
   --entity-accent-row-hover: color-mix(in srgb, #{$base} 4%, var(--bg-table-row-hover));
   --entity-accent-spine: color-mix(in srgb, #{$base} 30%, transparent);
   --entity-accent-spine-strong: color-mix(in srgb, #{$base} 55%, transparent);
-  --entity-filter-accent: color-mix(in srgb, #{$base} 50%, var(--border-table-filter));
+}
+
+@mixin entity-table-card-rest {
+  border-left-width: 3px;
+  border-left-color: var(--entity-accent-spine);
 }
 
 .entity-context--transport {
@@ -34,7 +38,6 @@
   --entity-accent-icon: color-mix(in srgb, var(--entity-transport-base) 78%, var(--text-muted));
   --entity-accent-spine: color-mix(in srgb, var(--entity-transport-base) 42%, transparent);
   --entity-accent-spine-strong: color-mix(in srgb, var(--entity-transport-base) 62%, transparent);
-  --entity-filter-accent: color-mix(in srgb, var(--entity-transport-base) 58%, var(--border-table-filter));
 }
 
 .entity-context--freight {
@@ -47,17 +50,16 @@
 
 // Data table entity context (global — keeps data-table.component.scss under budget)
 app-data-table.data-table--band-ladder[class*='entity-context--'] {
-  .data-table-filters {
-    border-top: 2px solid var(--entity-filter-accent);
-    border-left: 3px solid var(--entity-filter-accent);
+  .data-table-card {
+    @include entity-table-card-rest;
   }
 
-  .data-table-filters__chips-band {
-    background: color-mix(in srgb, var(--entity-accent-soft) 55%, var(--bg-table-filter-chips));
+  .data-table-filters--active {
+    border-left: none;
   }
 
   .data-table-filters--active .data-table-filters__active-count {
-    color: var(--entity-filter-accent);
+    color: var(--entity-accent-icon);
   }
 
   .data-table__row:hover td {
@@ -81,19 +83,15 @@ app-data-table.data-table--band-ladder[class*='entity-context--'] {
   }
 }
 
-// Split-card entity context — accent on controls card, not the data card
+// Split-card entity context — identical rest spine on controls + data cards (no filter-active border upgrade)
 app-data-table.data-table--split-card[class*='entity-context--'] {
-  .data-table-controls-card {
-    border-top: 2px solid var(--entity-filter-accent);
-    border-left: 3px solid var(--entity-filter-accent);
-  }
-
-  .data-table-filters__chips-band {
-    background: color-mix(in srgb, var(--entity-accent-soft) 55%, var(--bg-table-filter-chips));
+  .data-table-controls-card,
+  .data-table-data-card {
+    @include entity-table-card-rest;
   }
 
   .data-table-filters--active .data-table-filters__active-count {
-    color: var(--entity-filter-accent);
+    color: var(--entity-accent-icon);
   }
 
   .data-table__row:hover td {

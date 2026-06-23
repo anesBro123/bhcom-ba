@@ -60,12 +60,13 @@ Default layout is **split card** (`tableChromeVariant` default `'splitCard'`): f
 
 When `entityTab` is set on host:
 
-- **Controls card** (not data card, not inner filters block): **always** `2px` top + `3px` left `--entity-filter-accent` (all viewports)
-- **Chips band:** `--entity-accent-soft` wash mixed into `--bg-table-filter-chips`; **Clear filters** text link pinned top-right (grid layout in chrome SCSS — see `table-filters.mdc`)
+- **Controls + data cards (always):** `1px` neutral `--border-table` on top/right/bottom + `3px` left `--entity-accent-spine` — **identical** on both cards; no filter-active border upgrade on controls card
+- **Filter state:** communicated via chips band, active count (`--entity-accent-icon`), and mobile toggle dot — not card border hierarchy
+- **Chips band:** neutral `--bg-table-filter-chips` only — no entity soft wash
 - Row hover: `--entity-accent-row-hover`
-- **Mobile row cards (≤768px):** **no** entity left spine — neutral `1px` `--border-table` only (controls card accent unchanged)
+- **Mobile row cards (≤768px):** **no** entity left spine — neutral `1px` `--border-table` only (controls + data card spine unchanged)
 
-**Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — active spine lives on the controls card only (`table-filters.mdc`).
+**Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — entity spine lives on the controls card only (`table-filters.mdc`). Neutral admin tables still use grey `3px` left on `.data-table-controls-card--active` when filtered.
 
 Table entity chrome lives in `_entity-service-accent.scss` + `_table-chrome-split-card.scss` (global) to stay within component SCSS budget.
 

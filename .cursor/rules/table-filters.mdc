@@ -101,7 +101,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
 - `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
-- **Collapsed + active filters:** muted `{{count}} active` on **desktop** toggle label — **no** numeric text badge on mobile (dot only). **Split-card (default):** left spine on `.data-table-controls-card` only — entity `2px` top + `3px` left when `entityTab` is set (including mobile); neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
+- **Collapsed + active filters:** muted `{{count}} active` on **desktop** toggle label — **no** numeric text badge on mobile (dot only). **Split-card (default):** entity hosts — identical `3px` left `--entity-accent-spine` on controls + data cards (no filter-active border upgrade); neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
 - Auto-open flyout on first non-search filter; close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
 - Escape, backdrop, and close button dismiss flyout.
 - Row dividers: `--border-filter-divider` between filters in flyout list.
@@ -199,7 +199,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 |------|------------------|-------|
 | Toolbar | `--bg-table-filter-toolbar` → `--bg-surface` | search left; Filters toggle right |
 | Inputs/buttons | `--bg-table-control` → `--bg-control` | |
-| Chips band | `.data-table-filters__chips-band` → `--bg-table-filter-chips` → `--bg-inset` | **Desktop:** chips (wrap) + Clear top-right (`1fr auto`). **Mobile:** Clear row 1 right; full-width compact chips row 2. Entity soft wash when `entityTab` set. |
+| Chips band | `.data-table-filters__chips-band` → `--bg-table-filter-chips` → `--bg-inset` | **Desktop:** chips (wrap) + Clear top-right (`1fr auto`). **Mobile:** Clear row 1 right; full-width compact chips row 2. Neutral inset only — no entity wash. |
 
 **Data card header row:** `--bg-table-header` (inset), `--text-table-header-size` (caption), semibold, uppercase, sticky + `--shadow-table-header-sticky`, `--border-table-header-strong` bottom rule.
 
@@ -241,7 +241,7 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 - Use portal accent on filter controls (sliders, checkboxes, clear links stay neutral).
 - Reintroduce native dual `<input type="range">` for number-range filters — use custom thumbs in `table-filter-number-range/`.
 - Use twin native `<input type="date">` in filter date-range UI — use `DatePeriodPickerComponent`.
-- Use `--entity-*` service colors on filter **controls-card** chrome only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`. Never stack entity spine on `.data-table-controls-card` **and** a grey `border-left` on inner `.data-table-filters--active`.
+- Use `--entity-*` service colors on table card chrome when `DataTableComponent` has `entityTab` — identical rest spine on controls + data cards; filter state via chips/count/dot. See `entity-service-colors.mdc`. Never stack entity spine on `.data-table-controls-card` **and** a grey `border-left` on inner `.data-table-filters--active`.
 - Re-add **text** count badge on Filters toggle (mobile uses dot + `aria-label` only).
 - Put **Clear filters** (`clearAll`) back in the toolbar next to the Filters toggle — bulk clear belongs in the chips band only.
 - Use flex-wrap on the **desktop** chips band row to position Clear — use grid `1fr auto` so Clear stays top-right when chips wrap.

@@ -116,7 +116,7 @@ app-data-table {
     width: 0.375rem;
     height: 0.375rem;
     border-radius: 50%;
-    background: var(--entity-filter-accent, var(--border-table-filter-accent, var(--text-secondary)));
+    background: var(--entity-accent-spine-strong, var(--border-table-filter-accent, var(--text-secondary)));
     box-shadow: 0 0 0 1.5px var(--bg-table-control, var(--bg-control));
   }
 }

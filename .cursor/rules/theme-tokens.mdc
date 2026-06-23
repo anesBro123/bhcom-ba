@@ -45,9 +45,9 @@ Canvas (--bg-app) visible between cards
        └─ Rows — hover via --bg-table-row-hover
 ```
 
-**Active filters (split card):** left spine on `.data-table-controls-card` — entity accent when `entityTab` set; neutral `--border-table-filter-accent` on `.data-table-controls-card--active` when not. Inner `.data-table-filters--active` must **not** add its own `border-left` (duplicate grey line). See `table-filters.mdc`.
+**Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts keep the same rest spine on both cards — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
 
-**User hub tables:** when `entityTab` is set, controls card **always** shows entity `2px` top + `3px` left (`--entity-filter-accent`) — not the data card. See `entity-service-colors.mdc`.
+**User hub tables:** when `entityTab` is set, **controls + data cards** share identical chrome — `1px` `--border-table` + `3px` left `--entity-accent-spine`. No chips wash, no filter-active border emphasis. See `entity-service-colors.mdc`.
 
 **Table header tokens:** `--border-table-header-strong`, `--shadow-table-header-sticky`, `--text-table-header-size` (caption), `--text-table-header-weight` (semibold).
 
