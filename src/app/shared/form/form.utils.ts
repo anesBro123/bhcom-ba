@@ -12,6 +12,14 @@ export function buildFieldTemplateKey(stepId: string, sectionId: string, fieldKe
   return `${stepId}:${sectionId}:${fieldKey}`;
 }
 
+export function getFieldControlKeys<T extends object>(field: FieldDef<T>): string[] {
+  if (field.type === 'datePeriod' && field.endKey && field.periodMode !== 'single') {
+    return [field.key, field.endKey];
+  }
+
+  return [field.key];
+}
+
 export function collectStepFieldKeys<T extends object>(step: FormStepDef<T>): string[] {
   const keys: string[] = [];
 
@@ -22,7 +30,7 @@ export function collectStepFieldKeys<T extends object>(step: FormStepDef<T>): st
 
     for (const field of section.fields ?? []) {
       if (field.type !== 'custom') {
-        keys.push(field.key);
+        keys.push(...getFieldControlKeys(field));
       }
     }
   }
@@ -61,7 +69,25 @@ export function validateStepControls<T extends object>(
     }
 
     for (const field of getVisibleFields(section.fields, value)) {
-      if (field.type === 'custom') {
+      if (field.type === 'custom' || field.type === 'datePeriod') {
+        for (const key of getFieldControlKeys(field)) {
+          const control = form.get(key);
+          if (!control) {
+            continue;
+          }
+
+          if (markTouched) {
+            control.markAsTouched();
+          }
+
+          if (field.disabled?.(value)) {
+            continue;
+          }
+
+          if (control.invalid) {
+            valid = false;
+          }
+        }
         continue;
       }
 
@@ -152,16 +178,18 @@ export function applyFieldDisabledState<T extends object>(
 ): void {
   for (const section of sections ?? []) {
     for (const field of section.fields ?? []) {
-      const control = form.get(field.key);
-      if (!control) {
-        continue;
-      }
+      for (const key of getFieldControlKeys(field)) {
+        const control = form.get(key);
+        if (!control) {
+          continue;
+        }
 
-      const disabled = field.disabled?.(value) ?? false;
-      if (disabled && control.enabled) {
-        control.disable({ emitEvent: false });
-      } else if (!disabled && control.disabled) {
-        control.enable({ emitEvent: false });
+        const disabled = field.disabled?.(value) ?? false;
+        if (disabled && control.enabled) {
+          control.disable({ emitEvent: false });
+        } else if (!disabled && control.disabled) {
+          control.enable({ emitEvent: false });
+        }
       }
     }
   }

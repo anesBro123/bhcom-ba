@@ -1,10 +1,21 @@
-import { Component, HostListener, computed, input, output, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  computed,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { isNarrowedNumberRange } from '../number-range-filter.utils';
+import { clampNumberRange, isNarrowedNumberRange, valueFromTrackPercent } from '../number-range-filter.utils';
 import { TableFilterFieldComponent } from '../table-filter-field/table-filter-field.component';
 import type { FilterSummary } from '../filter-chips.utils';
 import type { NumberRangeFilterValue } from '../table.types';
+
+const THUMB_SIZE_PX = 16;
 
 @Component({
   selector: 'app-table-filter-number-range',
@@ -24,13 +35,14 @@ export class TableFilterNumberRangeComponent {
 
   valueChange = output<NumberRangeFilterValue>();
 
+  private readonly trackRef = viewChild<ElementRef<HTMLElement>>('track');
+
   protected readonly showMinTooltip = signal(false);
   protected readonly showMaxTooltip = signal(false);
 
+  private activeThumb: 'min' | 'max' | null = null;
   private hoveringMin = false;
   private hoveringMax = false;
-  private draggingMin = false;
-  private draggingMax = false;
 
   constructor(private readonly translate: TranslateService) {}
 
@@ -60,48 +72,59 @@ export class TableFilterNumberRangeComponent {
     return unit ? `${range} ${unit}` : range;
   }
 
-  protected fillLeftPercent(): number {
-    const span = this.max() - this.min();
-    if (span <= 0) {
-      return 0;
-    }
-
-    return ((this.currentMin() - this.min()) / span) * 100;
-  }
-
-  protected fillWidthPercent(): number {
-    const span = this.max() - this.min();
-    if (span <= 0) {
-      return 0;
-    }
-
-    return ((this.currentMax() - this.currentMin()) / span) * 100;
+  protected minThumbPercent(): number {
+    return this.valueToPercent(this.currentMin());
   }
 
   protected maxThumbPercent(): number {
-    return this.fillLeftPercent() + this.fillWidthPercent();
+    return this.valueToPercent(this.currentMax());
   }
 
-  protected onMinSlider(value: string): void {
-    this.showMinTooltip.set(true);
-    const parsed = Number(value);
-    this.emitChange(this.normalizeRange({ ...this.value(), min: parsed }, 'min'));
+  protected fillLeftPercent(): number {
+    return this.minThumbPercent() * 100;
   }
 
-  protected onMaxSlider(value: string): void {
-    this.showMaxTooltip.set(true);
-    const parsed = Number(value);
-    this.emitChange(this.normalizeRange({ ...this.value(), max: parsed }, 'max'));
+  protected fillWidthPercent(): number {
+    return (this.maxThumbPercent() - this.minThumbPercent()) * 100;
   }
 
-  protected onMinPointerDown(): void {
-    this.draggingMin = true;
-    this.showMinTooltip.set(true);
+  protected onTrackPointerDown(event: PointerEvent): void {
+    if ((event.target as HTMLElement).closest('.table-filter-number-range__thumb')) {
+      return;
+    }
+
+    const track = this.trackRef()?.nativeElement;
+    if (!track) {
+      return;
+    }
+
+    const nextValue = this.valueFromPointer(event.clientX, track);
+    const centerPercent = this.valueToPercent(nextValue) * 100;
+    const midpoint = (this.minThumbPercent() + this.maxThumbPercent()) * 50;
+
+    if (centerPercent <= midpoint) {
+      this.showMinTooltip.set(true);
+      this.emitChange(
+        clampNumberRange({ ...this.value(), min: nextValue }, this.min(), this.max(), 'min'),
+      );
+    } else {
+      this.showMaxTooltip.set(true);
+      this.emitChange(
+        clampNumberRange({ ...this.value(), max: nextValue }, this.min(), this.max(), 'max'),
+      );
+    }
   }
 
-  protected onMaxPointerDown(): void {
-    this.draggingMax = true;
-    this.showMaxTooltip.set(true);
+  protected onThumbPointerDown(event: PointerEvent, thumb: 'min' | 'max'): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.activeThumb = thumb;
+
+    if (thumb === 'min') {
+      this.showMinTooltip.set(true);
+    } else {
+      this.showMaxTooltip.set(true);
+    }
   }
 
   protected onMinEnter(): void {
@@ -111,7 +134,7 @@ export class TableFilterNumberRangeComponent {
 
   protected onMinLeave(): void {
     this.hoveringMin = false;
-    if (!this.draggingMin) {
+    if (!this.activeThumb) {
       this.showMinTooltip.set(false);
     }
   }
@@ -123,15 +146,41 @@ export class TableFilterNumberRangeComponent {
 
   protected onMaxLeave(): void {
     this.hoveringMax = false;
-    if (!this.draggingMax) {
+    if (!this.activeThumb) {
       this.showMaxTooltip.set(false);
     }
   }
 
+  @HostListener('document:pointermove', ['$event'])
+  protected onDocumentPointerMove(event: PointerEvent): void {
+    if (!this.activeThumb) {
+      return;
+    }
+
+    const track = this.trackRef()?.nativeElement;
+    if (!track) {
+      return;
+    }
+
+    let nextValue = this.valueFromPointer(event.clientX, track);
+
+    if (this.activeThumb === 'min') {
+      nextValue = Math.min(nextValue, this.currentMax());
+      this.emitChange(
+        clampNumberRange({ ...this.value(), min: nextValue }, this.min(), this.max(), 'min'),
+      );
+      return;
+    }
+
+    nextValue = Math.max(nextValue, this.currentMin());
+    this.emitChange(
+      clampNumberRange({ ...this.value(), max: nextValue }, this.min(), this.max(), 'max'),
+    );
+  }
+
   @HostListener('document:pointerup')
   protected onDocumentPointerUp(): void {
-    this.draggingMin = false;
-    this.draggingMax = false;
+    this.activeThumb = null;
 
     if (!this.hoveringMin) {
       this.showMinTooltip.set(false);
@@ -158,49 +207,27 @@ export class TableFilterNumberRangeComponent {
     return unit ? `${formatted} ${unit}` : formatted;
   }
 
+  private valueToPercent(value: number): number {
+    const span = this.max() - this.min();
+    if (span <= 0) {
+      return 0;
+    }
+
+    return (value - this.min()) / span;
+  }
+
+  private valueFromPointer(clientX: number, track: HTMLElement): number {
+    const rect = track.getBoundingClientRect();
+    const thumbRadius = THUMB_SIZE_PX / 2;
+    const usableWidth = Math.max(rect.width - THUMB_SIZE_PX, 1);
+    const offsetX = Math.max(thumbRadius, Math.min(rect.width - thumbRadius, clientX - rect.left));
+    const ratio = (offsetX - thumbRadius) / usableWidth;
+    return valueFromTrackPercent(ratio * 100, this.min(), this.max(), this.step());
+  }
+
   private unitSuffix(): string {
     const key = this.unitSuffixKey();
     return key ? this.translate.instant(key) : '';
-  }
-
-  private normalizeRange(
-    partial: NumberRangeFilterValue,
-    changed: 'min' | 'max',
-  ): NumberRangeFilterValue {
-    const boundMin = this.min();
-    const boundMax = this.max();
-    let min = partial.min;
-    let max = partial.max;
-
-    if (min !== undefined && !Number.isNaN(min)) {
-      min = Math.max(boundMin, Math.min(boundMax, min));
-    } else {
-      min = undefined;
-    }
-
-    if (max !== undefined && !Number.isNaN(max)) {
-      max = Math.max(boundMin, Math.min(boundMax, max));
-    } else {
-      max = undefined;
-    }
-
-    if (min !== undefined && max !== undefined && min > max) {
-      if (changed === 'min') {
-        min = max;
-      } else {
-        max = min;
-      }
-    }
-
-    const cleaned: NumberRangeFilterValue = {};
-    if (min !== undefined) {
-      cleaned.min = min;
-    }
-    if (max !== undefined) {
-      cleaned.max = max;
-    }
-
-    return cleaned;
   }
 
   private emitChange(next: NumberRangeFilterValue): void {

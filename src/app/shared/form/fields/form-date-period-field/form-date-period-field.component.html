@@ -1,0 +1,23 @@
+<div class="form-field">
+  @if (field().labelKey) {
+    <label class="form-label">{{ field().labelKey! | translate }}</label>
+  }
+
+  <app-date-period-picker
+    [value]="periodValue()"
+    [mode]="isSingle() ? 'single' : 'range'"
+    [minDate]="resolvedMinDate()"
+    [allowPartial]="false"
+    [placeholderKey]="field().placeholderKey ?? 'shared.datePeriod.placeholder'"
+    variant="form"
+    (valueChange)="onValueChange($event)"
+  />
+
+  @if (field().descriptionKey) {
+    <p class="form-field__hint">{{ field().descriptionKey! | translate }}</p>
+  }
+
+  @if (errorControl(); as control) {
+    <app-form-field-error [control]="control" [errorKeys]="field().errorKeys" />
+  }
+</div>

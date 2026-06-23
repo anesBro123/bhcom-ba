@@ -95,7 +95,7 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 Reference: `portal/user/features/transport/`, `portal/user/features/freight/`, `portal/user/features/warehouse/`.
 
-- **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date fields with `minDate: 'today'` — see `forms.mdc`, `shared-constants.mdc`
+- **Form def:** `mode: 'single'`; origin/destination `type: 'autocomplete'` with `BIH_CITY_OPTIONS`; date periods via `type: 'datePeriod'` (`endKey` for ranges, `periodMode: 'single'` for needed-by) — see `forms.mdc`, `shared-constants.mdc`
 - **Form page:** date validators from `shared/utils/date-input.ts`; re-validate end date when start changes; `pageIcon` from `UserPageIcons`
 - **Dynamic select options:** `buildRouteForm(vehicleOptions)` / `buildStorageForm(warehouseOptions)` — clone form def, inject loaded options
 - **Denormalized display on create/update:**

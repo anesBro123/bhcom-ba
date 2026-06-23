@@ -37,19 +37,12 @@ export const WarehouseForm = defineForm<WarehouseFormModel>()({
           fields: [
             {
               key: 'availableFrom',
-              type: 'date',
-              labelKey: 'portal.user.features.warehouse.form.fields.availableFrom',
-              placeholderKey: 'portal.user.features.warehouse.form.placeholders.availableFrom',
+              endKey: 'availableTo',
+              type: 'datePeriod',
+              labelKey: 'portal.user.features.warehouse.table.filters.availabilityPeriod',
+              placeholderKey: 'shared.datePeriod.placeholder',
               minDate: 'today',
-              colSpan: 2,
-            },
-            {
-              key: 'availableTo',
-              type: 'date',
-              labelKey: 'portal.user.features.warehouse.form.fields.availableTo',
-              placeholderKey: 'portal.user.features.warehouse.form.placeholders.availableTo',
-              minDate: (value) => value.availableFrom || 'today',
-              colSpan: 2,
+              colSpan: 'full',
             },
             {
               key: 'spaceM2',

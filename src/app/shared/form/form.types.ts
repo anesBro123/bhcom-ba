@@ -13,6 +13,7 @@ export type FieldType =
   | 'tel'
   | 'number'
   | 'date'
+  | 'datePeriod'
   | 'password'
   | 'select'
   | 'autocomplete'
@@ -56,6 +57,8 @@ export interface FieldDef<T, K extends keyof T & string = keyof T & string> {
   rows?: number;
   minDate?: DateInputBound<T>;
   maxDate?: DateInputBound<T>;
+  endKey?: keyof T & string;
+  periodMode?: 'range' | 'single';
   validators?: ValidatorFn[];
   errorKeys?: Partial<Record<string, string>>;
 }

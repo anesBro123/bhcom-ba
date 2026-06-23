@@ -15,15 +15,15 @@ User portal list pages (transport, freight, warehouse — All + My) use the shar
 | Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta`, `TableChromeVariant` |
 | Apply logic | `shared/table/apply-table-filters.ts` — `applyTableFilters()`, `isActiveFilterValueForDef()`, `countActiveFilters()` |
 | Chip + summary utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()`, `buildFilterSummary()`, `truncateFilterSelection()` |
-| Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()` |
+| Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()`, `clampNumberRange()`, `valueFromTrackPercent()` |
 | Persistence | `shared/table/table-filter-storage.ts` — filter values + `panelExpanded` in localStorage |
 | Flyout shell | `shared/table/data-table/` — controls card + data card (default), toolbar, chips, right overlay flyout (full-screen ≤768px) |
 | Filter bar | `shared/table/table-filter-bar/` — flat per-filter accordion list; `layout: 'flyout'` single column |
 | Multi-select | `shared/table/table-filter-multi-select/` — searchable long lists (cities) |
 | Option tiles | `shared/table/table-filter-option-tiles/` — short enum toggle tiles (status, vehicle type, cargo type) |
 | Filter field chrome | `shared/table/table-filter-field/` — per-filter accordion header, clear, expand/collapse |
-| Date range | `shared/table/table-filter-date-range/` |
-| Number range | `shared/table/table-filter-number-range/` — dual-thumb slider, summary line |
+| Date range | `shared/table/table-filter-date-range/` — wraps `DatePeriodPickerComponent` (`variant="filter"`) |
+| Number range | `shared/table/table-filter-number-range/` — **custom** dual-thumb slider (not native `<input type="range">`), summary line |
 | Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension |
 | Per-page defs | `portal/user/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
 
@@ -74,7 +74,7 @@ export const CARGO_TABLE_FILTERS: FilterDef<Cargo>[] = [
 | `select` | Single enum | Native `<select>` |
 | `multiSelect` | Long searchable lists (cities) | `searchable`, `placeholderKey` |
 | `optionTiles` | Short fixed enums (≤8 options) | `showStatusBadges`, `showOptionIcons`; multi-toggle tiles |
-| `dateRange` | Period / needed-by | `field` + optional `endField` for overlap matching |
+| `dateRange` | Period / needed-by | `field` + optional `endField` for overlap matching; optional `singleDate: true` for one-day filters (freight `neededByDate`) |
 | `numberRange` | Weight, size, m² | `min`/`max`/`step`, optional `unitSuffixKey` |
 
 Optional `groupTitleKey` on defs is **legacy** (grouped sections removed from flyout UI). Safe to leave on defs; not rendered.
@@ -126,13 +126,27 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 ### Multi-select
 - Closed trigger: comma-separated labels for plain lists; **status** → `StatusBadgeComponent` (≤3 + `+N`); **vehicle type** → `VehicleTypeDisplayComponent` (≤3 + `+N`).
 - Open panel: search → **ODABRANO** section → selected options → divider → unselected (sorted).
+- **Search autofocus:** when the panel opens (`togglePanel`) or the accordion row expands while the panel is open, focus + select the search input via `afterNextRender` — user can type immediately without clicking the field.
 - Option rows: `StatusBadgeComponent` or `VehicleTypeDisplayComponent` when flagged — not duplicate Lucide icons.
 - Checkboxes: native control; `accent-color: var(--bg-pagination-active)`.
 - Close panel when accordion row collapses (`expandedChange` on filter field).
 
+### Date range (`dateRange`)
+- UI: `TableFilterDateRangeComponent` → `app-date-period-picker` with `variant="filter"`, `allowPartial="true"`.
+- **Range** (transport period, warehouse availability): default `mode="range"`; value `{ from?, to? }` stored under filter `key`.
+- **Single date** (freight needed-by): set `singleDate: true` on the `FilterDef` → picker `mode="single"`; only `from` is used.
+- Apply logic unchanged in `apply-table-filters.ts` — `matchesDateRange()` overlap rules for entity `field` / `endField`.
+- Do not use twin native `<input type="date">` in filter UI — reuse `DatePeriodPickerComponent`.
+
 ### Number range
 - Full bounds = **inactive** (not stored, no chip); summary shows `shared.table.filters.anyRange` when inactive.
 - Dimmed track at full bounds; narrowed range shows values + optional `unitSuffixKey` in summary/tooltips.
+- **Custom dual-thumb slider** — do **not** use stacked native `<input type="range">` (browser padding misaligns fill vs thumbs and allows visual overlap).
+- Track + fill use shared thumb-inset math: `--number-range-thumb-size: 1rem`; bg/fill inset by thumb radius; thumbs positioned with `--thumb-pos` (0–1).
+- **Drag constraints:** min thumb cannot pass max; max cannot go below min — enforced on every `pointermove` + `clampNumberRange()`.
+- **Track click:** left half sets min, right half sets max (same positioning math as drag).
+- Thumbs: `role="slider"` buttons with dynamic `aria-valuemin` / `aria-valuemax` reflecting live constraints.
+- Helpers: `clampNumberRange()`, `valueFromTrackPercent()` in `number-range-filter.utils.ts`.
 
 ### Chips
 - **One chip per filter dimension** — multi-select values grouped.
@@ -183,6 +197,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 | `shared.table.filters.clearSelection` | Full clear label (`aria-label`) |
 | `shared.table.filters.expandFilter` / `.collapseFilter` | Chevron `aria-label` |
 | `shared.table.filters.units.kg` / `.m2` | Number-range suffix |
+| `shared.datePeriod.*` | Date period picker chrome (months, weekdays, placeholder, clear) — see `layout.mdc` |
 | `shared.table.common.emptyFiltered` | Filtered empty table |
 | `portal.user.features.<entity>.table.filters.*` | Per-filter labels / placeholders |
 
@@ -201,6 +216,8 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 - Use inline Lucide icons for vehicle type in filters/chips — use `VehicleTypeDisplayComponent`.
 - Treat full number-range bounds as an active filter.
 - Use portal accent on filter controls (sliders, checkboxes, clear links stay neutral).
+- Reintroduce native dual `<input type="range">` for number-range filters — use custom thumbs in `table-filter-number-range/`.
+- Use twin native `<input type="date">` in filter date-range UI — use `DatePeriodPickerComponent`.
 - Use `--entity-*` service colors on filter **controls-card** chrome only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`. Never stack entity spine on `.data-table-controls-card` **and** a grey `border-left` on inner `.data-table-filters--active`.
 - Re-add count badge on Filters toggle.
 
@@ -212,5 +229,6 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 | Table defs / cells | `tables.mdc` |
 | Status badges | `entity-status.mdc` |
 | Vehicle type display | `shared/ui/vehicle-type-display/` + `shared.vehicleType.*` i18n |
+| Date period picker | `shared/ui/date-period-picker/` + `shared.datePeriod.*` i18n — see `layout.mdc`, `forms.mdc` |
 | i18n keys | `i18n.mdc` |
 | Feature layout | `portal-feature.mdc` |

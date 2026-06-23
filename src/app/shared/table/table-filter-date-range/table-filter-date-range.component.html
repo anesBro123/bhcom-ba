@@ -5,21 +5,12 @@
   [showClear]="isActive()"
   (clear)="clearRange()"
 >
-  <span class="table-filter-date-range__inputs">
-    <input
-      type="date"
-      class="table-filter-date-range__input"
-      [attr.aria-label]="'shared.table.filters.from' | translate"
-      [value]="value().from ?? ''"
-      (change)="onFromChange($any($event.target).value)"
-    />
-    <span class="table-filter-date-range__sep">{{ 'shared.table.filters.to' | translate }}</span>
-    <input
-      type="date"
-      class="table-filter-date-range__input"
-      [attr.aria-label]="'shared.table.filters.to' | translate"
-      [value]="value().to ?? ''"
-      (change)="onToChange($any($event.target).value)"
-    />
-  </span>
+  <app-date-period-picker
+    [value]="value()"
+    [mode]="singleDate() ? 'single' : 'range'"
+    [allowPartial]="true"
+    variant="filter"
+    placeholderKey="shared.datePeriod.filterPlaceholder"
+    (valueChange)="onValueChange($event)"
+  />
 </app-table-filter-field>

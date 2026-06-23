@@ -84,6 +84,7 @@ export type FilterDef<T> =
       titleKey: string;
       field: keyof T & string;
       endField?: keyof T & string;
+      singleDate?: boolean;
     } & FilterGroupMeta)
   | ({
       key: string;

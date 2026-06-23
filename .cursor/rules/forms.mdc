@@ -22,6 +22,11 @@ Declarative form framework used by guest pages, portal features, and shared logi
 | `form-stepper/` | Progress segments + step pills (desktop + mobile layouts) |
 | `form-footer/` | Previous / Next / Submit |
 | `form-section/`, `form-grid/`, `form-field-renderer/` | Section card chrome + field widgets — see **Form section header** below |
+| `fields/form-autocomplete-field/` | City-style autocomplete (`type: 'autocomplete'`) |
+| `fields/form-text-field/` | text, email, tel, number, **date** (calendar icon, native min/max — prefer `datePeriod` for ranges) |
+| `fields/form-date-period-field/` | **date period** (`type: 'datePeriod'`) — wraps `DatePeriodPickerComponent`; syncs start + optional end `FormControl`s |
+| `form-control-error.ts` | `getControlErrorKey`, `DEFAULT_ERROR_KEYS` (incl. `minDate`, `dateRange`) |
+| `index.ts` | Barrel — import feature pages from here |
 
 ## Form section header (`FormSectionComponent`)
 
@@ -31,10 +36,6 @@ Matches `PageTitleComponent` header pattern inside form cards (`form-section.com
 - **Text column:** title (`h2`) + subtitle stacked with `gap: 0.25rem`.
 - **No icon border/background** — decorative only; card border provides framing.
 - Do not duplicate page-title SCSS on feature pages.
-| `fields/form-autocomplete-field/` | City-style autocomplete (`type: 'autocomplete'`) |
-| `fields/form-text-field/` | text, email, tel, number, **date** (calendar icon, min/max) |
-| `form-control-error.ts` | `getControlErrorKey`, `DEFAULT_ERROR_KEYS` (incl. `minDate`, `dateRange`) |
-| `index.ts` | Barrel — import feature pages from here |
 
 ## Feature checklist (new form)
 
@@ -58,7 +59,7 @@ Matches `PageTitleComponent` header pattern inside form cards (`form-section.com
 
 Custom content: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` directives in page HTML.
 
-Field types: text, email, tel, number, **date**, password, textarea, select, **autocomplete**, radio, checkbox, toggle, custom. Options: `{ value, labelKey? }` or `{ value, label? }` for plain-string labels (cities). Optional `autocomplete` (HTML attr), `hidden`, `disabled`, `minDate` / `maxDate`, `errorKeys` on `FieldDef`.
+Field types: text, email, tel, number, **date**, **datePeriod**, password, textarea, select, **autocomplete**, radio, checkbox, toggle, custom. Options: `{ value, labelKey? }` or `{ value, label? }` for plain-string labels (cities). Optional `autocomplete` (HTML attr), `hidden`, `disabled`, `minDate` / `maxDate`, `endKey` / `periodMode` (date period), `errorKeys` on `FieldDef`.
 
 Submit in page handler: `form.getRawValue() as Model` — framework already validated before `(submit)` fires.
 
@@ -77,12 +78,51 @@ Submit in page handler: `form.getRawValue() as Model` — framework already vali
 ## Date fields (`type: 'date'`)
 
 - Rendered by `FormTextFieldComponent` with calendar icon, native `<input type="date">`
+- Use for **standalone single dates** only when a period picker is not needed.
 - `minDate` / `maxDate` on `FieldDef` → `[attr.min]` / `[attr.max]` via `resolveFieldDateBound()` (`shared/utils/date-input.ts`)
-- Use `minDate: 'today'` or `minDate: (value) => value.startDate || 'today'` for dynamic bounds
-- Add matching **`FormGroup` validators** on the form page (`notPastDateValidator`, `endDateOnOrAfterStartValidator`) — see `shared-utils.mdc`
+- Add matching **`FormGroup` validators** on the form page (`notPastDateValidator`, etc.) — see `shared-utils.mdc`
 - Errors: `shared.form.common.errors.minDate`, `…dateRange` (via `form-control-error.ts`)
 
-**Reference:** `portal/user/features/transport/form/transport.form.ts` + `transport-form-page.component.ts`
+## Date period fields (`type: 'datePeriod'`)
+
+- Widget: `FormDatePeriodFieldComponent` (`fields/form-date-period-field/`) → `DatePeriodPickerComponent` (`variant="form"`)
+- **Range** (transport period, warehouse availability): one field def replaces two date fields; `key` = start control, `endKey` = end control; `minDate: 'today'` on def.
+- **Single** (freight needed-by): `periodMode: 'single'`; only `key` control — no `endKey`.
+- `FormBuilder` on the page still declares **both** start + end controls for range entities; the picker writes both on selection.
+- Keep **`FormGroup` validators** on the page (`notPastDateValidator` on start, `endDateOnOrAfterStartValidator(startKey)` on end); re-validate end when start changes.
+- Step validation: `getFieldControlKeys()` in `form.utils.ts` validates both `key` and `endKey` for `datePeriod` range fields.
+- `allowPartial="false"` on form picker — both ends required before emit (filters use `allowPartial="true"`).
+
+```typescript
+// transport.form.ts (range)
+{
+  key: 'transportStartDate',
+  endKey: 'transportEndDate',
+  type: 'datePeriod',
+  labelKey: 'portal.user.features.transport.table.filters.period',
+  placeholderKey: 'shared.datePeriod.placeholder',
+  minDate: 'today',
+  colSpan: 'full',
+}
+
+// freight.form.ts (single)
+{
+  key: 'neededByDate',
+  type: 'datePeriod',
+  periodMode: 'single',
+  labelKey: 'portal.user.features.freight.form.fields.neededByDate',
+  placeholderKey: 'shared.datePeriod.placeholder',
+  minDate: 'today',
+  colSpan: 2,
+}
+```
+
+**Reference:** `portal/user/features/transport/form/`, `warehouse/form/`, `freight/form/` + matching `*-form-page.component.ts`
+
+## Legacy paired date fields
+
+- Do **not** add new features with two adjacent `type: 'date'` fields for a start/end period — use `datePeriod`.
+- `type: 'date'` remains valid for one-off single-date inputs outside the shared picker pattern.
 
 ## Single-step (`mode: 'single'`)
 
@@ -226,7 +266,7 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 |-------|-----------|
 | Stepper create-only | `guest/pages/register/` |
 | Stepper create + edit (CRUD) | `portal/admin/features/vehicles/form/` |
-| Single-step CRUD + autocomplete + dates | `portal/user/features/transport/form/` |
+| Single-step CRUD + autocomplete + date period | `portal/user/features/transport/form/` |
 | Guest login (single) | `guest/pages/login/` |
 
 ## Do not
@@ -237,4 +277,4 @@ Framework validates **all** steps via `validateStep` (`markTouched: true`, `reco
 - Rebuild stepper, footer, or field widgets outside `shared/form/`.
 - Add `*.spec.ts` unless explicitly requested.
 
-Extend new field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc on feature pages. Autocomplete and date are built-in — reuse before adding custom field types.
+Extend new field types in `form-field-renderer` + `fields/form-*-field/`, not ad-hoc on feature pages. Autocomplete, `datePeriod`, and single `date` are built-in — reuse before adding custom field types.

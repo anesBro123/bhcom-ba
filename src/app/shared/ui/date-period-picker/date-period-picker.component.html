@@ -1,0 +1,94 @@
+<div
+  class="date-period-picker"
+  [class.date-period-picker--filter]="variant() === 'filter'"
+  [class.date-period-picker--open]="panelOpen()"
+>
+  <button
+    type="button"
+    class="date-period-picker__trigger"
+    [class.date-period-picker__trigger--filled]="displayText()"
+    [attr.aria-expanded]="panelOpen()"
+    [attr.aria-haspopup]="'dialog'"
+    (click)="togglePanel()"
+  >
+    <span class="date-period-picker__trigger-icon">
+      <svg lucideCalendar [size]="16" />
+    </span>
+    <span class="date-period-picker__trigger-text">
+      @if (displayText()) {
+        {{ displayText() }}
+      } @else {
+        {{ placeholderKey() | translate }}
+      }
+    </span>
+  </button>
+
+  @if (panelOpen()) {
+    <div class="date-period-picker__panel" role="dialog" [attr.aria-label]="placeholderKey() | translate">
+      <div class="date-period-picker__header">
+        <button
+          type="button"
+          class="date-period-picker__nav"
+          [attr.aria-label]="'shared.datePeriod.previousMonth' | translate"
+          (click)="previousMonth()"
+        >
+          <svg lucideChevronLeft [size]="16" />
+        </button>
+
+        <span class="date-period-picker__month">
+          {{ monthLabelKey() | translate }} {{ viewYear() }}
+        </span>
+
+        <button
+          type="button"
+          class="date-period-picker__nav"
+          [attr.aria-label]="'shared.datePeriod.nextMonth' | translate"
+          (click)="nextMonth()"
+        >
+          <svg lucideChevronRight [size]="16" />
+        </button>
+      </div>
+
+      <div class="date-period-picker__weekdays" aria-hidden="true">
+        @for (weekdayKey of weekdayKeys; track weekdayKey) {
+          <span class="date-period-picker__weekday">{{ weekdayKey | translate }}</span>
+        }
+      </div>
+
+      <div class="date-period-picker__grid" (mouseleave)="onGridMouseLeave()">
+        @for (week of calendarWeeks(); track $index) {
+          @for (cell of week; track cell.iso) {
+            <button
+              type="button"
+              class="date-period-picker__day"
+              [class.date-period-picker__day--outside]="!cell.inMonth"
+              [class.date-period-picker__day--disabled]="isDayDisabled(cell)"
+              [class.date-period-picker__day--selected]="dayState(cell) === 'selected'"
+              [class.date-period-picker__day--start]="dayState(cell) === 'start'"
+              [class.date-period-picker__day--end]="dayState(cell) === 'end'"
+              [class.date-period-picker__day--in-range]="dayState(cell) === 'in-range'"
+              [class.date-period-picker__day--preview-selected]="dayState(cell) === 'preview-selected'"
+              [class.date-period-picker__day--preview-selected-end]="dayState(cell) === 'preview-selected-end'"
+              [class.date-period-picker__day--preview-in-range]="dayState(cell) === 'preview-in-range'"
+              [disabled]="isDayDisabled(cell)"
+              (mouseenter)="onDayMouseEnter(cell)"
+              (click)="onDayClick(cell)"
+            >
+              {{ cell.day }}
+            </button>
+          }
+        }
+      </div>
+
+      @if (displayText()) {
+        <button
+          type="button"
+          class="date-period-picker__clear"
+          (click)="clearSelection($event)"
+        >
+          {{ 'shared.datePeriod.clear' | translate }}
+        </button>
+      }
+    </div>
+  }
+</div>

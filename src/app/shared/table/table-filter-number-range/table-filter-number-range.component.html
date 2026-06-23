@@ -12,22 +12,21 @@
     >{{ rangeSummary() }}</span>
 
     <div
+      #track
       class="table-filter-number-range__track"
       [class.table-filter-number-range__track--inactive]="!isFiltering()"
+      [style.--fill-left]="minThumbPercent()"
+      [style.--fill-width]="maxThumbPercent() - minThumbPercent()"
+      (pointerdown)="onTrackPointerDown($event)"
     >
       <div class="table-filter-number-range__track-bg" aria-hidden="true"></div>
-      <div
-        class="table-filter-number-range__track-fill"
-        aria-hidden="true"
-        [style.left.%]="fillLeftPercent()"
-        [style.width.%]="fillWidthPercent()"
-      ></div>
+      <div class="table-filter-number-range__track-fill" aria-hidden="true"></div>
 
       @if (showMinTooltip()) {
         <span
           class="table-filter-number-range__tooltip"
           aria-hidden="true"
-          [style.left.%]="fillLeftPercent()"
+          [style.--thumb-pos]="minThumbPercent()"
         >
           {{ tooltipValue(currentMin()) }}
         </span>
@@ -37,40 +36,41 @@
         <span
           class="table-filter-number-range__tooltip"
           aria-hidden="true"
-          [style.left.%]="maxThumbPercent()"
+          [style.--thumb-pos]="maxThumbPercent()"
         >
           {{ tooltipValue(currentMax()) }}
         </span>
       }
 
-      <input
-        type="range"
+      <button
+        type="button"
+        role="slider"
         class="table-filter-number-range__thumb table-filter-number-range__thumb--min"
         [attr.aria-label]="'shared.table.filters.from' | translate"
+        [attr.aria-valuenow]="currentMin()"
+        [attr.aria-valuemin]="min()"
+        [attr.aria-valuemax]="currentMax()"
         [attr.aria-valuetext]="formatValue(currentMin())"
-        [min]="min()"
-        [max]="max()"
-        [step]="step()"
-        [value]="currentMin()"
-        (pointerdown)="onMinPointerDown()"
+        [style.--thumb-pos]="minThumbPercent()"
+        (pointerdown)="onThumbPointerDown($event, 'min')"
         (mouseenter)="onMinEnter()"
         (mouseleave)="onMinLeave()"
-        (input)="onMinSlider($any($event.target).value)"
-      />
-      <input
-        type="range"
+      ></button>
+
+      <button
+        type="button"
+        role="slider"
         class="table-filter-number-range__thumb table-filter-number-range__thumb--max"
         [attr.aria-label]="'shared.table.filters.to' | translate"
+        [attr.aria-valuenow]="currentMax()"
+        [attr.aria-valuemin]="currentMin()"
+        [attr.aria-valuemax]="max()"
         [attr.aria-valuetext]="formatValue(currentMax())"
-        [min]="min()"
-        [max]="max()"
-        [step]="step()"
-        [value]="currentMax()"
-        (pointerdown)="onMaxPointerDown()"
+        [style.--thumb-pos]="maxThumbPercent()"
+        (pointerdown)="onThumbPointerDown($event, 'max')"
         (mouseenter)="onMaxEnter()"
         (mouseleave)="onMaxLeave()"
-        (input)="onMaxSlider($any($event.target).value)"
-      />
+      ></button>
     </div>
   </div>
 </app-table-filter-field>

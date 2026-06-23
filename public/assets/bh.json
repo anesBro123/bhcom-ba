@@ -127,6 +127,36 @@
       "fromTo": "Od {{from}} do {{to}}",
       "single": "{{date}}"
     },
+    "datePeriod": {
+      "placeholder": "Odaberite period",
+      "filterPlaceholder": "Bilo koji datum",
+      "clear": "Obriši datume",
+      "previousMonth": "Prethodni mjesec",
+      "nextMonth": "Sljedeći mjesec",
+      "weekdays": {
+        "mon": "Pon",
+        "tue": "Uto",
+        "wed": "Sri",
+        "thu": "Čet",
+        "fri": "Pet",
+        "sat": "Sub",
+        "sun": "Ned"
+      },
+      "months": {
+        "jan": "Januar",
+        "feb": "Februar",
+        "mar": "Mart",
+        "apr": "April",
+        "may": "Maj",
+        "jun": "Juni",
+        "jul": "Juli",
+        "aug": "August",
+        "sep": "Septembar",
+        "oct": "Oktobar",
+        "nov": "Novembar",
+        "dec": "Decembar"
+      }
+    },
     "entityStatus": {
       "open": "Otvoreno",
       "inProgress": "U toku",

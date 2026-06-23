@@ -64,6 +64,7 @@ export const FREIGHT_TABLE_FILTERS: FilterDef<Freight>[] = [
     type: 'dateRange',
     titleKey: 'portal.user.features.freight.table.filters.neededByDate',
     field: 'neededByDate',
+    singleDate: true,
     groupTitleKey: 'portal.user.features.freight.table.filterGroups.dates',
   },
   {

@@ -127,6 +127,36 @@
       "fromTo": "From {{from}} to {{to}}",
       "single": "{{date}}"
     },
+    "datePeriod": {
+      "placeholder": "Select date period",
+      "filterPlaceholder": "Any date",
+      "clear": "Clear dates",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "weekdays": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      },
+      "months": {
+        "jan": "January",
+        "feb": "February",
+        "mar": "March",
+        "apr": "April",
+        "may": "May",
+        "jun": "June",
+        "jul": "July",
+        "aug": "August",
+        "sep": "September",
+        "oct": "October",
+        "nov": "November",
+        "dec": "December"
+      }
+    },
     "entityStatus": {
       "open": "Open",
       "inProgress": "In Progress",

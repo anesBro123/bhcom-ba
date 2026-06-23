@@ -38,9 +38,10 @@ export const FreightForm = defineForm<FreightFormModel>()({
             },
             {
               key: 'neededByDate',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.user.features.freight.form.fields.neededByDate',
-              placeholderKey: 'portal.user.features.freight.form.placeholders.neededByDate',
+              placeholderKey: 'shared.datePeriod.placeholder',
               minDate: 'today',
               colSpan: 2,
             },

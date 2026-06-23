@@ -22,6 +22,13 @@
         @case ('checkbox') {
           <app-form-checkbox-field [control]="ctrl" [field]="field()" />
         }
+        @case ('datePeriod') {
+          <app-form-date-period-field
+            [formGroup]="formGroup()"
+            [field]="field()"
+            [formValue]="formValue()"
+          />
+        }
         @default {
           <app-form-text-field
             [control]="ctrl"

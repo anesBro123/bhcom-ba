@@ -37,7 +37,8 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
-| `shared.dateRange.*` | Shared date range UI copy (`fromTo`, `single` aria-labels for `DateRangeDisplayComponent`) |
+| `shared.dateRange.*` | Shared date range **display** copy (`fromTo`, `single` aria-labels for `DateRangeDisplayComponent`) |
+| `shared.datePeriod.*` | Shared date period **picker** copy (placeholder, clear, months, weekdays, nav aria) — `DatePeriodPickerComponent` |
 | `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user transport/freight/warehouse); per-entity keys later under `portal.*.features.<entity>.status.*` |
 
 Table **merged period** column headers: `portal.user.features.transport.table.columns.period`, `portal.user.features.warehouse.table.columns.period` (distinct from form field keys like `transportStartDate`).

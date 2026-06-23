@@ -3,12 +3,15 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Injector,
+  afterNextRender,
   computed,
   effect,
   inject,
   input,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -57,7 +60,9 @@ export class TableFilterMultiSelectComponent {
   valueChange = output<string[]>();
 
   private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly injector = inject(Injector);
   private readonly translate = inject(TranslateService);
+  private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   protected readonly panelOpen = signal(false);
   protected readonly searchQuery = signal('');
@@ -144,7 +149,10 @@ export class TableFilterMultiSelectComponent {
     this.panelOpen.update((open) => !open);
     if (!this.panelOpen()) {
       this.searchQuery.set('');
+      return;
     }
+
+    this.focusSearchInput();
   }
 
   protected isSelected(value: string): boolean {
@@ -165,7 +173,31 @@ export class TableFilterMultiSelectComponent {
     if (!expanded) {
       this.panelOpen.set(false);
       this.searchQuery.set('');
+      return;
     }
+
+    if (this.panelOpen()) {
+      this.focusSearchInput();
+    }
+  }
+
+  private focusSearchInput(): void {
+    if (!this.searchable()) {
+      return;
+    }
+
+    afterNextRender(
+      () => {
+        const input = this.searchInput()?.nativeElement;
+        if (!input) {
+          return;
+        }
+
+        input.focus();
+        input.select();
+      },
+      { injector: this.injector },
+    );
   }
 
   protected showStatusBadge(value: string): boolean {

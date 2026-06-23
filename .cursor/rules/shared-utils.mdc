@@ -8,15 +8,21 @@ alwaysApply: false
 
 ## Date input (`date-input.ts`)
 
-Used by date fields in forms and `FormTextFieldComponent` for `min` / `max` HTML attributes.
+Used by `FormTextFieldComponent` (native date `min`/`max`), `DatePeriodPickerComponent`, and table date-range filters.
 
 | Export | Role |
 |--------|------|
+| `DatePeriodValue` | `{ from?: string; to?: string }` — shared value shape for picker + filters |
 | `todayIsoDate()` | Current local date as `YYYY-MM-DD` |
 | `resolveDateInputBound(value)` | Resolves `'today'` → today ISO; passes through ISO strings |
 | `resolveFieldDateBound(bound, formValue)` | Resolves `FieldDef.minDate` / `maxDate` (static or `(value) => …`) |
 | `notPastDateValidator()` | `FormGroup` validator — value must be ≥ today (`minDate` error) |
 | `endDateOnOrAfterStartValidator(startKey)` | End date ≥ today **and** ≥ start field (`minDate` / `dateRange` errors) |
+| `buildCalendarMonth(year, month)` | Monday-start grid of `CalendarCell` for picker UI |
+| `isDatePeriodDisabled(iso, context)` | Disables past dates (`minDate`) and dates before start while picking end |
+| `sanitizeDatePeriodValue(value, options?)` | Cleans partial ranges; optional `minDate`, `allowPartial` |
+| `initialCalendarMonth(value, minDate?)` | Opens picker on month of existing selection or today |
+| `isoDateFromLocal(year, month, day)` | Builds `YYYY-MM-DD` for calendar cells |
 
 ### Form field defs (`FieldDef`)
 
@@ -52,11 +58,20 @@ this.form.get('transportStartDate')?.valueChanges
 
 `shared.form.common.errors.minDate`, `shared.form.common.errors.dateRange` — registered in `form-control-error.ts` (`DEFAULT_ERROR_PRIORITY` / `DEFAULT_ERROR_KEYS`).
 
+### Date period picker UX (implemented in `DatePeriodPickerComponent`)
+
+- **Range flow:** first click sets start; second click ≥ start sets end and closes panel (forms/filters).
+- **Hover preview:** before start — hovered day shows full selected pill; after start — hovered end day shows selected end-cap, days between show in-range band. Generic day `:hover` must not override preview/selected classes.
+- **Clear dates** in panel: clears value, **keeps panel open** (no hint text row).
+- **Single mode:** `periodMode: 'single'` / filter `singleDate: true` — one click selects and closes.
+
+Picker i18n: `shared.datePeriod.*` — see `i18n.mdc`, `layout.mdc`.
+
 ## Display date formatting (`format-display-date.ts`)
 
 | Export | Role |
 |--------|------|
-| `formatDisplayDate(value)` | Formats ISO/date values as `Jul 3, 2026` — used by `DataTableComponent`, `DateRangeDisplayComponent`, and detail pages |
+| `formatDisplayDate(value)` | Formats ISO/date values as `Jul 3, 2026` — used by `DataTableComponent`, `DateRangeDisplayComponent`, `DatePeriodPickerComponent`, and detail pages |
 
 Do not duplicate date formatting in feature code — import `formatDisplayDate` from `shared/utils/format-display-date.ts`.
 
