@@ -44,23 +44,20 @@
               </span>
             }
           </button>
-
-          @if (tableStore.hasActiveFilters()) {
-            <button type="button" class="data-table-filters__clear" (click)="onClearFilters()">
-              <svg lucideX [size]="14" />
-              {{ 'shared.table.filters.clearAll' | translate }}
-            </button>
-          }
         </div>
       </div>
 
       @if (showFilterChips() && tableStore.hasActiveFilters()) {
         <div class="data-table-filters__chips-band">
           <app-table-filter-chips
+            class="data-table-filters__chips"
             [filters]="definition().filters!"
             [values]="tableStore.query().filters"
             (chipRemove)="onChipRemove($event)"
           />
+          <button type="button" class="data-table-filters__chips-clear" (click)="onClearFilters()">
+            {{ 'shared.table.filters.clearAll' | translate }}
+          </button>
         </div>
       }
     </div>

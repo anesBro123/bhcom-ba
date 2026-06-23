@@ -37,6 +37,8 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 ```text
 Canvas (--bg-app) visible between cards
   ├─ Controls card (--bg-surface) — toolbar (--bg-surface) + chips band (--bg-inset)
+  │    ├─ Toolbar: search + Filters toggle (no Clear button)
+  │    └─ Chips band (grid 1fr auto): chips left, Clear filters link top-right
   │    └─ Control inputs (--bg-control)
   └─ Data card (--bg-surface)
        └─ Sticky table header (--bg-inset, caption/semibold/uppercase)
@@ -119,7 +121,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 | Form footer buttons | `shared/form/form-footer/form-footer.component.scss` |
 | Entity tabs | `shared/ui/entity-tabs/entity-tabs.component.scss` |
 | Home snapshot + links | `portal/user/features/home/home-page.component.scss` |
-| Table filter / split-card chrome | `src/styles/_table-chrome-split-card.scss`, `shared/table/data-table/data-table.component.scss` |
+| Table filter / split-card chrome | `src/styles/_table-chrome-split-card.scss`, `src/styles/_table-chrome-band-ladder.scss`, `shared/table/data-table/data-table.component.scss` |
 
 ## Do not
 

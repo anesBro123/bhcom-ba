@@ -33,7 +33,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.topbar.*` | Portal + shared topbar widgets (theme toggle, language toggle, notifications, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), leave-form discard dialog (`discardChanges.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, emptyFiltered, pagination, row actions |
-| `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`) |
+| `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearAll`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`) |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
 | `shared.warehouse.*` | Shared warehouse UI copy (`nameCity` aria-label for `WarehouseDisplayComponent`) |
