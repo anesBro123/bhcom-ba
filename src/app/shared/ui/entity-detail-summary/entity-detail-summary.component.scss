@@ -1,5 +1,3 @@
-@use 'styles/breakpoints' as *;
-
 :host {
   display: block;
 }
@@ -41,16 +39,5 @@
 
 .entity-detail-summary__status {
   flex-shrink: 0;
-}
-
-@include below-md {
-  .entity-detail-summary {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.875rem;
-  }
-
-  .entity-detail-summary__location {
-    width: 100%;
-  }
+  align-self: flex-start;
 }

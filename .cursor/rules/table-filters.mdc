@@ -24,7 +24,7 @@ User portal list pages (transport, freight, warehouse — All + My) use the shar
 | Filter field chrome | `shared/table/table-filter-field/` — per-filter accordion header, clear, expand/collapse |
 | Date range | `shared/table/table-filter-date-range/` — wraps `DatePeriodPickerComponent` (`variant="filter"`) |
 | Number range | `shared/table/table-filter-number-range/` — **custom** dual-thumb slider (not native `<input type="range">`), summary line |
-| Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension |
+| Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension; `[compact]` input for mobile truncation + layout |
 | Per-page defs | `portal/user/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
 
 Reference defs: `portal/user/features/transport/data/transport-table-filters.ts`, `cargo/data/freight-table-filters.ts`, `storage/data/warehouse-table-filters.ts`.
@@ -33,7 +33,7 @@ Reference defs: `portal/user/features/transport/data/transport-table-filters.ts`
 
 1. Create `*-table-filters.ts` with `FilterDef<Entity>[]` and unique `*_FILTER_STORAGE_KEY` per list (All vs My need separate keys).
 2. In `*.table.ts`: `filters: ENTITY_TABLE_FILTERS`, `filterStorageKey: ENTITY_ALL_FILTER_STORAGE_KEY`.
-3. i18n: `portal.user.features.<entity>.table.filters.*` for per-filter labels / placeholders.
+3. i18n: `portal.user.features.<entity>.table.filters.*` for per-filter labels / placeholders; **all `dateRange` filters** use `shared.table.filters.period` (**Period** / **Period**) — not entity-specific period names.
 
 ```typescript
 // freight-table-filters.ts (abbreviated)
@@ -62,6 +62,13 @@ export const CARGO_TABLE_FILTERS: FilterDef<Cargo>[] = [
     step: 50,
     unitSuffixKey: 'shared.table.filters.units.kg',
   },
+  {
+    key: 'neededByDate',
+    type: 'dateRange',
+    titleKey: 'shared.table.filters.period',
+    field: 'neededByDate',
+    singleDate: true,
+  },
   { key: 'search', type: 'search', …, searchFields: ['description'] },
 ];
 ```
@@ -85,11 +92,16 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 
 ### Filter flyout
 - Toolbar: inline **search** on the **left**; **Filters** toggle on the **right** only (stable position — **no** Clear button in toolbar; no layout shift when filters activate).
-- **Chips band** (below toolbar when `hasActiveFilters()`): removable chips in left column + **Clear filters** text link (`.data-table-filters__chips-clear`) pinned **top-right** via grid `grid-template-columns: 1fr auto` — chips wrap in column 1; Clear stays row 1 column 2 even when chips span multiple lines. Text-link style (`--text-secondary` → underline on hover); **not** a bordered toolbar button. Global layout: `_table-chrome-split-card.scss`, `_table-chrome-band-ladder.scss`.
+- **Desktop toolbar:** icon + **Filters** label; when collapsed + active filters, muted `{{count}} active` beside the label.
+- **Mobile toolbar (≤768px):** search + filter icon **same row** (`flex-wrap: nowrap`); toggle is **icon-only** (`2rem` square) — hide **Filters** label and `{{count}} active` text. **Active-state dot** on icon corner (`.data-table-filters__toggle-dot`); `aria-label` uses `shared.table.filters.toggleExpandActive` when filters active. Styles live in `_table-chrome-split-card.scss` (global — SCSS budget).
+- **Chips band** (below toolbar when `hasActiveFilters()`):
+  - **Desktop:** grid `grid-template-columns: 1fr auto` — chips wrap in column 1; **Clear filters** (`.data-table-filters__chips-clear`) pinned **top-right** row 1 col 2.
+  - **Mobile:** grid single column — **Clear filters** row 1 `justify-self: end`; chips row 2 full width. Pass `[compact]="isMobileLayout()"` on `app-table-filter-chips`.
+  - Text-link style (`--text-secondary` → underline on hover); **not** a bordered toolbar button. Global layout: `_table-chrome-split-card.scss`, `_table-chrome-band-ladder.scss`.
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
 - `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
-- **Collapsed + active filters:** muted `{{count}} active` on toggle — **no** numeric badge. **Split-card (default):** left spine on `.data-table-controls-card` only — entity `2px` top + `3px` left when `entityTab` is set; neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
+- **Collapsed + active filters:** muted `{{count}} active` on **desktop** toggle label — **no** numeric text badge on mobile (dot only). **Split-card (default):** left spine on `.data-table-controls-card` only — entity `2px` top + `3px` left when `entityTab` is set (including mobile); neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
 - Auto-open flyout on first non-search filter; close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
 - Escape, backdrop, and close button dismiss flyout.
 - Row dividers: `--border-filter-divider` between filters in flyout list.
@@ -134,6 +146,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 
 ### Date range (`dateRange`)
 - UI: `TableFilterDateRangeComponent` → `app-date-period-picker` with `variant="filter"`, `allowPartial="true"`.
+- **Label:** `titleKey: 'shared.table.filters.period'` for all entities (transport `transportPeriod`, freight `neededByDate`, warehouse `availabilityPeriod`) — chips, flyout accordion, and panel all show **Period**.
 - **Range** (transport period, warehouse availability): default `mode="range"`; value `{ from?, to? }` stored under filter `key`.
 - **Single date** (freight needed-by): set `singleDate: true` on the `FilterDef` → picker `mode="single"`; only `from` is used.
 - Apply logic unchanged in `apply-table-filters.ts` — `matchesDateRange()` overlap rules for entity `field` / `endField`.
@@ -151,11 +164,16 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 
 ### Chips
 - **One chip per filter dimension** — multi-select values grouped.
+- **Desktop:** full selection in chip (status badges, vehicle types, comma-separated plain labels).
+- **Mobile (`compact` on `TableFilterChipsComponent`):** chips stack full width (pill style unchanged — `border-radius: 999px`); **each chip is a single row** (`flex-wrap: nowrap`); truncate via `buildFilterChips(…, { compact: true })`:
+  - Plain text / vehicle type: **1** visible + `+N` (`FILTER_CHIP_COMPACT_TEXT_MAX_VISIBLE`)
+  - Status badges: up to **2** + `+N` (`FILTER_CHIP_COMPACT_BADGE_MAX_VISIBLE`)
+  - Long values: ellipsis on value area; `+N` and remove button do not shrink
 - **Status:** multiple `StatusBadgeComponent` — no duplicate label text.
 - **Vehicle type:** multiple `VehicleTypeDisplayComponent`.
-- **Plain lists:** comma-separated `valueText`.
+- **Plain lists (desktop):** comma-separated `valueText`.
 - Range chips append unit from `unitSuffixKey`.
-- Build logic: `buildFilterChips()` in `filter-chips.utils.ts`.
+- Build logic: `buildFilterChips()` + `truncateFilterSelection()` in `filter-chips.utils.ts`.
 - **Clear all:** `.data-table-filters__chips-clear` in chips band only — `shared.table.filters.clearAll` (**Clear filters** / localized); calls `tableStore.clearFilters()`. Do **not** duplicate in toolbar. Empty table also keeps inline clear link (`shared.table.common.emptyFiltered`).
 
 ### Empty state
@@ -181,7 +199,7 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 |------|------------------|-------|
 | Toolbar | `--bg-table-filter-toolbar` → `--bg-surface` | search left; Filters toggle right |
 | Inputs/buttons | `--bg-table-control` → `--bg-control` | |
-| Chips band | `.data-table-filters__chips-band` → `--bg-table-filter-chips` → `--bg-inset` | removable chips (left column, wrap) + **Clear filters** text link pinned **top-right** (grid `1fr auto`); entity soft wash when `entityTab` set; padding on band wrapper — not on `table-filter-chips` section |
+| Chips band | `.data-table-filters__chips-band` → `--bg-table-filter-chips` → `--bg-inset` | **Desktop:** chips (wrap) + Clear top-right (`1fr auto`). **Mobile:** Clear row 1 right; full-width compact chips row 2. Entity soft wash when `entityTab` set. |
 
 **Data card header row:** `--bg-table-header` (inset), `--text-table-header-size` (caption), semibold, uppercase, sticky + `--shadow-table-header-sticky`, `--border-table-header-strong` bottom rule.
 
@@ -194,6 +212,8 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 | Path | Use for |
 |------|---------|
 | `shared.table.filters.*` | Toggle, clear, chips, slider, multi-select chrome |
+| `shared.table.filters.period` | **All** `dateRange` filter labels (flyout + chips) — **Period** |
+| `shared.table.filters.toggleExpandActive` | Mobile/desktop `aria-label` when opening filters with active count |
 | `shared.table.filters.all` | Collapsed accordion summary when filter inactive (**Sve** / **All**) |
 | `shared.table.filters.clearShort` | Accordion header clear label (**Poništi** / **Clear**) |
 | `shared.table.filters.clearAll` | Chips band + empty-state bulk clear (**Clear filters**) |
@@ -222,9 +242,11 @@ Admin tables today use simpler `search` / `select` filters only. Full advanced f
 - Reintroduce native dual `<input type="range">` for number-range filters — use custom thumbs in `table-filter-number-range/`.
 - Use twin native `<input type="date">` in filter date-range UI — use `DatePeriodPickerComponent`.
 - Use `--entity-*` service colors on filter **controls-card** chrome only when `DataTableComponent` has `entityTab` — see `entity-service-colors.mdc`. Never stack entity spine on `.data-table-controls-card` **and** a grey `border-left` on inner `.data-table-filters--active`.
-- Re-add count badge on Filters toggle.
+- Re-add **text** count badge on Filters toggle (mobile uses dot + `aria-label` only).
 - Put **Clear filters** (`clearAll`) back in the toolbar next to the Filters toggle — bulk clear belongs in the chips band only.
-- Use flex-wrap on the chips band row to position Clear — use grid `1fr auto` so Clear stays top-right when chips wrap.
+- Use flex-wrap on the **desktop** chips band row to position Clear — use grid `1fr auto` so Clear stays top-right when chips wrap.
+- Let compact/mobile chips wrap to a second line inside one chip — use `nowrap` + truncation/`+N`.
+- Use entity-specific date filter labels (`Transport period`, `Needed by`, `Availability period`) — use `shared.table.filters.period`.
 
 ## Related rules
 

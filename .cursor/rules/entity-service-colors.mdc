@@ -60,10 +60,10 @@ Default layout is **split card** (`tableChromeVariant` default `'splitCard'`): f
 
 When `entityTab` is set on host:
 
-- **Controls card** (not data card, not inner filters block): **always** `2px` top + `3px` left `--entity-filter-accent`
+- **Controls card** (not data card, not inner filters block): **always** `2px` top + `3px` left `--entity-filter-accent` (all viewports)
 - **Chips band:** `--entity-accent-soft` wash mixed into `--bg-table-filter-chips`; **Clear filters** text link pinned top-right (grid layout in chrome SCSS — see `table-filters.mdc`)
-- Row / mobile card hover: `--entity-accent-row-hover`
-- Mobile row cards: left spine at rest
+- Row hover: `--entity-accent-row-hover`
+- **Mobile row cards (≤768px):** **no** entity left spine — neutral `1px` `--border-table` only (controls card accent unchanged)
 
 **Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — active spine lives on the controls card only (`table-filters.mdc`).
 

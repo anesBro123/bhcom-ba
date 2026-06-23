@@ -37,8 +37,8 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 ```text
 Canvas (--bg-app) visible between cards
   ├─ Controls card (--bg-surface) — toolbar (--bg-surface) + chips band (--bg-inset)
-  │    ├─ Toolbar: search + Filters toggle (no Clear button)
-  │    └─ Chips band (grid 1fr auto): chips left, Clear filters link top-right
+  │    ├─ Toolbar: search + Filters toggle (desktop: label; mobile: icon-only + active dot)
+  │    └─ Chips band (desktop: chips + Clear top-right; mobile: Clear row then full-width compact chips)
   │    └─ Control inputs (--bg-control)
   └─ Data card (--bg-surface)
        └─ Sticky table header (--bg-inset, caption/semibold/uppercase)

@@ -12,17 +12,23 @@ import type { FilterDef } from '../table.types';
   imports: [TranslatePipe, StatusBadgeComponent, VehicleTypeDisplayComponent, LucideX],
   templateUrl: './table-filter-chips.component.html',
   styleUrl: './table-filter-chips.component.scss',
+  host: {
+    '[class.table-filter-chips-host--compact]': 'compact()',
+  },
 })
 export class TableFilterChipsComponent<T> {
   readonly filters = input.required<FilterDef<T>[]>();
   readonly values = input.required<Record<string, unknown>>();
+  readonly compact = input(false);
 
   chipRemove = output<{ filterKey: string }>();
 
   private readonly translate = inject(TranslateService);
 
   protected readonly chips = computed(() =>
-    buildFilterChips(this.filters(), this.values(), this.translate),
+    buildFilterChips(this.filters(), this.values(), this.translate, {
+      compact: this.compact(),
+    }),
   );
 
   protected onRemove(chip: FilterChip): void {

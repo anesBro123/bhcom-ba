@@ -67,7 +67,7 @@ Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/tab
 
 ## Detail page display
 
-User portal detail pages show status in **`EntityDetailSummaryComponent`** (right side of summary band) — not in `DetailView` / `*.detail.ts`. Same rule: status badge is the **only colored pill** on the page. See `detail-page.mdc`.
+User portal detail pages show status in **`EntityDetailSummaryComponent`** (right side of summary band, **same row on mobile**) — not in `DetailView` / `*.detail.ts`. Same rule: status badge is the **only colored pill** on the page. See `detail-page.mdc`.
 
 **Not** entity service-type colors (`--entity-*` / `entityTab`) — those are navigation/context chrome only; see `entity-service-colors.mdc`.
 

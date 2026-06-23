@@ -83,6 +83,70 @@ app-data-table.data-table--split-card {
 
 @media (max-width: 768px) {
   app-data-table.data-table--split-card .data-table-filters__chips-band {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
     padding: 0.625rem var(--table-card-padding-x-mobile) 0.75rem;
+  }
+
+  app-data-table.data-table--split-card .data-table-filters__chips-clear {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  app-data-table.data-table--split-card .data-table-filters__chips {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+}
+
+// Mobile filter toolbar — global to keep data-table.component.scss under budget
+app-data-table {
+  .data-table-filters__toggle-icon {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .data-table-filters__toggle-dot {
+    position: absolute;
+    top: -0.125rem;
+    right: -0.125rem;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--entity-filter-accent, var(--border-table-filter-accent, var(--text-secondary)));
+    box-shadow: 0 0 0 1.5px var(--bg-table-control, var(--bg-control));
+  }
+}
+
+@media (max-width: 768px) {
+  app-data-table {
+    .data-table-filters__header {
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+    }
+
+    .data-table-filters__search {
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: none;
+    }
+
+    .data-table-filters__actions {
+      flex-shrink: 0;
+    }
+
+    .data-table-filters__toggle {
+      width: 2rem;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .data-table-filters__toggle-label,
+    .data-table-filters__active-count {
+      display: none;
+    }
   }
 }

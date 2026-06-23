@@ -35,7 +35,7 @@ export const WAREHOUSE_TABLE_FILTERS: FilterDef<Warehouse>[] = [
   {
     key: 'availabilityPeriod',
     type: 'dateRange',
-    titleKey: 'portal.user.features.warehouse.table.filters.availabilityPeriod',
+    titleKey: 'shared.table.filters.period',
     field: 'availableFrom',
     endField: 'availableTo',
     groupTitleKey: 'portal.user.features.warehouse.table.filterGroups.dates',

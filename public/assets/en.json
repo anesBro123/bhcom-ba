@@ -87,11 +87,13 @@
         "clearSelection": "Clear selection",
         "clearShort": "Clear",
         "all": "All",
+        "period": "Period",
         "expandFilter": "Expand filter",
         "collapseFilter": "Collapse filter",
         "removeChip": "Remove filter",
         "toggle": "Filters",
         "toggleExpand": "Show filters",
+        "toggleExpandActive": "Show filters ({{count}} active)",
         "toggleCollapse": "Hide filters",
         "units": {
           "kg": "kg",

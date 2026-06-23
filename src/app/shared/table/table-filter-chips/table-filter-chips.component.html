@@ -9,11 +9,29 @@
               @for (status of chip.statuses; track status) {
                 <app-status-badge [status]="status" />
               }
+              @if (chip.overflowCount) {
+                <span class="table-filter-chips__overflow">+{{ chip.overflowCount }}</span>
+              }
             </span>
           } @else if (chip.vehicleTypes?.length) {
             <span class="table-filter-chips__vehicle-types">
               @for (vehicleType of chip.vehicleTypes; track vehicleType) {
                 <app-vehicle-type-display [vehicleType]="vehicleType" />
+              }
+              @if (chip.overflowCount) {
+                <span class="table-filter-chips__overflow">+{{ chip.overflowCount }}</span>
+              }
+            </span>
+          } @else if (chip.labels?.length) {
+            <span class="table-filter-chips__labels">
+              @for (label of chip.labels; track label; let i = $index) {
+                @if (i > 0) {
+                  <span class="table-filter-chips__label-sep">, </span>
+                }
+                <span class="table-filter-chips__label-value">{{ label }}</span>
+              }
+              @if (chip.overflowCount) {
+                <span class="table-filter-chips__overflow">+{{ chip.overflowCount }}</span>
               }
             </span>
           } @else if (chip.valueKey) {

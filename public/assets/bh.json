@@ -87,11 +87,13 @@
         "clearSelection": "Očisti odabir",
         "clearShort": "Poništi",
         "all": "Sve",
+        "period": "Period",
         "expandFilter": "Proširi filter",
         "collapseFilter": "Suzi filter",
         "removeChip": "Ukloni filter",
         "toggle": "Filteri",
         "toggleExpand": "Prikaži filtere",
+        "toggleExpandActive": "Prikaži filtere ({{count}} aktivno)",
         "toggleCollapse": "Sakrij filtere",
         "units": {
           "kg": "kg",

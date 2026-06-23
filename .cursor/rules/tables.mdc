@@ -30,7 +30,7 @@ Marketplace (`table-all/`) and our (`table-our/`) table page components are **no
 
 See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
 
-**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — controls-card accent, row hover, mobile card spine. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
+**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — controls-card accent, row hover; **mobile row cards have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 
 ## Table cell visual hierarchy (user portal lists)
 
@@ -61,6 +61,8 @@ Reference implementations: `portal/user/features/transport/table-our/`, `cargo/t
 - `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal).
 - Table and cards are mutually exclusive (`@if` / `@else`); only one is in the DOM.
 - Cards use column `titleKey` labels + values; custom `appTableCell` templates render in both views.
+- **Entity row cards:** neutral border only — no entity-color left spine (see `entity-service-colors.mdc`).
+- **Filter toolbar:** search + icon-only filter toggle same row; compact truncated chips — see `table-filters.mdc`.
 - Optional column `mobile` metadata:
   - `mobile.primary: true` — card header (defaults to first visible column).
   - `mobile.hidden: true` — omit from card body only.

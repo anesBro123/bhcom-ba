@@ -26,18 +26,30 @@
           <button
             type="button"
             class="data-table-filters__toggle"
+            [class.data-table-filters__toggle--active]="
+              !filtersPanelExpanded() && tableStore.hasActiveFilters()
+            "
             [attr.aria-expanded]="filtersPanelExpanded()"
             [attr.aria-haspopup]="'dialog'"
             [attr.aria-label]="
-              (filtersPanelExpanded()
-                ? 'shared.table.filters.toggleCollapse'
-                : 'shared.table.filters.toggleExpand'
-              ) | translate
+              filtersPanelExpanded()
+                ? ('shared.table.filters.toggleCollapse' | translate)
+                : tableStore.hasActiveFilters()
+                  ? ('shared.table.filters.toggleExpandActive'
+                    | translate: { count: activeFilterCount() })
+                  : ('shared.table.filters.toggleExpand' | translate)
             "
             (click)="toggleFilterPanel()"
           >
-            <svg lucideListFilter [size]="16" />
-            <span>{{ 'shared.table.filters.toggle' | translate }}</span>
+            <span class="data-table-filters__toggle-icon">
+              <svg lucideListFilter [size]="16" />
+              @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
+                <span class="data-table-filters__toggle-dot" aria-hidden="true"></span>
+              }
+            </span>
+            <span class="data-table-filters__toggle-label">{{
+              'shared.table.filters.toggle' | translate
+            }}</span>
             @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
               <span class="data-table-filters__active-count">
                 {{ 'shared.table.filters.activeCount' | translate: { count: activeFilterCount() } }}
@@ -51,6 +63,7 @@
         <div class="data-table-filters__chips-band">
           <app-table-filter-chips
             class="data-table-filters__chips"
+            [compact]="isMobileLayout()"
             [filters]="definition().filters!"
             [values]="tableStore.query().filters"
             (chipRemove)="onChipRemove($event)"

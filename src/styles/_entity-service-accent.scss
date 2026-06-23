@@ -72,12 +72,12 @@ app-data-table.data-table--band-ladder[class*='entity-context--'] {
 
 @media (max-width: 768px) {
   app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card {
-    border-left-width: 3px;
-    border-left-color: var(--entity-accent-spine);
+    border-left-width: 1px;
+    border-left-color: var(--border-table);
   }
 
   app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card--clickable:active {
-    border-left-color: var(--entity-accent-spine-strong);
+    border-left-color: var(--border-table);
   }
 }
 
@@ -108,11 +108,11 @@ app-data-table.data-table--split-card[class*='entity-context--'] {
 
 @media (max-width: 768px) {
   app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card {
-    border-left-width: 3px;
-    border-left-color: var(--entity-accent-spine);
+    border-left-width: 1px;
+    border-left-color: var(--border-table);
   }
 
   app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card--clickable:active {
-    border-left-color: var(--entity-accent-spine-strong);
+    border-left-color: var(--border-table);
   }
 }

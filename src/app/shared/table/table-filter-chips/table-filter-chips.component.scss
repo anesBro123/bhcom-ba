@@ -81,8 +81,84 @@
   color: var(--text-muted);
   cursor: pointer;
   border-radius: 999px;
+  flex-shrink: 0;
+  margin-left: auto;
 
   &:hover {
     color: var(--text-primary);
   }
+}
+
+.table-filter-chips__overflow {
+  color: var(--text-muted);
+  font-size: var(--font-size-caption, 0.75rem);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.table-filter-chips__labels {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.table-filter-chips__label-value {
+  font-weight: 500;
+}
+
+.table-filter-chips__label-sep {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__chip {
+  width: 100%;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__label {
+  flex-shrink: 0;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__badges,
+:host(.table-filter-chips-host--compact) .table-filter-chips__vehicle-types,
+:host(.table-filter-chips-host--compact) .table-filter-chips__labels {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__label-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__label-sep,
+:host(.table-filter-chips-host--compact) .table-filter-chips__overflow {
+  flex-shrink: 0;
+}
+
+:host(.table-filter-chips-host--compact) .table-filter-chips__badges .status-badge,
+:host(.table-filter-chips-host--compact) .table-filter-chips__vehicle-types .vehicle-type-display {
+  flex-shrink: 0;
 }

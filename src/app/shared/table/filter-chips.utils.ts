@@ -17,8 +17,10 @@ export interface FilterChip {
   titleKey: string;
   valueKey?: string;
   valueText?: string;
+  labels?: string[];
   statuses?: UserEntityStatus[];
   vehicleTypes?: VehicleType[];
+  overflowCount?: number;
 }
 
 export interface FilterSummary {
@@ -32,11 +34,14 @@ export interface FilterSummary {
 
 export const FILTER_SUMMARY_MAX_VISIBLE = 3;
 export const FILTER_SUMMARY_TEXT_MAX_VISIBLE = 2;
+export const FILTER_CHIP_COMPACT_TEXT_MAX_VISIBLE = 1;
+export const FILTER_CHIP_COMPACT_BADGE_MAX_VISIBLE = 2;
 
 export function buildFilterChips<T>(
   filters: FilterDef<T>[],
   values: Record<string, unknown>,
   translate: TranslateService,
+  options?: { compact?: boolean },
 ): FilterChip[] {
   const chips: FilterChip[] = [];
 
@@ -72,13 +77,35 @@ export function buildFilterChips<T>(
         };
 
         if (filter.showStatusBadges) {
-          chip.statuses = selected.filter(isUserEntityStatus) as UserEntityStatus[];
+          const statuses = selected.filter(isUserEntityStatus) as UserEntityStatus[];
+          if (options?.compact) {
+            const maxVisible = compactChipMaxVisible(statuses.length, 'badges');
+            const { visible, overflowCount } = truncateFilterSelection(statuses, maxVisible);
+            chip.statuses = visible;
+            chip.overflowCount = overflowCount || undefined;
+          } else {
+            chip.statuses = statuses;
+          }
         } else if (filter.showOptionIcons) {
-          chip.vehicleTypes = selected.filter(isVehicleType) as VehicleType[];
+          const vehicleTypes = selected.filter(isVehicleType) as VehicleType[];
+          if (options?.compact) {
+            const maxVisible = compactChipMaxVisible(vehicleTypes.length, 'text');
+            const { visible, overflowCount } = truncateFilterSelection(vehicleTypes, maxVisible);
+            chip.vehicleTypes = visible;
+            chip.overflowCount = overflowCount || undefined;
+          } else {
+            chip.vehicleTypes = vehicleTypes;
+          }
         } else {
-          chip.valueText = selected
-            .map((value) => optionLabel(filter.options, value, translate))
-            .join(', ');
+          const labels = selected.map((value) => optionLabel(filter.options, value, translate));
+          if (options?.compact) {
+            const maxVisible = compactChipMaxVisible(labels.length, 'text');
+            const { visible, overflowCount } = truncateFilterSelection(labels, maxVisible);
+            chip.labels = visible;
+            chip.overflowCount = overflowCount || undefined;
+          } else {
+            chip.valueText = labels.join(', ');
+          }
         }
 
         chips.push(chip);
@@ -212,6 +239,23 @@ export function buildFilterSummary<T>(
     default:
       return { text: '', isPlaceholder: true };
   }
+}
+
+function compactChipMaxVisible(
+  count: number,
+  kind: 'text' | 'badges',
+): number {
+  if (count <= 1) {
+    return count;
+  }
+
+  if (kind === 'badges') {
+    return count > FILTER_CHIP_COMPACT_BADGE_MAX_VISIBLE
+      ? FILTER_CHIP_COMPACT_BADGE_MAX_VISIBLE
+      : count;
+  }
+
+  return FILTER_CHIP_COMPACT_TEXT_MAX_VISIBLE;
 }
 
 function filterSummaryPlaceholder<T>(_filter: FilterDef<T>, translate: TranslateService): string {

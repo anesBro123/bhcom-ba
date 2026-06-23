@@ -31,7 +31,7 @@ Read-only entity detail **pages** for user portal tables. Do not use `DetailModa
 - **Transport / freight:** `kind="route"` + `[origin]` + `[destination]` → `RouteDisplayComponent`
 - **Warehouse:** `kind="warehouse"` + `[warehouseName]` + `[warehouseCity]` → `WarehouseDisplayComponent`
 - **Status:** `[status]` → `StatusBadgeComponent` (only colored pill on the page)
-- Desktop: location left / status right. Mobile: stacks (location first, status below)
+- **All viewports:** location left / status right (single flex row; status `align-self: flex-start` — does **not** stack below location on mobile)
 - Project with `detailSummary` attribute into `DetailPageLayoutComponent`
 
 **Do not** duplicate status or location in `*.detail.ts` — they live only in the summary band.

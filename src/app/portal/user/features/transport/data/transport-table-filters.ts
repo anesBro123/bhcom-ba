@@ -43,7 +43,7 @@ export const TRANSPORT_TABLE_FILTERS: FilterDef<Transport>[] = [
   {
     key: 'transportPeriod',
     type: 'dateRange',
-    titleKey: 'portal.user.features.transport.table.filters.period',
+    titleKey: 'shared.table.filters.period',
     field: 'transportStartDate',
     endField: 'transportEndDate',
     groupTitleKey: 'portal.user.features.transport.table.filterGroups.dates',
