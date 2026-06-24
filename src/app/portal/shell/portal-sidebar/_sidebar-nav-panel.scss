@@ -23,11 +23,11 @@
 }
 
 .sidebar__section-title--active {
-  color: var(--portal-accent-muted, var(--portal-accent));
+  color: var(--text-primary);
 }
 
 .sidebar__section-title--active .sidebar__section-title-icon {
-  color: var(--portal-accent);
+  color: var(--text-primary);
   opacity: 1;
 }
 
@@ -74,8 +74,8 @@
   }
 
   &--active {
-    border-left-color: var(--portal-accent);
-    background-color: var(--portal-accent-nav-bg, var(--bg-active));
+    border-left-color: var(--text-primary);
+    background-color: var(--bg-active);
     color: var(--text-primary);
     font-weight: 600;
   }
@@ -87,5 +87,5 @@
 }
 
 .sidebar__link--active .sidebar__link-icon {
-  color: var(--portal-accent);
+  color: var(--text-primary);
 }
