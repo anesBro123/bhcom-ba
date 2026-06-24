@@ -23,6 +23,25 @@
         }
 
         <div class="data-table-filters__actions">
+          @if (!isMobileLayout()) {
+            <button
+              type="button"
+              class="data-table-filters__view-toggle"
+              [attr.aria-label]="
+                viewMode() === 'list'
+                  ? ('shared.table.view.switchToCard' | translate)
+                  : ('shared.table.view.switchToList' | translate)
+              "
+              (click)="toggleViewMode()"
+            >
+              @if (viewMode() === 'list') {
+                <svg lucideLayoutGrid [size]="16" />
+              } @else {
+                <svg lucideList [size]="16" />
+              }
+            </button>
+          }
+
           <button
             type="button"
             class="data-table-filters__toggle"
@@ -42,7 +61,7 @@
             (click)="toggleFilterPanel()"
           >
             <span class="data-table-filters__toggle-icon">
-              <svg lucideListFilter [size]="16" />
+              <svg lucideFunnel [size]="16" />
               @if (!filtersPanelExpanded() && tableStore.hasActiveFilters()) {
                 <span class="data-table-filters__toggle-dot" aria-hidden="true"></span>
               }
@@ -92,8 +111,12 @@
         }
       </ng-template>
 
-      @if (isMobileLayout()) {
-        <ul class="data-table-cards" role="list">
+      @if (showCardView()) {
+        <ul
+          class="data-table-cards"
+          [class.data-table-cards--grid]="showCardView() && !isMobileLayout()"
+          role="list"
+        >
           @for (row of tableStore.rows(); track trackRow(row)) {
             <li
               class="data-table-row-card"
@@ -117,6 +140,14 @@
                   <div class="data-table-row-card__primary">
                     <ng-container
                       *ngTemplateOutlet="cellContent; context: { row: row, column: primary }"
+                    />
+                  </div>
+                }
+
+                @for (column of headerColumns(); track column.key) {
+                  <div class="data-table-row-card__header-secondary">
+                    <ng-container
+                      *ngTemplateOutlet="cellContent; context: { row: row, column: column }"
                     />
                   </div>
                 }

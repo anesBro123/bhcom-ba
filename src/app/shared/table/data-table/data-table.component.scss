@@ -304,36 +304,6 @@
   .data-table-cards {
     padding: 0 var(--table-card-padding-x-mobile) 1rem;
   }
-
-  .data-table-row-card {
-    min-width: 0;
-    border: 1px solid var(--border-table);
-    border-radius: 0.625rem;
-    background: var(--bg-table-card);
-    padding: 1rem;
-  }
-
-  .data-table-row-card__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-table);
-    margin-bottom: 0.75rem;
-  }
-
-  .data-table-row-card__primary {
-    flex: 1;
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
-
-  .data-table-row-card__field {
-    display: grid;
-    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
-    gap: 0.5rem 0.75rem;
-    padding: 0.375rem 0;
-  }
 }
 
 .data-table-filter-flyout {

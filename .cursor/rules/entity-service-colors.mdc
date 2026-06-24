@@ -64,7 +64,7 @@ When `entityTab` is set on host:
 - **Filter state:** communicated via chips band, active count (`--entity-accent-icon`), and mobile toggle dot — not card border hierarchy
 - **Chips band:** neutral `--bg-table-filter-chips` only — no entity soft wash
 - Row hover: `--entity-accent-row-hover`
-- **Mobile row cards (≤768px):** **no** entity left spine — neutral `1px` `--border-table` only (controls + data card spine unchanged)
+- **Mobile row cards (≤768px) and desktop card view:** **no** entity left spine — neutral `1px` `--border-table` only (controls + data card spine unchanged)
 
 **Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — entity spine lives on the controls card only (`table-filters.mdc`). Neutral admin tables still use grey `3px` left on `.data-table-controls-card--active` when filtered.
 

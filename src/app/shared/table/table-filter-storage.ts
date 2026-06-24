@@ -1,3 +1,5 @@
+import type { TableViewMode } from './table.types';
+
 export function loadStoredFilters(key: string): Record<string, unknown> {
   if (typeof localStorage === 'undefined') {
     return {};
@@ -59,4 +61,29 @@ export function saveFilterPanelExpanded(key: string, expanded: boolean): void {
   }
 
   localStorage.setItem(key, String(expanded));
+}
+
+export function viewModeStorageKey(baseKey: string): string {
+  return `${baseKey}.viewMode`;
+}
+
+export function loadViewMode(key: string): TableViewMode {
+  if (typeof localStorage === 'undefined') {
+    return 'list';
+  }
+
+  const raw = localStorage.getItem(viewModeStorageKey(key));
+  if (raw === 'card' || raw === 'list') {
+    return raw;
+  }
+
+  return 'list';
+}
+
+export function saveViewMode(key: string, mode: TableViewMode): void {
+  if (typeof localStorage === 'undefined') {
+    return;
+  }
+
+  localStorage.setItem(viewModeStorageKey(key), mode);
 }

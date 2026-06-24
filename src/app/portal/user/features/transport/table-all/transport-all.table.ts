@@ -32,6 +32,7 @@ export const TransportAllTable = defineTable<Transport>()({
       sortable: true,
       cell: 'custom',
       width: '9rem',
+      mobile: { header: true, hidden: true },
     },
     {
       key: 'vehiclePlate',

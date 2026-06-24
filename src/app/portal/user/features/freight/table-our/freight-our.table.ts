@@ -32,6 +32,7 @@ export const FreightOurTable = defineTable<Freight>()({
       sortable: true,
       cell: 'custom',
       width: '9rem',
+      mobile: { header: true, hidden: true },
     },
     {
       key: 'freightType',

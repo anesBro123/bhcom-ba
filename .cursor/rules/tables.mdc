@@ -30,7 +30,7 @@ Marketplace (`table-all/`) and our (`table-our/`) table page components are **no
 
 See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
 
-**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — identical rest left spine on controls + data cards, row hover; **mobile row cards have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
+**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — identical rest left spine on controls + data cards, row hover; **row cards (mobile + desktop card view) have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 
 ## Table cell visual hierarchy (user portal lists)
 
@@ -58,15 +58,24 @@ Reference implementations: `portal/user/features/transport/table-our/`, `cargo/t
 
 ## Mobile (≤768px)
 
-- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal).
+- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal) — mobile is always card view; no view toggle.
 - Table and cards are mutually exclusive (`@if` / `@else`); only one is in the DOM.
 - Cards use column `titleKey` labels + values; custom `appTableCell` templates render in both views.
 - **Entity row cards:** neutral border only — no entity-color left spine (see `entity-service-colors.mdc`).
 - **Filter toolbar:** search + icon-only filter toggle same row; compact truncated chips — see `table-filters.mdc`.
 - Optional column `mobile` metadata:
-  - `mobile.primary: true` — card header (defaults to first visible column).
+  - `mobile.primary: true` — card header left (defaults to first visible column).
+  - `mobile.header: true` — card header right beside primary (e.g. status badge); pair with `mobile.hidden: true` to omit from body.
   - `mobile.hidden: true` — omit from card body only.
 - Filters, pagination, selection, and row actions work the same on mobile.
+
+## Desktop list / card view
+
+- **Desktop (>768px):** toolbar **view toggle** (icon-only `2rem` square, left of Filters) switches list ↔ card. Icon shows **destination** view: `LucideLayoutGrid` when in list mode, `LucideList` when in card mode. `aria-label`: `shared.table.view.switchToCard` / `switchToList`. Hidden on mobile.
+- **Card view** reuses the same row-card markup as mobile. Desktop grid: host class `data-table--card-view` + `.data-table-cards--grid` — **2 columns** default, **3 columns** from `1100px` (`_table-chrome-split-card.scss`; grid styles are global to beat component `display: flex` on `.data-table-cards`). `padding-top: 0.75rem` on the grid for space below the controls card.
+- **`TableViewMode`:** `'list' | 'card'` in `table.types.ts`. Preference persisted per table: `loadViewMode` / `saveViewMode` in `table-filter-storage.ts` at `` `${filterStorageKey ?? endpoint}.viewMode` `` — default `'list'`.
+- **`showCardView`:** `isMobileLayout() || viewMode() === 'card'`.
+- User entity tables: `status` column uses `mobile: { header: true, hidden: true }` so route/warehouse + status badge share the card header (`.data-table-row-card__header-secondary`).
 
 ## Route display custom cell
 
@@ -111,8 +120,8 @@ Page `imports`: `VehicleDisplayComponent` from `shared/ui/vehicle-display/vehicl
 When a column shows entity workflow status:
 
 ```typescript
-// *.table.ts — second column after primary identifier
-{ key: 'status', titleKey: '…columns.status', sortable: true, cell: 'custom', width: '9rem' }
+// *.table.ts — status in card header (user entity lists)
+{ key: 'status', titleKey: '…columns.status', sortable: true, cell: 'custom', width: '9rem', mobile: { header: true, hidden: true } }
 
 export const statusCellKey = tableCellKey(EntityTable, 'status');
 ```

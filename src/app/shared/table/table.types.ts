@@ -36,6 +36,8 @@ export interface ColumnDef<T, K extends keyof T & string = keyof T & string> {
   mobile?: {
     /** Shown in card header; defaults to first visible column if none marked */
     primary?: boolean;
+    /** Shown in card header beside primary (e.g. status badge) */
+    header?: boolean;
     /** Omit from card body (e.g. when only used in header) */
     hidden?: boolean;
   };
@@ -158,3 +160,5 @@ export type TableLoader<T> = (query: TableQuery) => import('rxjs').Observable<Pa
 
 /** Table filter/header chrome layout — used for A/B comparison until a winner is chosen. */
 export type TableChromeVariant = 'bandLadder' | 'splitCard' | 'bandLadderLabeled';
+
+export type TableViewMode = 'list' | 'card';

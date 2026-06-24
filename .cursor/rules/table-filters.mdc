@@ -12,11 +12,11 @@ User portal list pages (transport, freight, warehouse — All + My) use the shar
 
 | Piece | Path |
 |-------|------|
-| Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta`, `TableChromeVariant` |
+| Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta`, `TableChromeVariant`, `TableViewMode` |
 | Apply logic | `shared/table/apply-table-filters.ts` — `applyTableFilters()`, `isActiveFilterValueForDef()`, `countActiveFilters()` |
 | Chip + summary utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()`, `buildFilterSummary()`, `truncateFilterSelection()` |
 | Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()`, `clampNumberRange()`, `valueFromTrackPercent()` |
-| Persistence | `shared/table/table-filter-storage.ts` — filter values + `panelExpanded` in localStorage |
+| Persistence | `shared/table/table-filter-storage.ts` — filter values, `panelExpanded`, and **`viewMode`** (`loadViewMode` / `saveViewMode`) in localStorage |
 | Flyout shell | `shared/table/data-table/` — controls card + data card (default), toolbar, chips, right overlay flyout (full-screen ≤768px) |
 | Filter bar | `shared/table/table-filter-bar/` — flat per-filter accordion list; `layout: 'flyout'` single column |
 | Multi-select | `shared/table/table-filter-multi-select/` — searchable long lists (cities) |
@@ -91,7 +91,9 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
 ## UX conventions (do not regress)
 
 ### Filter flyout
-- Toolbar: inline **search** on the **left**; **Filters** toggle on the **right** only (stable position — **no** Clear button in toolbar; no layout shift when filters activate).
+- Toolbar: inline **search** on the **left**; **view toggle** (desktop only, icon-only `2rem` square) then **Filters** toggle on the **right** (Filters remains rightmost — stable position — **no** Clear button in toolbar; no layout shift when filters activate).
+  - **View toggle:** destination icons — `LucideLayoutGrid` (switch to card), `LucideList` (switch to table). `aria-label`: `shared.table.view.switchToCard` / `switchToList`. Hidden on mobile (≤768px always uses card view).
+  - **Filters toggle:** `LucideFunnel` icon + **Filters** label on desktop; icon-only on mobile with active dot.
 - **Desktop toolbar:** icon + **Filters** label; when collapsed + active filters, muted `{{count}} active` beside the label.
 - **Mobile toolbar (≤768px):** search + filter icon **same row** (`flex-wrap: nowrap`); toggle is **icon-only** (`2rem` square) — hide **Filters** label and `{{count}} active` text. **Active-state dot** on icon corner (`.data-table-filters__toggle-dot`); `aria-label` uses `shared.table.filters.toggleExpandActive` when filters active. Styles live in `_table-chrome-split-card.scss` (global — SCSS budget).
 - **Chips band** (below toolbar when `hasActiveFilters()`):

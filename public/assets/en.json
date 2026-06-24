@@ -99,6 +99,10 @@
           "kg": "kg",
           "m2": "m²"
         }
+      },
+      "view": {
+        "switchToCard": "Switch to card view",
+        "switchToList": "Switch to table view"
       }
     },
     "confirm": {

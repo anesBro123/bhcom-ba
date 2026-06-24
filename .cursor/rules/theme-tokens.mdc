@@ -37,13 +37,17 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 ```text
 Canvas (--bg-app) visible between cards
   ├─ Controls card (--bg-surface) — toolbar (--bg-surface) + chips band (--bg-inset)
-  │    ├─ Toolbar: search + Filters toggle (desktop: label; mobile: icon-only + active dot)
+  │    ├─ Toolbar: search + view toggle (desktop: LayoutGrid/List) + Filters toggle (Funnel; desktop: label; mobile: icon-only + active dot)
   │    └─ Chips band (desktop: chips + Clear top-right; mobile: Clear row then full-width compact chips)
   │    └─ Control inputs (--bg-control)
   └─ Data card (--bg-surface)
-       └─ Sticky table header (--bg-inset, caption/semibold/uppercase)
-       └─ Rows — hover via --bg-table-row-hover
+       └─ List view: sticky table header (--bg-inset) + rows (--bg-table-row-hover)
+       └─ Card view (desktop): responsive grid (2 cols; 3 cols ≥1100px) — styles in `_table-chrome-split-card.scss` under `data-table--card-view`
 ```
+
+**Desktop card grid:** global styles on `app-data-table.data-table--card-view .data-table-cards--grid` (not component SCSS — avoids `display: flex` override). `padding-top: 0.75rem` above first card row; `gap: 1rem` between cards.
+
+**Table row cards (mobile + desktop card view):** `--border-table-row-card`, `--shadow-table-row-card`, `--shadow-table-row-card-hover` in `styles.scss`; chrome in `_table-chrome-split-card.scss` (`0.75rem` radius, `1.125rem` padding, subtle elevation). Hover lifts border + shadow on clickable rows.
 
 **Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts keep the same rest spine on both cards — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
 

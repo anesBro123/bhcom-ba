@@ -27,7 +27,9 @@ import {
   LucideArrowDown,
   LucideArrowUp,
   LucideArrowUpDown,
-  LucideListFilter,
+  LucideLayoutGrid,
+  LucideList,
+  LucideFunnel,
   LucideSearch,
   LucideX,
 } from '@lucide/angular';
@@ -45,6 +47,7 @@ import type {
   TableChromeVariant,
   TableDefinition,
   TableLoader,
+  TableViewMode,
 } from '../table.types';
 
 const TABLE_CHROME_CLASS: Record<TableChromeVariant, string> = {
@@ -59,7 +62,9 @@ import { countActiveFilters } from '../apply-table-filters';
 import {
   filterPanelStorageKey,
   loadFilterPanelExpanded,
+  loadViewMode,
   saveFilterPanelExpanded,
+  saveViewMode,
 } from '../table-filter-storage';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
 import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
@@ -79,7 +84,9 @@ import { formatDisplayDate } from '../../utils/format-display-date';
     LucideArrowUp,
     LucideArrowDown,
     LucideArrowUpDown,
-    LucideListFilter,
+    LucideFunnel,
+    LucideLayoutGrid,
+    LucideList,
     LucideSearch,
     LucideX,
   ],
@@ -117,6 +124,7 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   protected tableStore!: TableStore<T>;
   protected readonly cellTemplateMap = signal(new Map<string, TemplateRef<TableCellContext<T>>>());
   protected readonly isMobileLayout = signal(false);
+  protected readonly viewMode = signal<TableViewMode>('list');
   protected readonly filtersPanelExpanded = signal(false);
   protected readonly closeFilterDropdownsToken = signal(0);
 
@@ -131,8 +139,15 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
       classes.push(entityClass);
     }
     classes.push(TABLE_CHROME_CLASS[this.tableChromeVariant()]);
+    if (this.showCardView() && !this.isMobileLayout()) {
+      classes.push('data-table--card-view');
+    }
     return classes.join(' ');
   });
+
+  protected readonly showCardView = computed(
+    () => this.isMobileLayout() || this.viewMode() === 'card',
+  );
 
   protected readonly isSplitCardLayout = computed(() => this.tableChromeVariant() === 'splitCard');
 
@@ -152,14 +167,23 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     return columns.find((column) => column.mobile?.primary) ?? columns[0];
   });
 
+  protected readonly headerColumns = computed(() =>
+    this.visibleColumns().filter((column) => column.mobile?.header),
+  );
+
   protected readonly cardBodyColumns = computed(() => {
     const primary = this.primaryColumn();
     if (!primary) {
       return [];
     }
 
+    const headerKeys = new Set(this.headerColumns().map((column) => column.key));
+
     return this.visibleColumns().filter(
-      (column) => column.key !== primary.key && !column.mobile?.hidden,
+      (column) =>
+        column.key !== primary.key &&
+        !headerKeys.has(column.key) &&
+        !column.mobile?.hidden,
     );
   });
 
@@ -215,6 +239,16 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     this.closeFilterDropdownsToken.update((token) => token + 1);
     this.persistFilterPanelExpanded(false);
     this.syncFlyoutBodyScroll(false);
+  }
+
+  protected toggleViewMode(): void {
+    if (this.isMobileLayout()) {
+      return;
+    }
+
+    const next: TableViewMode = this.viewMode() === 'list' ? 'card' : 'list';
+    this.viewMode.set(next);
+    saveViewMode(this.viewModeStorageBaseKey(), next);
   }
 
   @HostListener('document:keydown.escape')
@@ -418,6 +452,7 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
 
     this.tableStore = new TableStore(this.definition());
     this.hydrateFilterPanelExpanded();
+    this.hydrateViewMode();
     this.dataSubscription = bindTableDataSource(
       this.tableStore,
       this.definition(),
@@ -451,6 +486,15 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
     this.filtersPanelExpanded.set(
       loadFilterPanelExpanded(filterPanelStorageKey(storageKey)),
     );
+  }
+
+  private hydrateViewMode(): void {
+    this.viewMode.set(loadViewMode(this.viewModeStorageBaseKey()));
+  }
+
+  private viewModeStorageBaseKey(): string {
+    const def = this.definition();
+    return def.filterStorageKey ?? def.endpoint;
   }
 
   private syncFlyoutBodyScroll(open: boolean): void {

@@ -99,6 +99,10 @@
           "kg": "kg",
           "m2": "m²"
         }
+      },
+      "view": {
+        "switchToCard": "Prebaci na prikaz kartica",
+        "switchToList": "Prebaci na prikaz tabele"
       }
     },
     "confirm": {
