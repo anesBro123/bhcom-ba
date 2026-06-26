@@ -15,6 +15,17 @@ export interface AdminCreateOption {
   createUrl: string;
 }
 
+export function adminCreateLabelKey(tab: AdminEntityTab): string {
+  switch (tab) {
+    case 'vehicles':
+      return 'portal.admin.nav.createVehicle';
+    case 'warehouses':
+      return 'portal.admin.nav.createWarehouse';
+    default:
+      return 'portal.admin.nav.createUser';
+  }
+}
+
 export const ADMIN_CREATE_OPTIONS: AdminCreateOption[] = [
   {
     entityTab: 'users',

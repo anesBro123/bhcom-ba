@@ -114,11 +114,11 @@ Do not stack duplicate borders — `:host-context(.page-hub-header)` and `:host-
 | Alignment | `align-items: center` — CTA vertically centered against the full title block (icon + title + subtitle) |
 | Divider | When **not** inside `.page-hub-header`: `padding-bottom: 1rem`, `border-bottom: 1px solid var(--border-subtle)`, `margin-bottom: 1.25rem` on `.page-header` — full-width divider under title + CTA. Title block inside has no border (via `:host-context(.page-header)`). |
 
-Inside `.page-hub-header`, `PageHeaderComponent` drops border and bottom margin — tabs follow in the same header zone. See **User hub header** below.
+Inside `.page-hub-header`, `PageHeaderComponent` drops border and bottom margin — tabs follow in the same header zone. See **Hub header (user + admin)** below.
 
-## User hub header (marketplace / my listings)
+## Hub header (user + admin)
 
-Marketplace (**Tržište**) and my listings (**Moje objave**) group `PageHeaderComponent` (title + tab-specific publish CTA) and `EntityTabsComponent` in **`.page-hub-header`** — `src/styles/_page-hub-header.scss`.
+User marketplace (**Tržište**), my listings (**Moje objave**), and admin home hub group `PageHeaderComponent` (title + tab-specific create CTA) and `EntityTabsComponent` in **`.page-hub-header`** — `src/styles/_page-hub-header.scss`.
 
 Hub page SCSS: `@use 'styles/page-hub-header';`
 
@@ -132,10 +132,11 @@ Hub page SCSS: `@use 'styles/page-hub-header';`
 </div>
 ```
 
-- Marketplace home: `pages.home.*`, `UserPageIcons.marketplace`
-- My listings: `pages.ourListings.*`, `UserPageIcons.ourListings`
+- Marketplace home: `pages.home.*`, `UserPageIcons.marketplace`; CTA labels via `userCreateListingLabelKey()`
+- My listings: `pages.ourListings.*`, `UserPageIcons.ourListings`; same CTA helper
+- Admin home: `pages.home.*`, `AdminPageIcons.home`; CTA labels via `adminCreateLabelKey()` (`portal.admin.nav.create*`)
 
-Reference: `portal/user/features/home/`, `portal/user/features/our-listings/`. See `entity-tabs.mdc`.
+Reference: `portal/user/features/home/`, `portal/user/features/our-listings/`, `portal/admin/features/home/`. See `entity-tabs.mdc`.
 
 ## Subtitle copy (UX)
 
@@ -244,7 +245,7 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss` (+ `styles/_page-hub-header.scss` for hub wrappers only).
-- Put marketplace / my listings title and tabs as siblings without `.page-hub-header` — always wrap per **User hub header** above.
+- Put hub title and tabs as siblings without `.page-hub-header` — always wrap per **Hub header (user + admin)** above.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Put border or background on page title icons — bare decorative icon only; use chrome on clickable controls.
@@ -254,7 +255,7 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 
 - Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
 - Form (create/edit with back link): `portal/admin/features/vehicles/form/vehicle-form-page.component.*`
-- Admin home hub (title in `.page-hub-header`): `portal/admin/features/home/admin-home-page.component.*`
+- Admin home hub (title + tab CTA in `.page-hub-header`): `portal/admin/features/home/admin-home-page.component.*`
 - Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
 - User marketplace hub (title + tabs): `portal/user/features/home/home-page.component.*`
 - User my listings hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`

@@ -65,7 +65,7 @@ For `[routerLink]` in templates, use `userMarketplaceRoute()` / `userOurListings
 | `features/home/` | `/home` | `pages.home.*` | `UserPageIcons.marketplace` (`LucideLayoutGrid`) | Embedded `*AllTablePageComponent` |
 | `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | `UserPageIcons.ourListings` (`LucideListChecks`) | Embedded `*OurTablePageComponent` |
 
-Both hubs: `PageHeaderComponent` + tab-specific `PrimaryActionLink` (publish CTA via `userCreateListingLabelKey()`).
+User hubs: `PageHeaderComponent` + tab-specific `PrimaryActionLink` (publish CTA via `userCreateListingLabelKey()`). Admin home hub: same pattern with `adminCreateLabelKey()` from `admin-create-options.config.ts`.
 
 ### Hub copy (parallel structure)
 
@@ -109,9 +109,13 @@ Our-listings tables may pass `emptyActionRoute` + `emptyActionLabelKey` to `Data
 
 | Feature | Route | Tabs | Notes |
 |---------|-------|------|-------|
-| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` (default `accentMode="entity"`) |
+| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `PageHeaderComponent` + tab-specific create CTA + `EntityTabsComponent` (default `accentMode="entity"`) |
 
-Admin URL builder: `adminHomeUrl(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete. Create via topbar `EntityCreateMenuComponent` (`shared.topbar.create.openMenu`) with per-option entity colors.
+Admin URL builder: `adminHomeUrl(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete.
+
+**Hub header:** same `.page-hub-header` + `PageHeaderComponent` pattern as user hubs — tab-specific `PrimaryActionLink` via `createUrl()` / `adminCreateLabelKey(activeTab)`; labels `portal.admin.nav.createUser|createVehicle|createWarehouse`; routes `ADMIN_CREATE_*_URL`. Create also via topbar `EntityCreateMenuComponent` (`shared.topbar.create.openMenu`) with per-option entity colors from `ADMIN_CREATE_OPTIONS`.
+
+Reference: `portal/admin/features/home/admin-home-page.component.*`. See `page-title.mdc`.
 
 ## Topbar navigation
 

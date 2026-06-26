@@ -35,8 +35,8 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 
 - `PORTAL_CONFIG` provided on lazy portal branches in `app.routes.ts` (`USER_PORTAL_CONFIG`, `ADMIN_PORTAL_CONFIG`)
 - `PortalConfig.topbarNav: TopbarNavItem[]` — `{ labelKey, route, exact? }`
-- User: `portal/user/user-topbar-nav.config.ts` — empty (`topbarNav: []`); browse via brand → `USER_HOME_URL`; create via `EntityCreateMenuComponent`
-- Admin: `topbarNav: []` — hub tabs in-page at `/admin/home`; create via `EntityCreateMenuComponent`
+- User: `portal/user/user-topbar-nav.config.ts` — empty (`topbarNav: []`); browse via brand → `USER_HOME_URL`; create via hub tab CTA + `EntityCreateMenuComponent`
+- Admin: `topbarNav: []` — hub tabs in-page at `/admin/home`; tab-specific create CTA in hub page header + `EntityCreateMenuComponent` in topbar
 
 ## Shared UI widgets (`shared/ui/`)
 
@@ -44,9 +44,9 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 - `PageBackLinkComponent` — above title on portal create/edit forms — see `page-title.mdc`
 - `RouteDisplayComponent`, `VehicleDisplayComponent`, `DateRangeDisplayComponent`, `WarehouseDisplayComponent`, `StatusBadgeComponent` — table cells; see `tables.mdc`
 - `DatePeriodPickerComponent` — filter + form date input — see `forms.mdc`, `table-filters.mdc`
-- `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page create CTA — see `page-title.mdc`
+- `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page + hub tab create CTA — see `page-title.mdc`
 - `EntityTabsComponent` — hub tab bar; user + admin hubs use default `accentMode="entity"` — see `entity-tabs.mdc`
-- **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — marketplace home (Tržište) / my listings (Moje objave) — see `entity-tabs.mdc`
+- **Hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — user marketplace (Tržište) / my listings (Moje objave) / admin home — see `entity-tabs.mdc`
 
 ## Styling
 

@@ -46,7 +46,7 @@ Service naming: `AdminVehicleService`, `UserTransportService`, etc. Table page c
 1. **`shared/constants/admin-urls.ts`** or **`user-urls.ts`** — create URL, detail URL, edit URL builder, hub URLs; re-exported by `app-urls.ts` (see `app-urls.mdc`).
    - **User entities:** `USER_HOME_URL`, `USER_OUR_LISTINGS_URL`, `userMarketplaceUrl()` / `userOurListingsUrl()` (TS navigation), `userMarketplaceRoute()` / `userOurListingsRoute()` (`routerLink`), `USER_CREATE_<ENTITY>_URL`, `userEdit<Entity>Url(id)`, `user<Entity>DetailUrl(id)`. No standalone list URL constants.
 2. **`admin.routes.ts`** (or `user.routes.ts`) — children under portal shell:
-   - **Admin:** `home` hub (`/admin/home?tab=`); per entity `<entity>/create`, `<entity>/:id` (detail), `<entity>/:id/edit`; `settings`. List tables embedded in home hub. Row click → `admin*DetailUrl(id)`. Create via topbar `EntityCreateMenuComponent`. Form back/save → `adminHomeUrl(matchingTab)`.
+   - **Admin:** `home` hub (`/admin/home?tab=`); per entity `<entity>/create`, `<entity>/:id` (detail), `<entity>/:id/edit`; `settings`. List tables embedded in home hub. Row click → `admin*DetailUrl(id)`. Create via hub tab CTA + topbar `EntityCreateMenuComponent`. Form back/save → `adminHomeUrl(matchingTab)`.
    - **User:** `home` (marketplace hub), `our-listings` hub routes; per entity only `<entity>/create`, `<entity>/:id`, `<entity>/:id/edit`. Create via topbar `EntityCreateMenuComponent`. List tables embedded in hub pages. Form save redirects to `userOurListingsUrl(matchingEntity)`.
 3. **`user-topbar-nav.config.ts`** — `topbarNav: []`; brand → marketplace; create via `EntityCreateMenuComponent`; my listings via account menu — see `layout.mdc`.
 4. **User services:** `listAll()` / `listOurs()` with company scoping (`companyId` on entity; session `companyId`); `create()` sets ownership from session.
@@ -55,7 +55,7 @@ Service naming: `AdminVehicleService`, `UserTransportService`, etc. Table page c
 
 | Feature folder | Route | Role |
 |----------------|-------|------|
-| `features/home/` | `/admin/home?tab=` | `.page-hub-header` → `PageTitleComponent` + `EntityTabsComponent` (default `accentMode="entity"`) + embedded table pages; create via topbar only |
+| `features/home/` | `/admin/home?tab=` | `.page-hub-header` → `PageHeaderComponent` + tab-specific create CTA (`adminCreateLabelKey()`) + `EntityTabsComponent` (default `accentMode="entity"`) + embedded table pages |
 
 Tab config: `portal/admin/admin-entity-tabs.config.ts` → `ADMIN_ENTITY_TAB_CONFIG`. Tab sync: `syncHubEntityTab()` + `parseAdminEntityTab`.
 

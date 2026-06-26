@@ -1,9 +1,15 @@
 <div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
-  <app-page-title
-    titleKey="portal.admin.pages.home.title"
-    subtitleKey="portal.admin.pages.home.subtitle"
-    [icon]="pageIcon"
-  />
+  <app-page-header>
+    <app-page-title
+      titleKey="portal.admin.pages.home.title"
+      subtitleKey="portal.admin.pages.home.subtitle"
+      [icon]="pageIcon"
+    />
+    <app-primary-action-link
+      [route]="createUrl()"
+      [labelKey]="createLabelKey()"
+    />
+  </app-page-header>
 
   <app-entity-tabs
     ariaLabelKey="portal.admin.features.adminEntityTabs.ariaLabel"

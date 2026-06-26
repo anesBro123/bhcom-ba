@@ -13,7 +13,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or user equivalent).
 2. Add URLs to `shared/constants/admin-urls.ts` (or `user-urls.ts` for user features): create, detail, `editUrl(id)`; hub URLs for user features.
 3. Register routes in `admin.routes.ts` (or `user.routes.ts`): admin — `home` hub + per-entity create/detail/edit; user — hub routes + per-entity create/detail/edit only (no standalone list routes).
-4. **User portal:** no sidebar — marketplace via brand; my listings via account menu; create via topbar `EntityCreateMenuComponent` — see `layout.mdc`, `entity-tabs.mdc`. **Admin:** hub tabs in-page; create via `EntityCreateMenuComponent`.
+4. **User portal:** no sidebar — marketplace via brand; my listings via account menu; create via hub tab CTA + topbar `EntityCreateMenuComponent` — see `layout.mdc`, `entity-tabs.mdc`. **Admin:** hub tabs in-page; tab-specific create CTA in hub page header + topbar `EntityCreateMenuComponent`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
 6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
 7. **Page title + back link:** `PageBackLinkComponent` + `PageTitleComponent` with `pageTitleKey` / `pageSubtitleKey` / `pageIcon`; form page also needs `backUrl` (list URL) + `backLabelKey` (nav list label) — see **`page-title.mdc`**, **`shared-constants.mdc`**.
@@ -48,6 +48,15 @@ Follow **`entity-tabs.mdc`** — reference: `portal/user/features/home/`, `porta
 - Title **Moje objave** / **My listings** — `pages.ourListings.*`; icon `UserPageIcons.ourListings`.
 - Embedded `*OurTablePageComponent` per active tab.
 - Account menu + detail/form back links use `portal.user.nav.ourListings`.
+
+## Admin hub page (`portal/admin/features/home/`)
+
+Follow **`entity-tabs.mdc`** — reference: `portal/admin/features/home/admin-home-page.component.*`.
+
+1. Hub at `/admin/home?tab=` — `adminHomeUrl(tab?)` + `parseAdminEntityTab()`; tab config in `portal/admin/admin-entity-tabs.config.ts`.
+2. Hub page: wrap `PageHeaderComponent` (title + tab-specific create CTA via `adminCreateLabelKey()`) and `EntityTabsComponent` in **`.page-hub-header`** + embedded table pages below; use `syncHubEntityTab()`.
+3. CTA routes: `ADMIN_CREATE_USER_URL` / `ADMIN_CREATE_VEHICLE_URL` / `ADMIN_CREATE_WAREHOUSE_URL`; labels: `portal.admin.nav.createUser|createVehicle|createWarehouse`.
+4. i18n: `portal.admin.pages.home.*`, `portal.admin.features.adminEntityTabs.*`.
 
 ## Guest page
 

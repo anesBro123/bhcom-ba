@@ -35,7 +35,7 @@ See `entity-tabs.mdc` for tab URL convention (`userMarketplaceUrl`, `userOurList
 User/vehicle/warehouse table page components are **not** standalone routes. Embedded in `portal/admin/features/home/` at `/admin/home?tab=`:
 
 - `UserTablePageComponent`, `VehicleTablePageComponent`, `WarehouseTablePageComponent` with `[embedded]="true"`
-- Hub owns title + `EntityTabsComponent` (default `accentMode="entity"`); create via topbar `EntityCreateMenuComponent` (not per-table CTA)
+- Hub owns title + tab-specific create CTA + `EntityTabsComponent` (default `accentMode="entity"`); not per-table CTA — see `entity-tabs.mdc`, `page-title.mdc`
 - `[entityTab]="'users'|'vehicles'|'warehouses'"` on `DataTableComponent` — entity-colored split-card chrome
 - Row click → `admin*DetailUrl(id)`; `viewDetails` row action duplicates row click — see `detail-page.mdc`, `entity-tabs.mdc`
 
