@@ -4,11 +4,16 @@
 @include topbar.topbar-base;
 @include topbar.topbar-icon-btn;
 
-.app-topbar__start {
+.app-topbar__brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  flex: 0 1 auto;
   min-width: 0;
+}
+
+.app-topbar__create {
+  flex-shrink: 0;
+  margin-left: 0.5rem;
 }
 
 .app-topbar__nav {
@@ -60,8 +65,27 @@
 }
 
 @include below-md {
-  .app-topbar .topbar__actions {
-    gap: 0.5rem;
+  .app-topbar__brand {
+    order: 1;
+    flex: 1 1 auto;
+  }
+
+  .app-topbar__create {
+    order: 3;
+    margin-left: 0;
+  }
+
+  .topbar__spacer {
+    order: 2;
+  }
+
+  .topbar__actions {
+    order: 4;
+    flex-shrink: 0;
+  }
+
+  .app-topbar .brand-mark__portal {
+    display: none;
   }
 }
 

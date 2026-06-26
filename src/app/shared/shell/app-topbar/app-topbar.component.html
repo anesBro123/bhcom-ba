@@ -1,14 +1,16 @@
 <header class="topbar app-topbar">
-  <div class="app-topbar__start">
+  <div class="app-topbar__brand">
     <app-brand-mark [linkUrl]="brandLinkUrl()" [portalSuffixKey]="brandSuffixKey()" />
-    @if (mode() === 'user' || mode() === 'admin') {
-      <app-entity-create-menu
-        [options]="createMenuOptions()"
-        [openMenuAriaLabelKey]="createMenuAriaLabelKey()"
-        (menuOpenChange)="onCreateMenuOpenChange($event)"
-      />
-    }
   </div>
+
+  @if (mode() === 'user' || mode() === 'admin') {
+    <app-entity-create-menu
+      class="app-topbar__create"
+      [options]="createMenuOptions()"
+      [openMenuAriaLabelKey]="createMenuAriaLabelKey()"
+      (menuOpenChange)="onCreateMenuOpenChange($event)"
+    />
+  }
 
   @if (mode() === 'guest') {
     <nav class="app-topbar__nav" aria-label="Guest navigation">

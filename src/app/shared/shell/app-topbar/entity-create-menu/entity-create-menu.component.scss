@@ -3,6 +3,7 @@
 
 .entity-create-menu {
   position: relative;
+  flex-shrink: 0;
 }
 
 .entity-create-menu__trigger {
@@ -41,6 +42,11 @@
   .entity-create-menu__trigger {
     width: 2.25rem;
     height: 2.25rem;
+  }
+
+  .entity-create-menu__panel {
+    left: auto;
+    right: 0;
   }
 }
 
