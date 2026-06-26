@@ -74,7 +74,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 ## Quick entry points
 
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
-- **Admin home hub:** `portal/admin/features/home/` — company management hub at `/admin/home?tab=` with `EntityTabsComponent` (`accentMode="neutral"`) + embedded tables; row click → detail; create via topbar `EntityCreateMenuComponent` — see `entity-tabs.mdc`, `detail-page.mdc`, `portal-feature.mdc`
+- **Admin home hub:** `portal/admin/features/home/` — company management hub at `/admin/home?tab=` with `EntityTabsComponent` (default `accentMode="entity"`) + embedded tables; row click → detail; create via topbar `EntityCreateMenuComponent` — see `entity-tabs.mdc`, `detail-page.mdc`, `portal-feature.mdc`
 - **App shell:** `src/app/shared/shell/` (`AppShellComponent`, `AppTopbarComponent`); topbar: theme → language → notifications → account (when authenticated); **brand:** plain BHCOM (user) or BHCOM + neutral **ADMIN** suffix (admin); guest-only portal accents on picker/login/register — see `layout.mdc`
 - **Topbar create menu:** `shared/shell/app-topbar/entity-create-menu/` — `EntityCreateMenuComponent` (`+` beside brand); user options from `user-offer-options.config.ts` (`shared.topbar.offer.openMenu`); admin from `admin-create-options.config.ts` (`shared.topbar.create.openMenu`)
 - **User topbar:** brand (plain BHCOM) → marketplace (**Tržište**); account **Moje objave** / **My listings** (`LucideListChecks`) → `userOurListingsUrl()`
@@ -89,7 +89,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **BiH cities:** `shared/constants/bih-cities.ts` — `BIH_CITY_OPTIONS` for autocomplete origin/destination fields
 - **User entity status (interim):** `shared/constants/user-entity-status.ts` — `UserEntityStatus`; all entities will get their own status unions later — see `entity-status.mdc`
-- **Entity service colors (user portal):** `src/styles/_entity-service-accent.scss` + `entityContextClass()` in `shared/constants/entity-context-class.ts` — transport/freight/warehouse context chrome on tabs, **table controls + data cards** (identical rest spine), form/detail titles; **table row cards (mobile + desktop card view): no left spine**; **not** status badges — see `entity-service-colors.mdc`
+- **Entity service colors (user + admin):** `src/styles/_entity-service-accent.scss` + `entityContextClass()` — signal palette on tabs, table spines, create menu, form/detail title icons; admin **users** emerald (`#059669` / `#34d399`) with softer chrome; vehicles blue; warehouses purple — see `entity-service-colors.mdc`
 - **Portal page icons:** `portal/admin/admin-page-icons.ts`, `portal/user/user-page-icons.ts` — hub icons: `marketplace` (`LucideLayoutGrid`), `ourListings` (`LucideListChecks`); entity icons: `transport`, `freight`, `warehouse`; admin hub: `home`, `settings`
 - **Date form utils:** `shared/utils/date-input.ts` — `DatePeriodValue`, calendar helpers, `notPastDateValidator`, `endDateOnOrAfterStartValidator`, `minDate` on field defs — see `shared-utils.mdc`
 - **Hub tab sync:** `shared/utils/hub-tab-sync.ts` — `syncHubEntityTab(route, destroyRef, parseTab, activeTab)` for `?tab=` query param on hub pages
@@ -109,7 +109,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Delete confirmation example:** `portal/admin/features/vehicles/table/vehicle-table-page.component.ts`
 - **Shared UI widgets:** `shared/ui/` (brand-mark, **theme-picker** and **language-picker** — single-click toggles in topbar, language shows EN/BS), entity-tabs, page-title, page-back-link, page-header, primary-action-link, detail-page-layout, entity-detail-summary, detail-action-bar, route-display, date-range-display, **date-period-picker**, vehicle-display, warehouse-display, status-badge)
 - **Entity tabs (user hubs):** `EntityTabsComponent` at `/home` (marketplace) and `/our-listings` (my listings); `userMarketplaceUrl()` / `userOurListingsUrl()` — see `entity-tabs.mdc`
-- **Entity tabs (admin hub):** `EntityTabsComponent` with `accentMode="neutral"` at `/admin/home`; `adminHomeUrl()`; row click → `admin*DetailUrl()` — see `entity-tabs.mdc`, `detail-page.mdc`
+- **Entity tabs (admin hub):** `EntityTabsComponent` at `/admin/home` (default `accentMode="entity"`); `adminHomeUrl()`; row click → `admin*DetailUrl()` — see `entity-tabs.mdc`, `detail-page.mdc`
 - **Portal page title:** `PageTitleComponent` (`shared/ui/page-title/`, `app-page-title`) — flex row: bare decorative icon (20px) vertically centered beside `.page-title__text` (title + subtitle, `gap: 0.25rem`); optional `[entityTab]` tints icon on user entity create/edit/detail pages; subtitle `max-width: 42rem`; standalone pages get `border-bottom` header divider; hubs use `.page-hub-header` instead. `PageHeaderComponent` draws divider for title + create CTA rows. See `page-title.mdc`, `entity-service-colors.mdc`.
 - **Form section header:** `FormSectionComponent` — same flex icon + text pattern as page title inside form cards; bare icons — see `forms.mdc`.
 - **Form page back link:** `PageBackLinkComponent` — user create/edit → `userOurListingsUrl(matchingEntity)` + `portal.user.nav.ourListings` (`OUR_LISTINGS_BACK_LABEL_KEY`)
@@ -137,7 +137,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `page-title.mdc` | Portal page templates + `shared/ui/page-title/` + `shared/ui/page-back-link/` — title, back link, icon, table create CTA |
 | `shared-constants.mdc` | `bih-cities.ts`, `boolean-filter-options.ts`, `user-entity-status.ts`, `entity-context-class.ts`, `admin-page-icons.ts`, `user-page-icons.ts` |
 | `entity-status.mdc` | Entity `status` field, `StatusBadgeComponent`, per-entity status conventions |
-| `entity-service-colors.mdc` | User portal transport/freight/warehouse accent system — `_entity-service-accent.scss`, `entityTab` on shared widgets, hub tables |
+| `entity-service-colors.mdc` | User + admin entity accent system — `_entity-service-accent.scss`, signal palette, admin users emerald, `entityTab` on shared widgets, hub tables |
 | `entity-tabs.mdc` | User marketplace / my listings hub pages, `EntityTabsComponent`, tab URL builders |
 | `shared-utils.mdc` | `date-input.ts`, `format-display-date.ts`, `normalize-for-search.ts`, `hub-tab-sync.ts` |
 

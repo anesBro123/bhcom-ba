@@ -6,9 +6,7 @@ alwaysApply: false
 
 # Entity service colors (user + admin portals)
 
-Subtle entity identity on portal content — **not** status pills, route chips, or primary buttons.
-
-## User portal (`transport` / `freight` / `warehouse`)
+Entity identity on portal content — **not** status pills, route chips, or primary buttons.
 
 ## Source of truth
 
@@ -23,18 +21,28 @@ Subtle entity identity on portal content — **not** status pills, route chips, 
 
 | Service | Light | Dark |
 |---------|-------|------|
-| Transport | `#0284c7` (sky blue) | `#38bdf8` |
-| Freight | `#ea580c` | `#fed7aa` |
-| Warehouse | `#a21caf` | `#f0abfc` |
-| Admin users | `#0d9488` (teal) | `#2dd4bf` |
-| Admin vehicles | `#0284c7` (same as transport) | `#38bdf8` |
-| Admin warehouses | `#a21caf` (same as warehouse) | `#f0abfc` |
+| Transport | `#0077d4` (blue) | `#38bdf8` |
+| Freight | `#e85d04` (orange) | `#fb923c` |
+| Warehouse | `#9333ea` (purple) | `#e879f9` |
+| Admin users | `#059669` (emerald) | `#34d399` |
+| Admin vehicles | `#0077d4` (same as transport) | `#38bdf8` |
+| Admin warehouses | `#9333ea` (same as warehouse) | `#e879f9` |
 
-Transport uses **stronger** spine/icon/filter mixes (override in `.entity-context--transport`) — avoid pale blues that blend into `--bg-app` / `--bg-surface`.
+Admin **users** uses **emerald** (not blue/teal) so it stays distinct from vehicles (blue) and warehouses (purple), and does not read as error red.
+
+## Chrome intensity
+
+Default `entity-context-tokens` mixin — **signal** level on user entities + admin vehicles/warehouses:
+
+- Border + icon: full base hue (`--entity-accent`)
+- Active tab fill: 18% base tint
+- Table spine: 70% base; hover spine: full base
+
+**Exception:** `.entity-context--users` overrides to **softer** mixes (60% border, 85% icon, 50%/75% spine) — still emerald hue, less aggressive than signal chrome.
 
 ## Do not use for
 
-- `StatusBadgeComponent` / `--status-*` (workflow only — `open` = green, `closed` = amber; see `entity-status.mdc`)
+- `StatusBadgeComponent` / `--status-*` (workflow only — `open` = green, `canceled` = red; see `entity-status.mdc`)
 - Route chips (`--chip-neutral-*`)
 - `--portal-accent` (guest login / portal picker only)
 - Full card backgrounds or primary CTAs
@@ -52,9 +60,9 @@ Icons + labels remain required (color-blind safe).
 
 | Component | Input | When to set |
 |-----------|-------|-------------|
-| `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
+| `PageTitleComponent` | `entityTab` | User + admin entity create/edit + detail pages |
 | `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables + admin hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
-| `EntityTabsComponent` | `accentMode` | User hubs: `'entity'` (default) — active pill gets entity accent. Admin hub: `'neutral'` — tabs stay neutral; entity color on `DataTableComponent` only |
+| `EntityTabsComponent` | `accentMode` | User + admin hubs: default `'entity'` — active pill gets `entity-context--{tab}`. Use `'neutral'` only when tabs must stay uncolored |
 | `EntityCreateMenuComponent` | per-option `entityTab` | Colored spine + icon on create dropdown options (user + admin) |
 
 Apply class via `entityContextClass()` or host/`ngClass` — do not hardcode hex in component SCSS.
@@ -74,7 +82,6 @@ When `entityTab` is set on host:
 **Do not** duplicate accent: split-card suppresses grey `border-left` on inner `.data-table-filters--active` — entity spine lives on the controls card only (`table-filters.mdc`). Neutral admin tables still use grey `3px` left on `.data-table-controls-card--active` when filtered.
 
 Table entity chrome lives in `_entity-service-accent.scss` + `_table-chrome-split-card.scss` (global) to stay within component SCSS budget.
-
 
 ## Adding a fourth service type
 

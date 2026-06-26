@@ -20,14 +20,14 @@ Shared tab bar for user portal **marketplace home** — **Tržište** / **Market
 |----------------|------|
 | `activeTab` | `UserEntityTab` or `AdminEntityTab` |
 | `tabs` | `EntityTabConfig[]` — `{ id, labelKey, icon }` |
-| `accentMode` | `'entity'` (default) \| `'neutral'` — user hubs use entity accent on active pill; admin hub uses `'neutral'` |
+| `accentMode` | `'entity'` (default) \| `'neutral'` — user + admin hubs: entity accent on active pill; `'neutral'` only when tabs must stay uncolored |
 | `tabChange` | output tab id |
 
 Tab config:
 - User: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG` (icons from `UserPageIcons`)
 - Admin: `portal/admin/admin-entity-tabs.config.ts` → `ADMIN_ENTITY_TAB_CONFIG` (icons from `AdminPageIcons`)
 
-**Active tab styling:** when `accentMode="entity"`, active pill gets `entity-context--{tab}` — entity border, soft fill, tinted icon. Inactive tabs stay neutral. Admin hub (`accentMode="neutral"`): all tabs neutral; entity color on embedded `DataTableComponent` via `entityTab`. See `entity-service-colors.mdc`.
+**Active tab styling:** when `accentMode="entity"` (default on user + admin hubs), active pill gets `entity-context--{tab}` — entity border, soft fill, tinted icon. Inactive tabs stay neutral. See `entity-service-colors.mdc`.
 
 ### Tab sync (`syncHubEntityTab`)
 
@@ -109,7 +109,7 @@ Our-listings tables may pass `emptyActionRoute` + `emptyActionLabelKey` to `Data
 
 | Feature | Route | Tabs | Notes |
 |---------|-------|------|-------|
-| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` with `accentMode="neutral"` |
+| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` (default `accentMode="entity"`) |
 
 Admin URL builder: `adminHomeUrl(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete. Create via topbar `EntityCreateMenuComponent` (`shared.topbar.create.openMenu`) with per-option entity colors.
 

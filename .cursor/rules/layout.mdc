@@ -45,7 +45,7 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 - `RouteDisplayComponent`, `VehicleDisplayComponent`, `DateRangeDisplayComponent`, `WarehouseDisplayComponent`, `StatusBadgeComponent` — table cells; see `tables.mdc`
 - `DatePeriodPickerComponent` — filter + form date input — see `forms.mdc`, `table-filters.mdc`
 - `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page create CTA — see `page-title.mdc`
-- `EntityTabsComponent` — hub tab bar; user hubs `accentMode="entity"` (default); admin hub `accentMode="neutral"` — see `entity-tabs.mdc`
+- `EntityTabsComponent` — hub tab bar; user + admin hubs use default `accentMode="entity"` — see `entity-tabs.mdc`
 - **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — marketplace home (Tržište) / my listings (Moje objave) — see `entity-tabs.mdc`
 
 ## Styling

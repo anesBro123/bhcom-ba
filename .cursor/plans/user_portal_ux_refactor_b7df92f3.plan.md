@@ -387,7 +387,7 @@ Mirrors single-home + tabs pattern (company-scoped CRUD only):
 - **`ADMIN_HOME_URL`** = `/admin/home`; `adminHomeUrl(tab?)`.
 - **Removed:** dashboard, standalone `/admin/users|vehicles|warehouses` list routes.
 - **Kept:** create/edit per entity, settings.
-- **Entity tabs:** `accentMode="neutral"` on admin hub.
+- **Entity tabs:** admin hub uses default `accentMode="entity"` (colored pills, same as user hubs); signal palette in `_entity-service-accent.scss`.
 - **Forms:** back link + post-save redirect → `adminHomeUrl(matchingTab)`.
 
 ## Cursor rules updated

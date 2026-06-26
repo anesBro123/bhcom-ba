@@ -55,7 +55,7 @@ Service naming: `AdminVehicleService`, `UserTransportService`, etc. Table page c
 
 | Feature folder | Route | Role |
 |----------------|-------|------|
-| `features/home/` | `/admin/home?tab=` | `.page-hub-header` → `PageTitleComponent` + `EntityTabsComponent` (`accentMode="neutral"`) + embedded table pages; create via topbar only |
+| `features/home/` | `/admin/home?tab=` | `.page-hub-header` → `PageTitleComponent` + `EntityTabsComponent` (default `accentMode="entity"`) + embedded table pages; create via topbar only |
 
 Tab config: `portal/admin/admin-entity-tabs.config.ts` → `ADMIN_ENTITY_TAB_CONFIG`. Tab sync: `syncHubEntityTab()` + `parseAdminEntityTab`.
 

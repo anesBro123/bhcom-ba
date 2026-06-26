@@ -58,7 +58,7 @@ City values are stored as plain strings (municipality name). No i18n per city â€
 
 | Export | Type | Use |
 |--------|------|-----|
-| `entityContextClass()` | `(tab: UserEntityTab \| null \| undefined) => string` | Returns `entity-context--{tab}` for host/`ngClass` on user service-colored widgets |
+| `entityContextClass()` | `(tab: EntityContextTab \| null \| undefined) => string` | Returns `entity-context--{tab}` for host/`ngClass` on user + admin service-colored widgets |
 
 - Path: `shared/constants/entity-context-class.ts`
 - Colors defined in `src/styles/_entity-service-accent.scss` â€” see `entity-service-colors.mdc`

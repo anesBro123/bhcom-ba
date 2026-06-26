@@ -1,37 +1,36 @@
-// Entity service accent colors (transport, freight, warehouse).
+// Entity service accent colors (transport, freight, warehouse, admin users/vehicles/warehouses).
 // Context chrome only — not for status badges, route chips, or primary actions.
-//
-// Palette D (freight + warehouse) with sky-blue transport — clear of portal green sidebar accent.
+// Signal palette: full-chroma borders/icons on most entities; admin users uses softer mixes.
 
 :root,
 [data-theme='dark'] {
   --entity-transport-base: #38bdf8;
-  --entity-freight-base: #fed7aa;
-  --entity-warehouse-base: #f0abfc;
-  --entity-users-base: #2dd4bf;
+  --entity-freight-base: #fb923c;
+  --entity-warehouse-base: #e879f9;
+  --entity-users-base: #34d399;
   --entity-vehicles-base: #38bdf8;
-  --entity-warehouses-base: #f0abfc;
+  --entity-warehouses-base: #e879f9;
 }
 
 [data-theme='light'] {
-  --entity-transport-base: #0284c7;
-  --entity-freight-base: #ea580c;
-  --entity-warehouse-base: #a21caf;
-  --entity-users-base: #0d9488;
-  --entity-vehicles-base: #0284c7;
-  --entity-warehouses-base: #a21caf;
+  --entity-transport-base: #0077d4;
+  --entity-freight-base: #e85d04;
+  --entity-warehouse-base: #9333ea;
+  --entity-users-base: #059669;
+  --entity-vehicles-base: #0077d4;
+  --entity-warehouses-base: #9333ea;
 }
 
 @mixin entity-context-tokens($base) {
   --entity-accent: #{$base};
   --entity-accent-soft: color-mix(in srgb, #{$base} 10%, transparent);
-  --entity-accent-border: color-mix(in srgb, #{$base} 40%, var(--border-subtle));
-  --entity-accent-icon: color-mix(in srgb, #{$base} 65%, var(--text-muted));
-  --entity-accent-hover-bg: color-mix(in srgb, #{$base} 5%, var(--bg-surface));
-  --entity-accent-active-bg: color-mix(in srgb, #{$base} 8%, var(--bg-surface));
-  --entity-accent-row-hover: color-mix(in srgb, #{$base} 4%, var(--bg-table-row-hover));
-  --entity-accent-spine: color-mix(in srgb, #{$base} 30%, transparent);
-  --entity-accent-spine-strong: color-mix(in srgb, #{$base} 55%, transparent);
+  --entity-accent-border: var(--entity-accent);
+  --entity-accent-icon: var(--entity-accent);
+  --entity-accent-hover-bg: color-mix(in srgb, #{$base} 10%, var(--bg-surface));
+  --entity-accent-active-bg: color-mix(in srgb, #{$base} 18%, var(--bg-surface));
+  --entity-accent-row-hover: color-mix(in srgb, #{$base} 8%, var(--bg-table-row-hover));
+  --entity-accent-spine: color-mix(in srgb, #{$base} 70%, transparent);
+  --entity-accent-spine-strong: var(--entity-accent);
 }
 
 @mixin entity-table-card-rest {
@@ -41,9 +40,6 @@
 
 .entity-context--transport {
   @include entity-context-tokens(var(--entity-transport-base));
-  --entity-accent-icon: color-mix(in srgb, var(--entity-transport-base) 78%, var(--text-muted));
-  --entity-accent-spine: color-mix(in srgb, var(--entity-transport-base) 42%, transparent);
-  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-transport-base) 62%, transparent);
 }
 
 .entity-context--freight {
@@ -56,16 +52,15 @@
 
 .entity-context--users {
   @include entity-context-tokens(var(--entity-users-base));
-  --entity-accent-icon: color-mix(in srgb, var(--entity-users-base) 78%, var(--text-muted));
-  --entity-accent-spine: color-mix(in srgb, var(--entity-users-base) 42%, transparent);
-  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-users-base) 62%, transparent);
+  // Softer than signal chrome — emerald green; distinct from vehicles blue and warehouses purple.
+  --entity-accent-border: color-mix(in srgb, var(--entity-accent) 60%, var(--border-subtle));
+  --entity-accent-icon: color-mix(in srgb, var(--entity-accent) 85%, var(--text-muted));
+  --entity-accent-spine: color-mix(in srgb, var(--entity-accent) 50%, transparent);
+  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-accent) 75%, transparent);
 }
 
 .entity-context--vehicles {
   @include entity-context-tokens(var(--entity-vehicles-base));
-  --entity-accent-icon: color-mix(in srgb, var(--entity-vehicles-base) 78%, var(--text-muted));
-  --entity-accent-spine: color-mix(in srgb, var(--entity-vehicles-base) 42%, transparent);
-  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-vehicles-base) 62%, transparent);
 }
 
 .entity-context--warehouses {
