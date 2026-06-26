@@ -1,41 +1,44 @@
 ---
-description: Guest layer — public routes, shell, guards
+description: Guest layer — public routes, guards, auth pages
 globs: src/app/guest/**
 alwaysApply: false
 ---
 
 # Guest layer (`src/app/guest`)
 
-Public / unauthenticated area. No sidebar — `GuestShellComponent` (topbar + scrollable outlet + optional footer).
+Unauthenticated business entry — portal picker, login, company registration. No marketing landing page. Rendered inside shared `AppShellComponent` (see `layout.mdc`).
 
 ## Routes (`guest.routes.ts`)
 
-Two `GuestShellComponent` trees: root (`/`, `/sign-in`, `/login`, `/register`) and `admin` prefix (`/admin/login`).
+Flat child routes under `AppShellComponent` in `app.routes.ts`:
 
-| Path | Page | Guard | Notes |
-|------|------|-------|-------|
-| `/` | `LandingPageComponent` | `guestGuard` | `data: { showFooter: true, showNavActions: true }` |
-| `/sign-in` | `SignInPageComponent` | `guestGuard` | Portal picker cards; `data: { showNavActions: true }` |
-| `/login` | `UserLoginPageComponent` | `guestGuard` | User login |
-| `/admin/login` | `AdminLoginPageComponent` | `guestGuard` | Admin login |
-| `/register` | `RegisterCompanyPageComponent` | `guestGuard` | Company registration |
+| Path | Page | Guard |
+|------|------|-------|
+| `/` | `PortalPickerPageComponent` | `guestGuard` |
+| `/login` | `UserLoginPageComponent` | `guestGuard` |
+| `/register` | `RegisterCompanyPageComponent` | `guestGuard` |
+| `/admin/login` | `AdminLoginPageComponent` | `guestGuard` |
 
-## Shell (`guest/shell/`)
-
-- `GuestShellComponent` — reads deepest route `data.showFooter` / `data.showNavActions`
-- `GuestTopbarComponent` — brand; `.topbar__actions`: theme then language (`shared/ui/`); conditional nav actions
-- `GuestFooterComponent` — landing footer links
-- `PortalCardComponent` — user/admin portal cards on sign-in page
+No `/sign-in` route — `SIGN_IN_URL` is `/`.
 
 ## Pages (`guest/pages/`)
 
-- `landing/` — marketing hero + feature cards
-- `sign-in/` — portal picker (login URLs from `shared/constants/app-urls.ts`)
-- `login/` — split pages (`user-login-page`, `admin-login-page`); shared `login.form.ts`, `login.model.ts`, `login-page.component.scss`; accent via `.login--user` / `.login--admin` on page root
-- `register/` — company registration stepper (`mode: 'stepper'`): `register-company-page`, `register-company.form.ts`, `register-company.model.ts`, `register-company.service.ts` (stub), `register-company.config.ts` (API path), `register-company.constants.ts` (select options). Create-only — no `stepperMode` / `stepperDataReady` bindings; see `forms.mdc`.
+- `portal-picker/` — portal picker at `/`; includes `PortalCardComponent`
+- `user-login/` — user login (shared `login/login.form.ts`, `login-page.component.scss`)
+- `admin-login/` — admin login (same shared login assets)
+- `login/` — shared `login.form.ts`, `login.model.ts`, `login-page.component.scss` only
+- `register/` — company registration stepper (`mode: 'stepper'`): create-only — see `forms.mdc`
+
+## Topbar (guest mode)
+
+Handled by `shared/shell/app-topbar/` — not in guest folder:
+
+- **Always** show Register company (`COMPANY_REGISTER_URL`)
+- Show Sign in text link when URL ≠ `/`
+- Brand links to `SIGN_IN_URL` (`/`)
 
 ## Constants & imports
 
-- App URLs: `shared/constants/guest-urls.ts` (`LANDING_URL`, login/register paths); import via `app-urls.ts` barrel (`portalHomeUrl()` lives there)
+- App URLs: `shared/constants/guest-urls.ts` (`SIGN_IN_URL`, login/register paths); import via `app-urls.ts` barrel
 - Auth: `shared/core/auth/auth.service.ts`
-- Guest imports `shared/**` only — do **not** import portal configs, features, or shell
+- Guest imports `shared/**` only — do **not** import portal features

@@ -1,10 +1,10 @@
-<div class="sign-in">
-  <header class="sign-in__header">
-    <h1 class="sign-in__title">{{ 'guest.signIn.title' | translate }}</h1>
-    <p class="sign-in__subtitle">{{ 'guest.signIn.subtitle' | translate }}</p>
+<div class="portal-picker">
+  <header class="portal-picker__header">
+    <h1 class="portal-picker__title">{{ 'guest.signIn.title' | translate }}</h1>
+    <p class="portal-picker__subtitle">{{ 'guest.signIn.subtitle' | translate }}</p>
   </header>
 
-  <div class="sign-in__cards">
+  <div class="portal-picker__cards">
     <app-portal-card
       portalKind="user"
       badgeKey="guest.signIn.portals.user.badge"
@@ -20,10 +20,4 @@
       [route]="adminLoginUrl"
     />
   </div>
-
-  <footer class="auth-card__footer sign-in__footer">
-    <a [routerLink]="landingUrl" class="auth-card__back">
-      {{ 'guest.backToHome' | translate }}
-    </a>
-  </footer>
 </div>

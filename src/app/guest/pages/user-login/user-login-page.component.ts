@@ -5,13 +5,13 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../../shared/core/auth/auth.service';
 import { SIGN_IN_URL, USER_HOME_URL } from '../../../shared/constants/app-urls';
 import { FormPageComponent } from '../../../shared/form';
-import { LoginForm } from './login.form';
+import { LoginForm } from '../login/login.form';
 
 @Component({
   selector: 'app-user-login-page',
   imports: [ReactiveFormsModule, FormPageComponent, TranslatePipe, RouterLink],
   templateUrl: './user-login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  styleUrl: '../login/login-page.component.scss',
 })
 export class UserLoginPageComponent {
   private readonly auth = inject(AuthService);

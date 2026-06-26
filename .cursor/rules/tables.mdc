@@ -58,7 +58,7 @@ Reference implementations: `portal/user/features/transport/table-our/`, `cargo/t
 
 ## Mobile (≤768px)
 
-- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `portal/shell/viewport.ts`, `isMobileLayout` signal) — mobile is always card view; no view toggle.
+- `DataTableComponent` renders a **card list** instead of the HTML table when the viewport is ≤768px (`MOBILE_MEDIA_QUERY` in `shared/constants/viewport.ts`, `isMobileLayout` signal) — mobile is always card view; no view toggle.
 - Table and cards are mutually exclusive (`@if` / `@else`); only one is in the DOM.
 - Cards use column `titleKey` labels + values; custom `appTableCell` templates render in both views.
 - **Entity row cards:** neutral border only — no entity-color left spine (see `entity-service-colors.mdc`).

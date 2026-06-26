@@ -1,0 +1,17 @@
+@use 'styles/shell-content' as shell;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-shell__content {
+  @include shell.shell-content;
+}

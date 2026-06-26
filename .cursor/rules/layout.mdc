@@ -1,125 +1,66 @@
 ---
-description: App shell, sidebar, topbar, mobile drawer
-globs: src/app/guest/shell/**,src/app/portal/shell/**,src/app/shared/ui/**
+description: App shell, topbar, shared UI widgets
+globs: src/app/shared/shell/**,src/app/shared/ui/**
 alwaysApply: false
 ---
 
-# Layout (`guest/shell` + `portal/shell` + `shared/ui`)
+# Layout (`shared/shell` + `shared/ui`)
 
-## Structure
+## App shell (`shared/shell/`)
 
-- `PortalShellComponent` (`portal-shell`) — grid: sidebar column + `portal-shell__main` (topbar + scrollable `router-outlet` content).
-- `PortalSidebarComponent` (`portal-sidebar`) — brand row, collapsible nav (desktop), drawer (mobile). Collapsed desktop flyouts via `SidebarSectionFlyoutComponent` (`portal-sidebar/sidebar-section-flyout/`).
-- **Shared nav panel styles:** `portal/shell/portal-sidebar/_sidebar-nav-panel.scss` — section title, item list, links, active rail overlap. `@use` from `portal-sidebar.component.scss` and `sidebar-section-flyout.component.scss`. **Flyout panel reuses the same BEM classes** (`sidebar__section-title`, `sidebar__items`, `sidebar__link`) as expanded sidebar — do not duplicate flyout-only item/title styles.
-- Nav types: `portal/common/models/nav.model.ts` (`NavSection.route?` for user flat links, `NavSection.items?` for admin groups); configs: `portal/user/user-nav.config.ts`, `portal/admin/admin-nav.config.ts`.
-- Active helpers: `portal/common/utils/is-nav-section-active.ts`; `portal/common/utils/nav-link-active-options.ts` (`navLinkActiveOptions()` — `queryParams: 'ignored'` for hub routes with `?tab=`).
-- `PORTAL_CONFIG` provided on shell route in `user.routes.ts` / `admin.routes.ts` (sidebar injects nav + `shell.brandSuffixKey`).
-- `PortalTopbarComponent` (`portal-topbar`) — hamburger (mobile only); `.topbar__actions` order: **theme → language → notifications → account**.
-- `ThemePickerComponent` (`shared/ui/theme-picker/`) — single-click light/dark toggle (sun/moon icon); `ThemeService.toggle()`; shared by portal topbar and guest topbar.
-- `LanguagePickerComponent` (`shared/ui/language-picker/`) — single-click EN/BS toggle (shows active locale code); `LanguageService.toggle()`; shared by portal topbar and guest topbar. i18n aria: `shared.topbar.lang.switchToEn` / `switchToBh`.
-- **Guest layout** (`guest/shell/`) — `GuestShellComponent` (topbar + scrollable outlet + optional footer), `GuestTopbarComponent`, `GuestFooterComponent`, `PortalCardComponent`. Used for `/`, `/sign-in`, `/login`, `/register`, `/admin/login`. No shared.sidebar.
-- Guest route `data`: `showFooter` (landing only), `showNavActions` (landing + sign-in) — read by `GuestShellComponent` from deepest active route.
-- `BrandMarkComponent` (`shared/ui/brand-mark/`) — truck icon + BHCOM title; optional portal suffix. Sidebar and guest shared.topbar.
-- `MetricCardComponent` (`shared/ui/metric-card/`) — dashboard KPI tile: `titleKey`, `value`, `subtitleKey`, Lucide icon, optional variant (`default` | `success` | `warning` | `danger` | `info`). `--bg-surface` card + `interactive-surface` when wrapped in `routerLink`. Import by direct path; parent owns i18n keys, grid layout, and optional `routerLink` wrapper for clickable tiles.
-- `QuickActionCardComponent` (`shared/ui/quick-action-card/`) — action tile: `titleKey`, `descriptionKey`, `route`, `icon`; optional `queryParams`, optional `entityTab` (`UserEntityTab`) for colored spine + icon on **user** portal. Admin dashboard omits `entityTab` (neutral `--text-secondary` icon). `interactive-surface` hover. See `entity-service-colors.mdc`.
-- `IntentCardComponent` (`shared/ui/intent-card/`) — intent picker: `titleKey`, `descriptionKey`, `icon`, `actions`, optional `clickableCard`, optional `entityTab` (colored spine + icon at rest; stronger hover). Home journey + Offer. Journey grid caps at **24rem** per column. Hub links: `userFindRoute()` / `userOurListingsRoute()`. See `entity-service-colors.mdc`.
-- `PageTitleComponent` (`shared/ui/page-title/`) — portal `h1` + subtitle + bare entity icon (20px). Optional `entityTab` tints icon on user entity form/detail pages. Hubs use `.page-hub-header`. See `page-title.mdc`, `entity-service-colors.mdc`.
-- `PageBackLinkComponent` (`shared/ui/page-back-link/`) — chevron + list label above page title on portal create/edit forms; inputs: `route`, `labelKey`, `form`. Dirty leave uses `ConfirmService`. See `page-title.mdc`. Not used on guest or table list pages.
-- `RouteDisplayComponent` (`shared/ui/route-display/`) — origin → destination with **neutral outline chips** (`--chip-neutral-*` in `styles.scss`) for route/cargo tables. Inputs: `origin`, `destination` (plain strings). Selector: `app-route-display`. i18n aria: `shared.route.fromTo`. Import by direct path; use in `appTableCell` templates — see `tables.mdc`.
-- `VehicleDisplayComponent` (`shared/ui/vehicle-display/`) — vehicle name + plate display for table cells. Inputs: `name`, `plate` (plain strings). Selector: `app-vehicle-display`. i18n aria: `shared.vehicle.namePlate`. Import by direct path; use in `appTableCell` templates — see `tables.mdc`.
-- `DateRangeDisplayComponent` (`shared/ui/date-range-display/`) — **read-only** compact from–to (or single date when `to` omitted) in table cells. Inputs: `from`, optional `to`. Selector: `app-date-range-display`. i18n aria: `shared.dateRange.*`. Import by direct path — see `tables.mdc`.
-- `DatePeriodPickerComponent` (`shared/ui/date-period-picker/`) — **input** calendar for selecting a date period (or single date). Selector: `app-date-period-picker`. Inputs: `value` (`DatePeriodValue`), `mode` (`'range'` \| `'single'`), `minDate`, `allowPartial`, `placeholderKey`, `variant` (`'form'` \| `'filter'`). Output: `valueChange`. Used by `FormDatePeriodFieldComponent` and `TableFilterDateRangeComponent`. i18n: `shared.datePeriod.*`. See `forms.mdc`, `table-filters.mdc`, `shared-utils.mdc`.
-- `WarehouseDisplayComponent` (`shared/ui/warehouse-display/`) — warehouse name + city (two-line, like vehicle). Inputs: `name`, `city`. Selector: `app-warehouse-display`. i18n aria: `shared.warehouse.nameCity`. Import by direct path — see `tables.mdc`.
-- `StatusBadgeComponent` (`shared/ui/status-badge/`) — colored pill for entity `status` in table cells — **the only colored semantic badge in a table row**; do not use `--status-*` colors on route/date/warehouse cells. Input: `status` (`UserEntityStatus` today; per-entity unions later). Selector: `app-status-badge`. Labels: `shared.entityStatus.*`. Theme: `--status-*` tokens in `styles.scss`. See `entity-status.mdc`, `tables.mdc`.
-- `PageHeaderComponent` (`shared/ui/page-header/`) — layout shell for title row: projects `app-page-title` (left) and `app-primary-action-link` or `[pageHeaderActions]` (right); **CTA vertically centered** with the title block; **border-bottom** when not in `.page-hub-header`. See `page-title.mdc`.
-- **User hub header zone:** `.page-hub-header` wrapper (`styles/_page-hub-header.scss`) groups `PageTitleComponent` / `PageHeaderComponent` + `EntityTabsComponent` on Find and Our listings — bottom border separates header from table. See `page-title.mdc`, `entity-tabs.mdc`.
-- `PrimaryActionLinkComponent` (`shared/ui/primary-action-link/`) — primary `<a routerLink>` with icon + `labelKey`; inputs: `route`, `labelKey`, optional `icon` (default `LucideSquarePlus`). Use inside `app-page-header` or standalone.
-- Profile icon opens **account menu** (`shared.topbar.account.*`): Profile/Settings close menu only; **Log out** calls `AuthService.logout()` then navigates to `/` (landing).
+Single layout for guest + user + admin portals — **no sidebar**, **no footer**.
 
-## SidebarService (`portal/shell/shared.sidebar.service.ts`)
+- `AppShellComponent` (`app-shell`) — `app-topbar` + scrollable `.app-shell__content` + `<router-outlet>`
+- Host class `portal-user` | `portal-admin` from `AuthService.portalKind()` (accent tokens)
+- Content padding: `styles/_shell-content.scss` mixin; breakpoint via `styles/_breakpoints.scss`
 
-| API | Purpose |
-|-----|---------|
-| `collapsed` / `toggle()` / `setCollapsed()` | Desktop narrow sidebar (persisted `localStorage`) |
-| `mobileOpen` / `openMobile()` / `closeMobile()` | Mobile drawer (not persisted) |
+Registered in `app.routes.ts` as parent of all routes (guest pages + lazy portal trees).
 
-On `openMobile()`: `document.body` overflow hidden. On `NavigationEnd`: `closeMobile()`.
+## App topbar (`shared/shell/app-topbar/`)
 
-## Mobile drawer (≤768px)
+Modes from `AuthService` + optional `PORTAL_CONFIG`:
 
-- Topbar: `LucideMenu` → `openMobile()`.
-- Sidebar: `position: fixed`, slides in; brand row shows **X** (`closeMobile`), not panel collapse toggle.
-- `portal-shell`: backdrop button when `mobileOpen()`; single-column grid.
-- i18n: `shared.topbar.openMenu`, `shared.sidebar.close`, `shared.sidebar.collapse` / `shared.sidebar.expand`.
+| Mode | Left zone | Right zone |
+|------|-----------|------------|
+| **guest** | Brand; Register always; Sign in link when not on `/` | theme → language |
+| **user** | Brand → `homeUrl`; **topbar nav** links from `PortalConfig.topbarNav` (Search, Offer) | theme → language → notifications → account |
+| **admin** | Brand → `homeUrl` | theme → language → account |
 
-## Desktop sidebar
+- `ThemePickerComponent` / `LanguagePickerComponent` — `shared/ui/`; single-click toggles
+- `BrandMarkComponent` — optional portal suffix from `PortalConfig.shell.brandSuffixKey`
+- Account menu: profile (stub), settings (admin → `ADMIN_SETTINGS_URL`), logout → `SIGN_IN_URL`
+- Styles: `styles/_topbar.scss` (`topbar-base`, `topbar-icon-btn`)
 
-- Viewport height (`100vh`), nav area scrolls (`overflow-y` on `.sidebar__nav`; `overflow: visible` when collapsed for flyout).
-- Brand row: `PanelLeftClose` / `PanelLeftOpen` for collapse.
-- Sidebar host: `z-index: 100` (desktop) so flyout panels stack above main content.
+## Portal config & topbar nav
 
-### Nav model
+- `PORTAL_CONFIG` provided on lazy portal branches in `app.routes.ts` (`USER_PORTAL_CONFIG`, `ADMIN_PORTAL_CONFIG`)
+- `PortalConfig.topbarNav: TopbarNavItem[]` — `{ labelKey, route, exact? }`
+- User: `portal/user/user-topbar-nav.config.ts` (Search → `USER_FIND_URL`, Offer → `USER_OFFER_URL`)
+- Admin: `topbarNav: []` (in-page nav in Plan 3)
 
-```typescript
-interface NavSection {
-  titleKey: string;
-  icon?: LucideIcon;
-  route?: string;     // direct link — user portal flat nav (Home, Find, Our listings, Offer)
-  exact?: boolean;
-  items?: NavItem[];  // grouped links — admin portal
-}
-interface NavItem {
-  labelKey: string;
-  route: string;
-  exact?: boolean;
-  icon?: LucideIcon;
-}
-```
+## Shared UI widgets (`shared/ui/`)
 
-- Section `icon` from `UserPageIcons` / `AdminPageIcons` — see `shared-constants.mdc`.
-- **User portal:** four flat clickable links — Home, Find, Our listings, Offer (`NavSection.route` + `icon`; labels from `portal.user.nav.home|find|ourListings|offer`). Entity picking on hub pages — see `entity-tabs.mdc`.
-- **Admin portal:** grouped sections with `items` (text-only links); multi-item sections use flyout when sidebar collapsed.
-
-### Expanded + flyout panel (shared `_sidebar-nav-panel.scss`)
-
-Parent sets `--sidebar-section-icon-size: 18px` on `.sidebar__section` (expanded) or `.sidebar-flyout` (collapsed panel).
-
-**Section header** (`<h2 class="sidebar__section-title">`):
-- `icon` (18px) + uppercase muted `titleKey`; `pointer-events: none` (not clickable).
-- Inactive: title `--text-section`, icon `--text-muted`.
-- Active (`sidebar__section-title--active` via `isNavSectionActive`): title `--portal-accent-muted`, icon `--portal-accent`.
-
-**Item list** (`ul.sidebar__items`):
-- Vertical guide rail: `border-left: 2px solid var(--border-subtle)`, centered under section icon (`margin-left: calc(0.625rem + iconSize/2 - 1px)`).
-
-**Links** (`a.sidebar__link`):
-- Optional `NavItem.icon` (16px, `.sidebar__link-icon`, `--text-muted`; active → `--portal-accent`) + label; full-width rail overlap on all states (`border-radius: 0`); hover uses `--bg-active`.
-- **Active** (`sidebar__link--active`): soft `--portal-accent-nav-bg` fill, `font-weight: 600`, accent `border-left`.
-- **Active rail overlap:** negative `margin-left` pulls link over list padding **and** rail width; `border-left: 2px solid var(--portal-accent)` with `z-index: 1` paints over the gray rail so that row reads as a green spine segment (not a second parallel bar).
-
-### Collapsed (desktop only, `> 768px`)
-
-- Gated by `flyoutMode` = `collapsed && !isMobileLayout()` (`MOBILE_MEDIA_QUERY` via `matchMedia` in `portal-sidebar.component.ts`). `sidebar--collapsed` class is **not** applied on mobile — drawer always uses expanded layout.
-- **User portal:** all four intents render as centered rail links (`sidebar__link--rail`) using `NavSection.icon` + `NavSection.route`.
-- **Admin multi-item sections**: entity icon **trigger** in `SidebarSectionFlyoutComponent`; hover/focus opens fixed panel to the right.
-- **Collapsed active (user rail + admin flyout trigger):** icon turns `--portal-accent` only — **no** background fill or left accent bar on rail links.
-- **Expanded active (admin grouped items):** soft `--portal-accent-nav-bg` fill + accent `border-left` (unchanged).
-- **Flyout panel** reuses `_sidebar-nav-panel.scss` classes — visually identical to one expanded section. Panel chrome only in flyout SCSS: fixed position, `z-index: 210`, tokens `--bg-sidebar-flyout`, `--border-sidebar-flyout`, `--shadow-sidebar-flyout`.
-- **Trigger** styles stay in `sidebar-section-flyout.component.scss` (encapsulation): muted icon; accent when `sectionActive()`.
-- Flyout closes on leave (200ms grace), Escape, outside click, or navigation.
-- **`routerLinkActive`:** use `navLinkActiveOptions(exact)` so hub routes stay active with `?tab=` query params (`/find?tab=freight`, `/our-listings?tab=warehouse`).
-
-### Mobile drawer
-
-- Flyout **disabled** — full link labels even if `collapsed` is persisted from desktop.
-- Direct links use `sidebar__link--direct` styling (left-aligned, full width); ignore desktop collapsed rail layout.
+- `MetricCardComponent` — dashboard KPI tile; parent wraps in `routerLink` when clickable
+- `QuickActionCardComponent` — action tile; optional `entityTab` on user portal — see `entity-service-colors.mdc`
+- `IntentCardComponent` — intent picker; Home journey + Offer — see `entity-service-colors.mdc`
+- `PageTitleComponent` — portal `h1` + subtitle + icon; hubs use `.page-hub-header` — see `page-title.mdc`
+- `PageBackLinkComponent` — above title on portal create/edit forms — see `page-title.mdc`
+- `RouteDisplayComponent`, `VehicleDisplayComponent`, `DateRangeDisplayComponent`, `WarehouseDisplayComponent`, `StatusBadgeComponent` — table cells; see `tables.mdc`
+- `DatePeriodPickerComponent` — filter + form date input — see `forms.mdc`, `table-filters.mdc`
+- `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page create CTA — see `page-title.mdc`
+- **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — Find / Our listings — see `entity-tabs.mdc`
 
 ## Styling
 
-- Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS.
-- Content padding: CSS vars from `styles.scss` (`--layout-padding-x-mobile`, etc.).
-- **Decorative vs clickable icons:** bare Lucide icons (no border/background) for page titles, form section headers, intent card headers, quick-action cards. Reserve bordered/filled icon chrome for **clickable controls** — buttons, tab pills, topbar icon buttons, metric-card semantic tints.
-- **Portal page title:** `PageTitleComponent` — see `page-title.mdc`. Page templates own `<app-page-title>`; table list pages with create routes compose `PageHeaderComponent` + `PrimaryActionLinkComponent`; form create/edit pages add `PageBackLinkComponent` above the title. `DataTableComponent` / `FormPageComponent` do not render page titles, back links, or create CTAs.
-- **Home journey cards:** `portal/user/features/home/home-page.component.*` — PREVOZ / SKLADIŠTE groups each with `.home-page__journey-grid`: `repeat(auto-fit, minmax(min(100%, 24rem), 24rem))`, `justify-content: start` (left-aligned, not centered). Reference `layout.mdc` IntentCardComponent entry.
-- **Theme surfaces:** 4-layer stack (`--bg-chrome`, `--bg-app`, `--bg-surface`, `--bg-inset`, `--bg-control`) — see `theme-tokens.mdc`. Sidebar/topbar = chrome; page canvas = `--bg-app`; cards/tables/forms = `--bg-surface`.
-- **Portal accent:** `PortalShellComponent` host class `portal-user` | `portal-admin` (from `PORTAL_CONFIG`); tokens in `src/styles/_portal-accent.scss`. Login uses `.login--user` / `.login--admin` on the same tokens. **Sidebar only** — active nav item, section icons, flyout triggers (`_sidebar-nav-panel.scss`); brand portal suffix uses muted accent. **Do not use `--portal-accent` on portal page content** (links, buttons, cards, focus rings); page actions use neutral `--bg-form-btn-primary` / `--text-form-btn-primary` with `--bg-primary-hover`; inline links use `interactive-text-link` (`--text-secondary` → `--text-primary` + underline). Guest auth cards may still use accent for sign-in CTAs.
+- Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS
+- **Mobile breakpoint:** `shared/constants/viewport.ts` — `MOBILE_MEDIA_QUERY` (`max-width: 768px`); used by `DataTableComponent`, `FormStepperComponent`
+- **Theme surfaces:** 4-layer stack — see `theme-tokens.mdc`. Topbar = chrome; page canvas = `--bg-app`
+- **Portal accent:** `AppShellComponent` host `portal-user` | `portal-admin`; tokens in `src/styles/_portal-accent.scss`. Topbar nav active link uses `--portal-accent-muted`. **Do not use `--portal-accent` on portal page content** for links/buttons/cards; guest auth cards may use accent for portal picker CTAs.
+
+## Related rules
+
+| Area | Rule |
+|------|------|
+| Guest pages | `guest.mdc` |
+| Entity tabs (hubs) | `entity-tabs.mdc` |
+| Theme tokens | `theme-tokens.mdc` |

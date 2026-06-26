@@ -9,13 +9,13 @@ import {
   SIGN_IN_URL,
 } from '../../../shared/constants/app-urls';
 import { FormPageComponent } from '../../../shared/form';
-import { LoginForm } from './login.form';
+import { LoginForm } from '../login/login.form';
 
 @Component({
   selector: 'app-admin-login-page',
   imports: [ReactiveFormsModule, FormPageComponent, TranslatePipe, RouterLink],
   templateUrl: './admin-login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  styleUrl: '../login/login-page.component.scss',
 })
 export class AdminLoginPageComponent {
   private readonly auth = inject(AuthService);

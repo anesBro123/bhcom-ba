@@ -15,7 +15,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LucideCheck, LucideCircle, LucidePencil, LucideTriangleAlert } from '@lucide/angular';
 
-import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
+import { MOBILE_MEDIA_QUERY } from '../../constants/viewport';
 import type { FormStepDef, ValidationState } from '../form.types';
 
 @Component({

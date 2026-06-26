@@ -21,14 +21,10 @@
         <footer class="auth-card__footer">
           <p class="auth-card__prompt">
             {{ 'guest.register.signIn.label' | translate }}
-            <a [routerLink]="loginUrl" class="auth-card__action">
+            <a [routerLink]="signInUrl" class="auth-card__action">
               {{ 'guest.register.signIn.action' | translate }}
             </a>
           </p>
-
-          <a [routerLink]="landingUrl" class="auth-card__back">
-            {{ 'guest.backToHome' | translate }}
-          </a>
         </footer>
       } @else {
         <div class="register__success" role="status">
@@ -38,14 +34,10 @@
           <footer class="auth-card__footer">
             <p class="auth-card__prompt">
               {{ 'guest.register.signIn.label' | translate }}
-              <a [routerLink]="loginUrl" class="auth-card__action">
+              <a [routerLink]="signInUrl" class="auth-card__action">
                 {{ 'guest.register.signIn.action' | translate }}
               </a>
             </p>
-
-            <a [routerLink]="landingUrl" class="auth-card__back">
-              {{ 'guest.backToHome' | translate }}
-            </a>
           </footer>
         </div>
       }

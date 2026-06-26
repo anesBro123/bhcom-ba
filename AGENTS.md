@@ -6,14 +6,13 @@ Angular 21 logistics SPA with **admin** and **user** portals. Before implementin
 
 ```
 src/app/
-├── shared/          # auth, i18n, theme, constants/, form/, table/, confirm/, ui/
-├── guest/           # public routes, shell, guards, login/register pages
-└── portal/          # authenticated shell, configs, features, guards
-    ├── shell/       # PortalShell, sidebar, SidebarSectionFlyout, topbar, SidebarService
-    ├── common/      # models, PORTAL_CONFIG barrel, is-nav-section-active util
+├── shared/          # auth, i18n, theme, shell/, constants/, form/, table/, confirm/, ui/
+├── guest/           # unauthenticated routes, guards, portal-picker/login/register pages
+└── portal/          # configs, guards, features
+    ├── common/      # models (PORTAL_CONFIG, TopbarNavItem)
     ├── guards/      # portalMatchGuard
-    ├── user/        # routes, nav, config, features/
-    └── admin/       # routes, nav, config, features/ (dashboard, users, vehicles, warehouses)
+    ├── user/        # routes, config, topbar nav, features/
+    └── admin/       # routes, config, features/
 ```
 
 Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreate them.
@@ -23,8 +22,8 @@ Legacy folders (`core/`, `features/`, `layout/`) were removed — do not recreat
 | Folder | Meaning |
 |--------|---------|
 | `shared/` | Used by **both** guest and portal (auth, i18n, theme, form/table/confirm frameworks, shared UI) |
-| `guest/` | Public / unauthenticated routes, shell, guards |
-| `portal/` | Authenticated user + admin (shell, configs, features) |
+| `guest/` | Unauthenticated routes, guards, auth pages |
+| `portal/` | Authenticated user + admin (configs, features) |
 
 Guest may import from `shared/**` only for URLs and auth. Do **not** import portal configs, features, or shell from guest.
 
@@ -36,21 +35,20 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 ## Portals
 
-| Portal | URL prefix | Routes file | Nav config | Features |
+| Portal | URL prefix | Routes file | Topbar nav | Features |
 |--------|------------|-------------|------------|----------|
-| User | `/` (e.g. `/home`) | `portal/user/user.routes.ts` | `portal/user/user-nav.config.ts` | `portal/user/features/**` (home, find, our-listings, offer, transport, freight, warehouse) |
-| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | `portal/admin/admin-nav.config.ts` | `portal/admin/features/**` (dashboard, settings, users, vehicles, warehouses) |
+| User | `/` (e.g. `/home`) | `portal/user/user.routes.ts` | `user-topbar-nav.config.ts` (Search, Offer) | `portal/user/features/**` |
+| Admin | `/admin` (e.g. `/admin/dashboard`) | `portal/admin/admin.routes.ts` | none (in-page tabs planned) | `portal/admin/features/**` |
 
 ### Routing
 
-- Root routes: `src/app/app.routes.ts` — guest routes + lazy portal trees with `portalMatchGuard`.
-- Guest routes: `src/app/guest/guest.routes.ts` — two `GuestShellComponent` trees (root + `admin` prefix); landing, sign-in, login, register.
+- Root routes: `src/app/app.routes.ts` — `AppShellComponent` wraps guest + lazy portal trees with `portalMatchGuard`.
+- Guest routes: `src/app/guest/guest.routes.ts` — flat pages under app shell.
 - URL constants: `shared/constants/guest-urls.ts`, `user-urls.ts`, `admin-urls.ts` (barrel: `app-urls.ts`) — **never hardcode route paths**; add new URLs to the domain file first (see `.cursor/rules/app-urls.mdc`).
 
 | Guest path | Purpose |
 |------------|---------|
-| `/` | Landing |
-| `/sign-in` | Portal picker |
+| `/` | Portal picker (user vs admin) |
 | `/login` | User login |
 | `/admin/login` | Admin login |
 | `/register` | Company registration |
@@ -63,7 +61,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 | `portalMatchGuard` | `portal/guards/portal-match.guard.ts` | Lazy portal trees — require auth + matching portal |
 
 - Auth: `shared/core/auth/` — session types (`AuthUser`, `Session`); `PortalKind` in `shared/constants/portal-kind.type.ts`; stub login until API; company registration stub in `guest/pages/register/register-company.service.ts`.
-- Portal shell injects `PORTAL_CONFIG` only (not `AuthService` for nav).
+- Portal config: `PORTAL_CONFIG` on lazy branches in `app.routes.ts`; `AppTopbarComponent` reads `topbarNav` + `shell.homeUrl`.
 
 **Do not** import `portal/admin/features/**` from user routes or vice versa. Both may use `shared/**`.
 
@@ -77,9 +75,8 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
 - **Admin dashboard:** `portal/admin/features/dashboard/` — KPI row (`app-metric-card`, counts via `AdminDashboardService`) + Quick Actions (`app-quick-action-card`, grouped browse/create columns + settings row); see `new-page.mdc`, `layout.mdc`
-- **Guest shell:** `src/app/guest/shell/`
-- **Portal shell:** `src/app/portal/shell/` (`PortalShellComponent`, `SidebarService`, `PortalSidebarComponent`, `SidebarSectionFlyoutComponent`); topbar actions: theme → language → notifications → account; shared nav panel: `portal/shell/portal-sidebar/_sidebar-nav-panel.scss`
-- **Sidebar nav:** `portal/common/models/nav.model.ts` (`NavSection.route` user flat links, `NavSection.items` admin groups); `user-nav.config.ts` (Home, Find, Our listings, Offer); `nav-link-active-options.ts` for hub `?tab=` active state; hub pages use `EntityTabsComponent` — see `entity-tabs.mdc`, `layout.mdc`
+- **App shell:** `src/app/shared/shell/` (`AppShellComponent`, `AppTopbarComponent`); topbar: theme → language → notifications → account (when authenticated)
+- **User topbar nav:** `portal/user/user-topbar-nav.config.ts` — Search (`USER_FIND_URL`), Offer (`USER_OFFER_URL`)
 - **User home (hub):** `portal/user/features/home/` — company snapshot → **quick actions** (`home.actions.config.ts`, colored `QuickActionCardComponent` 3×2 grid) → **journey** (`IntentCardComponent` with `[entityTab]`) → browse footer; hub links via `userFindRoute()` / `userOurListingsRoute()` — see `entity-service-colors.mdc`, `new-page.mdc`
 - **User find hub:** `portal/user/features/find/` — `.page-hub-header` (`styles/_page-hub-header.scss`) wraps `PageTitleComponent` + `EntityTabsComponent` + embedded marketplace tables (`/find?tab=`)
 - **User our listings hub:** `portal/user/features/our-listings/` — `.page-hub-header` wraps `PageHeaderComponent` (tab-specific create CTA) + `EntityTabsComponent` + embedded our tables (`/our-listings?tab=`)
@@ -88,7 +85,7 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 - **Stepper (create + edit):** `portal/admin/features/vehicles/form/` — `stepperMode`, `stepperDataReady`, `isEdit` pattern (see `forms.mdc`)
 - **Stepper (create-only):** `guest/pages/register/`
 - **Stepper UI/logic:** `shared/form/form-stepper/`, `shared/form/form-page/`, `form.utils.ts` — `ValidationState` (`notStarted` | `inProgress` | `valid` | `invalid`), free navigation, validate on leave/submit only, mobile current-title + chip rail at ≤768px
-- **Guest login:** `guest/pages/login/user-login-page.*`, `admin-login-page.*`
+- **Guest login:** `guest/pages/user-login/`, `guest/pages/admin-login/`
 - **Guest register:** `guest/pages/register/register-company-page.*` (+ `register-company.service.ts` stub)
 - **App URLs:** `shared/constants/app-urls.ts` (barrel), `guest-urls.ts`, `user-urls.ts`, `admin-urls.ts`, `portal-kind.type.ts`
 - **BiH cities:** `shared/constants/bih-cities.ts` — `BIH_CITY_OPTIONS` for autocomplete origin/destination fields

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanMatchFn, Router } from '@angular/router';
 import type { PortalKind } from '../../shared/constants/portal-kind.type';
-import { LANDING_URL, portalHomeUrl } from '../../shared/constants/app-urls';
+import { SIGN_IN_URL, portalHomeUrl } from '../../shared/constants/app-urls';
 import { AuthService } from '../../shared/core/auth/auth.service';
 
 export function portalMatchGuard(expectedKind: PortalKind): CanMatchFn {
@@ -10,7 +10,7 @@ export function portalMatchGuard(expectedKind: PortalKind): CanMatchFn {
     const router = inject(Router);
 
     if (!auth.isAuthenticated()) {
-      return router.createUrlTree([LANDING_URL]);
+      return router.createUrlTree([SIGN_IN_URL]);
     }
 
     const sessionKind = auth.portalKind();

@@ -1,51 +1,30 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './guards/guest.guard';
-import { AdminLoginPageComponent } from './pages/login/admin-login-page.component';
-import { UserLoginPageComponent } from './pages/login/user-login-page.component';
-import { LandingPageComponent } from './pages/landing/landing-page.component';
+import { AdminLoginPageComponent } from './pages/admin-login/admin-login-page.component';
+import { PortalPickerPageComponent } from './pages/portal-picker/portal-picker-page.component';
 import { RegisterCompanyPageComponent } from './pages/register/register-company-page.component';
-import { SignInPageComponent } from './pages/sign-in/sign-in-page.component';
-import { GuestShellComponent } from './shell/guest-shell/guest-shell.component';
+import { UserLoginPageComponent } from './pages/user-login/user-login-page.component';
 
 export default [
   {
     path: '',
-    component: GuestShellComponent,
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: LandingPageComponent,
-        canActivate: [guestGuard],
-        data: { showFooter: true, showNavActions: true },
-      },
-      {
-        path: 'sign-in',
-        component: SignInPageComponent,
-        canActivate: [guestGuard],
-        data: { showNavActions: true },
-      },
-      {
-        path: 'login',
-        component: UserLoginPageComponent,
-        canActivate: [guestGuard],
-      },
-      {
-        path: 'register',
-        component: RegisterCompanyPageComponent,
-        canActivate: [guestGuard],
-      },
-    ],
+    pathMatch: 'full',
+    component: PortalPickerPageComponent,
+    canActivate: [guestGuard],
   },
   {
-    path: 'admin',
-    component: GuestShellComponent,
-    children: [
-      {
-        path: 'login',
-        component: AdminLoginPageComponent,
-        canActivate: [guestGuard],
-      },
-    ],
+    path: 'login',
+    component: UserLoginPageComponent,
+    canActivate: [guestGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterCompanyPageComponent,
+    canActivate: [guestGuard],
+  },
+  {
+    path: 'admin/login',
+    component: AdminLoginPageComponent,
+    canActivate: [guestGuard],
   },
 ] satisfies Routes;

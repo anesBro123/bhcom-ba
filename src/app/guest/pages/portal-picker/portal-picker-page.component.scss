@@ -1,7 +1,6 @@
 @use 'styles/breakpoints' as *;
-@use 'styles/auth-card-footer';
 
-.sign-in {
+.portal-picker {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -10,37 +9,31 @@
   padding-block: 1rem 2rem;
 }
 
-.sign-in__header {
+.portal-picker__header {
   text-align: center;
 }
 
-.sign-in__title {
+.portal-picker__title {
   margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.sign-in__subtitle {
+.portal-picker__subtitle {
   margin: 0;
   font-size: 0.9375rem;
   color: var(--text-secondary);
 }
 
-.sign-in__cards {
+.portal-picker__cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.sign-in__footer {
-  margin-top: 0.5rem;
-  border-top: 0;
-  padding-top: 0;
-}
-
 @include below-md {
-  .sign-in__cards {
+  .portal-picker__cards {
     grid-template-columns: 1fr;
   }
 }

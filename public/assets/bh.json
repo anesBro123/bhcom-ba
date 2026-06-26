@@ -181,53 +181,9 @@
     }
   },
   "guest": {
-    "backToHome": "Nazad na početnu",
     "topbar": {
       "signIn": "Prijava",
       "register": "Registracija kompanije"
-    },
-    "footer": {
-      "copyright": "© 2026 BHCOM.BA. Sva prava zadržana.",
-      "privacy": "Privatnost",
-      "terms": "Uslovi",
-      "contact": "Kontakt"
-    },
-    "landing": {
-      "hero": {
-        "title": "Logističke operacije za moderna vozila",
-        "subtitle": "Upravljajte pošiljkama, flotom i postavkama organizacije na jednoj platformi prilagođenoj Bosni i Hercegovini.",
-        "ctaRegister": "Registrujte kompaniju",
-        "ctaSignIn": "Prijava"
-      },
-      "features": {
-        "title": "Sve što vam treba za logistiku",
-        "fleet": {
-          "title": "Upravljanje flotom",
-          "description": "Pratite vozila, održavanje i dodjele vozača iz jednog radnog prostora."
-        },
-        "shipments": {
-          "title": "Praćenje pošiljki",
-          "description": "Kreirajte, pratite i rješavajte pošiljke uz operativni uvid u realnom vremenu."
-        },
-        "admin": {
-          "title": "Kontrola organizacije",
-          "description": "Administratori konfigurišu platformu, upravljaju korisnicima i postavkama kompanije."
-        }
-      },
-      "portals": {
-        "title": "Izaberite portal",
-        "subtitle": "Korisnici i administratori organizacije koriste odvojene portale za prijavu.",
-        "admin": {
-          "badge": "Admin portal",
-          "title": "Za administratore organizacije",
-          "description": "Prijavite se za upravljanje kompanijom, korisnicima i konfiguracijom platforme."
-        },
-        "user": {
-          "badge": "Portal korisnika",
-          "title": "Za korisnike",
-          "description": "Prijavite se za dnevne operacije — pošiljke, flota, narudžbe i izvještaji."
-        }
-      }
     },
     "signIn": {
       "title": "Prijava na BHCOM",

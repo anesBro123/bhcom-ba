@@ -1,18 +1,6 @@
 @use 'styles/breakpoints' as *;
 
-:host {
-  display: block;
-  min-height: 100vh;
-  background: var(--bg-page);
-}
-
-.guest-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.guest-shell__content {
+@mixin shell-content {
   flex: 1;
   overflow-y: auto;
   padding: var(--layout-padding-y) var(--layout-padding-x);

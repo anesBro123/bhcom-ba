@@ -67,7 +67,7 @@ import {
   saveViewMode,
 } from '../table-filter-storage';
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
-import { MOBILE_MEDIA_QUERY } from '../../../portal/shell/viewport';
+import { MOBILE_MEDIA_QUERY } from '../../constants/viewport';
 import { entityContextClass } from '../../constants/entity-context-class';
 import type { UserEntityTab } from '../../constants/user-urls';
 import { formatDisplayDate } from '../../utils/format-display-date';

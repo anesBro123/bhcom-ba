@@ -51,12 +51,11 @@ Table **filter labels**: `portal.user.features.<entity>.table.filters.*`. Legacy
 
 | Path | Use for |
 |------|---------|
-| `guest.landing.*` | Landing page |
-| `guest.signIn.*` | Portal picker |
+| `guest.signIn.*` | Portal picker at `/` |
 | `guest.login.*` | User + admin login pages |
 | `guest.register.*` | Company registration page chrome |
 | `guest.register.form.*` | Register company stepper form |
-| `guest.topbar.*`, `guest.footer.*` | Guest shell |
+| `guest.topbar.*` | App topbar (guest mode) |
 
 ### Portal admin feature example
 

@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { ADMIN_LOGIN_URL, LANDING_URL } from '../../../shared/constants/app-urls';
+import { SIGN_IN_URL } from '../../../shared/constants/app-urls';
 import { FormPageComponent } from '../../../shared/form';
 import { RegisterCompanyForm } from './register-company.form';
 import type { RegisterCompanyFormModel } from './register-company.model';
@@ -31,8 +31,7 @@ export class RegisterCompanyPageComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly formDef = RegisterCompanyForm;
-  protected readonly landingUrl = LANDING_URL;
-  protected readonly loginUrl = ADMIN_LOGIN_URL;
+  protected readonly signInUrl = SIGN_IN_URL;
   protected readonly submitting = signal(false);
   protected readonly submitted = signal(false);
   protected readonly errorKey = signal<string | null>(null);

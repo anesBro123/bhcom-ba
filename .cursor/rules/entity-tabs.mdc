@@ -47,7 +47,7 @@ Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userFin
 
 For `[routerLink]` in templates, use `userFindRoute()` / `userOurListingsRoute()` — `{ route, queryParams }`. Do **not** bind `userFindUrl()` strings to `routerLink` (Angular encodes `?` into the path segment).
 
-Sidebar hub links stay active with `?tab=` via `navLinkActiveOptions()` in `portal/common/utils/nav-link-active-options.ts` — see `layout.mdc`.
+Hub pages use `EntityTabsComponent` for in-page tab switching — see `layout.mdc`.
 
 ## Hub pages
 
@@ -84,7 +84,7 @@ Marketplace and our table page components accept `embedded = input(false)`. When
 
 ## Sidebar (Plan 3)
 
-Four flat clickable sections in `USER_NAV` — Home, Find, Our listings, Offer (`NavSection.route`; no nested items). See `layout.mdc`.
+User portal primary nav: topbar Search + Offer links (`user-topbar-nav.config.ts`). Hub routes (`/find`, `/our-listings`) use `EntityTabsComponent` for entity tabs — see `layout.mdc`.
 
 ## Do not
 

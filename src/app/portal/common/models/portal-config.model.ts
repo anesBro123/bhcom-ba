@@ -1,10 +1,15 @@
 import { InjectionToken } from '@angular/core';
 import type { PortalKind } from '../../../shared/constants/portal-kind.type';
-import type { NavSection } from './nav.model';
+
+export interface TopbarNavItem {
+  labelKey: string;
+  route: string;
+  exact?: boolean;
+}
 
 export interface PortalConfig {
   portalKind: PortalKind;
-  nav: NavSection[];
+  topbarNav: TopbarNavItem[];
   shell: {
     brandSuffixKey: string;
     homeUrl: string;
