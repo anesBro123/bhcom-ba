@@ -169,12 +169,12 @@
   width: 100%;
   height: 100%;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--bg-form-toggle-track);
   transition: background-color 0.15s ease;
 }
 
 .form-toggle__input:checked + .form-toggle__track {
-  background: var(--bg-form-progress-fill);
+  background: var(--bg-form-toggle-track-checked);
 }
 
 .form-toggle__thumb {
@@ -184,12 +184,16 @@
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 50%;
-  background: var(--text-primary);
-  transition: transform 0.15s ease;
+  background: var(--bg-form-toggle-thumb);
+  box-shadow: var(--shadow-form-toggle-thumb);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .form-toggle__input:checked ~ .form-toggle__thumb {
   transform: translateX(1.25rem);
+  background: var(--bg-form-toggle-thumb-checked);
 }
 
 .form-checkbox-row {
