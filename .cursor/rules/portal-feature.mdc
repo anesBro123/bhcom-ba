@@ -83,8 +83,9 @@ Angular `path` segments in `*.routes.ts` stay relative (`vehicles`, `create`, `:
 
 ```html
 <app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />
-<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
+<app-page-title [titleKey]="pageTitleKey()" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" entityTab="vehicles" />
 <app-form-page
+  entityTab="vehicles"
   [definition]="formDef()"
   [formGroup]="form"
   [submitDisabled]="submitting()"
@@ -186,6 +187,7 @@ export const TransportOurTable = buildTransportTable('our');
 
 - User: `buildDetailPageActions('user', entity, { isOwnListing, editRoute })` from `shared/detail/detail-page.constants.ts`; navigation via `entity-detail-navigation.ts` (`EntityDetailOrigin = 'marketplace' | 'our'`).
 - Admin: `buildDetailPageActions('admin', entity, { editRoute })`; back/subtitle via `portal/admin/common/admin-entity-detail-navigation.ts`.
+- Pass matching `entityTab` on `app-page-title` and `app-detail-page-layout` — summary left + top, detail cards left spine only (`entity-service-colors.mdc`).
 
 ## i18n
 

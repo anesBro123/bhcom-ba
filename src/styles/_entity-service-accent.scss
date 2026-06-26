@@ -33,7 +33,14 @@
   --entity-accent-spine-strong: var(--entity-accent);
 }
 
-@mixin entity-table-card-rest {
+@mixin entity-card-accent-rest {
+  border-left-width: 3px;
+  border-left-color: var(--entity-accent-spine);
+  border-top-width: 1px;
+  border-top-color: var(--entity-accent-spine);
+}
+
+@mixin entity-card-accent-spine {
   border-left-width: 3px;
   border-left-color: var(--entity-accent-spine);
 }
@@ -70,7 +77,7 @@
 // Data table entity context (global — keeps data-table.component.scss under budget)
 app-data-table.data-table--band-ladder[class*='entity-context--'] {
   .data-table-card {
-    @include entity-table-card-rest;
+    @include entity-card-accent-rest;
   }
 
   .data-table-filters--active {
@@ -106,7 +113,7 @@ app-data-table.data-table--band-ladder[class*='entity-context--'] {
 app-data-table.data-table--split-card[class*='entity-context--'] {
   .data-table-controls-card,
   .data-table-data-card {
-    @include entity-table-card-rest;
+    @include entity-card-accent-rest;
   }
 
   .data-table-filters--active .data-table-filters__active-count {
@@ -131,5 +138,34 @@ app-data-table.data-table--split-card[class*='entity-context--'] {
 
   app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card--clickable:active {
     border-left-color: var(--border-table);
+  }
+}
+
+// Form + detail card entity context — first surface: left + top; following surfaces: left spine only
+app-form-page[class*='entity-context--'] {
+  .form-stepper-card {
+    @include entity-card-accent-rest;
+  }
+
+  .form-page__step-content .form-section-card:not(.form-section-card--flat):not(.form-section-card--headless) {
+    @include entity-card-accent-spine;
+  }
+
+  .form-page__sections > app-form-section:first-of-type .form-section-card:not(.form-section-card--flat):not(.form-section-card--headless) {
+    @include entity-card-accent-rest;
+  }
+
+  .form-page__sections > app-form-section:not(:first-of-type) .form-section-card:not(.form-section-card--flat):not(.form-section-card--headless) {
+    @include entity-card-accent-spine;
+  }
+}
+
+app-detail-page-layout[class*='entity-context--'] {
+  .entity-detail-summary {
+    @include entity-card-accent-rest;
+  }
+
+  .detail-page-card {
+    @include entity-card-accent-spine;
   }
 }

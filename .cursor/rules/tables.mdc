@@ -51,7 +51,7 @@ User/vehicle/warehouse table page components are **not** standalone routes. Embe
 
 Reference: `portal/admin/features/users/table/`, `vehicles/table/`, `warehouses/table/`.
 
-**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — identical rest left spine on controls + data cards, row hover; **row cards (mobile + desktop card view) have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
+**Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — **3px left + 1px top** `--entity-accent-spine` on controls + data cards, row hover; **row cards (mobile + desktop card view) have no entity spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 
 ## Table cell visual hierarchy (user portal lists)
 

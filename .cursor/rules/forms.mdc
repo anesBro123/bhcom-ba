@@ -42,7 +42,7 @@ Matches `PageTitleComponent` header pattern inside form cards (`form-section.com
 1. **Model** — `*.model.ts` interface for form value (`Entity extends FormModel & { id }` for CRUD).
 2. **Definition** — `export const X = defineForm<Model>()({ mode: 'single' | 'stepper', steps: [...] })` in `*.form.ts`.
 3. **Page** — `FormBuilder` group mirrors every field key; validators on the `FormGroup`, not only in the def.
-4. **Template** — `PageBackLinkComponent` + `PageTitleComponent` + `<app-form-page …>`; add stepper inputs when needed (below).
+4. **Template** — `PageBackLinkComponent` + `PageTitleComponent` + `<app-form-page …>`; pass matching `entityTab` on title + form page (portal entity CRUD); add stepper inputs when needed (below).
 5. **i18n** — keys under feature namespace + `shared.form.common.*` for chrome; both `en.json` and `bh.json`.
 
 ## `FormPageComponent` API
@@ -54,6 +54,7 @@ Matches `PageTitleComponent` header pattern inside form cards (`form-section.com
 | `submitDisabled` | `boolean` | `false` | Bind `submitting()` during async save |
 | `stepperMode` | `'create' \| 'edit'` | `'create'` | Stepper validation init (see below) |
 | `stepperDataReady` | `boolean` | `false` | Set `true` after create init or edit `patchValue` |
+| `entityTab` | `EntityContextTab` | — | Optional — entity card accent on host via `entityContextClass()`; see `entity-service-colors.mdc` |
 | `submit` | output | — | Fires only after framework validates all steps |
 | `stepChange` | `{ from, to }` | — | Optional tracking |
 
@@ -62,6 +63,21 @@ Custom content: `formFieldKey` / `formSectionKey` / `formStepKey` + `*Template` 
 Field types: text, email, tel, number, **date**, **datePeriod**, password, textarea, select, **autocomplete**, radio, checkbox, toggle, custom. Options: `{ value, labelKey? }` or `{ value, label? }` for plain-string labels (cities). Optional `autocomplete` (HTML attr), `hidden`, `disabled`, `minDate` / `maxDate`, `endKey` / `periodMode` (date period), `errorKeys` on `FieldDef`.
 
 Submit in page handler: `form.getRawValue() as Model` — framework already validated before `(submit)` fires.
+
+### Entity card accent (`entityTab`)
+
+Portal entity create/edit pages pass the same `entityTab` on `app-page-title` (icon tint) and `app-form-page` (card chrome). `FormPageComponent` applies `entityContextClass()` on its host; global rules in `_entity-service-accent.scss`:
+
+- **Stepper forms:** `.form-stepper-card` — left + top; step `.form-section-card` items — left spine only
+- **Single-step:** first `.form-section-card` in `.form-page__sections` — left + top; later sections — left spine only
+- Guest login/register — omit `entityTab`
+
+```html
+<app-page-title … entityTab="transport" />
+<app-form-page entityTab="transport" [definition]="formDef()" [formGroup]="form" … />
+```
+
+See `entity-service-colors.mdc`.
 
 ## Autocomplete field (`type: 'autocomplete'`)
 

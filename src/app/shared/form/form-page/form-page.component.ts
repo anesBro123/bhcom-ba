@@ -26,6 +26,10 @@ import { FormFooterComponent } from '../form-footer/form-footer.component';
 import { FormGridComponent } from '../form-grid/form-grid.component';
 import { FormSectionComponent } from '../form-section/form-section.component';
 import { FormStepperComponent } from '../form-stepper/form-stepper.component';
+import {
+  entityContextClass,
+  type EntityContextTab,
+} from '../../constants/entity-context-class';
 import { FormStore } from '../form.store';
 import {
   applyFieldDisabledState,
@@ -56,6 +60,9 @@ import type {
   ],
   templateUrl: './form-page.component.html',
   styleUrl: './form-page.component.scss',
+  host: {
+    '[class]': 'entityHostClass()',
+  },
 })
 export class FormPageComponent<T extends object> implements OnInit, AfterContentInit {
   definition = input.required<FormDefinition<T>>();
@@ -63,6 +70,8 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   submitDisabled = input(false);
   stepperMode = input<StepperMode>('create');
   stepperDataReady = input(false);
+  /** Optional service type — entity left spine on form cards. */
+  entityTab = input<EntityContextTab>();
 
   submit = output<void>();
   stepChange = output<{ from: number; to: number }>();
@@ -88,6 +97,8 @@ export class FormPageComponent<T extends object> implements OnInit, AfterContent
   protected readonly sectionTemplateMap = signal(
     new Map<string, TemplateRef<FormSectionContext<T>>>(),
   );
+
+  protected readonly entityHostClass = computed(() => entityContextClass(this.entityTab()));
 
   protected readonly isStepper = computed(() => this.definition().mode === 'stepper');
   protected readonly showStepper = computed(

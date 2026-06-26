@@ -1,6 +1,6 @@
 ---
 description: User portal service-type colors (transport, freight, warehouse) — context chrome only
-globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/entity-create-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/,src/app/portal/admin/features/home/**,src/app/portal/admin/features/*/form/**,src/app/portal/admin/features/*/detail/**,src/app/portal/admin/features/*/table/**
+globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/ui/detail-page-layout/**,src/app/shared/form/form-page/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/entity-create-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/,src/app/portal/admin/features/home/**,src/app/portal/admin/features/*/form/**,src/app/portal/admin/features/*/detail/**,src/app/portal/admin/features/*/table/**
 alwaysApply: false
 ---
 
@@ -49,6 +49,10 @@ Default `entity-context-tokens` mixin — **signal** level on user entities + ad
 
 ## UX pattern — “accent spine”
 
+| State | Entity cards (tables, primary form/detail surface) |
+|-------|-----------------------------------------------------|
+| Rest | **3px left** + **1px top** `--entity-accent-spine`; other sides `1px` neutral |
+
 | State | Entity create menu options, active entity tabs |
 |-------|-----------------------------------------------|
 | Rest | **3px left spine** + **colored icon** (`--entity-accent-icon`) |
@@ -56,11 +60,20 @@ Default `entity-context-tokens` mixin — **signal** level on user entities + ad
 
 Icons + labels remain required (color-blind safe).
 
-## Components with optional `entityTab`
+## SCSS mixins (`_entity-service-accent.scss`)
+
+| Mixin | Effect |
+|-------|--------|
+| `entity-card-accent-rest` | **3px left** + **1px top** `--entity-accent-spine`; other sides `1px` neutral |
+| `entity-card-accent-spine` | **3px left** only — stacks below a surface that has the top cap |
+
+**Connected stack (forms + details):** first card gets `entity-card-accent-rest`; cards below get `entity-card-accent-spine` so the left spine continues from the top cap. Hub table cards each get full `entity-card-accent-rest` (controls + data are separate units, not a vertical stack).
 
 | Component | Input | When to set |
 |-----------|-------|-------------|
 | `PageTitleComponent` | `entityTab` | User + admin entity create/edit + detail pages |
+| `FormPageComponent` | `entityTab` | User + admin entity create/edit — top cap on stepper or first section; left spine on following sections |
+| `DetailPageLayoutComponent` | `entityTab` | User + admin entity detail — top cap on summary; left spine on detail cards below |
 | `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables + admin hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
 | `EntityTabsComponent` | `accentMode` | User + admin hubs: default `'entity'` — active pill gets `entity-context--{tab}`. Use `'neutral'` only when tabs must stay uncolored |
 | `EntityCreateMenuComponent` | per-option `entityTab` | Colored spine + icon on create dropdown options (user + admin) |
@@ -73,7 +86,7 @@ Default layout is **split card** (`tableChromeVariant` default `'splitCard'`): f
 
 When `entityTab` is set on host:
 
-- **Controls + data cards (always):** `1px` neutral `--border-table` on top/right/bottom + `3px` left `--entity-accent-spine` — **identical** on both cards; no filter-active border upgrade on controls card
+- **Controls + data cards (always):** `1px` neutral on right/bottom + **3px left** + **1px top** `--entity-accent-spine` — **identical** on both cards; no filter-active border upgrade on controls card
 - **Filter state:** communicated via chips band, active count (`--entity-accent-icon`), and mobile toggle dot — not card border hierarchy
 - **Chips band:** neutral `--bg-table-filter-chips` only — no entity soft wash
 - Row hover: `--entity-accent-row-hover`
@@ -83,7 +96,32 @@ When `entityTab` is set on host:
 
 Table entity chrome lives in `_entity-service-accent.scss` + `_table-chrome-split-card.scss` (global) to stay within component SCSS budget.
 
-## Adding a fourth service type
+## Form + detail cards (`FormPageComponent`, `DetailPageLayoutComponent`)
+
+Entity chrome in `_entity-service-accent.scss` — `entity-card-accent-rest`: `1px` neutral right/bottom + **3px left** + **1px top** `--entity-accent-spine`.
+
+When `entityTab` is set on host:
+
+**Form pages** (`app-form-page[class*='entity-context--']`):
+
+- **First surface (left + top):** `.form-stepper-card` (stepper forms) or first `.form-section-card` in `.form-page__sections` (single-step)
+- **Following surfaces (left spine only):** step section cards in `.form-page__step-content`, or `.form-section-card` after the first in single-step
+- **Excluded:** `--flat` / `--headless` variants; guest register/login (no `entityTab`)
+
+**Detail pages** (`app-detail-page-layout[class*='entity-context--']`):
+
+- **First surface (left + top):** `.entity-detail-summary` glance band
+- **Following surfaces (left spine only):** `.detail-page-card` (body, loading)
+- **Excluded:** `DetailActionBarComponent`
+
+Set the same `entityTab` on `PageTitleComponent` (icon tint), `FormPageComponent` / `DetailPageLayoutComponent` (card accent), and `DataTableComponent` (hub tables) on entity pages.
+
+### Wiring checklist (new entity CRUD)
+
+1. Hub table page: `[entityTab]="'<tab>'"` on `app-data-table`
+2. Form page: `entityTab="<tab>"` on `app-page-title` **and** `app-form-page`
+3. Detail page: `entityTab="<tab>"` on `app-page-title` **and** `app-detail-page-layout`
+4. Guest register/login — omit `entityTab` on all of the above
 
 1. Extend `UserEntityTab` + `USER_ENTITY_TABS` in `user-urls.ts`
 2. Add bases + `.entity-context--*` block in `_entity-service-accent.scss`

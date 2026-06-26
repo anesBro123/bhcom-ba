@@ -27,7 +27,7 @@ Canonical top-level heading for **portal shell pages** (hub, table, form, settin
 |------|-------|
 | Path | `shared/ui/page-title/page-title.component.ts` |
 | Selector | `app-page-title` |
-| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**); `icon` (required `LucideIcon` — entity icon from portal page-icons); `entityTab` (optional `UserEntityTab` — tints decorative icon on user entity form/detail pages) |
+| Inputs | `titleKey` (required i18n key); `subtitleKey` (optional i18n key — **required on every portal page**); `icon` (required `LucideIcon` — entity icon from portal page-icons); `entityTab` (optional `EntityContextTab` — tints decorative icon; pair with `FormPageComponent` / `DetailPageLayoutComponent` for card chrome) |
 | Import | Direct path — no barrel; add to page component `imports: [PageTitleComponent]` |
 
 ```typescript
@@ -38,7 +38,7 @@ import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-tit
 <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" entityTab="transport" />
 ```
 
-User entity create/edit/detail pages: pass matching `entityTab` — see `entity-service-colors.mdc`. Hub / admin pages: omit (neutral icon).
+User entity create/edit/detail pages: pass matching `entityTab` on `app-page-title` — and on `app-form-page` / `app-detail-page-layout` for card accent (see `entity-service-colors.mdc`). Hub / admin home pages: omit on title (neutral icon).
 
 Static keys:
 

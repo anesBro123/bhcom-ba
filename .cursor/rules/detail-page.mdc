@@ -22,7 +22,7 @@ Read-only entity detail **pages** for user portal tables. Do not use `DetailModa
 
 | Component | Path | Role |
 |-----------|------|------|
-| `DetailPageLayoutComponent` | `shared/ui/detail-page-layout/` | Slots: `[detailBack]`, `app-page-title`, `[detailSummary]`, `[detailContent]`, `[detailFooterActions]` |
+| `DetailPageLayoutComponent` | `shared/ui/detail-page-layout/` | Slots: `[detailBack]`, `app-page-title`, `[detailSummary]`, `[detailContent]`, `[detailFooterActions]`; optional `entityTab` — card accent on summary + detail cards |
 | `EntityDetailSummaryComponent` | `shared/ui/entity-detail-summary/` | Primary glance band — **location left**, **status badge right** |
 | `DetailActionBarComponent` | `shared/ui/detail-action-bar/` | Header action buttons; `layout: 'inline' \| 'stack'` |
 
@@ -74,9 +74,14 @@ URL builders in `user-urls.ts`: `userTransportDetailUrl(id)`, `userFreightDetail
 Use **separate `@if` blocks** per projected slot — Angular control flow breaks multi-node projection (NG8011).
 
 ```html
-<app-detail-page-layout>
+<app-detail-page-layout entityTab="transport">
   <app-page-back-link detailBack [route]="back().url" [labelKey]="back().labelKey" />
-  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey()" [icon]="pageIcon" />
+  <app-page-title
+    [titleKey]="pageTitleKey"
+    [subtitleKey]="pageSubtitleKey()"
+    [icon]="pageIcon"
+    entityTab="transport"
+  />
 
   @if (loading()) {
     <section detailContent class="detail-page-card detail-page-card--loading">…</section>
@@ -99,6 +104,8 @@ Use **separate `@if` blocks** per projected slot — Angular control flow breaks
 Warehouse: `kind="warehouse"` + `[warehouseName]` + `[warehouseCity]`.
 
 Shared card styles: `styles/_detail-page.scss` (`.detail-page-card`).
+
+**Entity card accent:** pass matching `entityTab` on `app-page-title` and `app-detail-page-layout`. Summary band gets left + top; `.detail-page-card` below gets left spine only. See `entity-service-colors.mdc`.
 
 ## Actions
 
@@ -153,6 +160,7 @@ Same `shared/detail/` framework; simpler navigation (no marketplace vs our-listi
 - URLs: `adminUserDetailUrl()`, `adminVehicleDetailUrl()`, `adminWarehouseDetailUrl()` in `admin-urls.ts`
 - Row click on hub tables → detail; `viewDetails` row action duplicates row click
 - `PageTitleComponent` + `DataTableComponent` use `entityTab`: `users` \| `vehicles` \| `warehouses`
+- Detail pages: same `entityTab` on `DetailPageLayoutComponent` — see `entity-service-colors.mdc`
 - Delete redirect → `adminHomeUrl(matchingTab)`
 
 Do not reintroduce global detail modal host or sidebar action layout experiments.

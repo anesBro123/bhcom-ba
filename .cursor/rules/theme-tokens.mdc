@@ -49,9 +49,9 @@ Canvas (--bg-app) visible between cards
 
 **Table row cards (mobile + desktop card view):** `--border-table-row-card`, `--shadow-table-row-card`, `--shadow-table-row-card-hover` in `styles.scss`; chrome in `_table-chrome-split-card.scss` (`0.75rem` radius, `1.125rem` padding, subtle elevation). Hover lifts border + shadow on clickable rows.
 
-**Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts keep the same rest spine on both cards — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
+**Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts keep **3px left + 1px top** on both cards — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
 
-**User hub tables:** when `entityTab` is set, **controls + data cards** share identical chrome — `1px` `--border-table` + `3px` left `--entity-accent-spine`. No chips wash, no filter-active border emphasis. See `entity-service-colors.mdc`.
+**User hub tables:** when `entityTab` is set, **controls + data cards** share identical chrome — `1px` neutral right/bottom + **3px left** + **1px top** `--entity-accent-spine`. No chips wash, no filter-active border emphasis. See `entity-service-colors.mdc`.
 
 **Table header tokens:** `--border-table-header-strong`, `--shadow-table-header-sticky`, `--text-table-header-size` (caption), `--text-table-header-weight` (semibold).
 
