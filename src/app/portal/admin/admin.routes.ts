@@ -1,29 +1,24 @@
 import { Routes } from '@angular/router';
-import { AdminDashboardPageComponent } from './features/dashboard/admin-dashboard-page.component';
+import { AdminHomePageComponent } from './features/home/admin-home-page.component';
 import { AdminSettingsPageComponent } from './features/settings/admin-settings-page.component';
+import { UserDetailPageComponent } from './features/users/detail/user-detail-page.component';
 import { UserFormPageComponent } from './features/users/form/user-form-page.component';
-import { UserTablePageComponent } from './features/users/table/user-table-page.component';
+import { VehicleDetailPageComponent } from './features/vehicles/detail/vehicle-detail-page.component';
 import { VehicleFormPageComponent } from './features/vehicles/form/vehicle-form-page.component';
-import { VehicleTablePageComponent } from './features/vehicles/table/vehicle-table-page.component';
+import { WarehouseDetailPageComponent } from './features/warehouses/detail/warehouse-detail-page.component';
 import { WarehouseFormPageComponent } from './features/warehouses/form/warehouse-form-page.component';
-import { WarehouseTablePageComponent } from './features/warehouses/table/warehouse-table-page.component';
 
 export default [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: 'dashboard',
-    component: AdminDashboardPageComponent,
-    data: { titleKey: 'portal.admin.pages.dashboard.title' },
+    path: 'home',
+    component: AdminHomePageComponent,
+    data: { titleKey: 'portal.admin.pages.home.title' },
   },
   {
     path: 'settings',
     component: AdminSettingsPageComponent,
     data: { titleKey: 'portal.admin.pages.settings.title' },
-  },
-  {
-    path: 'users',
-    component: UserTablePageComponent,
-    data: { titleKey: 'portal.admin.pages.users.title' },
   },
   {
     path: 'users/create',
@@ -36,9 +31,9 @@ export default [
     data: { titleKey: 'portal.admin.pages.editUser.title' },
   },
   {
-    path: 'vehicles',
-    component: VehicleTablePageComponent,
-    data: { titleKey: 'portal.admin.pages.vehicles.title' },
+    path: 'users/:id',
+    component: UserDetailPageComponent,
+    data: { titleKey: 'portal.admin.pages.viewUser.title' },
   },
   {
     path: 'vehicles/create',
@@ -51,9 +46,9 @@ export default [
     data: { titleKey: 'portal.admin.pages.editVehicle.title' },
   },
   {
-    path: 'warehouses',
-    component: WarehouseTablePageComponent,
-    data: { titleKey: 'portal.admin.pages.warehouses.title' },
+    path: 'vehicles/:id',
+    component: VehicleDetailPageComponent,
+    data: { titleKey: 'portal.admin.pages.viewVehicle.title' },
   },
   {
     path: 'warehouses/create',
@@ -64,5 +59,10 @@ export default [
     path: 'warehouses/:id/edit',
     component: WarehouseFormPageComponent,
     data: { titleKey: 'portal.admin.pages.editWarehouse.title' },
+  },
+  {
+    path: 'warehouses/:id',
+    component: WarehouseDetailPageComponent,
+    data: { titleKey: 'portal.admin.pages.viewWarehouse.title' },
   },
 ] satisfies Routes;

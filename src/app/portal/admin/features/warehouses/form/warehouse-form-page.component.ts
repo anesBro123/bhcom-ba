@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { ADMIN_WAREHOUSES_URL } from '../../../../../shared/constants/app-urls';
+import { adminHomeUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
@@ -17,6 +17,7 @@ import { AdminWarehouseForm, AdminWarehouseFormEditActions } from './warehouse.f
 import type { WarehouseFormModel } from '../data/warehouse.model';
 import { AdminWarehouseService } from '../data/warehouse.service';
 import { AdminPageIcons } from '../../../admin-page-icons';
+import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../admin-home-navigation';
 
 @Component({
   selector: 'app-warehouse-form-page',
@@ -51,8 +52,8 @@ export class WarehouseFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.warehouses;
-  protected readonly backUrl = ADMIN_WAREHOUSES_URL;
-  protected readonly backLabelKey = 'portal.admin.nav.allWarehouses';
+  protected readonly backUrl = adminHomeUrl('warehouses');
+  protected readonly backLabelKey = ADMIN_HOME_BACK_LABEL_KEY;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
@@ -87,7 +88,7 @@ export class WarehouseFormPageComponent implements OnInit {
           });
         },
         error: () => {
-          void this.router.navigateByUrl(ADMIN_WAREHOUSES_URL);
+          void this.router.navigateByUrl(adminHomeUrl('warehouses'));
         },
       });
   }
@@ -107,7 +108,7 @@ export class WarehouseFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(ADMIN_WAREHOUSES_URL);
+        void this.router.navigateByUrl(adminHomeUrl('warehouses'));
       },
       error: () => {
         this.submitting.set(false);

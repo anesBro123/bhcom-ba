@@ -8,6 +8,8 @@ export const DETAIL_ACTION_DELETE = 'delete';
 
 export type DetailPageEntity = 'transport' | 'freight' | 'warehouse';
 
+export type AdminDetailPageEntity = 'users' | 'vehicles' | 'warehouses';
+
 export function buildDetailPageActions(
   entity: DetailPageEntity,
   options: { isOwnListing: boolean; editRoute?: string },
@@ -37,6 +39,28 @@ export function buildDetailPageActions(
       labelKey: `portal.user.features.${entity}.table.actions.sendRequest`,
       icon: LucideSend,
       variant: 'primary',
+    },
+  ];
+}
+
+export function buildAdminDetailPageActions(
+  entity: AdminDetailPageEntity,
+  options: { editRoute: string },
+): DetailActionDef[] {
+  return [
+    {
+      id: DETAIL_ACTION_EDIT,
+      labelKey: `portal.admin.features.${entity}.table.actions.edit`,
+      icon: LucidePencil,
+      variant: 'primary',
+      route: options.editRoute,
+    },
+    {
+      id: DETAIL_ACTION_DELETE,
+      labelKey: `portal.admin.features.${entity}.table.actions.delete`,
+      icon: LucideTrash,
+      variant: 'secondary',
+      danger: true,
     },
   ];
 }

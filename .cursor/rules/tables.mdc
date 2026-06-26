@@ -25,10 +25,31 @@ Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not us
 
 Marketplace (`table-all/`) and our (`table-our/`) table page components are **not** standalone routes. Hub pages embed them:
 
-- `features/home/home-page.component.*` — `TransportAllTablePageComponent`, etc. with `[embedded]="true"`
-- `features/our-listings/our-listings-page.component.*` — `TransportOurTablePageComponent`, etc. with `[embedded]="true"`; hub header owns tab-specific create CTA
+- `features/home/home-page.component.*` — `TransportAllTablePageComponent`, etc.
+- `features/our-listings/our-listings-page.component.*` — `TransportOurTablePageComponent`, etc.; hub header owns tab-specific create CTA; optional `emptyActionRoute` on our tables
 
-See `entity-tabs.mdc` for tab URL convention (`userSearchUrl`, `userOurListingsUrl`, `userSearchRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
+See `entity-tabs.mdc` for tab URL convention (`userMarketplaceUrl`, `userOurListingsUrl`, `userMarketplaceRoute`, `userOurListingsRoute`).
+
+## Admin hub tables
+
+User/vehicle/warehouse table page components are **not** standalone routes. Embedded in `portal/admin/features/home/` at `/admin/home?tab=`:
+
+- `UserTablePageComponent`, `VehicleTablePageComponent`, `WarehouseTablePageComponent` with `[embedded]="true"`
+- Hub owns title + neutral `EntityTabsComponent`; create via topbar `AdminCreateMenuComponent` (not per-table CTA)
+- `[entityTab]="'users'|'vehicles'|'warehouses'"` on `DataTableComponent` — entity-colored split-card chrome
+- Row click → `admin*DetailUrl(id)`; `viewDetails` row action duplicates row click — see `detail-page.mdc`, `entity-tabs.mdc`
+
+**Primary identifier columns** (`mobile.primary` — card header in list + card view):
+
+| Entity | Column key | Cell |
+|--------|------------|------|
+| Users | `lastName` | Custom: `{{ row.firstName }} {{ row.lastName }}` |
+| Vehicles | `marka` | `app-vehicle-display` — `[name]="row.marka"` `[plate]="row.registarskaOznaka"` |
+| Warehouses | `name` | `app-warehouse-display` — `[name]="row.name"` `[city]="row.city"` |
+
+**Filters:** colocated `data/*-table-filters.ts`; `filterStorageKey` `bhcom-ba.filters.admin.*`; services use `applyTableFilters()` — see `table-filters.mdc`.
+
+Reference: `portal/admin/features/users/table/`, `vehicles/table/`, `warehouses/table/`.
 
 **Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — identical rest left spine on controls + data cards, row hover; **row cards (mobile + desktop card view) have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 

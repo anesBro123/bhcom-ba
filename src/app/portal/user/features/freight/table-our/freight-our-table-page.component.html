@@ -1,20 +1,11 @@
-@if (!embedded()) {
-  <app-page-header>
-    <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
-    <app-primary-action-link
-      [route]="createUrl"
-      [labelKey]="createLabelKey"
-      entityTab="freight"
-    />
-  </app-page-header>
-}
-
 @if (tableMounted()) {
   <app-data-table
     entityTab="freight"
     [definition]="table"
     [loader]="loadCargo"
     [rowClickEnabled]="true"
+    [emptyActionRoute]="createUrl"
+    [emptyActionLabelKey]="createLabelKey"
     (rowClick)="onRowClick($event)"
     (rowAction)="onRowAction($event)"
   >

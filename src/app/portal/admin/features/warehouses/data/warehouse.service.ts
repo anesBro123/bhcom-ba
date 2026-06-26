@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
-import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { applyTableFilters } from '../../../../../shared/table/apply-table-filters';
+import type { PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
 import { WAREHOUSE_MOCK_DATA } from './warehouse.mock-data';
 import type { Warehouse, WarehouseFormModel } from './warehouse.model';
-import { WarehouseTable } from '../table/warehouse.table';
+import { WAREHOUSE_TABLE_FILTERS } from './warehouse-table-filters';
 
 @Injectable({ providedIn: 'root' })
 export class AdminWarehouseService {
@@ -55,30 +56,7 @@ export class AdminWarehouseService {
   }
 
   private applyQuery(items: Warehouse[], query: TableQuery): Warehouse[] {
-    let result = items;
-    const filters = WarehouseTable.filters as FilterDef<Warehouse>[] | undefined;
-
-    for (const [key, value] of Object.entries(query.filters)) {
-      if (value === null || value === undefined || value === '') {
-        continue;
-      }
-
-      const filterDef = filters?.find((filter) => filter.key === key);
-      result = result.filter((item) => {
-        const record = item as unknown as Record<string, unknown>;
-
-        if (filterDef?.type === 'search') {
-          const fields = filterDef.searchFields ?? [filterDef.key];
-          const needle = String(value).toLowerCase();
-          return fields.some((field) => {
-            const fieldValue = record[field];
-            return fieldValue !== null && String(fieldValue).toLowerCase().includes(needle);
-          });
-        }
-
-        return String(record[key]) === String(value);
-      });
-    }
+    let result = applyTableFilters(items, query, WAREHOUSE_TABLE_FILTERS);
 
     if (query.sortField && query.sortDirection) {
       result.sort((left, right) => {

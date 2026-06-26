@@ -1,0 +1,26 @@
+<div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
+  <app-page-title
+    titleKey="portal.admin.pages.home.title"
+    subtitleKey="portal.admin.pages.home.subtitle"
+    [icon]="pageIcon"
+  />
+
+  <app-entity-tabs
+    ariaLabelKey="portal.admin.features.adminEntityTabs.ariaLabel"
+    [activeTab]="activeTab()"
+    [tabs]="entityTabs"
+    (tabChange)="onTabChange($event)"
+  />
+</div>
+
+@switch (activeTab()) {
+  @case ('vehicles') {
+    <app-vehicle-table-page [embedded]="true" />
+  }
+  @case ('warehouses') {
+    <app-warehouse-table-page [embedded]="true" />
+  }
+  @default {
+    <app-user-table-page [embedded]="true" />
+  }
+}

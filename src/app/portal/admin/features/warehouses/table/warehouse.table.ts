@@ -1,30 +1,27 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
-import { defineTable } from '../../../../../shared/table';
+import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import type { Warehouse } from '../data/warehouse.model';
-import { ADMIN_WAREHOUSES_API, WAREHOUSE_TYPE_OPTIONS } from '../data/warehouse.constants';
+import { ADMIN_WAREHOUSES_API } from '../data/warehouse.constants';
+import { WAREHOUSE_FILTER_STORAGE_KEY, WAREHOUSE_TABLE_FILTERS } from '../data/warehouse-table-filters';
 
 export const WarehouseTable = defineTable<Warehouse>()({
   endpoint: ADMIN_WAREHOUSES_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.warehouses.table.entity',
+  filterStorageKey: WAREHOUSE_FILTER_STORAGE_KEY,
   defaultPageSize: 10,
   defaultSort: { field: 'name', direction: 'asc' },
   trackBy: 'id',
   columns: [
     {
       key: 'name',
-      titleKey: 'portal.admin.features.warehouses.table.columns.name',
+      titleKey: 'portal.admin.features.warehouses.table.columns.warehouse',
       sortable: true,
-      width: '200px',
+      cell: 'custom',
+      width: '18rem',
       mobile: { primary: true },
-    },
-    {
-      key: 'city',
-      titleKey: 'portal.admin.features.warehouses.table.columns.city',
-      sortable: true,
-      width: '140px',
     },
     {
       key: 'capacityM2',
@@ -54,6 +51,11 @@ export const WarehouseTable = defineTable<Warehouse>()({
   actions: {
     width: '3.5rem',
     items: [
+      {
+        id: 'viewDetails',
+        labelKey: 'portal.admin.features.warehouses.table.actions.viewDetails',
+        icon: LucideEye,
+      },
       { id: 'edit', labelKey: 'portal.admin.features.warehouses.table.actions.edit', icon: LucidePencil },
       {
         id: 'delete',
@@ -63,21 +65,8 @@ export const WarehouseTable = defineTable<Warehouse>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'name',
-      type: 'search',
-      titleKey: 'portal.admin.features.warehouses.table.filters.search',
-      placeholderKey: 'portal.admin.features.warehouses.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['name', 'address', 'city', 'country'],
-    },
-    {
-      key: 'type',
-      type: 'select',
-      titleKey: 'portal.admin.features.warehouses.table.filters.type',
-      placeholderKey: 'portal.admin.features.warehouses.table.filters.allTypes',
-      options: [...WAREHOUSE_TYPE_OPTIONS],
-    },
-  ],
+  filters: WAREHOUSE_TABLE_FILTERS,
 });
+
+export const warehouseDisplayCellKey = tableCellKey(WarehouseTable, 'name');
+export const warehouseTypeCellKey = tableCellKey(WarehouseTable, 'type');

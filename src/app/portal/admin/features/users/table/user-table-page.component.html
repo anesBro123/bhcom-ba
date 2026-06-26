@@ -1,8 +1,14 @@
-<app-page-header>
-  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
-  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
-</app-page-header>
-
 @if (tableMounted()) {
-  <app-data-table [definition]="table" [loader]="loadUsers" (rowAction)="onRowAction($event)" />
+  <app-data-table
+    entityTab="users"
+    [definition]="table"
+    [loader]="loadUsers"
+    [rowClickEnabled]="true"
+    (rowClick)="onRowClick($event)"
+    (rowAction)="onRowAction($event)"
+  >
+    <ng-template [appTableCell]="nameKey" let-row>
+      <span class="user-table-name">{{ row.firstName }} {{ row.lastName }}</span>
+    </ng-template>
+  </app-data-table>
 }

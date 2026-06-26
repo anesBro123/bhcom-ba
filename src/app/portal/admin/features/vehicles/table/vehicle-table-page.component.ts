@@ -1,38 +1,27 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { ADMIN_CREATE_VEHICLE_URL, adminEditVehicleUrl } from '../../../../../shared/constants/app-urls';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { adminEditVehicleUrl, adminVehicleDetailUrl } from '../../../../../shared/constants/app-urls';
+import { VehicleDisplayComponent } from '../../../../../shared/ui/vehicle-display/vehicle-display.component';
 import { VehicleTypeDisplayComponent } from '../../../../../shared/ui/vehicle-type-display/vehicle-type-display.component';
 import type { VehicleType } from '../../../../../shared/constants/vehicle-type';
 
 import {
   DataTableComponent,
   TableCellTemplateDirective,
-  tableCellKey,
   type RowActionEvent,
   type TableLoader,
 } from '../../../../../shared/table';
 
 import type { Vehicle } from '../data/vehicle.model';
 import { AdminVehicleService } from '../data/vehicle.service';
-import { AdminPageIcons } from '../../../admin-page-icons';
-import { VehicleTable } from './vehicle.table';
+import { VehicleTable, vehicleDisplayCellKey, vehicleTypeCellKey } from './vehicle.table';
 
 @Component({
   selector: 'app-vehicle-table-page',
-  imports: [
-    DataTableComponent,
-    TableCellTemplateDirective,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
-    VehicleTypeDisplayComponent,
-  ],
+  imports: [DataTableComponent, TableCellTemplateDirective, VehicleTypeDisplayComponent, VehicleDisplayComponent],
   templateUrl: './vehicle-table-page.component.html',
   styleUrl: './vehicle-table-page.component.scss',
 })
@@ -41,13 +30,11 @@ export class VehicleTablePageComponent {
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
+  readonly embedded = input(false);
+
   protected readonly table = VehicleTable;
-  protected readonly pageTitleKey = 'portal.admin.pages.vehicles.title';
-  protected readonly pageSubtitleKey = 'portal.admin.pages.vehicles.subtitle';
-  protected readonly pageIcon = AdminPageIcons.vehicles;
-  protected readonly createUrl = ADMIN_CREATE_VEHICLE_URL;
-  protected readonly createLabelKey = 'portal.admin.nav.createVehicle';
-  protected readonly vehicleTypeKey = tableCellKey(VehicleTable, 'vehicleType');
+  protected readonly vehicleKey = vehicleDisplayCellKey;
+  protected readonly vehicleTypeKey = vehicleTypeCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadVehicles: TableLoader<Vehicle> = (query) =>
@@ -57,8 +44,15 @@ export class VehicleTablePageComponent {
     return value as VehicleType;
   }
 
+  protected onRowClick(row: Vehicle): void {
+    void this.router.navigateByUrl(adminVehicleDetailUrl(row.id));
+  }
+
   protected onRowAction(event: RowActionEvent<Vehicle>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.onRowClick(event.row);
+        break;
       case 'edit':
         void this.router.navigateByUrl(adminEditVehicleUrl(event.row.id));
         break;

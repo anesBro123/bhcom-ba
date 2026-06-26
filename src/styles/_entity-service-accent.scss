@@ -8,12 +8,18 @@
   --entity-transport-base: #38bdf8;
   --entity-freight-base: #fed7aa;
   --entity-warehouse-base: #f0abfc;
+  --entity-users-base: #2dd4bf;
+  --entity-vehicles-base: #38bdf8;
+  --entity-warehouses-base: #f0abfc;
 }
 
 [data-theme='light'] {
   --entity-transport-base: #0284c7;
   --entity-freight-base: #ea580c;
   --entity-warehouse-base: #a21caf;
+  --entity-users-base: #0d9488;
+  --entity-vehicles-base: #0284c7;
+  --entity-warehouses-base: #a21caf;
 }
 
 @mixin entity-context-tokens($base) {
@@ -46,6 +52,24 @@
 
 .entity-context--warehouse {
   @include entity-context-tokens(var(--entity-warehouse-base));
+}
+
+.entity-context--users {
+  @include entity-context-tokens(var(--entity-users-base));
+  --entity-accent-icon: color-mix(in srgb, var(--entity-users-base) 78%, var(--text-muted));
+  --entity-accent-spine: color-mix(in srgb, var(--entity-users-base) 42%, transparent);
+  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-users-base) 62%, transparent);
+}
+
+.entity-context--vehicles {
+  @include entity-context-tokens(var(--entity-vehicles-base));
+  --entity-accent-icon: color-mix(in srgb, var(--entity-vehicles-base) 78%, var(--text-muted));
+  --entity-accent-spine: color-mix(in srgb, var(--entity-vehicles-base) 42%, transparent);
+  --entity-accent-spine-strong: color-mix(in srgb, var(--entity-vehicles-base) 62%, transparent);
+}
+
+.entity-context--warehouses {
+  @include entity-context-tokens(var(--entity-warehouses-base));
 }
 
 // Data table entity context (global — keeps data-table.component.scss under budget)

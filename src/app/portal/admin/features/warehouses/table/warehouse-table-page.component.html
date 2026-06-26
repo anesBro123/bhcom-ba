@@ -1,10 +1,15 @@
-<app-page-header>
-  <app-page-title [titleKey]="pageTitleKey" [subtitleKey]="pageSubtitleKey" [icon]="pageIcon" />
-  <app-primary-action-link [route]="createUrl" [labelKey]="createLabelKey" />
-</app-page-header>
-
 @if (tableMounted()) {
-  <app-data-table [definition]="table" [loader]="loadWarehouses" (rowAction)="onRowAction($event)">
+  <app-data-table
+    entityTab="warehouses"
+    [definition]="table"
+    [loader]="loadWarehouses"
+    [rowClickEnabled]="true"
+    (rowClick)="onRowClick($event)"
+    (rowAction)="onRowAction($event)"
+  >
+    <ng-template [appTableCell]="warehouseKey" let-row>
+      <app-warehouse-display [name]="row.name" [city]="row.city" />
+    </ng-template>
     <ng-template [appTableCell]="typeKey" let-row>
       <span>{{ warehouseTypeLabel(row.type) | translate }}</span>
     </ng-template>

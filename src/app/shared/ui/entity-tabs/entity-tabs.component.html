@@ -1,4 +1,4 @@
-<nav class="entity-tabs" [attr.aria-label]="'portal.user.features.entityTabs.ariaLabel' | translate">
+<nav class="entity-tabs" [attr.aria-label]="ariaLabelKey() | translate">
   @for (tab of tabs(); track tab.id) {
     <button
       type="button"

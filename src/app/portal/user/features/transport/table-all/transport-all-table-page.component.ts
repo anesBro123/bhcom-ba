@@ -1,10 +1,9 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
 import { userTransportDetailUrl } from '../../../../../shared/constants/app-urls';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
@@ -20,7 +19,6 @@ import {
 import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Transport } from '../data/transport.model';
 import { UserTransportService } from '../data/transport.service';
-import { UserPageIcons } from '../../../user-page-icons';
 import {
   TransportAllTable,
   transportAllCellKey,
@@ -40,21 +38,15 @@ import {
     StatusBadgeComponent,
     VehicleDisplayComponent,
     VehicleTypeDisplayComponent,
-    PageTitleComponent,
   ],
   templateUrl: './transport-all-table-page.component.html',
 })
 export class TransportAllTablePageComponent {
-  readonly embedded = input(false);
-
   private readonly routeService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = TransportAllTable;
-  protected readonly pageTitleKey = 'portal.user.pages.marketplaceTransport.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.marketplaceTransport.subtitle';
-  protected readonly pageIcon = UserPageIcons.transport;
   protected readonly transportKey = transportAllCellKey;
   protected readonly statusKey = transportAllStatusCellKey;
   protected readonly vehicleKey = transportAllVehicleCellKey;

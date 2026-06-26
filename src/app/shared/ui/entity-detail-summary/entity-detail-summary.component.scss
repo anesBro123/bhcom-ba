@@ -37,6 +37,24 @@
   }
 }
 
+.entity-detail-summary__user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.entity-detail-summary__user-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.entity-detail-summary__user-email {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 .entity-detail-summary__status {
   flex-shrink: 0;
   align-self: flex-start;

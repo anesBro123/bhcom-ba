@@ -1,4 +1,5 @@
 import {
+  LucideHome,
   LucideLayoutGrid,
   LucideSettings,
   LucideTruck,
@@ -8,6 +9,7 @@ import {
 import type { LucideIcon } from '@lucide/angular';
 
 export const AdminPageIcons = {
+  home: LucideHome,
   dashboard: LucideLayoutGrid,
   users: LucideUsers,
   vehicles: LucideTruck,

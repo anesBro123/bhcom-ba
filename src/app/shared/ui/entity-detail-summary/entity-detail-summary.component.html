@@ -1,11 +1,27 @@
 <div class="entity-detail-summary">
   <div class="entity-detail-summary__location">
-    @if (kind() === 'route') {
-      <app-route-display [origin]="origin()!" [destination]="destination()!" />
-    } @else {
-      <app-warehouse-display [name]="warehouseName()!" [city]="warehouseCity()!" />
+    @switch (kind()) {
+      @case ('route') {
+        <app-route-display [origin]="origin()!" [destination]="destination()!" />
+      }
+      @case ('user') {
+        <div class="entity-detail-summary__user">
+          <span class="entity-detail-summary__user-name">{{ firstName() }} {{ lastName() }}</span>
+          @if (email(); as userEmail) {
+            <span class="entity-detail-summary__user-email">{{ userEmail }}</span>
+          }
+        </div>
+      }
+      @case ('vehicle') {
+        <app-vehicle-display [name]="vehicleName()!" [plate]="vehiclePlate()!" />
+      }
+      @default {
+        <app-warehouse-display [name]="warehouseName()!" [city]="warehouseCity()!" />
+      }
     }
   </div>
 
-  <app-status-badge class="entity-detail-summary__status" [status]="status()" />
+  @if (status(); as entityStatus) {
+    <app-status-badge class="entity-detail-summary__status" [status]="entityStatus" />
+  }
 </div>

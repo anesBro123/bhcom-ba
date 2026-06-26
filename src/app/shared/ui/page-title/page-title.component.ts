@@ -4,7 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import type { LucideIcon } from '@lucide/angular';
 
 import { entityContextClass } from '../../constants/entity-context-class';
-import type { UserEntityTab } from '../../constants/user-urls';
+import type { EntityContextTab } from '../../constants/entity-context-class';
 
 @Component({
   selector: 'app-page-title',
@@ -21,7 +21,7 @@ export class PageTitleComponent {
   readonly subtitleParams = input<Record<string, string>>();
   readonly icon = input.required<LucideIcon>();
   /** Optional service type — tints the decorative entity icon. */
-  readonly entityTab = input<UserEntityTab>();
+  readonly entityTab = input<EntityContextTab>();
 
   protected readonly iconInputs = { size: 20 };
   protected readonly entityHostClass = computed(() => entityContextClass(this.entityTab()));

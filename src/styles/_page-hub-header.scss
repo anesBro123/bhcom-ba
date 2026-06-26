@@ -3,3 +3,16 @@
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-subtle);
 }
+
+.page-hub-header__cross-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--text-secondary);
+    text-decoration: underline;
+  }
+}

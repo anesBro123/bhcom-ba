@@ -3,6 +3,8 @@
     <app-brand-mark [linkUrl]="brandLinkUrl()" [portalSuffixKey]="brandSuffixKey()" />
     @if (mode() === 'user') {
       <app-offer-menu (menuOpenChange)="onOfferMenuOpenChange($event)" />
+    } @else if (mode() === 'admin') {
+      <app-admin-create-menu (menuOpenChange)="onAdminCreateMenuOpenChange($event)" />
     }
   </div>
 
@@ -59,15 +61,17 @@
           <div class="topbar__account-menu" role="menu">
             <p class="topbar__account-header">{{ 'shared.topbar.account.title' | translate }}</p>
             <div class="topbar__account-divider" role="separator"></div>
-            <button
-              type="button"
-              class="topbar__account-item"
-              role="menuitem"
-              (click)="onProfileClick()"
-            >
-              <svg lucideListChecks [size]="18" class="topbar__account-icon" />
-              <span>{{ 'shared.topbar.account.profile' | translate }}</span>
-            </button>
+            @if (mode() === 'user') {
+              <button
+                type="button"
+                class="topbar__account-item"
+                role="menuitem"
+                (click)="onProfileClick()"
+              >
+                <svg lucideListChecks [size]="18" class="topbar__account-icon" />
+                <span>{{ 'shared.topbar.account.profile' | translate }}</span>
+              </button>
+            }
             @if (showAdminSettings()) {
               <button
                 type="button"

@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { ADMIN_USERS_URL } from '../../../../../shared/constants/app-urls';
+import { adminHomeUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
@@ -17,6 +17,7 @@ import { AdminUserForm, AdminUserFormEditActions } from './user.form';
 import type { UserFormModel } from '../data/user.model';
 import { AdminUserService } from '../data/user.service';
 import { AdminPageIcons } from '../../../admin-page-icons';
+import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../admin-home-navigation';
 
 @Component({
   selector: 'app-user-form-page',
@@ -51,8 +52,8 @@ export class UserFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.users;
-  protected readonly backUrl = ADMIN_USERS_URL;
-  protected readonly backLabelKey = 'portal.admin.nav.allUsers';
+  protected readonly backUrl = adminHomeUrl('users');
+  protected readonly backLabelKey = ADMIN_HOME_BACK_LABEL_KEY;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
@@ -87,7 +88,7 @@ export class UserFormPageComponent implements OnInit {
           });
         },
         error: () => {
-          void this.router.navigateByUrl(ADMIN_USERS_URL);
+          void this.router.navigateByUrl(adminHomeUrl('users'));
         },
       });
   }
@@ -107,7 +108,7 @@ export class UserFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(ADMIN_USERS_URL);
+        void this.router.navigateByUrl(adminHomeUrl('users'));
       },
       error: () => {
         this.submitting.set(false);

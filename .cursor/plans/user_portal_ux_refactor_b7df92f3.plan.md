@@ -335,11 +335,82 @@ Optional muted cross-link in template footer (not banner): on marketplace pages 
 
 ---
 
-# Plan 3 — Intent sidebar with tab hubs
+# Plan 3 — Hub architecture (complete)
 
-**Prerequisite:** Plan 1 complete. **Mutually exclusive with Plan 2** (different `USER_NAV` + hub routes).
+**Status:** **Complete** (user + admin portals). **Plan 2 cancelled** — topbar-only shell chosen over sidebar intent nav.
 
-## 3.1 Sidebar (4 intents, no entity links)
+**Prerequisite:** Plan 1 entity rename complete.
+
+## What shipped (user portal)
+
+Topbar-only IA — no sidebar, no `/find`, no `/offer` route:
+
+| Surface | Route | EN | BH | Icon |
+|---------|-------|----|----|------|
+| Marketplace hub | `/home?tab=` | Marketplace | Tržište | `UserPageIcons.marketplace` |
+| My listings hub | `/our-listings?tab=` | My listings | Moje objave | `UserPageIcons.ourListings` |
+| Publish | topbar `+` (`OfferMenuComponent`) | — | — | — |
+| Account | Moje objave → `/our-listings` | My listings | Moje objave | `LucideListChecks` |
+
+### Components and routes
+
+- **`EntityTabsComponent`** — `shared/ui/entity-tabs/`; `accentMode: 'entity'` on user hubs; sticky tabs; mobile horizontal scroll.
+- **Hub pages:** `features/home/` (marketplace), `features/our-listings/` (my listings) — `.page-hub-header` + tab-specific publish CTA + muted cross-link + embedded tables.
+- **Hub-only list routes** in `user.routes.ts` — no standalone `/transport`, `/freight`, `/warehouse`, or `*/our` list pages.
+- **Embedded table pages** — `table-all/` and `table-our/` render `DataTableComponent` only (no standalone page chrome).
+- **URL builders:** `userMarketplaceUrl()` / `userMarketplaceRoute()` (marketplace), `userOurListingsUrl()` / `userOurListingsRoute()` (my listings). Deprecated aliases: `userSearchUrl`, `userSearchRoute`.
+- **Detail back links:** `MARKETPLACE_BACK_LABEL_KEY` / `OUR_LISTINGS_BACK_LABEL_KEY` via `entity-detail-navigation.ts`.
+- **Cross-links:** `pages.home.crossLink` ↔ `pages.ourListings.crossLink` below entity tabs.
+- **Empty state CTA:** `*OurTablePage` passes `emptyActionRoute` + `emptyActionLabelKey` to `DataTableComponent`.
+
+### Deferred / out of scope
+
+- Sidebar intent nav (Home / Find / Our listings / Offer)
+- `/find` route (marketplace lives at `/home`)
+- `/offer` picker page (topbar `+` menu)
+- Home journey / marketing dashboard
+- Mobile bottom nav
+
+## What shipped (admin portal)
+
+Mirrors single-home + tabs pattern (company-scoped CRUD only):
+
+| Surface | Route | Notes |
+|---------|-------|-------|
+| Admin home hub | `/admin/home?tab=` | Users \| Vehicles \| Warehouses tabs |
+| Create | topbar `+` (`AdminCreateMenuComponent`) | → `ADMIN_CREATE_*_URL` |
+| Account | Settings + Logout only | **No** Moje objave |
+| Row click | → edit form | `adminEdit*Url(id)` — no detail pages |
+
+- **`ADMIN_HOME_URL`** = `/admin/home`; `adminHomeUrl(tab?)` / `adminHomeRoute(tab?)`.
+- **Removed:** dashboard, standalone `/admin/users|vehicles|warehouses` list routes.
+- **Kept:** create/edit per entity, settings.
+- **Entity tabs:** `accentMode="neutral"` on admin hub.
+- **Forms:** back link + post-save redirect → `adminHomeUrl(matchingTab)`.
+
+## Cursor rules updated
+
+| File | Updates |
+|------|---------|
+| `entity-tabs.mdc` | User hub pattern, `userMarketplaceUrl`, cross-links, embedded tables |
+| `app-urls.mdc` | `userMarketplaceUrl` / `userMarketplaceRoute`, `adminHomeUrl` |
+| `portal-feature.mdc` | User + admin hub patterns |
+| `layout.mdc` | Topbar account menu per portal |
+| `AGENTS.md` | Hub architecture reference |
+
+## Verification
+
+- User: `/home` + `/our-listings` tabs, row click → detail, forms → my listings, topbar navigation.
+- Admin: `/admin/home` tabs, row click → edit, create menu, no Moje objave in account menu.
+- `npm run build` passes.
+
+---
+
+## Historical Plan 3 spec (superseded)
+
+The sections below described the original sidebar + `/find` design. Implementation diverged as documented above.
+
+## 3.1 Sidebar (4 intents, no entity links) — cancelled
 
 Replace [`user-nav.config.ts`](src/app/portal/user/user-nav.config.ts):
 

@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Table filters (`src/app/shared/table`)
 
-User portal list pages (transport, freight, warehouse — All + My) use the shared filter framework inside `DataTableComponent`. **Do not** build ad-hoc filter UI on list pages.
+User portal list pages (transport, freight, warehouse — All + My) and **admin hub tables** (users, vehicles, warehouses on `/admin/home`) use the shared filter framework inside `DataTableComponent`. **Do not** build ad-hoc filter UI on list pages.
 
 ## File layout
 
@@ -25,9 +25,9 @@ User portal list pages (transport, freight, warehouse — All + My) use the shar
 | Date range | `shared/table/table-filter-date-range/` — wraps `DatePeriodPickerComponent` (`variant="filter"`) |
 | Number range | `shared/table/table-filter-number-range/` — **custom** dual-thumb slider (not native `<input type="range">`), summary line |
 | Chips | `shared/table/table-filter-chips/` — one removable chip per filter dimension; `[compact]` input for mobile truncation + layout |
-| Per-page defs | `portal/user/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
+| Per-page defs | `portal/{user|admin}/features/<domain>/data/*-table-filters.ts` — export `*_TABLE_FILTERS` + `*_FILTER_STORAGE_KEY` |
 
-Reference defs: `portal/user/features/transport/data/transport-table-filters.ts`, `cargo/data/freight-table-filters.ts`, `storage/data/warehouse-table-filters.ts`.
+Reference defs: user — `portal/user/features/transport/data/transport-table-filters.ts`, `freight/data/freight-table-filters.ts`, `warehouse/data/warehouse-table-filters.ts`; admin — `portal/admin/features/users/data/user-table-filters.ts`, `vehicles/data/vehicle-table-filters.ts`, `warehouses/data/warehouse-table-filters.ts`.
 
 ## Wiring a filtered table
 
@@ -230,7 +230,15 @@ Reuse form option `labelKey`s in filter `options` where enums overlap. Cargo siz
 
 ## Admin portal
 
-Admin tables today use simpler `search` / `select` filters only. Full advanced filter framework is **user portal** scope unless explicitly extended.
+Admin hub tables (users, vehicles, warehouses) use the same framework as the user portal:
+
+- Colocated `portal/admin/features/<entity>/data/*-table-filters.ts` + `filterStorageKey` (`bhcom-ba.filters.admin.*`) on `*.table.ts`
+- Mock services apply filters via shared `applyTableFilters()` (not inline `search`/`select` loops)
+- **Users:** permission `optionTiles` (`BOOLEAN_FILTER_OPTIONS`), `dateOfBirth` `dateRange` (`singleDate`), toolbar search
+- **Vehicles:** `vehicleType` / `vrstaGoriva` `optionTiles` (icons on vehicle type), four registration `dateRange` filters, expanded search over string + numeric fields
+- **Warehouses:** city `multiSelect`, type `optionTiles`, capacity/height/floors/racks `numberRange`, facility booleans `optionTiles`, toolbar search
+
+i18n: `portal.admin.features.<entity>.table.filters.*`; reuse `shared.common.booleanYes` / `booleanNo` for boolean tiles; all `dateRange` filters use `shared.table.filters.period` except vehicle-specific date labels where distinct titles are needed.
 
 ## Do not
 

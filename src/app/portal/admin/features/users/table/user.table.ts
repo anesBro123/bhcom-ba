@@ -1,29 +1,26 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
-import { defineTable } from '../../../../../shared/table';
+import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import type { User } from '../data/user.model';
 import { ADMIN_USERS_API } from '../data/user.constants';
+import { USER_FILTER_STORAGE_KEY, USER_TABLE_FILTERS } from '../data/user-table-filters';
 
 export const UserTable = defineTable<User>()({
   endpoint: ADMIN_USERS_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.users.table.entity',
+  filterStorageKey: USER_FILTER_STORAGE_KEY,
   defaultPageSize: 10,
   defaultSort: { field: 'lastName', direction: 'asc' },
   trackBy: 'id',
   columns: [
     {
-      key: 'firstName',
-      titleKey: 'portal.admin.features.users.table.columns.firstName',
-      sortable: true,
-      width: '140px',
-    },
-    {
       key: 'lastName',
-      titleKey: 'portal.admin.features.users.table.columns.lastName',
+      titleKey: 'portal.admin.features.users.table.columns.name',
       sortable: true,
-      width: '140px',
+      cell: 'custom',
+      width: '14rem',
       mobile: { primary: true },
     },
     {
@@ -55,6 +52,11 @@ export const UserTable = defineTable<User>()({
   actions: {
     width: '3.5rem',
     items: [
+      {
+        id: 'viewDetails',
+        labelKey: 'portal.admin.features.users.table.actions.viewDetails',
+        icon: LucideEye,
+      },
       { id: 'edit', labelKey: 'portal.admin.features.users.table.actions.edit', icon: LucidePencil },
       {
         id: 'delete',
@@ -64,14 +66,7 @@ export const UserTable = defineTable<User>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'firstName',
-      type: 'search',
-      titleKey: 'portal.admin.features.users.table.filters.search',
-      placeholderKey: 'portal.admin.features.users.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['firstName', 'lastName', 'email', 'phone', 'jmbg'],
-    },
-  ],
+  filters: USER_TABLE_FILTERS,
 });
+
+export const userNameCellKey = tableCellKey(UserTable, 'lastName');

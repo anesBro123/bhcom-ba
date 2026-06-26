@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
@@ -10,9 +10,6 @@ import {
   userFreightDetailUrl,
 } from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { FreightSizeDisplayComponent } from '../ui/freight-size-display/freight-size-display.component';
@@ -26,7 +23,6 @@ import {
 import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Freight } from '../data/freight.model';
 import { UserFreightService } from '../data/freight.service';
-import { UserPageIcons } from '../../../user-page-icons';
 import {
   FreightOurTable,
   freightOurNeededByDateCellKey,
@@ -46,23 +42,15 @@ import {
     DateRangeDisplayComponent,
     StatusBadgeComponent,
     FreightSizeDisplayComponent,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
   ],
   templateUrl: './freight-our-table-page.component.html',
 })
 export class FreightOurTablePageComponent {
-  readonly embedded = input(false);
-
   private readonly cargoService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = FreightOurTable;
-  protected readonly pageTitleKey = 'portal.user.pages.ourFreight.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.ourFreight.subtitle';
-  protected readonly pageIcon = UserPageIcons.freight;
   protected readonly createUrl = USER_CREATE_FREIGHT_URL;
   protected readonly createLabelKey = 'portal.user.pages.createFreight.title';
   protected readonly routeKey = freightOurRouteCellKey;

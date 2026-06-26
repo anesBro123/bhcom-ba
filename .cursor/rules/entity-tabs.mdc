@@ -36,23 +36,25 @@ Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG
 |----------|-------------|
 | `USER_HOME_URL` | `/home` — marketplace hub |
 | `USER_OUR_LISTINGS_URL` | `/our-listings` — my listings hub |
-| `userSearchUrl(tab?)` | `/home?tab=transport` — marketplace tab navigation (`navigateByUrl()` only) |
+| `userMarketplaceUrl(tab?)` | `/home?tab=transport` — marketplace tab navigation (`navigateByUrl()` only) |
 | `userOurListingsUrl(tab?)` | `/our-listings?tab=transport` — my listings tab navigation |
-| `userSearchRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for marketplace |
+| `userMarketplaceRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for marketplace |
 | `userOurListingsRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for my listings |
+
+Deprecated aliases: `userSearchUrl`, `userSearchRoute`.
 
 Parse query with `parseUserEntityTab()` from `shared/constants/user-urls.ts`.
 
-Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userSearchUrl()` / `userOurListingsUrl()` on tab change.
+Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userMarketplaceUrl()` / `userOurListingsUrl()` on tab change.
 
-For `[routerLink]` in templates, use `userSearchRoute()` / `userOurListingsRoute()`. Do **not** bind `userSearchUrl()` strings to `routerLink` (Angular encodes `?` into the path segment).
+For `[routerLink]` in templates, use `userMarketplaceRoute()` / `userOurListingsRoute()`. Do **not** bind marketplace URL strings to `routerLink` (Angular encodes `?` into the path segment).
 
 ## Hub pages
 
 | Feature | Route | Title keys | Icon | Table body |
 |---------|-------|------------|------|------------|
-| `features/home/` | `/home` | `pages.home.*` | `UserPageIcons.marketplace` (`LucideLayoutGrid`) | Embedded `*AllTablePageComponent` `[embedded]="true"` |
-| `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | `UserPageIcons.ourListings` (`LucideListChecks`) | Embedded `*OurTablePageComponent` `[embedded]="true"` |
+| `features/home/` | `/home` | `pages.home.*` | `UserPageIcons.marketplace` (`LucideLayoutGrid`) | Embedded `*AllTablePageComponent` |
+| `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | `UserPageIcons.ourListings` (`LucideListChecks`) | Embedded `*OurTablePageComponent` |
 
 Both hubs: `PageHeaderComponent` + tab-specific `PrimaryActionLink` (publish CTA via `userCreateListingLabelKey()`).
 
@@ -78,16 +80,29 @@ Wrap **page header** (`PageHeader` + title + tab-specific publish CTA) and **`ap
     <app-primary-action-link [route]="offerUrl()" [labelKey]="offerLabelKey()" />
   </app-page-header>
   <app-entity-tabs … />
+  <a class="page-hub-header__cross-link" [routerLink]="crossLinkRoute().route" [queryParams]="crossLinkRoute().queryParams">
+    {{ 'portal.user.pages.home.crossLink' | translate }}
+  </a>
 </div>
 ```
 
-My listings hub: same pattern with `pages.ourListings.*` keys.
+My listings hub: same pattern with `pages.ourListings.*` keys and `pages.ourListings.crossLink`.
 
 Embedded table pages render **below** the wrapper. See `page-title.mdc`.
 
 ## Embedded table pages
 
-Marketplace and our table page components accept `embedded = input(false)`. When `true`, skip `PageTitleComponent` / `PageHeaderComponent` chrome; render `DataTableComponent` only.
+Marketplace and our table page components render `DataTableComponent` only — no standalone page title/header. Hub pages own all chrome.
+
+Our-listings tables may pass `emptyActionRoute` + `emptyActionLabelKey` to `DataTableComponent` for publish CTA on empty state.
+
+## Admin hub
+
+| Feature | Route | Tabs | Notes |
+|---------|-------|------|-------|
+| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` with entity accent (`users` / `vehicles` / `warehouses`) |
+
+Admin URL builders: `adminHomeUrl(tab?)`, `adminHomeRoute(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete. Create via topbar `AdminCreateMenuComponent` with per-option entity colors.
 
 ## Topbar navigation
 

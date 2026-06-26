@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { take } from 'rxjs';
@@ -6,7 +6,6 @@ import { take } from 'rxjs';
 import { ConfirmService } from '../../../../../shared/confirm';
 import { userFreightDetailUrl } from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { FreightSizeDisplayComponent } from '../ui/freight-size-display/freight-size-display.component';
@@ -20,7 +19,6 @@ import {
 import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Freight } from '../data/freight.model';
 import { UserFreightService } from '../data/freight.service';
-import { UserPageIcons } from '../../../user-page-icons';
 import {
   FreightAllTable,
   freightAllNeededByDateCellKey,
@@ -40,21 +38,15 @@ import {
     DateRangeDisplayComponent,
     StatusBadgeComponent,
     FreightSizeDisplayComponent,
-    PageTitleComponent,
   ],
   templateUrl: './freight-all-table-page.component.html',
 })
 export class FreightAllTablePageComponent {
-  readonly embedded = input(false);
-
   private readonly cargoService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = FreightAllTable;
-  protected readonly pageTitleKey = 'portal.user.pages.marketplaceFreight.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.marketplaceFreight.subtitle';
-  protected readonly pageIcon = UserPageIcons.freight;
   protected readonly routeKey = freightAllRouteCellKey;
   protected readonly statusKey = freightAllStatusCellKey;
   protected readonly freightTypeKey = freightAllTypeCellKey;

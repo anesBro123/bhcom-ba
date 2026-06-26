@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of, throwError } from 'rxjs';
 
-import type { FilterDef, PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
+import { applyTableFilters } from '../../../../../shared/table/apply-table-filters';
+import type { PaginatedResponse, TableQuery } from '../../../../../shared/table/table.types';
 
 import { VEHICLE_MOCK_DATA } from './vehicle.mock-data';
 import type { Vehicle, VehicleFormModel } from './vehicle.model';
-import { VehicleTable } from '../table/vehicle.table';
+import { VEHICLE_TABLE_FILTERS } from './vehicle-table-filters';
 
 @Injectable({ providedIn: 'root' })
 export class AdminVehicleService {
@@ -55,30 +56,7 @@ export class AdminVehicleService {
   }
 
   private applyQuery(items: Vehicle[], query: TableQuery): Vehicle[] {
-    let result = items;
-    const filters = VehicleTable.filters as FilterDef<Vehicle>[] | undefined;
-
-    for (const [key, value] of Object.entries(query.filters)) {
-      if (value === null || value === undefined || value === '') {
-        continue;
-      }
-
-      const filterDef = filters?.find((filter) => filter.key === key);
-      result = result.filter((item) => {
-        const record = item as unknown as Record<string, unknown>;
-
-        if (filterDef?.type === 'search') {
-          const fields = filterDef.searchFields ?? [filterDef.key];
-          const needle = String(value).toLowerCase();
-          return fields.some((field) => {
-            const fieldValue = record[field];
-            return fieldValue !== null && String(fieldValue).toLowerCase().includes(needle);
-          });
-        }
-
-        return String(record[key]) === String(value);
-      });
-    }
+    let result = applyTableFilters(items, query, VEHICLE_TABLE_FILTERS);
 
     if (query.sortField && query.sortDirection) {
       result.sort((left, right) => {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { belongsToCompany } from '../../../shared/constants/user-list-scope';
 import {
   userOurListingsUrl,
-  userSearchUrl,
+  userMarketplaceUrl,
   type UserEntityTab,
 } from '../../../shared/constants/user-urls';
 
@@ -13,7 +13,9 @@ export interface EntityDetailNavigationState {
   detailOrigin?: EntityDetailOrigin;
 }
 
-export const SEARCH_BACK_LABEL_KEY = 'portal.user.nav.search';
+export const MARKETPLACE_BACK_LABEL_KEY = 'portal.user.nav.search';
+/** @deprecated Use MARKETPLACE_BACK_LABEL_KEY */
+export const SEARCH_BACK_LABEL_KEY = MARKETPLACE_BACK_LABEL_KEY;
 export const OUR_LISTINGS_BACK_LABEL_KEY = 'portal.user.nav.ourListings';
 
 export function navigateToEntityDetail(
@@ -49,7 +51,7 @@ export function resolveDetailBack(
     return { url: userOurListingsUrl(tab), labelKey: OUR_LISTINGS_BACK_LABEL_KEY };
   }
 
-  return { url: userSearchUrl(tab), labelKey: SEARCH_BACK_LABEL_KEY };
+  return { url: userMarketplaceUrl(tab), labelKey: MARKETPLACE_BACK_LABEL_KEY };
 }
 
 export function isOwnListingEntity(

@@ -11,23 +11,29 @@ export function parseUserEntityTab(value: string | null | undefined): UserEntity
   return 'transport';
 }
 
-export function userSearchUrl(tab: UserEntityTab = 'transport'): string {
+export function userMarketplaceUrl(tab: UserEntityTab = 'transport'): string {
   return `${USER_HOME_URL}?tab=${tab}`;
 }
+
+/** @deprecated Use userMarketplaceUrl */
+export const userSearchUrl = userMarketplaceUrl;
 
 export function userOurListingsUrl(tab: UserEntityTab = 'transport'): string {
   return `${USER_OUR_LISTINGS_URL}?tab=${tab}`;
 }
 
-/** For `[routerLink]` — do not pass `userSearchUrl()` / `userOurListingsUrl()` strings (query gets encoded into the path). */
+/** For `[routerLink]` — do not pass marketplace/our-listings URL strings (query gets encoded into the path). */
 export interface UserEntityTabRoute {
   route: string;
   queryParams: { tab: UserEntityTab };
 }
 
-export function userSearchRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
+export function userMarketplaceRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
   return { route: USER_HOME_URL, queryParams: { tab } };
 }
+
+/** @deprecated Use userMarketplaceRoute */
+export const userSearchRoute = userMarketplaceRoute;
 
 export function userOurListingsRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
   return { route: USER_OUR_LISTINGS_URL, queryParams: { tab } };

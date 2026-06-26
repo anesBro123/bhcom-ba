@@ -1,6 +1,7 @@
 import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { map } from 'rxjs';
 
 import {
@@ -9,6 +10,7 @@ import {
   USER_CREATE_WAREHOUSE_URL,
   parseUserEntityTab,
   type UserEntityTab,
+  userMarketplaceRoute,
   userOurListingsUrl,
 } from '../../../../shared/constants/app-urls';
 import { EntityTabsComponent } from '../../../../shared/ui/entity-tabs/entity-tabs.component';
@@ -29,6 +31,8 @@ import { WarehouseOurTablePageComponent } from '../warehouse/table-our/warehouse
     PageTitleComponent,
     PrimaryActionLinkComponent,
     EntityTabsComponent,
+    RouterLink,
+    TranslatePipe,
     TransportOurTablePageComponent,
     FreightOurTablePageComponent,
     WarehouseOurTablePageComponent,
@@ -58,6 +62,8 @@ export class OurListingsPageComponent {
 
   protected readonly createLabelKey = computed(() => userCreateListingLabelKey(this.activeTab()));
 
+  protected readonly crossLinkRoute = computed(() => userMarketplaceRoute(this.activeTab()));
+
   constructor() {
     this.route.queryParamMap
       .pipe(
@@ -67,7 +73,7 @@ export class OurListingsPageComponent {
       .subscribe((tab) => this.activeTab.set(tab));
   }
 
-  protected onTabChange(tab: UserEntityTab): void {
-    void this.router.navigateByUrl(userOurListingsUrl(tab));
+  protected onTabChange(tab: UserEntityTab | string): void {
+    void this.router.navigateByUrl(userOurListingsUrl(tab as UserEntityTab));
   }
 }

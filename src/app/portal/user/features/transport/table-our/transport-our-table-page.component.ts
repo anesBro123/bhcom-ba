@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
@@ -8,9 +8,6 @@ import {
   userEditTransportUrl,
   userTransportDetailUrl,
 } from '../../../../../shared/constants/app-urls';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
 import { RouteDisplayComponent } from '../../../../../shared/ui/route-display/route-display.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
@@ -26,7 +23,6 @@ import {
 import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Transport } from '../data/transport.model';
 import { UserTransportService } from '../data/transport.service';
-import { UserPageIcons } from '../../../user-page-icons';
 import {
   TransportOurTable,
   transportOurCellKey,
@@ -46,23 +42,15 @@ import {
     StatusBadgeComponent,
     VehicleDisplayComponent,
     VehicleTypeDisplayComponent,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
   ],
   templateUrl: './transport-our-table-page.component.html',
 })
 export class TransportOurTablePageComponent {
-  readonly embedded = input(false);
-
   private readonly routeService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = TransportOurTable;
-  protected readonly pageTitleKey = 'portal.user.pages.ourTransport.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.ourTransport.subtitle';
-  protected readonly pageIcon = UserPageIcons.transport;
   protected readonly createUrl = USER_CREATE_TRANSPORT_URL;
   protected readonly createLabelKey = 'portal.user.pages.createTransport.title';
   protected readonly transportKey = transportOurCellKey;

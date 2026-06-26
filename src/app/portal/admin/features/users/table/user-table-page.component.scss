@@ -2,3 +2,10 @@
   display: block;
   width: 100%;
 }
+
+.user-table-name {
+  font-size: var(--table-cell-primary-size);
+  font-weight: var(--table-cell-primary-weight);
+  line-height: var(--table-cell-line-height);
+  color: var(--table-cell-primary-color);
+}

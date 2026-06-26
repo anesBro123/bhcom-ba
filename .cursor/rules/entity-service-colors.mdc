@@ -1,20 +1,23 @@
 ---
 description: User portal service-type colors (transport, freight, warehouse) — context chrome only
-globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/offer-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
+globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/offer-menu/**,src/app/shared/shell/app-topbar/admin-create-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/,src/app/portal/admin/features/home/**,src/app/portal/admin/features/*/form/**,src/app/portal/admin/features/*/detail/**,src/app/portal/admin/features/*/table/**
 alwaysApply: false
 ---
 
-# Entity service colors (user portal)
+# Entity service colors (user + admin portals)
 
-Subtle **transport / freight / warehouse** identity on user portal content — **not** status pills, route chips, sidebar accent, or primary buttons.
+Subtle entity identity on portal content — **not** status pills, route chips, sidebar accent, or primary buttons.
+
+## User portal (`transport` / `freight` / `warehouse`)
 
 ## Source of truth
 
 | Piece | Path |
 |-------|------|
 | Base hues + derived tokens | `src/styles/_entity-service-accent.scss` (imported in `styles.scss`) |
-| Host class helper | `shared/constants/entity-context-class.ts` → `entityContextClass(tab)` → `entity-context--{transport\|freight\|warehouse}` |
-| Type | `UserEntityTab` in `shared/constants/user-urls.ts` |
+| Type | `shared/constants/entity-context-class.ts` → `entityContextClass(tab)` |
+| User | `entity-context--{transport\|freight\|warehouse}` — `UserEntityTab` in `user-urls.ts` |
+| Admin | `entity-context--{users\|vehicles\|warehouses}` — `AdminEntityTab` in `admin-urls.ts` |
 
 **Current bases** (change only in `_entity-service-accent.scss`):
 
@@ -23,6 +26,9 @@ Subtle **transport / freight / warehouse** identity on user portal content — *
 | Transport | `#0284c7` (sky blue) | `#38bdf8` |
 | Freight | `#ea580c` | `#fed7aa` |
 | Warehouse | `#a21caf` | `#f0abfc` |
+| Admin users | `#0d9488` (teal) | `#2dd4bf` |
+| Admin vehicles | `#0284c7` (same as transport) | `#38bdf8` |
+| Admin warehouses | `#a21caf` (same as warehouse) | `#f0abfc` |
 
 Transport uses **stronger** spine/icon/filter mixes (override in `.entity-context--transport`) — avoid pale blues that blend into `--bg-app` / `--bg-surface`.
 
@@ -50,7 +56,8 @@ Icons + labels remain required (color-blind safe).
 | `QuickActionCardComponent` | `entityTab`, `queryParams?` | Admin dashboard (neutral); **omit** on user marketplace home |
 | `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
 | `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
-| `EntityTabsComponent` | (active tab) | Applies `entity-context--*` on **active** pill only |
+| `EntityTabsComponent` | (active tab) | User hubs: entity accent; admin hub: same (`users` / `vehicles` / `warehouses`) |
+| `AdminCreateMenuComponent` | per-option `entityTab` | Colored spine + icon (mirrors `OfferMenuComponent`) |
 
 Apply class via `entityContextClass()` or host/`ngClass` — do not hardcode hex in component SCSS.
 

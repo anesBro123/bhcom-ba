@@ -182,7 +182,14 @@
                   {{ 'shared.table.filters.clearAll' | translate }}
                 </button>
               } @else {
-                {{ 'shared.table.common.empty' | translate }}
+                <span>{{ 'shared.table.common.empty' | translate }}</span>
+                @if (emptyActionRoute(); as actionRoute) {
+                  @if (emptyActionLabelKey(); as labelKey) {
+                    <a class="data-table__empty-action" [routerLink]="actionRoute">
+                      {{ labelKey | translate }}
+                    </a>
+                  }
+                }
               }
             </li>
           }
@@ -297,7 +304,14 @@
                         {{ 'shared.table.filters.clearAll' | translate }}
                       </button>
                     } @else {
-                      {{ 'shared.table.common.empty' | translate }}
+                      <span>{{ 'shared.table.common.empty' | translate }}</span>
+                      @if (emptyActionRoute(); as actionRoute) {
+                        @if (emptyActionLabelKey(); as labelKey) {
+                          <a class="data-table__empty-action" [routerLink]="actionRoute">
+                            {{ labelKey | translate }}
+                          </a>
+                        }
+                      }
                     }
                   </td>
                 </tr>

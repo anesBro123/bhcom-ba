@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
@@ -9,9 +9,6 @@ import {
   userWarehouseDetailUrl,
 } from '../../../../../shared/constants/app-urls';
 import { DateRangeDisplayComponent } from '../../../../../shared/ui/date-range-display/date-range-display.component';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { StatusBadgeComponent } from '../../../../../shared/ui/status-badge/status-badge.component';
 import { WarehouseDisplayComponent } from '../../../../../shared/ui/warehouse-display/warehouse-display.component';
 import {
@@ -24,7 +21,6 @@ import {
 import { navigateToEntityDetail } from '../../../common/entity-detail-navigation';
 import type { Warehouse } from '../data/warehouse.model';
 import { UserWarehouseService } from '../data/warehouse.service';
-import { UserPageIcons } from '../../../user-page-icons';
 import {
   WarehouseOurTable,
   warehouseOurPeriodCellKey,
@@ -40,23 +36,15 @@ import {
     DateRangeDisplayComponent,
     StatusBadgeComponent,
     WarehouseDisplayComponent,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
   ],
   templateUrl: './warehouse-our-table-page.component.html',
 })
 export class WarehouseOurTablePageComponent {
-  readonly embedded = input(false);
-
   private readonly storageService = inject(UserWarehouseService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
   protected readonly table = WarehouseOurTable;
-  protected readonly pageTitleKey = 'portal.user.pages.ourWarehouse.title';
-  protected readonly pageSubtitleKey = 'portal.user.pages.ourWarehouse.subtitle';
-  protected readonly pageIcon = UserPageIcons.warehouse;
   protected readonly createUrl = USER_CREATE_WAREHOUSE_URL;
   protected readonly createLabelKey = 'portal.user.pages.createWarehouse.title';
   protected readonly statusKey = warehouseOurStatusCellKey;

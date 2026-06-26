@@ -1,0 +1,38 @@
+<app-detail-page-layout>
+  <app-page-back-link detailBack [route]="back().url" [labelKey]="back().labelKey" />
+
+  <app-page-title
+    [titleKey]="pageTitleKey"
+    [subtitleKey]="pageSubtitleKey()"
+    [icon]="pageIcon"
+    entityTab="vehicles"
+  />
+
+  @if (loading()) {
+    <section detailContent class="detail-page-card detail-page-card--loading">
+      {{ 'shared.table.common.loading' | translate }}
+    </section>
+  } @else if (entity(); as row) {
+    <app-entity-detail-summary
+      detailSummary
+      kind="vehicle"
+      [vehicleName]="row.marka"
+      [vehiclePlate]="row.registarskaOznaka"
+    />
+  }
+
+  @if (!loading() && entity(); as row) {
+    <section detailContent class="detail-page-card">
+      <app-detail-view [definition]="VehicleDetail" [data]="row" />
+    </section>
+  }
+
+  @if (!loading() && entity()) {
+    <app-detail-action-bar
+      detailFooterActions
+      [actions]="detailActions()"
+      layout="inline"
+      (action)="onDetailAction($event)"
+    />
+  }
+</app-detail-page-layout>

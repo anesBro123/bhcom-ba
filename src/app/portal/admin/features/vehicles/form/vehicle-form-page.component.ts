@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
-import { ADMIN_VEHICLES_URL } from '../../../../../shared/constants/app-urls';
+import { adminHomeUrl } from '../../../../../shared/constants/app-urls';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 
@@ -17,6 +17,7 @@ import { AdminVehicleForm, AdminVehicleFormEditActions } from './vehicle.form';
 import type { VehicleFormModel } from '../data/vehicle.model';
 import { AdminVehicleService } from '../data/vehicle.service';
 import { AdminPageIcons } from '../../../admin-page-icons';
+import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../admin-home-navigation';
 
 @Component({
   selector: 'app-vehicle-form-page',
@@ -51,8 +52,8 @@ export class VehicleFormPageComponent implements OnInit {
   );
 
   protected readonly pageIcon = AdminPageIcons.vehicles;
-  protected readonly backUrl = ADMIN_VEHICLES_URL;
-  protected readonly backLabelKey = 'portal.admin.nav.allVehicles';
+  protected readonly backUrl = adminHomeUrl('vehicles');
+  protected readonly backLabelKey = ADMIN_HOME_BACK_LABEL_KEY;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();
@@ -87,7 +88,7 @@ export class VehicleFormPageComponent implements OnInit {
           });
         },
         error: () => {
-          void this.router.navigateByUrl(ADMIN_VEHICLES_URL);
+          void this.router.navigateByUrl(adminHomeUrl('vehicles'));
         },
       });
   }
@@ -107,7 +108,7 @@ export class VehicleFormPageComponent implements OnInit {
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.submitting.set(false);
-        void this.router.navigateByUrl(ADMIN_VEHICLES_URL);
+        void this.router.navigateByUrl(adminHomeUrl('vehicles'));
       },
       error: () => {
         this.submitting.set(false);

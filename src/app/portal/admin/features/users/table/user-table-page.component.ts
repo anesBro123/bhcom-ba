@@ -1,32 +1,24 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { ADMIN_CREATE_USER_URL, adminEditUserUrl } from '../../../../../shared/constants/app-urls';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { adminUserDetailUrl, adminEditUserUrl } from '../../../../../shared/constants/app-urls';
 
 import {
   DataTableComponent,
+  TableCellTemplateDirective,
   type RowActionEvent,
   type TableLoader,
 } from '../../../../../shared/table';
 
 import type { User } from '../data/user.model';
 import { AdminUserService } from '../data/user.service';
-import { AdminPageIcons } from '../../../admin-page-icons';
-import { UserTable } from './user.table';
+import { UserTable, userNameCellKey } from './user.table';
 
 @Component({
   selector: 'app-user-table-page',
-  imports: [
-    DataTableComponent,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
-  ],
+  imports: [DataTableComponent, TableCellTemplateDirective],
   templateUrl: './user-table-page.component.html',
   styleUrl: './user-table-page.component.scss',
 })
@@ -35,19 +27,25 @@ export class UserTablePageComponent {
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
+  readonly embedded = input(false);
+
   protected readonly table = UserTable;
-  protected readonly pageTitleKey = 'portal.admin.pages.users.title';
-  protected readonly pageSubtitleKey = 'portal.admin.pages.users.subtitle';
-  protected readonly pageIcon = AdminPageIcons.users;
-  protected readonly createUrl = ADMIN_CREATE_USER_URL;
-  protected readonly createLabelKey = 'portal.admin.nav.createUser';
-  protected readonly tableMounted = signal(true);
+  protected readonly nameKey = userNameCellKey;
 
   protected readonly loadUsers: TableLoader<User> = (query) =>
     this.userService.list(query);
 
+  protected readonly tableMounted = signal(true);
+
+  protected onRowClick(row: User): void {
+    void this.router.navigateByUrl(adminUserDetailUrl(row.id));
+  }
+
   protected onRowAction(event: RowActionEvent<User>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.onRowClick(event.row);
+        break;
       case 'edit':
         void this.router.navigateByUrl(adminEditUserUrl(event.row.id));
         break;

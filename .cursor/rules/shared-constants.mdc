@@ -19,7 +19,7 @@ Route URLs live in `shared/constants/app-urls.ts` — see `app-urls.mdc`. This f
 - Full list of BiH municipalities (FBiH, RS, Brčko) — **do not** duplicate city lists in feature files.
 - Import: `import { BIH_CITY_OPTIONS } from '…/shared/constants/bih-cities';`
 
-**Current consumers:** `portal/user/features/transport/form/transport.form.ts` (origin, destination), `portal/user/features/freight/form/freight.form.ts` (origin, destination).
+**Current consumers:** `portal/user/features/transport/form/transport.form.ts` (origin, destination), `portal/user/features/freight/form/freight.form.ts` (origin, destination); admin warehouse table city `multiSelect` filter (`portal/admin/features/warehouses/data/warehouse-table-filters.ts`).
 
 ```typescript
 {
@@ -31,6 +31,17 @@ Route URLs live in `shared/constants/app-urls.ts` — see `app-urls.mdc`. This f
 ```
 
 City values are stored as plain strings (municipality name). No i18n per city — labels match stored values.
+
+## Boolean filter options (`boolean-filter-options.ts`)
+
+| Export | Type | Use |
+|--------|------|-----|
+| `BOOLEAN_FILTER_OPTIONS` | `FilterOption[]` | Yes/no toggle tiles for boolean entity fields in table filters |
+
+- Path: `shared/constants/boolean-filter-options.ts`
+- Options: `{ value: 'true', labelKey: 'shared.common.booleanYes' }`, `{ value: 'false', labelKey: 'shared.common.booleanNo' }`
+- **Current consumers:** admin user permission filters (`canCreateRoute`, `canAcceptRoute`); admin warehouse facility filters (`enclosed`, `cameras`, `ramp`, `physicalSecurity`)
+- `applyTableFilters()` matches via `String(record[field])` — works with boolean model fields
 
 ## User entity status (interim)
 

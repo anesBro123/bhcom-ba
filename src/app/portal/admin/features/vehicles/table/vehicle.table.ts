@@ -1,31 +1,27 @@
-import { LucidePencil, LucideTrash } from '@lucide/angular';
+import { LucideEye, LucidePencil, LucideTrash } from '@lucide/angular';
 
-import { defineTable } from '../../../../../shared/table';
-import { VEHICLE_TYPE_OPTIONS } from '../../../../../shared/constants/vehicle-type';
+import { defineTable, tableCellKey } from '../../../../../shared/table';
 
 import type { Vehicle } from '../data/vehicle.model';
 import { ADMIN_VEHICLES_API } from '../data/vehicle.constants';
+import { VEHICLE_FILTER_STORAGE_KEY, VEHICLE_TABLE_FILTERS } from '../data/vehicle-table-filters';
 
 export const VehicleTable = defineTable<Vehicle>()({
   endpoint: ADMIN_VEHICLES_API,
   summaryKey: 'shared.table.common.showingSummary',
   entityKey: 'portal.admin.features.vehicles.table.entity',
+  filterStorageKey: VEHICLE_FILTER_STORAGE_KEY,
   defaultPageSize: 10,
   defaultSort: { field: 'registarskaOznaka', direction: 'asc' },
   trackBy: 'id',
   columns: [
     {
-      key: 'registarskaOznaka',
-      titleKey: 'portal.admin.features.vehicles.table.columns.registarskaOznaka',
-      sortable: true,
-      width: '10rem',
-      mobile: { primary: true },
-    },
-    {
       key: 'marka',
-      titleKey: 'portal.admin.features.vehicles.table.columns.marka',
+      titleKey: 'portal.admin.features.vehicles.table.columns.vehicle',
       sortable: true,
-      width: '140px',
+      cell: 'custom',
+      width: '14rem',
+      mobile: { primary: true },
     },
     {
       key: 'komercijalnaOznaka',
@@ -55,6 +51,11 @@ export const VehicleTable = defineTable<Vehicle>()({
   actions: {
     width: '3.5rem',
     items: [
+      {
+        id: 'viewDetails',
+        labelKey: 'portal.admin.features.vehicles.table.actions.viewDetails',
+        icon: LucideEye,
+      },
       { id: 'edit', labelKey: 'portal.admin.features.vehicles.table.actions.edit', icon: LucidePencil },
       {
         id: 'delete',
@@ -64,21 +65,8 @@ export const VehicleTable = defineTable<Vehicle>()({
       },
     ],
   },
-  filters: [
-    {
-      key: 'registarskaOznaka',
-      type: 'search',
-      titleKey: 'portal.admin.features.vehicles.table.filters.search',
-      placeholderKey: 'portal.admin.features.vehicles.table.filters.searchPlaceholder',
-      debounceMs: 300,
-      searchFields: ['registarskaOznaka', 'brojSasije', 'marka', 'komercijalnaOznaka'],
-    },
-    {
-      key: 'vehicleType',
-      type: 'select',
-      titleKey: 'portal.admin.features.vehicles.table.filters.vehicleType',
-      placeholderKey: 'portal.admin.features.vehicles.table.filters.allTypes',
-      options: [...VEHICLE_TYPE_OPTIONS],
-    },
-  ],
+  filters: VEHICLE_TABLE_FILTERS,
 });
+
+export const vehicleDisplayCellKey = tableCellKey(VehicleTable, 'marka');
+export const vehicleTypeCellKey = tableCellKey(VehicleTable, 'vehicleType');

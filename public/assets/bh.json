@@ -5,6 +5,10 @@
       "expand": "Proširi",
       "close": "Zatvori meni"
     },
+    "common": {
+      "booleanYes": "Da",
+      "booleanNo": "Ne"
+    },
     "topbar": {
       "openMenu": "Otvori meni",
       "changeTheme": "Promijeni temu",
@@ -20,6 +24,9 @@
       "openAccountMenu": "Otvori meni računa",
       "offer": {
         "openMenu": "Objavi"
+      },
+      "create": {
+        "openMenu": "Dodaj"
       },
       "account": {
         "title": "Moj račun",
@@ -100,7 +107,8 @@
         "toggleCollapse": "Sakrij filtere",
         "units": {
           "kg": "kg",
-          "m2": "m²"
+          "m2": "m²",
+          "m": "m"
         }
       },
       "view": {
@@ -341,9 +349,9 @@
         "createUser": "Dodaj korisnika"
       },
       "pages": {
-        "dashboard": {
-          "title": "Admin kontrolna tabla",
-          "subtitle": "Pratite korisnike, vozila i skladišta na jednom mjestu."
+        "home": {
+          "title": "Upravljanje kompanijom",
+          "subtitle": "Upravljajte korisnicima, vozilima i skladištima vaše kompanije."
         },
         "settings": {
           "title": "Sistemske postavke",
@@ -384,9 +392,27 @@
         "editUser": {
           "title": "Uredi korisnika",
           "subtitle": "Ažurirajte profil, kontakt podatke i dozvole za ovog korisnika."
+        },
+        "viewUser": {
+          "title": "Detalji korisnika",
+          "subtitle": "Pregledajte profil, kontakt i dozvole ovog korisnika."
+        },
+        "viewVehicle": {
+          "title": "Detalji vozila",
+          "subtitle": "Pregledajte registraciju, vlasnika i tehničke podatke ovog vozila."
+        },
+        "viewWarehouse": {
+          "title": "Detalji skladišta",
+          "subtitle": "Pregledajte lokaciju, kapacitet i sadržaje ovog skladišta."
         }
       },
       "features": {
+        "adminEntityTabs": {
+          "ariaLabel": "Područja upravljanja kompanijom",
+          "users": "Korisnici",
+          "vehicles": "Vozila",
+          "warehouses": "Skladišta"
+        },
         "dashboard": {
           "metrics": {
             "ariaLabel": "Ključne metrike",
@@ -567,6 +593,7 @@
             "subtitle": "Pretražujte, sortirajte i upravljajte svim registrovanim vozilima flote.",
             "entity": "vozila",
             "columns": {
+              "vehicle": "Vozilo",
               "registarskaOznaka": "Registarska oznaka",
               "marka": "Marka",
               "komercijalnaOznaka": "Model",
@@ -575,6 +602,7 @@
               "vazenjeRegistracije": "Važenje registracije"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
               "edit": "Uredi vozilo",
               "delete": "Obriši"
             },
@@ -584,9 +612,13 @@
             },
             "filters": {
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži po tablici, šasiji, marki, modelu...",
+              "searchPlaceholder": "Pretraži tablicu, šasiju, vlasnika, mase…",
               "vehicleType": "Vrsta vozila",
-              "allTypes": "Sve vrste"
+              "vrstaGoriva": "Vrsta goriva",
+              "datumPrveRegistracije": "Prva registracija",
+              "datumIzdavanjaDozvole": "Datum izdavanja dozvole",
+              "vazenjeRegistracije": "Važenje registracije",
+              "zabranaOtudjenjaDo": "Zabrana otuđenja do"
             }
           }
         },
@@ -659,6 +691,7 @@
             "subtitle": "Pregledajte kapacitet, lokaciju i detalje objekata za svako skladište.",
             "entity": "skladišta",
             "columns": {
+              "warehouse": "Skladište",
               "name": "Naziv",
               "city": "Grad",
               "capacityM2": "Kapacitet (m²)",
@@ -667,6 +700,7 @@
               "rackCount": "Regali"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
               "edit": "Uredi skladište",
               "delete": "Obriši"
             },
@@ -676,9 +710,18 @@
             },
             "filters": {
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži po nazivu, adresi, gradu, državi...",
+              "searchPlaceholder": "Pretraži po nazivu, adresi, državi…",
+              "city": "Grad",
+              "allCities": "Svi gradovi",
               "type": "Tip skladišta",
-              "allTypes": "Svi tipovi"
+              "capacityM2": "Kapacitet (m²)",
+              "height": "Visina (m)",
+              "floorCount": "Spratovi",
+              "rackCount": "Regali",
+              "enclosed": "Ograđen",
+              "cameras": "Kamere",
+              "ramp": "Rampa",
+              "physicalSecurity": "Fizička zaštita"
             }
           }
         },
@@ -735,6 +778,7 @@
             "subtitle": "Pretražujte i upravljajte korisničkim računima i pristupnim dozvolama.",
             "entity": "korisnici",
             "columns": {
+              "name": "Ime i prezime",
               "firstName": "Ime",
               "lastName": "Prezime",
               "email": "Email",
@@ -743,6 +787,7 @@
               "jmbg": "JMBG"
             },
             "actions": {
+              "viewDetails": "Prikaži detalje",
               "edit": "Uredi korisnika",
               "delete": "Obriši"
             },
@@ -752,7 +797,9 @@
             },
             "filters": {
               "search": "Pretraga",
-              "searchPlaceholder": "Pretraži po imenu, emailu, telefonu, JMBG..."
+              "searchPlaceholder": "Pretraži po imenu, emailu, telefonu, JMBG…",
+              "canCreateRoute": "Može kreirati prevoz",
+              "canAcceptRoute": "Može prihvatiti prevoz"
             }
           }
         }
@@ -772,27 +819,18 @@
         "offer": "Ponudi",
         "transport": "Prevoz",
         "freight": "Teret",
-        "warehouse": "Skladište",
-        "marketplaceTransport": "Prevoz na tržištu",
-        "marketplaceFreight": "Teret na tržištu",
-        "marketplaceWarehouse": "Skladište na tržištu"
+        "warehouse": "Skladište"
       },
       "pages": {
         "home": {
           "title": "Tržište",
-          "subtitle": "Pregledajte objave drugih kompanija."
+          "subtitle": "Pregledajte objave drugih kompanija.",
+          "crossLink": "Upravljajte objavama vaše kompanije →"
         },
         "ourListings": {
           "title": "Moje objave",
-          "subtitle": "Upravljajte objavama vaše kompanije."
-        },
-        "marketplaceTransport": {
-          "title": "Prevoz na tržištu",
-          "subtitle": "Pregledajte prevoz koji su objavile druge kompanije. Filtrirajte po relaciji, datumima i tipu vozila."
-        },
-        "ourTransport": {
-          "title": "Naš prevoz",
-          "subtitle": "Sav prevoz koji je objavila vaša kompanija — od bilo kog člana tima. Uredite ili uklonite objave."
+          "subtitle": "Upravljajte objavama vaše kompanije.",
+          "crossLink": "Pregledajte tržište →"
         },
         "createTransport": {
           "title": "Objavi prevoz",
@@ -802,14 +840,6 @@
           "title": "Uredi prevoz",
           "subtitle": "Ažurirajte prevoz, vozilo, datume ili opis ove objave."
         },
-        "marketplaceFreight": {
-          "title": "Teret na tržištu",
-          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pretražite pošiljke koje odgovaraju vašem prevozu."
-        },
-        "ourFreight": {
-          "title": "Naš teret",
-          "subtitle": "Sav teret koji je objavila vaša kompanija. Upravljajte objavama vašeg tima."
-        },
         "createFreight": {
           "title": "Objavi teret",
           "subtitle": "Opišite robu koja treba transport kako bi je prevoznici pronašli."
@@ -817,14 +847,6 @@
         "editFreight": {
           "title": "Uredi teret",
           "subtitle": "Ažurirajte polazište, odredište, veličinu, težinu ili druge detalje."
-        },
-        "marketplaceWarehouse": {
-          "title": "Skladište na tržištu",
-          "subtitle": "Pregledajte skladišni prostor koji su objavile druge kompanije. Filtrirajte po lokaciji i dostupnosti."
-        },
-        "ourWarehouse": {
-          "title": "Naša skladišta",
-          "subtitle": "Sav skladišni prostor koji je objavila vaša kompanija. Upravljajte dostupnošću i detaljima."
         },
         "createWarehouse": {
           "title": "Objavi skladište",

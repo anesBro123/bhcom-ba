@@ -1,37 +1,27 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
 
 import { ConfirmService } from '../../../../../shared/confirm';
-import { ADMIN_CREATE_WAREHOUSE_URL, adminEditWarehouseUrl } from '../../../../../shared/constants/app-urls';
-import { PageHeaderComponent } from '../../../../../shared/ui/page-header/page-header.component';
-import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
-import { PrimaryActionLinkComponent } from '../../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { adminEditWarehouseUrl, adminWarehouseDetailUrl } from '../../../../../shared/constants/app-urls';
+
+import { WarehouseDisplayComponent } from '../../../../../shared/ui/warehouse-display/warehouse-display.component';
 
 import {
   DataTableComponent,
   TableCellTemplateDirective,
-  tableCellKey,
   type RowActionEvent,
   type TableLoader,
 } from '../../../../../shared/table';
 
 import type { Warehouse } from '../data/warehouse.model';
 import { AdminWarehouseService } from '../data/warehouse.service';
-import { AdminPageIcons } from '../../../admin-page-icons';
-import { WarehouseTable } from './warehouse.table';
+import { WarehouseTable, warehouseDisplayCellKey, warehouseTypeCellKey } from './warehouse.table';
 
 @Component({
   selector: 'app-warehouse-table-page',
-  imports: [
-    DataTableComponent,
-    TableCellTemplateDirective,
-    TranslatePipe,
-    PageHeaderComponent,
-    PageTitleComponent,
-    PrimaryActionLinkComponent,
-  ],
+  imports: [DataTableComponent, TableCellTemplateDirective, TranslatePipe, WarehouseDisplayComponent],
   templateUrl: './warehouse-table-page.component.html',
   styleUrl: './warehouse-table-page.component.scss',
 })
@@ -40,13 +30,11 @@ export class WarehouseTablePageComponent {
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
+  readonly embedded = input(false);
+
   protected readonly table = WarehouseTable;
-  protected readonly pageTitleKey = 'portal.admin.pages.warehouses.title';
-  protected readonly pageSubtitleKey = 'portal.admin.pages.warehouses.subtitle';
-  protected readonly pageIcon = AdminPageIcons.warehouses;
-  protected readonly createUrl = ADMIN_CREATE_WAREHOUSE_URL;
-  protected readonly createLabelKey = 'portal.admin.nav.createWarehouse';
-  protected readonly typeKey = tableCellKey(WarehouseTable, 'type');
+  protected readonly warehouseKey = warehouseDisplayCellKey;
+  protected readonly typeKey = warehouseTypeCellKey;
   protected readonly tableMounted = signal(true);
 
   protected readonly loadWarehouses: TableLoader<Warehouse> = (query) =>
@@ -56,8 +44,15 @@ export class WarehouseTablePageComponent {
     return `portal.admin.features.warehouses.form.warehouseType.${type}`;
   }
 
+  protected onRowClick(row: Warehouse): void {
+    void this.router.navigateByUrl(adminWarehouseDetailUrl(row.id));
+  }
+
   protected onRowAction(event: RowActionEvent<Warehouse>): void {
     switch (event.actionId) {
+      case 'viewDetails':
+        this.onRowClick(event.row);
+        break;
       case 'edit':
         void this.router.navigateByUrl(adminEditWarehouseUrl(event.row.id));
         break;

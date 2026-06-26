@@ -8,7 +8,7 @@ import { AuthService } from '../../../../../shared/core/auth/auth.service';
 import { ConfirmService } from '../../../../../shared/confirm';
 import {
   userEditFreightUrl,
-  userSearchUrl,
+  userMarketplaceUrl,
   userOurListingsUrl,
 } from '../../../../../shared/constants/app-urls';
 import {
@@ -97,7 +97,7 @@ export class FreightDetailPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
-      void this.router.navigateByUrl(userSearchUrl('freight'));
+      void this.router.navigateByUrl(userMarketplaceUrl('freight'));
       return;
     }
 
@@ -110,7 +110,7 @@ export class FreightDetailPageComponent implements OnInit {
           this.loading.set(false);
         },
         error: () => {
-          void this.router.navigateByUrl(userSearchUrl('freight'));
+          void this.router.navigateByUrl(userMarketplaceUrl('freight'));
         },
       });
   }

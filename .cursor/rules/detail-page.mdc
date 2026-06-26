@@ -138,4 +138,21 @@ Handle `sendRequest` / `delete` in page TS with `ConfirmService`; edit uses `rou
 - Freight: `portal/user/features/freight/detail/`
 - Warehouse: `portal/user/features/warehouse/detail/`
 
+## Admin portal detail pages
+
+Same `shared/detail/` framework; simpler navigation (no marketplace vs our-listings split).
+
+| Entity | Route | Summary kind | Back link |
+|--------|-------|--------------|-----------|
+| Users | `users/:id` | `user` (name + email) | `adminHomeUrl('users')` |
+| Vehicles | `vehicles/:id` | `vehicle` (make + plate) | `adminHomeUrl('vehicles')` |
+| Warehouses | `warehouses/:id` | `warehouse` (name + city) | `adminHomeUrl('warehouses')` |
+
+- Navigation: `portal/admin/common/admin-entity-detail-navigation.ts` — `resolveAdminDetailBack()`, `resolveAdminDetailSubtitleKey()`
+- Actions: `buildAdminDetailPageActions()` — always **Edit + Delete** (no send request)
+- URLs: `adminUserDetailUrl()`, `adminVehicleDetailUrl()`, `adminWarehouseDetailUrl()` in `admin-urls.ts`
+- Row click on hub tables → detail; `viewDetails` row action duplicates row click
+- `PageTitleComponent` + `DataTableComponent` use `entityTab`: `users` \| `vehicles` \| `warehouses`
+- Delete redirect → `adminHomeUrl(matchingTab)`
+
 Do not reintroduce global detail modal host or sidebar action layout experiments.

@@ -5,6 +5,10 @@
       "expand": "Expand",
       "close": "Close menu"
     },
+    "common": {
+      "booleanYes": "Yes",
+      "booleanNo": "No"
+    },
     "topbar": {
       "openMenu": "Open menu",
       "changeTheme": "Change theme",
@@ -20,6 +24,9 @@
       "openAccountMenu": "Open account menu",
       "offer": {
         "openMenu": "Publish"
+      },
+      "create": {
+        "openMenu": "Add"
       },
       "account": {
         "title": "My Account",
@@ -100,7 +107,8 @@
         "toggleCollapse": "Hide filters",
         "units": {
           "kg": "kg",
-          "m2": "m²"
+          "m2": "m²",
+          "m": "m"
         }
       },
       "view": {
@@ -341,9 +349,9 @@
         "createUser": "Add User"
       },
       "pages": {
-        "dashboard": {
-          "title": "Admin Dashboard",
-          "subtitle": "Monitor users, vehicles, and warehouses at a glance."
+        "home": {
+          "title": "Company management",
+          "subtitle": "Manage your company's users, vehicles, and warehouses."
         },
         "settings": {
           "title": "System Settings",
@@ -384,9 +392,27 @@
         "editUser": {
           "title": "Edit User",
           "subtitle": "Update profile, contact details, and permissions for this user."
+        },
+        "viewUser": {
+          "title": "User details",
+          "subtitle": "Review account profile, contact details, and permissions."
+        },
+        "viewVehicle": {
+          "title": "Vehicle details",
+          "subtitle": "Review registration, owner, and technical data for this vehicle."
+        },
+        "viewWarehouse": {
+          "title": "Warehouse details",
+          "subtitle": "Review location, capacity, and facility details for this warehouse."
         }
       },
       "features": {
+        "adminEntityTabs": {
+          "ariaLabel": "Company management areas",
+          "users": "Users",
+          "vehicles": "Vehicles",
+          "warehouses": "Warehouses"
+        },
         "dashboard": {
           "metrics": {
             "ariaLabel": "Key metrics",
@@ -567,6 +593,7 @@
             "subtitle": "Search, sort, and manage all registered fleet vehicles.",
             "entity": "vehicles",
             "columns": {
+              "vehicle": "Vehicle",
               "registarskaOznaka": "Registration Mark",
               "marka": "Make",
               "komercijalnaOznaka": "Model",
@@ -575,6 +602,7 @@
               "vazenjeRegistracije": "Registration Valid Until"
             },
             "actions": {
+              "viewDetails": "View details",
               "edit": "Edit Vehicle",
               "delete": "Delete"
             },
@@ -584,9 +612,13 @@
             },
             "filters": {
               "search": "Search",
-              "searchPlaceholder": "Search by plate, VIN, make, model...",
+              "searchPlaceholder": "Search plate, VIN, owner, masses…",
               "vehicleType": "Vehicle Category",
-              "allTypes": "All categories"
+              "vrstaGoriva": "Fuel type",
+              "datumPrveRegistracije": "First registration",
+              "datumIzdavanjaDozvole": "License issue date",
+              "vazenjeRegistracije": "Registration valid until",
+              "zabranaOtudjenjaDo": "Sale restriction until"
             }
           }
         },
@@ -659,6 +691,7 @@
             "subtitle": "View capacity, location, and facility details for each warehouse.",
             "entity": "warehouses",
             "columns": {
+              "warehouse": "Warehouse",
               "name": "Name",
               "city": "City",
               "capacityM2": "Capacity (m²)",
@@ -667,6 +700,7 @@
               "rackCount": "Racks"
             },
             "actions": {
+              "viewDetails": "View details",
               "edit": "Edit Warehouse",
               "delete": "Delete"
             },
@@ -676,9 +710,18 @@
             },
             "filters": {
               "search": "Search",
-              "searchPlaceholder": "Search by name, address, city, country...",
+              "searchPlaceholder": "Search by name, address, country…",
+              "city": "City",
+              "allCities": "All cities",
               "type": "Warehouse Type",
-              "allTypes": "All types"
+              "capacityM2": "Capacity (m²)",
+              "height": "Height (m)",
+              "floorCount": "Floors",
+              "rackCount": "Racks",
+              "enclosed": "Enclosed",
+              "cameras": "Cameras",
+              "ramp": "Ramp",
+              "physicalSecurity": "Physical security"
             }
           }
         },
@@ -735,6 +778,7 @@
             "subtitle": "Search and manage user accounts and access permissions.",
             "entity": "users",
             "columns": {
+              "name": "Name",
               "firstName": "First Name",
               "lastName": "Last Name",
               "email": "Email",
@@ -743,6 +787,7 @@
               "jmbg": "JMBG"
             },
             "actions": {
+              "viewDetails": "View details",
               "edit": "Edit User",
               "delete": "Delete"
             },
@@ -752,7 +797,9 @@
             },
             "filters": {
               "search": "Search",
-              "searchPlaceholder": "Search by name, email, phone, JMBG..."
+              "searchPlaceholder": "Search by name, email, phone, JMBG…",
+              "canCreateRoute": "Can create transport",
+              "canAcceptRoute": "Can accept transport"
             }
           }
         }
@@ -772,27 +819,18 @@
         "offer": "Offer",
         "transport": "Transport",
         "freight": "Freight",
-        "warehouse": "Warehouse",
-        "marketplaceTransport": "Marketplace transport",
-        "marketplaceFreight": "Marketplace freight",
-        "marketplaceWarehouse": "Marketplace warehouse"
+        "warehouse": "Warehouse"
       },
       "pages": {
         "home": {
           "title": "Marketplace",
-          "subtitle": "Browse other companies' listings."
+          "subtitle": "Browse other companies' listings.",
+          "crossLink": "Manage your company's listings →"
         },
         "ourListings": {
           "title": "My listings",
-          "subtitle": "Manage your company's listings."
-        },
-        "marketplaceTransport": {
-          "title": "Transport on the marketplace",
-          "subtitle": "Browse transport listings published by other companies. Filter by lane, dates, and vehicle type."
-        },
-        "ourTransport": {
-          "title": "Our transport",
-          "subtitle": "All transport your company published — from any team member. Edit or remove listings."
+          "subtitle": "Manage your company's listings.",
+          "crossLink": "Browse the marketplace →"
         },
         "createTransport": {
           "title": "Publish transport",
@@ -802,14 +840,6 @@
           "title": "Edit transport",
           "subtitle": "Update transport details, vehicle, dates, or description for this listing."
         },
-        "marketplaceFreight": {
-          "title": "Freight on the marketplace",
-          "subtitle": "Browse freight published by other companies. Search for shipments that match your transport."
-        },
-        "ourFreight": {
-          "title": "Our freight",
-          "subtitle": "All freight your company published. Manage listings your team created."
-        },
         "createFreight": {
           "title": "Publish freight",
           "subtitle": "Describe goods that need transport so carriers can find them."
@@ -817,14 +847,6 @@
         "editFreight": {
           "title": "Edit freight",
           "subtitle": "Update origin, destination, size, weight, or other details."
-        },
-        "marketplaceWarehouse": {
-          "title": "Warehouse on the marketplace",
-          "subtitle": "Browse warehouse space published by other companies. Filter by location and availability."
-        },
-        "ourWarehouse": {
-          "title": "Our warehouse",
-          "subtitle": "All warehouse space your company published. Manage availability and details."
         },
         "createWarehouse": {
           "title": "Publish warehouse",

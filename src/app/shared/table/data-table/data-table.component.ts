@@ -1,4 +1,5 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import {
   AfterContentInit,
   Component,
@@ -69,13 +70,14 @@ import {
 import { TableRowActionsComponent } from '../table-row-actions/table-row-actions.component';
 import { MOBILE_MEDIA_QUERY } from '../../constants/viewport';
 import { entityContextClass } from '../../constants/entity-context-class';
-import type { UserEntityTab } from '../../constants/user-urls';
+import type { EntityContextTab } from '../../constants/entity-context-class';
 import { formatDisplayDate } from '../../utils/format-display-date';
 
 @Component({
   selector: 'app-data-table',
   imports: [
     NgTemplateOutlet,
+    RouterLink,
     TranslatePipe,
     TablePaginationComponent,
     TableFilterBarComponent,
@@ -100,8 +102,11 @@ export class DataTableComponent<T extends object> implements OnInit, AfterConten
   definition = input.required<TableDefinition<T>>();
   loader = input<TableLoader<T>>();
   rowClickEnabled = input(false);
+  /** Optional create/publish link when the table has no rows and no active filters. */
+  emptyActionRoute = input<string>();
+  emptyActionLabelKey = input<string>();
   /** When set, applies subtle entity accent to table chrome and row hover. */
-  entityTab = input<UserEntityTab>();
+  entityTab = input<EntityContextTab>();
   /** Filter toolbar / chips / header layout variant for UX comparison. */
   tableChromeVariant = input<TableChromeVariant>('splitCard');
   rowAction = output<RowActionEvent<T>>();

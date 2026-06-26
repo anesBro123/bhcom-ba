@@ -31,10 +31,10 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 
 Follow **`entity-tabs.mdc`** — reference: `portal/user/features/home/`, `portal/user/features/our-listings/`.
 
-1. Add `USER_HOME_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userSearchUrl` / `userOurListingsUrl` for TS; `userSearchRoute` / `userOurListingsRoute` for templates).
+1. Add `USER_HOME_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userMarketplaceUrl` / `userOurListingsUrl` for TS; `userMarketplaceRoute` / `userOurListingsRoute` for templates).
 2. Register `home` and `our-listings` routes in `user.routes.ts` — **do not** register standalone entity list routes or a separate `/find` route.
-3. Hub page: wrap `PageHeaderComponent` (title + tab-specific publish CTA) and `EntityTabsComponent` in **`.page-hub-header`** + embedded table pages with `[embedded]="true"` below.
-4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=`; navigate with `userSearchUrl()` / `userOurListingsUrl()`.
+3. Hub page: wrap `PageHeaderComponent` (title + tab-specific publish CTA) and `EntityTabsComponent` in **`.page-hub-header`** + cross-link + embedded table pages below.
+4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=`; navigate with `userMarketplaceUrl()` / `userOurListingsUrl()`.
 5. i18n: `portal.user.pages.home.*`, `portal.user.pages.ourListings.*`, `portal.user.features.entityTabs.*`.
 
 ## User marketplace home (`portal/user/features/home/`)

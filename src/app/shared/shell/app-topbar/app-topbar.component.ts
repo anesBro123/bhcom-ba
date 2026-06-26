@@ -23,6 +23,7 @@ import { ThemePickerComponent } from '../../ui/theme-picker/theme-picker.compone
 import { ADMIN_PORTAL_CONFIG } from '../../../portal/admin/admin-portal.config';
 import { USER_PORTAL_CONFIG } from '../../../portal/user/user-portal.config';
 import { OfferMenuComponent } from './offer-menu/offer-menu.component';
+import { AdminCreateMenuComponent } from './admin-create-menu/admin-create-menu.component';
 
 type TopbarMode = 'guest' | 'user' | 'admin';
 
@@ -35,6 +36,7 @@ type TopbarMode = 'guest' | 'user' | 'admin';
     ThemePickerComponent,
     LanguagePickerComponent,
     OfferMenuComponent,
+    AdminCreateMenuComponent,
     LucideBell,
     LucideCircleUser,
     LucideListChecks,
@@ -61,6 +63,7 @@ export class AppTopbarComponent {
   });
 
   private readonly offerMenu = viewChild(OfferMenuComponent);
+  private readonly adminCreateMenu = viewChild(AdminCreateMenuComponent);
 
   protected readonly accountMenuOpen = signal(false);
 
@@ -107,17 +110,27 @@ export class AppTopbarComponent {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.accountMenuOpen.set(false);
       this.offerMenu()?.close();
+      this.adminCreateMenu()?.close();
     }
   }
 
   protected onOfferMenuOpenChange(open: boolean): void {
     if (open) {
       this.accountMenuOpen.set(false);
+      this.adminCreateMenu()?.close();
+    }
+  }
+
+  protected onAdminCreateMenuOpenChange(open: boolean): void {
+    if (open) {
+      this.accountMenuOpen.set(false);
+      this.offerMenu()?.close();
     }
   }
 
   protected toggleAccountMenu(): void {
     this.offerMenu()?.close();
+    this.adminCreateMenu()?.close();
     this.accountMenuOpen.update((open) => !open);
   }
 

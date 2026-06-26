@@ -33,7 +33,7 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.topbar.*` | Portal + shared topbar widgets (theme toggle, language toggle, notifications, account) |
 | `shared.form.common.*` | Form footer (`previous`, `next`), stepper pill aria (`validationState.*`), leave-form discard dialog (`discardChanges.*`), field errors (`errors.*` incl. `minDate`, `dateRange`) |
 | `shared.table.common.*` | Table loading, empty, emptyFiltered, pagination, row actions |
-| `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearAll`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`), **`period`** (all date-range filter labels) |
+| `shared.table.filters.*` | Filter flyout toggle, clear (`clearShort`, `clearAll`, `clearSelection`), expand/collapse, chips, option tiles, multi-select, sliders, units (`kg`, `m²`, `m`), **`period`** (default date-range filter label) |
 | `shared.table.view.*` | Desktop list/card view toggle `aria-label`s (`switchToCard`, `switchToList`) |
 | `shared.route.*` | Shared route UI copy (`fromTo` aria-label for `RouteDisplayComponent`) |
 | `shared.vehicle.*` | Shared vehicle UI copy (`namePlate` aria-label for `VehicleDisplayComponent`) |
@@ -41,11 +41,12 @@ portal.user.features.<domain>.<feature>.* — user feature (form, table)
 | `shared.dateRange.*` | Shared date range **display** copy (`fromTo`, `single` aria-labels for `DateRangeDisplayComponent`) |
 | `shared.datePeriod.*` | Shared date period **picker** copy (placeholder, clear, months, weekdays, nav aria) — `DatePeriodPickerComponent` |
 | `shared.entityStatus.*` | Shared status pill labels for `StatusBadgeComponent` (interim — user transport/freight/warehouse); per-entity keys later under `portal.*.features.<entity>.status.*` |
+| `shared.common.*` | Shared yes/no labels (`booleanYes`, `booleanNo`) — boolean filter option tiles |
+| `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
 
 Table **merged period** column headers: `portal.user.features.transport.table.columns.period`, `portal.user.features.warehouse.table.columns.period` (distinct from form field keys like `transportStartDate`).
 
-Table **filter labels**: `portal.user.features.<entity>.table.filters.*`. Legacy `…table.filterGroups.*` keys may remain on defs but are not shown in flyout UI.
-| `shared.confirm.common.*` | Confirmation dialog cancel/confirm button labels (defaults; do not duplicate per feature) |
+Table **filter labels**: `portal.user.features.<entity>.table.filters.*` and `portal.admin.features.<entity>.table.filters.*`. Legacy `…table.filterGroups.*` keys may remain on defs but are not shown in flyout UI. Admin examples: user permissions + DOB; vehicle `vehicleType` / `vrstaGoriva` option tiles + four registration date filter titles; warehouse city `multiSelect` + facility booleans via `BOOLEAN_FILTER_OPTIONS`. Vehicle date filters use entity-specific `…table.filters.<field>` titles; user DOB uses `shared.table.filters.period`.
 
 ### Guest (`guest.*`)
 
@@ -61,8 +62,13 @@ Table **filter labels**: `portal.user.features.<entity>.table.filters.*`. Legacy
 
 ```
 portal.admin.features.vehicles.form.fields.marka
-portal.admin.features.vehicles.table.columns.marka
+portal.admin.features.vehicles.table.columns.vehicle
+portal.admin.features.vehicles.table.filters.vehicleType
+portal.admin.features.vehicles.table.filters.vrstaGoriva
+portal.admin.features.vehicles.table.filters.vazenjeRegistracije
 portal.admin.features.vehicles.table.deleteConfirm.title
+portal.admin.features.users.table.filters.canCreateRoute
+portal.admin.features.warehouses.table.filters.city
 portal.admin.features.dashboard.metrics.users.title
 portal.admin.features.dashboard.quickActions.title
 portal.admin.features.dashboard.actions.allUsers.description

@@ -16,16 +16,24 @@
     [tabs]="entityTabs"
     (tabChange)="onTabChange($event)"
   />
+
+  <a
+    class="page-hub-header__cross-link"
+    [routerLink]="crossLinkRoute().route"
+    [queryParams]="crossLinkRoute().queryParams"
+  >
+    {{ 'portal.user.pages.home.crossLink' | translate }}
+  </a>
 </div>
 
 @switch (activeTab()) {
   @case ('freight') {
-    <app-freight-all-table-page [embedded]="true" />
+    <app-freight-all-table-page />
   }
   @case ('warehouse') {
-    <app-warehouse-all-table-page [embedded]="true" />
+    <app-warehouse-all-table-page />
   }
   @default {
-    <app-transport-all-table-page [embedded]="true" />
+    <app-transport-all-table-page />
   }
 }
