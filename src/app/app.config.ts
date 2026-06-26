@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
-        prefix: '/assets/',
+        prefix: 'assets/',
         suffix: '.json',
       }),
       fallbackLang: 'en',
