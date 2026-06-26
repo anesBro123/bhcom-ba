@@ -30,7 +30,7 @@ import {
   transportOurStatusCellKey,
   transportOurVehicleCellKey,
   transportOurVehicleTypeCellKey,
-} from './transport-our.table';
+} from '../transport.table';
 
 @Component({
   selector: 'app-transport-our-table-page',
@@ -46,7 +46,7 @@ import {
   templateUrl: './transport-our-table-page.component.html',
 })
 export class TransportOurTablePageComponent {
-  private readonly routeService = inject(UserTransportService);
+  private readonly transportService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -60,7 +60,8 @@ export class TransportOurTablePageComponent {
   protected readonly periodKey = transportOurPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadRoutes: TableLoader<Transport> = (query) => this.routeService.listOurs(query);
+  protected readonly loadTransports: TableLoader<Transport> = (query) =>
+    this.transportService.listOurs(query);
 
   protected onRowClick(row: Transport): void {
     navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'our');
@@ -84,7 +85,7 @@ export class TransportOurTablePageComponent {
           .pipe(
             filter(Boolean),
             take(1),
-            switchMap(() => this.routeService.delete(event.row.id)),
+            switchMap(() => this.transportService.delete(event.row.id)),
           )
           .subscribe({
             next: () => this.refreshTable(),

@@ -9,12 +9,12 @@ alwaysApply: false
 **Advanced filtering:** see `table-filters.mdc` for filter defs, flyout accordion UX, chips, `buildFilterSummary()`, `optionTiles`, `StatusBadgeComponent` / `VehicleTypeDisplayComponent`, persistence, and per-page `*-table-filters.ts` wiring.
 
 1. Row type in `*.model.ts`.
-2. `export const X = defineTable<Row>()({ columns, filters, actions, endpoint, ... })`.
-3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells. Optional `entityTab` (user hub tables) and `tableChromeVariant` (default `'splitCard'` — see `table-filters.mdc`).
+2. Feature-root `*.table.ts` with `build*Table(scope)` factory — e.g. `buildTransportTable('all' | 'our')` exports `TransportAllTable` / `TransportOurTable`. Admin entities keep single `defineTable` in `table/<entity>.table.ts`.
+3. Page: `DataTableComponent` + `[loader]` + `tableCellKey(Table, 'column')` for custom cells. Optional `entityTab` (hub tables) and `tableChromeVariant` (default `'splitCard'` — see `table-filters.mdc`).
 4. **Page title row:** `PageTitleComponent` in the **page template** above `<app-data-table>`. See `page-title.mdc`. `DataTableComponent` does not render page titles.
 5. **Create CTA (required on list pages with a create route):** `PageHeaderComponent` + `PrimaryActionLinkComponent` composed with `PageTitleComponent` — **not** inside `DataTableComponent` or `PageTitleComponent`. Parent page owns `createUrl` + `createLabelKey`. Reference: `portal/admin/features/vehicles/table/vehicle-table-page.component.*`. Skip CTA only when the list has no create flow (read-only).
 6. Custom cell: `TableCellTemplateDirective` with `[appTableCell]="key"` in template.
-7. **Route pair cell:** use `RouteDisplayComponent` (`app-route-display`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/transport/table/`, `portal/user/features/freight/table/`.
+7. **Route pair cell:** use `RouteDisplayComponent` (`app-route-display`) for origin → destination — not raw `{{ row.origin }} → {{ row.destination }}` in templates. Column uses `cell: 'custom'`; export key via `tableCellKey(Table, 'origin')` (or dedicated column key). Reference: `portal/user/features/transport/table-all/`, `portal/user/features/freight/table-all/`.
 8. Mock data: feature `*.service.ts` with in-memory store from `*.mock-data.ts` until API exists — see `portal/admin/features/vehicles/data/`.
 9. i18n: column `titleKey`, action `labelKey` in table def. Page header copy (`title` + `subtitle` + `pageIcon`) lives on the page component — not in `*.table.ts`.
 10. Destructive row actions (e.g. delete): confirm via `ConfirmService` from `shared/confirm` before calling the API — see `confirm.mdc`. Add `…table.deleteConfirm.title` / `…message` keys per feature; use `shared.confirm.common.*` for button labels.
@@ -35,7 +35,7 @@ See `entity-tabs.mdc` for tab URL convention (`userMarketplaceUrl`, `userOurList
 User/vehicle/warehouse table page components are **not** standalone routes. Embedded in `portal/admin/features/home/` at `/admin/home?tab=`:
 
 - `UserTablePageComponent`, `VehicleTablePageComponent`, `WarehouseTablePageComponent` with `[embedded]="true"`
-- Hub owns title + neutral `EntityTabsComponent`; create via topbar `AdminCreateMenuComponent` (not per-table CTA)
+- Hub owns title + `EntityTabsComponent` (`accentMode="neutral"`); create via topbar `EntityCreateMenuComponent` (not per-table CTA)
 - `[entityTab]="'users'|'vehicles'|'warehouses'"` on `DataTableComponent` — entity-colored split-card chrome
 - Row click → `admin*DetailUrl(id)`; `viewDetails` row action duplicates row click — see `detail-page.mdc`, `entity-tabs.mdc`
 
@@ -55,7 +55,7 @@ Reference: `portal/admin/features/users/table/`, `vehicles/table/`, `warehouses/
 
 ## Table cell visual hierarchy (user portal lists)
 
-When a table shows route/cargo/storage-style rows, reuse shared display widgets — **do not** invent per-feature badge/chip markup or use status colors on non-status data.
+When a table shows transport/freight/warehouse-style rows, reuse shared display widgets — **do not** invent per-feature badge/chip markup or use status colors on non-status data.
 
 | Priority | Widget | Style | Use for |
 |----------|--------|-------|---------|
@@ -66,16 +66,16 @@ When a table shows route/cargo/storage-style rows, reuse shared display widgets 
 | Secondary | `VehicleDisplayComponent` | Two-line primary/secondary text | Vehicle name + plate |
 | Other | plain `format: 'text'` / `'number'` | Default table cell tokens | Description, size, weight, etc. |
 
-**Merged date columns:** routes and storage expose one **Period** / **Availability** column (`…table.columns.period`) instead of separate start/end columns. Keep the column `key` on the **from/start** field (`transportStartDate`, `availableFrom`) so sort and `defaultSort` stay on start date. Use `width: '18rem'` minimum so ranges like `Sep 1, 2026 – Feb 28, 2027` stay on one line.
+**Merged date columns:** transport and warehouse expose one **Period** / **Availability** column (`…table.columns.period`) instead of separate start/end columns. Keep the column `key` on the **from/start** field (`transportStartDate`, `availableFrom`) so sort and `defaultSort` stay on start date. Use `width: '18rem'` minimum so ranges like `Sep 1, 2026 – Feb 28, 2027` stay on one line.
 
-**Denormalized display fields:** persist table-friendly labels on the entity at create/update time (same pattern as routes):
+**Denormalized display fields:** persist table-friendly labels on the entity at create/update time:
 
 | Entity | Form FK | Denormalized on entity | Resolved via |
 |--------|---------|------------------------|--------------|
-| Route | `vehicleId` | `vehicleName`, `vehiclePlate` | `CompanyVehicleService.getDisplay()` |
-| Storage | `warehouseId` | `warehouseName`, `warehouseCity`, `warehouseLabel` | `CompanyWarehouseService.getDisplay()` + `getLabel()` |
+| Transport | `vehicleId` | `vehicleName`, `vehiclePlate` | `CompanyVehicleService.getDisplay()` |
+| Warehouse | `warehouseId` | `warehouseName`, `warehouseCity`, `warehouseLabel` | `CompanyWarehouseService.getDisplay()` + `getLabel()` |
 
-Reference implementations: `portal/user/features/transport/table-our/`, `cargo/table-our/`, `storage/table-our/`.
+Reference implementations: `portal/user/features/transport/table-our/`, `portal/user/features/freight/table-our/`, `portal/user/features/warehouse/table-our/`.
 
 ## Mobile (≤768px)
 
@@ -155,7 +155,7 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 
 Page `imports`: `StatusBadgeComponent` from `shared/ui/status-badge/status-badge.component.ts`.
 
-All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/table/`.
+All listable entities get a `status` field; each entity will define its own status union over time — see `entity-status.mdc`. Reference: `portal/user/features/transport/table-all/`, `portal/user/features/freight/table-all/`, `portal/user/features/warehouse/table-all/`.
 
 ## Date range display custom cell
 
@@ -186,12 +186,12 @@ Page `imports`: `DateRangeDisplayComponent` from `shared/ui/date-range-display/d
 
 ## Warehouse display custom cell
 
-When a column shows warehouse name over city (storage tables):
+When a column shows warehouse name over city (warehouse tables):
 
 ```typescript
 { key: 'warehouseLabel', titleKey: '…columns.warehouse', cell: 'custom', mobile: { primary: true } }
 
-export const warehouseCellKey = tableCellKey(StorageTable, 'warehouseLabel');
+export const warehouseCellKey = tableCellKey(WarehouseTable, 'warehouseLabel');
 ```
 
 ```html

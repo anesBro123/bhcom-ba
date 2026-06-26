@@ -10,7 +10,7 @@ import {
   adminHomeUrl,
 } from '../../../../../shared/constants/app-urls';
 import {
-  buildAdminDetailPageActions,
+  buildDetailPageActions,
   DETAIL_ACTION_DELETE,
   DetailViewComponent,
 } from '../../../../../shared/detail';
@@ -66,7 +66,7 @@ export class WarehouseDetailPageComponent implements OnInit {
       return [];
     }
 
-    return buildAdminDetailPageActions('warehouses', {
+    return buildDetailPageActions('admin', 'warehouses', {
       editRoute: adminEditWarehouseUrl(item.id),
     });
   });

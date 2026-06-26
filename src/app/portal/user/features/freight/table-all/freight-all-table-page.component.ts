@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { take } from 'rxjs';
@@ -26,7 +26,7 @@ import {
   freightAllStatusCellKey,
   freightAllSizeCellKey,
   freightAllTypeCellKey,
-} from './freight-all.table';
+} from '../freight.table';
 
 @Component({
   selector: 'app-freight-all-table-page',
@@ -42,7 +42,7 @@ import {
   templateUrl: './freight-all-table-page.component.html',
 })
 export class FreightAllTablePageComponent {
-  private readonly cargoService = inject(UserFreightService);
+  private readonly freightService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -52,16 +52,15 @@ export class FreightAllTablePageComponent {
   protected readonly freightTypeKey = freightAllTypeCellKey;
   protected readonly sizeKey = freightAllSizeCellKey;
   protected readonly neededByDateKey = freightAllNeededByDateCellKey;
-  protected readonly tableMounted = signal(true);
 
-  protected readonly loadCargo: TableLoader<Freight> = (query) => this.cargoService.listAll(query);
+  protected readonly loadFreight: TableLoader<Freight> = (query) => this.freightService.listAll(query);
 
   protected freightTypeLabel(type: string): string {
     return `portal.user.features.freight.form.freightTypes.${type}`;
   }
 
   protected onRowClick(row: Freight): void {
-    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'search');
+    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'marketplace');
   }
 
   protected onRowAction(event: RowActionEvent<Freight>): void {

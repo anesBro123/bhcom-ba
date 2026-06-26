@@ -17,7 +17,7 @@ import { AdminVehicleForm, AdminVehicleFormEditActions } from './vehicle.form';
 import type { VehicleFormModel } from '../data/vehicle.model';
 import { AdminVehicleService } from '../data/vehicle.service';
 import { AdminPageIcons } from '../../../admin-page-icons';
-import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../admin-home-navigation';
+import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../common/admin-entity-detail-navigation';
 
 @Component({
   selector: 'app-vehicle-form-page',

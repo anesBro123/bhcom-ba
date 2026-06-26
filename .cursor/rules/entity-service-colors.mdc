@@ -1,12 +1,12 @@
 ---
 description: User portal service-type colors (transport, freight, warehouse) — context chrome only
-globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/offer-menu/**,src/app/shared/shell/app-topbar/admin-create-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/,src/app/portal/admin/features/home/**,src/app/portal/admin/features/*/form/**,src/app/portal/admin/features/*/detail/**,src/app/portal/admin/features/*/table/**
+globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/entity-create-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/,src/app/portal/admin/features/home/**,src/app/portal/admin/features/*/form/**,src/app/portal/admin/features/*/detail/**,src/app/portal/admin/features/*/table/**
 alwaysApply: false
 ---
 
 # Entity service colors (user + admin portals)
 
-Subtle entity identity on portal content — **not** status pills, route chips, sidebar accent, or primary buttons.
+Subtle entity identity on portal content — **not** status pills, route chips, or primary buttons.
 
 ## User portal (`transport` / `freight` / `warehouse`)
 
@@ -36,13 +36,13 @@ Transport uses **stronger** spine/icon/filter mixes (override in `.entity-contex
 
 - `StatusBadgeComponent` / `--status-*` (workflow only — `open` = green, `closed` = amber; see `entity-status.mdc`)
 - Route chips (`--chip-neutral-*`)
-- `--portal-accent` (sidebar / guest login only)
+- `--portal-accent` (guest login / portal picker only)
 - Full card backgrounds or primary CTAs
 
 ## UX pattern — “accent spine”
 
-| State | Cards (intent, quick-action) |
-|-------|------------------------------|
+| State | Entity create menu options, active entity tabs |
+|-------|-----------------------------------------------|
 | Rest | **3px left spine** + **colored icon** (`--entity-accent-icon`) |
 | Hover / focus | Stronger spine, `--entity-accent-border`, `--entity-accent-hover-bg`, shadow |
 
@@ -52,12 +52,10 @@ Icons + labels remain required (color-blind safe).
 
 | Component | Input | When to set |
 |-----------|-------|-------------|
-| `IntentCardComponent` | `entityTab` | Home journey, Offer picker |
-| `QuickActionCardComponent` | `entityTab`, `queryParams?` | Admin dashboard (neutral); **omit** on user marketplace home |
 | `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
-| `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
-| `EntityTabsComponent` | (active tab) | User hubs: entity accent; admin hub: same (`users` / `vehicles` / `warehouses`) |
-| `AdminCreateMenuComponent` | per-option `entityTab` | Colored spine + icon (mirrors `OfferMenuComponent`) |
+| `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables + admin hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
+| `EntityTabsComponent` | `accentMode` | User hubs: `'entity'` (default) — active pill gets entity accent. Admin hub: `'neutral'` — tabs stay neutral; entity color on `DataTableComponent` only |
+| `EntityCreateMenuComponent` | per-option `entityTab` | Colored spine + icon on create dropdown options (user + admin) |
 
 Apply class via `entityContextClass()` or host/`ngClass` — do not hardcode hex in component SCSS.
 

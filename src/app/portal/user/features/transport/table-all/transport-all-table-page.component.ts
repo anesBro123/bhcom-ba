@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
@@ -26,7 +26,7 @@ import {
   transportAllStatusCellKey,
   transportAllVehicleCellKey,
   transportAllVehicleTypeCellKey,
-} from './transport-all.table';
+} from '../transport.table';
 
 @Component({
   selector: 'app-transport-all-table-page',
@@ -42,7 +42,7 @@ import {
   templateUrl: './transport-all-table-page.component.html',
 })
 export class TransportAllTablePageComponent {
-  private readonly routeService = inject(UserTransportService);
+  private readonly transportService = inject(UserTransportService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -52,12 +52,12 @@ export class TransportAllTablePageComponent {
   protected readonly vehicleKey = transportAllVehicleCellKey;
   protected readonly vehicleTypeKey = transportAllVehicleTypeCellKey;
   protected readonly periodKey = transportAllPeriodCellKey;
-  protected readonly tableMounted = signal(true);
 
-  protected readonly loadRoutes: TableLoader<Transport> = (query) => this.routeService.listAll(query);
+  protected readonly loadTransports: TableLoader<Transport> = (query) =>
+    this.transportService.listAll(query);
 
   protected onRowClick(row: Transport): void {
-    navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'search');
+    navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'marketplace');
   }
 
   protected onRowAction(event: RowActionEvent<Transport>): void {

@@ -26,7 +26,7 @@ import {
   warehouseOurPeriodCellKey,
   warehouseOurStatusCellKey,
   warehouseOurWarehouseCellKey,
-} from './warehouse-our.table';
+} from '../warehouse.table';
 
 @Component({
   selector: 'app-warehouse-our-table-page',
@@ -40,7 +40,7 @@ import {
   templateUrl: './warehouse-our-table-page.component.html',
 })
 export class WarehouseOurTablePageComponent {
-  private readonly storageService = inject(UserWarehouseService);
+  private readonly warehouseService = inject(UserWarehouseService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -52,8 +52,8 @@ export class WarehouseOurTablePageComponent {
   protected readonly periodKey = warehouseOurPeriodCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadStorage: TableLoader<Warehouse> = (query) =>
-    this.storageService.listOurs(query);
+  protected readonly loadWarehouses: TableLoader<Warehouse> = (query) =>
+    this.warehouseService.listOurs(query);
 
   protected onRowClick(row: Warehouse): void {
     navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'our');
@@ -77,7 +77,7 @@ export class WarehouseOurTablePageComponent {
           .pipe(
             filter(Boolean),
             take(1),
-            switchMap(() => this.storageService.delete(event.row.id)),
+            switchMap(() => this.warehouseService.delete(event.row.id)),
           )
           .subscribe({
             next: () => this.refreshTable(),

@@ -30,7 +30,7 @@ export class FreightFormPageComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly cargoService = inject(UserFreightService);
+  private readonly freightService = inject(UserFreightService);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly form = this.buildForm();
@@ -80,7 +80,7 @@ export class FreightFormPageComponent implements OnInit {
     }
 
     this.entityId.set(id);
-    this.cargoService
+    this.freightService
       .getById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -106,8 +106,8 @@ export class FreightFormPageComponent implements OnInit {
     this.submitting.set(true);
 
     const request$ = this.isEdit()
-      ? this.cargoService.update(this.entityId()!, payload)
-      : this.cargoService.create(payload);
+      ? this.freightService.update(this.entityId()!, payload)
+      : this.freightService.create(payload);
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

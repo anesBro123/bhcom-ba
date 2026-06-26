@@ -1,11 +1,11 @@
 @use 'styles/breakpoints' as *;
 @use 'styles/interaction' as interaction;
 
-.create-menu {
+.entity-create-menu {
   position: relative;
 }
 
-.create-menu__trigger {
+.entity-create-menu__trigger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -38,13 +38,13 @@
 }
 
 @include below-md {
-  .create-menu__trigger {
+  .entity-create-menu__trigger {
     width: 2.25rem;
     height: 2.25rem;
   }
 }
 
-.create-menu__panel {
+.entity-create-menu__panel {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
@@ -58,7 +58,7 @@
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
 }
 
-.create-menu__item {
+.entity-create-menu__item {
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -87,7 +87,7 @@
   }
 }
 
-.create-menu__icon {
+.entity-create-menu__icon {
   display: inline-flex;
   flex-shrink: 0;
   color: var(--entity-accent-icon);
@@ -97,7 +97,7 @@
   }
 }
 
-.create-menu__label {
+.entity-create-menu__label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);

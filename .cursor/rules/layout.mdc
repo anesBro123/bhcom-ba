@@ -23,11 +23,12 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 | Mode | Left zone | Right zone |
 |------|-----------|------------|
 | **guest** | Brand; Register always; Sign in link when not on `/` | theme → language |
-| **user** | Brand + **offer** `+` menu (left) | theme → language → notifications → account |
-| **admin** | Brand → `homeUrl` | theme → language → account |
+| **user** | Brand + **create** `+` menu (left) | theme → language → notifications → account |
+| **admin** | Brand → `homeUrl` + **create** `+` menu | theme → language → account |
 
 - `ThemePickerComponent` / `LanguagePickerComponent` — `shared/ui/`; single-click toggles
 - `BrandMarkComponent` — optional portal suffix from `PortalConfig.shell.brandSuffixKey`
+- **`EntityCreateMenuComponent`** (`shared/shell/app-topbar/entity-create-menu/`) — shared `+` dropdown for user and admin; per-option `entityTab` for colored spine + icon; options from `USER_OFFER_OPTIONS` / `ADMIN_CREATE_OPTIONS`; aria: `shared.topbar.offer.openMenu` (user) / `shared.topbar.create.openMenu` (admin)
 - Account menu: **My listings** / **Moje objave** (`LucideListChecks`, user → `userOurListingsUrl()`), settings (admin → `ADMIN_SETTINGS_URL`), logout → `SIGN_IN_URL`
 - Styles: `styles/_topbar.scss` (`topbar-base`, `topbar-icon-btn`)
 
@@ -35,19 +36,17 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 
 - `PORTAL_CONFIG` provided on lazy portal branches in `app.routes.ts` (`USER_PORTAL_CONFIG`, `ADMIN_PORTAL_CONFIG`)
 - `PortalConfig.topbarNav: TopbarNavItem[]` — `{ labelKey, route, exact? }`
-- User: `portal/user/user-topbar-nav.config.ts` — empty (browse via brand → `USER_HOME_URL`); offer via `OfferMenuComponent` in topbar
-- Admin: `topbarNav: []` (in-page nav in Plan 3)
+- User: `portal/user/user-topbar-nav.config.ts` — empty (`topbarNav: []`); browse via brand → `USER_HOME_URL`; create via `EntityCreateMenuComponent`
+- Admin: `topbarNav: []` — hub tabs in-page at `/admin/home`; create via `EntityCreateMenuComponent`
 
 ## Shared UI widgets (`shared/ui/`)
 
-- `MetricCardComponent` — dashboard KPI tile; parent wraps in `routerLink` when clickable
-- `QuickActionCardComponent` — action tile; optional `entityTab` on user portal — see `entity-service-colors.mdc`
-- `IntentCardComponent` — intent picker; Home journey + Offer — see `entity-service-colors.mdc`
 - `PageTitleComponent` — portal `h1` + subtitle + icon; hubs use `.page-hub-header` — see `page-title.mdc`
 - `PageBackLinkComponent` — above title on portal create/edit forms — see `page-title.mdc`
 - `RouteDisplayComponent`, `VehicleDisplayComponent`, `DateRangeDisplayComponent`, `WarehouseDisplayComponent`, `StatusBadgeComponent` — table cells; see `tables.mdc`
 - `DatePeriodPickerComponent` — filter + form date input — see `forms.mdc`, `table-filters.mdc`
 - `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page create CTA — see `page-title.mdc`
+- `EntityTabsComponent` — hub tab bar; user hubs `accentMode="entity"` (default); admin hub `accentMode="neutral"` — see `entity-tabs.mdc`
 - **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — marketplace home (Tržište) / my listings (Moje objave) — see `entity-tabs.mdc`
 
 ## Styling

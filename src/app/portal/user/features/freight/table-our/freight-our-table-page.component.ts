@@ -30,7 +30,7 @@ import {
   freightOurStatusCellKey,
   freightOurSizeCellKey,
   freightOurTypeCellKey,
-} from './freight-our.table';
+} from '../freight.table';
 
 @Component({
   selector: 'app-freight-our-table-page',
@@ -46,7 +46,7 @@ import {
   templateUrl: './freight-our-table-page.component.html',
 })
 export class FreightOurTablePageComponent {
-  private readonly cargoService = inject(UserFreightService);
+  private readonly freightService = inject(UserFreightService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -60,7 +60,7 @@ export class FreightOurTablePageComponent {
   protected readonly neededByDateKey = freightOurNeededByDateCellKey;
   protected readonly tableMounted = signal(true);
 
-  protected readonly loadCargo: TableLoader<Freight> = (query) => this.cargoService.listOurs(query);
+  protected readonly loadFreight: TableLoader<Freight> = (query) => this.freightService.listOurs(query);
 
   protected freightTypeLabel(type: string): string {
     return `portal.user.features.freight.form.freightTypes.${type}`;
@@ -88,7 +88,7 @@ export class FreightOurTablePageComponent {
           .pipe(
             filter(Boolean),
             take(1),
-            switchMap(() => this.cargoService.delete(event.row.id)),
+            switchMap(() => this.freightService.delete(event.row.id)),
           )
           .subscribe({
             next: () => this.refreshTable(),

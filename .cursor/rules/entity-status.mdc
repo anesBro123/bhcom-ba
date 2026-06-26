@@ -10,7 +10,7 @@ alwaysApply: false
 
 **All listable entities will have a `status` field** (user and admin portals). Each entity gets its **own status union** and label keys when its workflow differs. Reuse **`StatusBadgeComponent`** for pill UI and **`--status-*` theme tokens** in `src/styles.scss`; do not invent per-feature badge markup.
 
-**Today:** user routes, cargo, and storage temporarily share `UserEntityStatus` from `shared/constants/user-entity-status.ts`. When an entity needs different statuses, define e.g. `VehicleStatus` in that feature and entity-specific i18n under `portal.<portal>.features.<entity>.status.*` — then widen `StatusBadgeComponent` (e.g. optional `labelKey` input) if labels are no longer in `shared.entityStatus.*`.
+**Today:** user transport, freight, and warehouse temporarily share `UserEntityStatus` from `shared/constants/user-entity-status.ts`. When an entity needs different statuses, define e.g. `VehicleStatus` in that feature and entity-specific i18n under `portal.<portal>.features.<entity>.status.*` — then widen `StatusBadgeComponent` (e.g. optional `labelKey` input) if labels are no longer in `shared.entityStatus.*`.
 
 ## Shared pieces
 
@@ -26,7 +26,7 @@ alwaysApply: false
 
 ## Status colors
 
-Workflow hues in `styles.scss` (`--status-*-bg`, `--status-*-text`). Consumed **only** by `StatusBadgeComponent` — not entity service colors (`--entity-*`) or metric-card variants.
+Workflow hues in `styles.scss` (`--status-*-bg`, `--status-*-text`). Consumed **only** by `StatusBadgeComponent` — not entity service colors (`--entity-*`).
 
 | Status | Hue | Light text | Dark text | Meaning |
 |--------|-----|------------|-----------|---------|
@@ -39,7 +39,7 @@ Workflow hues in `styles.scss` (`--status-*-bg`, `--status-*-text`). Consumed **
 
 ## Entity `data/` conventions
 
-- Add `status: …` on the **entity** interface (`Route`, `Cargo`, …) — **not** on form models unless status becomes user-editable.
+- Add `status: …` on the **entity** interface (`Transport`, `Freight`, `Warehouse`, …) — **not** on form models unless status becomes user-editable.
 - Mock data: seed varied statuses for demo.
 - Service `create()`: set default status (e.g. `'open'`) **before** spreading payload so forms cannot override.
 - Service `update()`: spread existing row first so `status` is preserved when not in the form payload.
@@ -63,7 +63,7 @@ export const statusCellKey = tableCellKey(EntityTable, 'status');
 </ng-template>
 ```
 
-Reference: `portal/user/features/transport/table/`, `cargo/table/`, `storage/table/`.
+Reference: `portal/user/features/transport/table-all/`, `portal/user/features/freight/table-all/`, `portal/user/features/warehouse/table-all/`.
 
 ## Detail page display
 

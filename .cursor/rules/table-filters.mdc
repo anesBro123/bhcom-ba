@@ -15,6 +15,7 @@ User portal list pages (transport, freight, warehouse — All + My) and **admin 
 | Filter types | `shared/table/table.types.ts` — `FilterDef<T>`, `FilterOption`, `FilterGroupMeta`, `TableChromeVariant`, `TableViewMode` |
 | Apply logic | `shared/table/apply-table-filters.ts` — `applyTableFilters()`, `isActiveFilterValueForDef()`, `countActiveFilters()` |
 | Chip + summary utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()`, `buildFilterSummary()`, `truncateFilterSelection()` |
+| User filter partials | `shared/table/user-list-filter-partials.ts` — `routeCityFilters()`, `entityStatusFilter()` reused across transport/freight/warehouse |
 | Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()`, `clampNumberRange()`, `valueFromTrackPercent()` |
 | Persistence | `shared/table/table-filter-storage.ts` — filter values, `panelExpanded`, and **`viewMode`** (`loadViewMode` / `saveViewMode`) in localStorage |
 | Flyout shell | `shared/table/data-table/` — controls card + data card (default), toolbar, chips, right overlay flyout (full-screen ≤768px) |
@@ -31,8 +32,8 @@ Reference defs: user — `portal/user/features/transport/data/transport-table-fi
 
 ## Wiring a filtered table
 
-1. Create `*-table-filters.ts` with `FilterDef<Entity>[]` and unique `*_FILTER_STORAGE_KEY` per list (All vs My need separate keys).
-2. In `*.table.ts`: `filters: ENTITY_TABLE_FILTERS`, `filterStorageKey: ENTITY_ALL_FILTER_STORAGE_KEY`.
+1. Create `*-table-filters.ts` with `FilterDef<Entity>[]` and unique `*_FILTER_STORAGE_KEY` per list (All vs Our need separate keys — Our uses `.our` suffix, e.g. `bhcom-ba.filters.user.freight.our`).
+2. In feature `*.table.ts`: `filters: ENTITY_TABLE_FILTERS`, `filterStorageKey` from scope factory (`buildTransportTable`, etc.).
 3. i18n: `portal.user.features.<entity>.table.filters.*` for per-filter labels / placeholders; **all `dateRange` filters** use `shared.table.filters.period` (**Period** / **Period**) — not entity-specific period names.
 
 ```typescript
@@ -83,8 +84,6 @@ export const CARGO_TABLE_FILTERS: FilterDef<Cargo>[] = [
 | `optionTiles` | Short fixed enums (≤8 options) | `showStatusBadges`, `showOptionIcons`; multi-toggle tiles |
 | `dateRange` | Period / needed-by | `field` + optional `endField` for overlap matching; optional `singleDate: true` for one-day filters (freight `neededByDate`) |
 | `numberRange` | Weight, size, m² | `min`/`max`/`step`, optional `unitSuffixKey` |
-
-Optional `groupTitleKey` on defs is **legacy** (grouped sections removed from flyout UI). Safe to leave on defs; not rendered.
 
 Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabilityPeriod` — `key` is `string`.
 

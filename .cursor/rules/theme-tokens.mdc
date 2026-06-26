@@ -21,7 +21,7 @@ Portal and shared UI use a **4-layer surface stack** mirrored semantically in li
 **Aliases** (prefer semantic tokens in new code; aliases exist for backward compat):
 
 - `--bg-sidebar`, `--bg-topbar` → `--bg-chrome`
-- `--bg-form-card`, `--bg-table-card`, `--bg-confirm-dialog`, `--bg-detail-modal`, `--bg-table-filter-panel`, `--bg-sidebar-flyout` → `--bg-surface`
+- `--bg-form-card`, `--bg-table-card`, `--bg-confirm-dialog`, `--bg-table-filter-panel` → `--bg-surface`
 - `--bg-form-input`, `--bg-table-control` → `--bg-control`
 - `--bg-table-filter-toolbar` → `--bg-surface`
 - `--bg-table-filter-chips`, `--bg-table-header` → `--bg-inset`
@@ -57,7 +57,7 @@ Canvas (--bg-app) visible between cards
 
 ## Status workflow tokens
 
-`--status-*` in `styles.scss` — **workflow pills only** (`StatusBadgeComponent`). Not entity service colors (`--entity-*`) or dashboard metric variants (`--metric-variant-*`).
+`--status-*` in `styles.scss` — **workflow pills only** (`StatusBadgeComponent`). Not entity service colors (`--entity-*`).
 
 | Status | Hue family | Tokens |
 |--------|------------|--------|
@@ -84,7 +84,6 @@ Defined in `:root` / theme blocks — use instead of hardcoded `font-size` / `fo
 | `--font-size-body` | `0.875rem` | body, subtitles, buttons, tabs |
 | `--font-size-body-sm` | `0.8125rem` | hints, back link, filter controls |
 | `--font-size-caption` | `0.75rem` | status badges, filter active count |
-| `--font-size-overline` | `0.6875rem` | sidebar section titles, journey group labels |
 | `--font-weight-regular` … `--font-weight-bold` | 400–700 | semantic weights |
 | `--line-height-tight` / `snug` / `normal` | 1.2 / 1.35 / 1.5 | |
 | `--letter-spacing-tight` / `--letter-spacing-overline` | page titles / uppercase labels |
@@ -93,7 +92,6 @@ Defined in `:root` / theme blocks — use instead of hardcoded `font-size` / `fo
 
 - `--text-primary` — headings, body
 - `--text-muted` — subtitles, helpers
-- `--text-section` — overline labels (uppercase nav section titles)
 - `--text-secondary` — alias of `--text-muted`; default state for text links
 - `--table-cell-primary-color` — always `var(--text-primary)` (no separate dark body color)
 
@@ -112,7 +110,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 
 | Mixin | Use for |
 |-------|---------|
-| `interactive-surface` | Clickable cards (intent `--clickable`, quick-action, metric link wrapper) — border + shadow hover; **no `translateY` lift** |
+| `interactive-surface` | Clickable cards with border + shadow hover; **no `translateY` lift** |
 | `interactive-text-link` | Text links — `--text-secondary` → `--text-primary` + underline on hover/focus |
 | `interactive-control` | Tabs, filter buttons, outlined controls — `--bg-hover-subtle` fill |
 | `interactive-primary-btn` | Primary CTAs — `--bg-primary-hover` (not `opacity: 0.92`) |
@@ -120,12 +118,12 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 
 **Hover rules (do not regress):**
 
-1. No `translateY` / card lift on portal dashboard or content cards.
+1. No `translateY` / card lift on portal content cards.
 2. No opacity-only primary button hover — use `--bg-primary-hover`.
 3. Secondary buttons: `--bg-hover-row` or `--bg-hover-subtle`.
 4. Text links: color shift + underline (never opacity alone).
 5. Table rows / mobile cards: `--bg-table-row-hover`.
-6. Portal page content: neutral focus rings and hovers — `--portal-accent` is **sidebar only** (see `layout.mdc`).
+6. Portal page content: neutral focus rings and hovers — `--portal-accent` is **guest portal picker / login only** (see `layout.mdc`).
 
 ## Reference implementations
 
@@ -133,11 +131,10 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 |---------|------|
 | Page title typography | `shared/ui/page-title/page-title.component.scss` |
 | Form section card | `shared/form/form-section/form-section.component.scss` |
-| Intent / quick-action / metric cards | `shared/ui/intent-card/`, `quick-action-card/`, `metric-card/` |
 | Primary CTA | `shared/ui/primary-action-link/primary-action-link.component.scss` |
 | Form footer buttons | `shared/form/form-footer/form-footer.component.scss` |
 | Entity tabs | `shared/ui/entity-tabs/entity-tabs.component.scss` |
-| Home snapshot + links | `portal/user/features/home/home-page.component.scss` |
+| Hub header | `styles/_page-hub-header.scss` |
 | Table filter / split-card chrome | `src/styles/_table-chrome-split-card.scss`, `src/styles/_table-chrome-band-ladder.scss`, `shared/table/data-table/data-table.component.scss` |
 
 ## Do not

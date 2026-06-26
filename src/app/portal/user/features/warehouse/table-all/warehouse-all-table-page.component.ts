@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
@@ -22,7 +22,7 @@ import {
   warehouseAllPeriodCellKey,
   warehouseAllStatusCellKey,
   warehouseAllWarehouseCellKey,
-} from './warehouse-all.table';
+} from '../warehouse.table';
 
 @Component({
   selector: 'app-warehouse-all-table-page',
@@ -36,7 +36,7 @@ import {
   templateUrl: './warehouse-all-table-page.component.html',
 })
 export class WarehouseAllTablePageComponent {
-  private readonly storageService = inject(UserWarehouseService);
+  private readonly warehouseService = inject(UserWarehouseService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
 
@@ -44,13 +44,12 @@ export class WarehouseAllTablePageComponent {
   protected readonly statusKey = warehouseAllStatusCellKey;
   protected readonly warehouseKey = warehouseAllWarehouseCellKey;
   protected readonly periodKey = warehouseAllPeriodCellKey;
-  protected readonly tableMounted = signal(true);
 
-  protected readonly loadStorage: TableLoader<Warehouse> = (query) =>
-    this.storageService.listAll(query);
+  protected readonly loadWarehouses: TableLoader<Warehouse> = (query) =>
+    this.warehouseService.listAll(query);
 
   protected onRowClick(row: Warehouse): void {
-    navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'search');
+    navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'marketplace');
   }
 
   protected onRowAction(event: RowActionEvent<Warehouse>): void {

@@ -20,10 +20,11 @@ import { AuthService } from '../../core/auth/auth.service';
 import { BrandMarkComponent } from '../../ui/brand-mark/brand-mark.component';
 import { LanguagePickerComponent } from '../../ui/language-picker/language-picker.component';
 import { ThemePickerComponent } from '../../ui/theme-picker/theme-picker.component';
+import { ADMIN_CREATE_OPTIONS } from '../../../portal/admin/admin-create-options.config';
 import { ADMIN_PORTAL_CONFIG } from '../../../portal/admin/admin-portal.config';
+import { USER_OFFER_OPTIONS } from '../../../portal/user/user-offer-options.config';
 import { USER_PORTAL_CONFIG } from '../../../portal/user/user-portal.config';
-import { OfferMenuComponent } from './offer-menu/offer-menu.component';
-import { AdminCreateMenuComponent } from './admin-create-menu/admin-create-menu.component';
+import { EntityCreateMenuComponent } from './entity-create-menu/entity-create-menu.component';
 
 type TopbarMode = 'guest' | 'user' | 'admin';
 
@@ -35,8 +36,7 @@ type TopbarMode = 'guest' | 'user' | 'admin';
     BrandMarkComponent,
     ThemePickerComponent,
     LanguagePickerComponent,
-    OfferMenuComponent,
-    AdminCreateMenuComponent,
+    EntityCreateMenuComponent,
     LucideBell,
     LucideCircleUser,
     LucideListChecks,
@@ -62,8 +62,7 @@ export class AppTopbarComponent {
     return null;
   });
 
-  private readonly offerMenu = viewChild(OfferMenuComponent);
-  private readonly adminCreateMenu = viewChild(AdminCreateMenuComponent);
+  private readonly createMenu = viewChild(EntityCreateMenuComponent);
 
   protected readonly accountMenuOpen = signal(false);
 
@@ -99,6 +98,22 @@ export class AppTopbarComponent {
 
   protected readonly topbarNav = computed(() => this.portalConfig()?.topbarNav ?? []);
 
+  protected readonly createMenuOptions = computed(() => {
+    if (this.mode() === 'admin') {
+      return ADMIN_CREATE_OPTIONS;
+    }
+    if (this.mode() === 'user') {
+      return USER_OFFER_OPTIONS;
+    }
+    return [];
+  });
+
+  protected readonly createMenuAriaLabelKey = computed(() =>
+    this.mode() === 'admin'
+      ? 'shared.topbar.create.openMenu'
+      : 'shared.topbar.offer.openMenu',
+  );
+
   protected readonly showAdminSettings = computed(() => this.mode() === 'admin');
 
   protected readonly signInUrl = SIGN_IN_URL;
@@ -109,28 +124,18 @@ export class AppTopbarComponent {
   onDocumentClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.accountMenuOpen.set(false);
-      this.offerMenu()?.close();
-      this.adminCreateMenu()?.close();
+      this.createMenu()?.close();
     }
   }
 
-  protected onOfferMenuOpenChange(open: boolean): void {
+  protected onCreateMenuOpenChange(open: boolean): void {
     if (open) {
       this.accountMenuOpen.set(false);
-      this.adminCreateMenu()?.close();
-    }
-  }
-
-  protected onAdminCreateMenuOpenChange(open: boolean): void {
-    if (open) {
-      this.accountMenuOpen.set(false);
-      this.offerMenu()?.close();
     }
   }
 
   protected toggleAccountMenu(): void {
-    this.offerMenu()?.close();
-    this.adminCreateMenu()?.close();
+    this.createMenu()?.close();
     this.accountMenuOpen.update((open) => !open);
   }
 

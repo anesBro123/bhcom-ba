@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter, switchMap, take } from 'rxjs';
@@ -29,8 +29,6 @@ export class WarehouseTablePageComponent {
   private readonly warehouseService = inject(AdminWarehouseService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
-
-  readonly embedded = input(false);
 
   protected readonly table = WarehouseTable;
   protected readonly warehouseKey = warehouseDisplayCellKey;

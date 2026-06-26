@@ -2,17 +2,17 @@
   display: inline-block;
 }
 
-.cargo-size-display {
+.freight-size-display {
   display: inline-flex;
   align-items: baseline;
   gap: 0.25rem;
 }
 
-.cargo-size-display__value {
+.freight-size-display__value {
   font-variant-numeric: tabular-nums;
 }
 
-.cargo-size-display__unit {
+.freight-size-display__unit {
   color: var(--text-muted);
   font-size: 0.8125rem;
 }

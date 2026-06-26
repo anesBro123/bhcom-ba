@@ -1,16 +1,10 @@
 {
   "shared": {
-    "sidebar": {
-      "collapse": "Collapse",
-      "expand": "Expand",
-      "close": "Close menu"
-    },
     "common": {
       "booleanYes": "Yes",
       "booleanNo": "No"
     },
     "topbar": {
-      "openMenu": "Open menu",
       "changeTheme": "Change theme",
       "theme": {
         "light": "Switch to light mode",
@@ -334,18 +328,8 @@
     },
     "admin": {
       "nav": {
-        "sections": {
-          "dashboard": "DASHBOARD",
-          "users": "USERS",
-          "vehicles": "VEHICLES",
-          "warehouses": "WAREHOUSES"
-        },
-        "overview": "Overview",
-        "allVehicles": "All Vehicles",
         "createVehicle": "Add Vehicle",
-        "allWarehouses": "All Warehouses",
         "createWarehouse": "Add Warehouse",
-        "allUsers": "All Users",
         "createUser": "Add User"
       },
       "pages": {
@@ -357,10 +341,6 @@
           "title": "System Settings",
           "subtitle": "Configure platform preferences and operational defaults."
         },
-        "vehicles": {
-          "title": "All Vehicles",
-          "subtitle": "Browse, search, and manage registered fleet vehicles."
-        },
         "createVehicle": {
           "title": "Add Vehicle",
           "subtitle": "Follow the steps below to register a new vehicle in the fleet."
@@ -369,10 +349,6 @@
           "title": "Edit Vehicle",
           "subtitle": "Update registration details and vehicle data for this record."
         },
-        "warehouses": {
-          "title": "All Warehouses",
-          "subtitle": "View and manage warehouse locations, capacity, and facilities."
-        },
         "createWarehouse": {
           "title": "Add Warehouse",
           "subtitle": "Follow the steps below to register a new warehouse location."
@@ -380,10 +356,6 @@
         "editWarehouse": {
           "title": "Edit Warehouse",
           "subtitle": "Update location, capacity, and facility details for this warehouse."
-        },
-        "users": {
-          "title": "All Users",
-          "subtitle": "Search and manage user accounts and access permissions."
         },
         "createUser": {
           "title": "Add User",
@@ -412,49 +384,6 @@
           "users": "Users",
           "vehicles": "Vehicles",
           "warehouses": "Warehouses"
-        },
-        "dashboard": {
-          "metrics": {
-            "ariaLabel": "Key metrics",
-            "users": {
-              "title": "Users",
-              "subtitle": "Registered accounts"
-            },
-            "vehicles": {
-              "title": "Vehicles",
-              "subtitle": "Fleet vehicles"
-            },
-            "warehouses": {
-              "title": "Warehouses",
-              "subtitle": "Active warehouses"
-            }
-          },
-          "quickActions": {
-            "title": "Quick Actions"
-          },
-          "actions": {
-            "allUsers": {
-              "description": "View and manage all user accounts"
-            },
-            "allVehicles": {
-              "description": "Browse the full vehicle registry"
-            },
-            "allWarehouses": {
-              "description": "View warehouse locations and details"
-            },
-            "createUser": {
-              "description": "Register a new user account"
-            },
-            "createVehicle": {
-              "description": "Add a new vehicle to the fleet"
-            },
-            "createWarehouse": {
-              "description": "Register a new warehouse"
-            },
-            "settings": {
-              "description": "Configure system preferences"
-            }
-          }
         },
         "vehicles": {
           "form": {
@@ -807,19 +736,8 @@
     },
     "user": {
       "nav": {
-        "sections": {
-          "home": "HOME",
-          "search": "MARKETPLACE",
-          "ourListings": "MY LISTINGS",
-          "offer": "OFFER"
-        },
-        "home": "Home",
         "search": "Marketplace",
-        "ourListings": "My listings",
-        "offer": "Offer",
-        "transport": "Transport",
-        "freight": "Freight",
-        "warehouse": "Warehouse"
+        "ourListings": "My listings"
       },
       "pages": {
         "home": {
@@ -938,11 +856,6 @@
               "search": "Search",
               "searchPlaceholder": "Search vehicles, descriptions..."
             },
-            "filterGroups": {
-              "route": "Transport",
-              "attributes": "Attributes",
-              "dates": "Dates"
-            },
             "deleteConfirm": {
               "title": "Delete transport?",
               "message": "This will permanently remove the published transport. This action cannot be undone."
@@ -1052,11 +965,6 @@
               "search": "Search",
               "searchPlaceholder": "Search descriptions..."
             },
-            "filterGroups": {
-              "route": "Lane",
-              "attributes": "Attributes",
-              "dates": "Dates"
-            },
             "deleteConfirm": {
               "title": "Delete freight?",
               "message": "This will permanently remove the published freight. This action cannot be undone."
@@ -1138,11 +1046,6 @@
               "spaceM2": "Space (m²)",
               "search": "Search",
               "searchPlaceholder": "Search descriptions..."
-            },
-            "filterGroups": {
-              "location": "Location",
-              "attributes": "Attributes",
-              "dates": "Dates"
             },
             "deleteConfirm": {
               "title": "Delete warehouse?",

@@ -83,4 +83,12 @@ Do not duplicate date formatting in feature code — import `formatDisplayDate` 
 
 Used by `FormAutocompleteFieldComponent` to filter options. Reuse for table search / filters when matching user-typed text against BiH place names.
 
-Related: `forms.mdc`, `shared-constants.mdc` (`BIH_CITY_OPTIONS`)
+## Hub tab sync (`hub-tab-sync.ts`)
+
+| Export | Role |
+|--------|------|
+| `syncHubEntityTab(route, destroyRef, parseTab, activeTab)` | Subscribes to `?tab=` query param on hub pages; updates `activeTab` signal |
+
+Used by user marketplace/my-listings hubs and admin home hub. Pass `parseUserEntityTab` or `parseAdminEntityTab` from URL constants. See `entity-tabs.mdc`.
+
+Related: `forms.mdc`, `shared-constants.mdc` (`BIH_CITY_OPTIONS`), `entity-tabs.mdc`

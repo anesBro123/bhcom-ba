@@ -1,20 +1,18 @@
-@if (tableMounted()) {
-  <app-data-table
-    entityTab="warehouse"
-    [definition]="table"
-    [loader]="loadStorage"
-    [rowClickEnabled]="true"
-    (rowClick)="onRowClick($event)"
-    (rowAction)="onRowAction($event)"
-  >
-    <ng-template [appTableCell]="statusKey" let-row>
-      <app-status-badge [status]="row.status" />
-    </ng-template>
-    <ng-template [appTableCell]="warehouseKey" let-row>
-      <app-warehouse-display [name]="row.warehouseName" [city]="row.warehouseCity" />
-    </ng-template>
-    <ng-template [appTableCell]="periodKey" let-row>
-      <app-date-range-display [from]="row.storageStartDate" [to]="row.storageEndDate" />
-    </ng-template>
-  </app-data-table>
-}
+<app-data-table
+  entityTab="warehouse"
+  [definition]="table"
+  [loader]="loadWarehouses"
+  [rowClickEnabled]="true"
+  (rowClick)="onRowClick($event)"
+  (rowAction)="onRowAction($event)"
+>
+  <ng-template [appTableCell]="warehouseKey" let-row>
+    <app-warehouse-display [name]="row.warehouseName" [city]="row.warehouseCity" />
+  </ng-template>
+  <ng-template [appTableCell]="statusKey" let-row>
+    <app-status-badge [status]="row.status" />
+  </ng-template>
+  <ng-template [appTableCell]="periodKey" let-row>
+    <app-date-range-display [from]="row.availableFrom" [to]="row.availableTo" />
+  </ng-template>
+</app-data-table>

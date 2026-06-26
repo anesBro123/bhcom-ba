@@ -88,7 +88,7 @@ export class TransportDetailPageComponent implements OnInit {
       return [];
     }
 
-    return buildDetailPageActions('transport', {
+    return buildDetailPageActions('user', 'transport', {
       isOwnListing: this.isOwnListing(),
       editRoute: userEditTransportUrl(item.id),
     });

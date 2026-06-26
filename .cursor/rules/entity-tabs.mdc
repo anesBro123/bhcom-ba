@@ -1,12 +1,12 @@
 ---
 description: Entity tab hub UI for user portal marketplace home and my listings pages
-globs: src/app/shared/ui/entity-tabs/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/user-entity-tabs.config.ts,src/styles/_page-hub-header.scss
+globs: src/app/shared/ui/entity-tabs/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/admin/features/home/**,src/app/portal/user/user-entity-tabs.config.ts,src/app/portal/admin/admin-entity-tabs.config.ts,src/app/shared/utils/hub-tab-sync.ts,src/styles/_page-hub-header.scss
 alwaysApply: false
 ---
 
 # Entity tabs (`EntityTabsComponent`)
 
-Shared tab bar for user portal **marketplace home** — **Tržište** / **Marketplace** (`/home`) — and **my listings** — **Moje objave** / **My listings** (`/our-listings`) hub pages.
+Shared tab bar for user portal **marketplace home** — **Tržište** / **Marketplace** (`/home`) — and **my listings** — **Moje objave** / **My listings** (`/our-listings`) hub pages. Also used on admin home hub (`/admin/home`).
 
 ## Component
 
@@ -18,13 +18,26 @@ Shared tab bar for user portal **marketplace home** — **Tržište** / **Market
 
 | Input / output | Type |
 |----------------|------|
-| `activeTab` | `UserEntityTab` (`transport` \| `freight` \| `warehouse`) |
+| `activeTab` | `UserEntityTab` or `AdminEntityTab` |
 | `tabs` | `EntityTabConfig[]` — `{ id, labelKey, icon }` |
-| `tabChange` | output `UserEntityTab` |
+| `accentMode` | `'entity'` (default) \| `'neutral'` — user hubs use entity accent on active pill; admin hub uses `'neutral'` |
+| `tabChange` | output tab id |
 
-Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG` (icons from `UserPageIcons`).
+Tab config:
+- User: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG` (icons from `UserPageIcons`)
+- Admin: `portal/admin/admin-entity-tabs.config.ts` → `ADMIN_ENTITY_TAB_CONFIG` (icons from `AdminPageIcons`)
 
-**Active tab styling:** active pill gets `entity-context--{tab}` — entity border, soft fill, tinted icon. Inactive tabs stay neutral. See `entity-service-colors.mdc`.
+**Active tab styling:** when `accentMode="entity"`, active pill gets `entity-context--{tab}` — entity border, soft fill, tinted icon. Inactive tabs stay neutral. Admin hub (`accentMode="neutral"`): all tabs neutral; entity color on embedded `DataTableComponent` via `entityTab`. See `entity-service-colors.mdc`.
+
+### Tab sync (`syncHubEntityTab`)
+
+Hub pages subscribe to `?tab=` via `syncHubEntityTab()` from `shared/utils/hub-tab-sync.ts`:
+
+```typescript
+syncHubEntityTab(this.route, this.destroyRef, parseUserEntityTab, this.activeTab);
+```
+
+Admin home uses `parseAdminEntityTab`. On tab change, navigate with `userMarketplaceUrl()` / `userOurListingsUrl()` / `adminHomeUrl()`.
 
 ### i18n
 
@@ -41,11 +54,7 @@ Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG
 | `userMarketplaceRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for marketplace |
 | `userOurListingsRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for my listings |
 
-Deprecated aliases: `userSearchUrl`, `userSearchRoute`.
-
 Parse query with `parseUserEntityTab()` from `shared/constants/user-urls.ts`.
-
-Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userMarketplaceUrl()` / `userOurListingsUrl()` on tab change.
 
 For `[routerLink]` in templates, use `userMarketplaceRoute()` / `userOurListingsRoute()`. Do **not** bind marketplace URL strings to `routerLink` (Angular encodes `?` into the path segment).
 
@@ -77,7 +86,7 @@ Wrap **page header** (`PageHeader` + title + tab-specific publish CTA) and **`ap
 <div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
   <app-page-header>
     <app-page-title titleKey="portal.user.pages.home.title" … [icon]="pageIcon" />
-    <app-primary-action-link [route]="offerUrl()" [labelKey]="offerLabelKey()" />
+    <app-primary-action-link [route]="createUrl()" [labelKey]="createLabelKey()" />
   </app-page-header>
   <app-entity-tabs … />
   <a class="page-hub-header__cross-link" [routerLink]="crossLinkRoute().route" [queryParams]="crossLinkRoute().queryParams">
@@ -100,20 +109,20 @@ Our-listings tables may pass `emptyActionRoute` + `emptyActionLabelKey` to `Data
 
 | Feature | Route | Tabs | Notes |
 |---------|-------|------|-------|
-| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` with entity accent (`users` / `vehicles` / `warehouses`) |
+| `portal/admin/features/home/` | `/admin/home?tab=` | users \| vehicles \| warehouses | `EntityTabsComponent` with `accentMode="neutral"` |
 
-Admin URL builders: `adminHomeUrl(tab?)`, `adminHomeRoute(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete. Create via topbar `AdminCreateMenuComponent` with per-option entity colors.
+Admin URL builder: `adminHomeUrl(tab?)`. Row click → `admin*DetailUrl(id)`; detail footer Edit/Delete. Create via topbar `EntityCreateMenuComponent` (`shared.topbar.create.openMenu`) with per-option entity colors.
 
 ## Topbar navigation
 
 - Brand → `USER_HOME_URL` (marketplace)
-- Offer → `OfferMenuComponent` (`+` beside brand)
+- Create → `EntityCreateMenuComponent` (`+` beside brand; `shared.topbar.offer.openMenu`)
 - My listings → account menu only (`shared.topbar.account.profile` → `userOurListingsUrl()`; icon `LucideListChecks` in topbar)
 - `user-topbar-nav.config.ts` — empty (`topbarNav: []`)
 
 ## Do not
 
 - Register standalone `/transport`, `/freight`, `/warehouse`, or `*/our` list routes alongside hubs.
-- Register a separate `/find` route.
+- Register a separate `/find` or `/offer` route — create flows use topbar `EntityCreateMenuComponent`.
 - Hardcode `/home?tab=` strings — use URL builders from `user-urls.ts`.
 - Render `app-entity-tabs` outside `.page-hub-header` on hub pages.

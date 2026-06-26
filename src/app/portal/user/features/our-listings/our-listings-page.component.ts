@@ -1,8 +1,6 @@
 import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { map } from 'rxjs';
 
 import {
   USER_CREATE_FREIGHT_URL,
@@ -13,6 +11,7 @@ import {
   userMarketplaceRoute,
   userOurListingsUrl,
 } from '../../../../shared/constants/app-urls';
+import { syncHubEntityTab } from '../../../../shared/utils/hub-tab-sync';
 import { EntityTabsComponent } from '../../../../shared/ui/entity-tabs/entity-tabs.component';
 import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
@@ -65,12 +64,7 @@ export class OurListingsPageComponent {
   protected readonly crossLinkRoute = computed(() => userMarketplaceRoute(this.activeTab()));
 
   constructor() {
-    this.route.queryParamMap
-      .pipe(
-        map((params) => parseUserEntityTab(params.get('tab'))),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((tab) => this.activeTab.set(tab));
+    syncHubEntityTab(this.route, this.destroyRef, parseUserEntityTab, this.activeTab);
   }
 
   protected onTabChange(tab: UserEntityTab | string): void {

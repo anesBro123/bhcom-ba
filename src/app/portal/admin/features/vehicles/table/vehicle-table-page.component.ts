@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
@@ -29,8 +29,6 @@ export class VehicleTablePageComponent {
   private readonly vehicleService = inject(AdminVehicleService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
-
-  readonly embedded = input(false);
 
   protected readonly table = VehicleTable;
   protected readonly vehicleKey = vehicleDisplayCellKey;

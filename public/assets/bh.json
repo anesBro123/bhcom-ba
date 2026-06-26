@@ -1,16 +1,10 @@
 {
   "shared": {
-    "sidebar": {
-      "collapse": "Suzi",
-      "expand": "Proširi",
-      "close": "Zatvori meni"
-    },
     "common": {
       "booleanYes": "Da",
       "booleanNo": "Ne"
     },
     "topbar": {
-      "openMenu": "Otvori meni",
       "changeTheme": "Promijeni temu",
       "theme": {
         "light": "Prebaci na svijetli režim",
@@ -334,18 +328,8 @@
     },
     "admin": {
       "nav": {
-        "sections": {
-          "dashboard": "KONTROLNA TABLA",
-          "users": "KORISNICI",
-          "vehicles": "VOZILA",
-          "warehouses": "SKLADIŠTA"
-        },
-        "overview": "Pregled",
-        "allVehicles": "Sva vozila",
         "createVehicle": "Dodaj vozilo",
-        "allWarehouses": "Sva skladišta",
         "createWarehouse": "Dodaj skladište",
-        "allUsers": "Svi korisnici",
         "createUser": "Dodaj korisnika"
       },
       "pages": {
@@ -357,10 +341,6 @@
           "title": "Sistemske postavke",
           "subtitle": "Konfigurišite postavke platforme i operativne zadane vrijednosti."
         },
-        "vehicles": {
-          "title": "Sva vozila",
-          "subtitle": "Pregledajte, pretražujte i upravljajte registrovanim vozilima flote."
-        },
         "createVehicle": {
           "title": "Dodaj vozilo",
           "subtitle": "Slijedite korake ispod da registrujete novo vozilo u floti."
@@ -369,10 +349,6 @@
           "title": "Uredi vozilo",
           "subtitle": "Ažurirajte podatke o registraciji i vozilu za ovaj zapis."
         },
-        "warehouses": {
-          "title": "Sva skladišta",
-          "subtitle": "Pregledajte i upravljajte lokacijama, kapacitetom i objektima skladišta."
-        },
         "createWarehouse": {
           "title": "Dodaj skladište",
           "subtitle": "Slijedite korake ispod da registrujete novu lokaciju skladišta."
@@ -380,10 +356,6 @@
         "editWarehouse": {
           "title": "Uredi skladište",
           "subtitle": "Ažurirajte lokaciju, kapacitet i detalje objekata za ovo skladište."
-        },
-        "users": {
-          "title": "Svi korisnici",
-          "subtitle": "Pretražujte i upravljajte korisničkim računima i pristupnim dozvolama."
         },
         "createUser": {
           "title": "Dodaj korisnika",
@@ -412,49 +384,6 @@
           "users": "Korisnici",
           "vehicles": "Vozila",
           "warehouses": "Skladišta"
-        },
-        "dashboard": {
-          "metrics": {
-            "ariaLabel": "Ključne metrike",
-            "users": {
-              "title": "Korisnici",
-              "subtitle": "Registrovani nalozi"
-            },
-            "vehicles": {
-              "title": "Vozila",
-              "subtitle": "Vozila u floti"
-            },
-            "warehouses": {
-              "title": "Skladišta",
-              "subtitle": "Aktivna skladišta"
-            }
-          },
-          "quickActions": {
-            "title": "Brze akcije"
-          },
-          "actions": {
-            "allUsers": {
-              "description": "Pregledajte i upravljajte svim korisničkim nalozima"
-            },
-            "allVehicles": {
-              "description": "Pregledajte kompletan registar vozila"
-            },
-            "allWarehouses": {
-              "description": "Pregledajte lokacije i detalje skladišta"
-            },
-            "createUser": {
-              "description": "Registrujte novi korisnički nalog"
-            },
-            "createVehicle": {
-              "description": "Dodajte novo vozilo u flotu"
-            },
-            "createWarehouse": {
-              "description": "Registrujte novo skladište"
-            },
-            "settings": {
-              "description": "Konfigurišite sistemske postavke"
-            }
-          }
         },
         "vehicles": {
           "form": {
@@ -807,19 +736,8 @@
     },
     "user": {
       "nav": {
-        "sections": {
-          "home": "POČETNA",
-          "search": "TRŽIŠTE",
-          "ourListings": "MOJE OBJAVE",
-          "offer": "PONUDI"
-        },
-        "home": "Početna",
         "search": "Tržište",
-        "ourListings": "Moje objave",
-        "offer": "Ponudi",
-        "transport": "Prevoz",
-        "freight": "Teret",
-        "warehouse": "Skladište"
+        "ourListings": "Moje objave"
       },
       "pages": {
         "home": {
@@ -938,11 +856,6 @@
               "search": "Pretraga",
               "searchPlaceholder": "Pretraži vozila, opise..."
             },
-            "filterGroups": {
-              "route": "Prevoz",
-              "attributes": "Atributi",
-              "dates": "Datumi"
-            },
             "deleteConfirm": {
               "title": "Obrisati prevoz?",
               "message": "Ovo će trajno ukloniti objavljeni prevoz. Ova radnja se ne može poništiti."
@@ -1052,11 +965,6 @@
               "search": "Pretraga",
               "searchPlaceholder": "Pretraži opise..."
             },
-            "filterGroups": {
-              "route": "Relacija",
-              "attributes": "Atributi",
-              "dates": "Datumi"
-            },
             "deleteConfirm": {
               "title": "Obrisati teret?",
               "message": "Ovo će trajno ukloniti objavljeni teret. Ova radnja se ne može poništiti."
@@ -1138,11 +1046,6 @@
               "spaceM2": "Prostor (m²)",
               "search": "Pretraga",
               "searchPlaceholder": "Pretraži opise..."
-            },
-            "filterGroups": {
-              "location": "Lokacija",
-              "attributes": "Atributi",
-              "dates": "Datumi"
             },
             "deleteConfirm": {
               "title": "Obrisati skladište?",

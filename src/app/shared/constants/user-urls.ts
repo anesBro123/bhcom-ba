@@ -15,9 +15,6 @@ export function userMarketplaceUrl(tab: UserEntityTab = 'transport'): string {
   return `${USER_HOME_URL}?tab=${tab}`;
 }
 
-/** @deprecated Use userMarketplaceUrl */
-export const userSearchUrl = userMarketplaceUrl;
-
 export function userOurListingsUrl(tab: UserEntityTab = 'transport'): string {
   return `${USER_OUR_LISTINGS_URL}?tab=${tab}`;
 }
@@ -31,9 +28,6 @@ export interface UserEntityTabRoute {
 export function userMarketplaceRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
   return { route: USER_HOME_URL, queryParams: { tab } };
 }
-
-/** @deprecated Use userMarketplaceRoute */
-export const userSearchRoute = userMarketplaceRoute;
 
 export function userOurListingsRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
   return { route: USER_OUR_LISTINGS_URL, queryParams: { tab } };

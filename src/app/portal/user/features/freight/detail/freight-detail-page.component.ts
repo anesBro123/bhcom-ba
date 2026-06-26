@@ -88,7 +88,7 @@ export class FreightDetailPageComponent implements OnInit {
       return [];
     }
 
-    return buildDetailPageActions('freight', {
+    return buildDetailPageActions('user', 'freight', {
       isOwnListing: this.isOwnListing(),
       editRoute: userEditFreightUrl(item.id),
     });

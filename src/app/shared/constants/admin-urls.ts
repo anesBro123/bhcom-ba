@@ -15,15 +15,6 @@ export function adminHomeUrl(tab: AdminEntityTab = 'users'): string {
   return `${ADMIN_HOME_URL}?tab=${tab}`;
 }
 
-export interface AdminEntityTabRoute {
-  route: string;
-  queryParams: { tab: AdminEntityTab };
-}
-
-export function adminHomeRoute(tab: AdminEntityTab = 'users'): AdminEntityTabRoute {
-  return { route: ADMIN_HOME_URL, queryParams: { tab } };
-}
-
 const ADMIN_USERS_PATH = '/admin/users';
 export const ADMIN_CREATE_USER_URL = `${ADMIN_USERS_PATH}/create`;
 

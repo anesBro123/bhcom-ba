@@ -7,15 +7,13 @@ import {
   type UserEntityTab,
 } from '../../../shared/constants/user-urls';
 
-export type EntityDetailOrigin = 'search' | 'our';
+export type EntityDetailOrigin = 'marketplace' | 'our';
 
 export interface EntityDetailNavigationState {
   detailOrigin?: EntityDetailOrigin;
 }
 
 export const MARKETPLACE_BACK_LABEL_KEY = 'portal.user.nav.search';
-/** @deprecated Use MARKETPLACE_BACK_LABEL_KEY */
-export const SEARCH_BACK_LABEL_KEY = MARKETPLACE_BACK_LABEL_KEY;
 export const OUR_LISTINGS_BACK_LABEL_KEY = 'portal.user.nav.ourListings';
 
 export function navigateToEntityDetail(
@@ -29,17 +27,20 @@ export function navigateToEntityDetail(
 export function readEntityDetailOrigin(): EntityDetailOrigin | undefined {
   const state = history.state as EntityDetailNavigationState | null;
   const origin = state?.detailOrigin;
-  if ((origin as string | undefined) === 'find') {
-    return 'search';
+  if (origin === 'our') {
+    return 'our';
   }
-  return origin;
+  if (origin === 'marketplace' || (origin as string | undefined) === 'search' || (origin as string | undefined) === 'find') {
+    return 'marketplace';
+  }
+  return undefined;
 }
 
 export function isOurListingsContext(
   isOwnListing: boolean,
   origin?: EntityDetailOrigin,
 ): boolean {
-  return origin === 'our' || (origin !== 'search' && isOwnListing);
+  return origin === 'our' || (origin !== 'marketplace' && isOwnListing);
 }
 
 export function resolveDetailBack(

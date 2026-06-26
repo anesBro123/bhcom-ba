@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, switchMap, take } from 'rxjs';
 
@@ -26,8 +26,6 @@ export class UserTablePageComponent {
   private readonly userService = inject(AdminUserService);
   private readonly confirmService = inject(ConfirmService);
   private readonly router = inject(Router);
-
-  readonly embedded = input(false);
 
   protected readonly table = UserTable;
   protected readonly nameKey = userNameCellKey;

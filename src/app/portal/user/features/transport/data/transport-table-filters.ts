@@ -1,44 +1,20 @@
-import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
-import { USER_ENTITY_STATUS_OPTIONS } from '../../../../../shared/constants/user-entity-status';
 import { VEHICLE_TYPE_OPTIONS } from '../../../../../shared/constants/vehicle-type';
+import { entityStatusFilter, routeCityFilters } from '../../../../../shared/table/user-list-filter-partials';
 
 import type { FilterDef } from '../../../../../shared/table/table.types';
 import type { Transport } from '../data/transport.model';
 
+const I18N = 'portal.user.features.transport.table.filters';
+
 export const TRANSPORT_TABLE_FILTERS: FilterDef<Transport>[] = [
-  {
-    key: 'origin',
-    type: 'multiSelect',
-    titleKey: 'portal.user.features.transport.table.filters.origin',
-    placeholderKey: 'portal.user.features.transport.table.filters.allOrigins',
-    options: BIH_CITY_OPTIONS.map((city) => ({ value: city.value, label: city.label })),
-    searchable: true,
-    groupTitleKey: 'portal.user.features.transport.table.filterGroups.route',
-  },
-  {
-    key: 'destination',
-    type: 'multiSelect',
-    titleKey: 'portal.user.features.transport.table.filters.destination',
-    placeholderKey: 'portal.user.features.transport.table.filters.allDestinations',
-    options: BIH_CITY_OPTIONS.map((city) => ({ value: city.value, label: city.label })),
-    searchable: true,
-    groupTitleKey: 'portal.user.features.transport.table.filterGroups.route',
-  },
-  {
-    key: 'status',
-    type: 'optionTiles',
-    titleKey: 'portal.user.features.transport.table.filters.status',
-    options: [...USER_ENTITY_STATUS_OPTIONS],
-    showStatusBadges: true,
-    groupTitleKey: 'portal.user.features.transport.table.filterGroups.attributes',
-  },
+  ...routeCityFilters<Transport>(I18N),
+  entityStatusFilter<Transport>(I18N),
   {
     key: 'vehicleType',
     type: 'optionTiles',
-    titleKey: 'portal.user.features.transport.table.filters.vehicleType',
+    titleKey: `${I18N}.vehicleType`,
     options: [...VEHICLE_TYPE_OPTIONS],
     showOptionIcons: true,
-    groupTitleKey: 'portal.user.features.transport.table.filterGroups.attributes',
   },
   {
     key: 'transportPeriod',
@@ -46,13 +22,12 @@ export const TRANSPORT_TABLE_FILTERS: FilterDef<Transport>[] = [
     titleKey: 'shared.table.filters.period',
     field: 'transportStartDate',
     endField: 'transportEndDate',
-    groupTitleKey: 'portal.user.features.transport.table.filterGroups.dates',
   },
   {
     key: 'search',
     type: 'search',
-    titleKey: 'portal.user.features.transport.table.filters.search',
-    placeholderKey: 'portal.user.features.transport.table.filters.searchPlaceholder',
+    titleKey: `${I18N}.search`,
+    placeholderKey: `${I18N}.searchPlaceholder`,
     debounceMs: 300,
     searchFields: ['vehiclePlate', 'vehicleName', 'description'],
   },

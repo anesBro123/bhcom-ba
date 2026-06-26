@@ -88,7 +88,7 @@ export class WarehouseDetailPageComponent implements OnInit {
       return [];
     }
 
-    return buildDetailPageActions('warehouse', {
+    return buildDetailPageActions('user', 'warehouse', {
       isOwnListing: this.isOwnListing(),
       editRoute: userEditWarehouseUrl(item.id),
     });

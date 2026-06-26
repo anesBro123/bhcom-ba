@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Portal page title (`PageTitleComponent`) and form back link (`PageBackLinkComponent`)
 
-Canonical top-level heading for **portal shell pages** (dashboard, table, form, settings). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
+Canonical top-level heading for **portal shell pages** (hub, table, form, settings, detail). Renders an `h1` plus optional muted subtitle above page content on the shell background — **not** inside table/form cards.
 
 **Form create/edit pages** also require `PageBackLinkComponent` above the title — see **Form back link** below.
 
@@ -44,8 +44,8 @@ Static keys:
 
 ```html
 <app-page-title
-  titleKey="portal.admin.pages.dashboard.title"
-  subtitleKey="portal.admin.pages.dashboard.subtitle"
+  titleKey="portal.admin.pages.home.title"
+  subtitleKey="portal.admin.pages.home.subtitle"
   [icon]="pageIcon"
 />
 ```
@@ -54,7 +54,7 @@ Static keys:
 
 - **Required** on every portal page — Lucide entity icon left of the `h1` (decorative — no border or background).
 - Source: `AdminPageIcons` (`portal/admin/admin-page-icons.ts`) or `UserPageIcons` (`portal/user/user-page-icons.ts`). Nav list items import the same constants — do not duplicate Lucide imports on pages.
-- Use the **entity** icon (e.g. `LucideTruck` for vehicles), **not** `LucideSquarePlus`. Reserve `+` for sidebar create links and `PrimaryActionLinkComponent` only.
+- Use the **entity** icon (e.g. `LucideTruck` for vehicles), **not** `LucideSquarePlus`. Reserve `+` for `EntityCreateMenuComponent` and `PrimaryActionLinkComponent` only.
 - Same icon on **list, create, and edit** pages for a feature — title copy differentiates the task.
 - Icon size: **20px** in a **2.25rem** alignment box (`page-title.component.ts` → `iconInputs`).
 
@@ -98,7 +98,7 @@ Same flex pattern in `FormSectionComponent` (`.form-section-card__text`) — see
 
 | Context | Divider location |
 |---------|------------------|
-| Standalone `<app-page-title>` (Home, Offer, dashboard, forms, detail) | `.page-title-block` — `border-bottom` + `padding-bottom: 1rem` |
+| Standalone `<app-page-title>` (hub, forms, detail, settings) | `.page-title-block` — `border-bottom` + `padding-bottom: 1rem` |
 | `<app-page-header>` + create CTA (admin tables) | `.page-header` — full-width `border-bottom` |
 | `.page-hub-header` (marketplace, my listings) | Wrapper only — after tabs; no border on title or page-header inside |
 
@@ -157,11 +157,11 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Form create | `pageTitleKey` / `pageSubtitleKey` constants or computed | `portal.admin.pages.createUser.title` |
 | Form edit | computed from `isEdit()` | `portal.admin.pages.editUser.title` |
 | Detail (user portal) | computed `pageSubtitleKey()` via `resolveDetailSubtitleKey()` | `portal.user.pages.listingDetail.subtitleSearch` / `.subtitleOur` |
-| Dashboard / settings | static in template | `portal.admin.pages.dashboard.title` |
+| Settings / admin home | static in template | `portal.admin.pages.home.title` / `portal.admin.pages.settings.title` |
 
 ## Where to render
 
-**Page templates only** — first element above content (table card, form stepper, dashboard sections, etc.).
+**Page templates only** — first element above content (table card, form stepper, hub sections, etc.).
 
 | Page type | Keys on page component | Example |
 |-----------|------------------------|---------|
@@ -170,7 +170,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Form create/edit (stepper CRUD) | `pageTitleKey()` + `pageSubtitleKey()` computed + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
 | Form create (single-step) | `pageTitleKey` + `pageSubtitleKey` + `pageIcon` + `PageBackLinkComponent` | See **Form back link** below |
 | Detail (user portal) | `pageTitleKey` + computed `pageSubtitleKey()` + `pageIcon` + `PageBackLinkComponent` (no `[form]`) | See `detail-page.mdc` |
-| Dashboard / settings | static `portal.<portal>.pages.*.title` + `.subtitle` + `pageIcon` | See static-keys example above |
+| Settings / admin home | static `portal.<portal>.pages.*.title` + `.subtitle` + `pageIcon` | See static-keys example above |
 
 Table pages with `tableMounted` remount: place the title row **outside** the `@if` so the title stays visible during refresh.
 
@@ -254,9 +254,9 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 
 - Table (with create CTA): `portal/admin/features/vehicles/table/vehicle-table-page.component.*`
 - Form (create/edit with back link): `portal/admin/features/vehicles/form/vehicle-form-page.component.*`
-- Dashboard / Home (standalone title): `portal/admin/features/dashboard/`, `portal/user/features/home/`
+- Admin home hub (title in `.page-hub-header`): `portal/admin/features/home/admin-home-page.component.*`
 - Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
-- User hub (title + tabs): `portal/user/features/home/home-page.component.*`
-- User hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`
+- User marketplace hub (title + tabs): `portal/user/features/home/home-page.component.*`
+- User my listings hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`
 
 Related: `layout.mdc`, `entity-tabs.mdc`, `entity-service-colors.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

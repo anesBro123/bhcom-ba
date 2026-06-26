@@ -34,7 +34,7 @@ export class WarehouseFormPageComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly storageService = inject(UserWarehouseService);
+  private readonly warehouseService = inject(UserWarehouseService);
   private readonly companyWarehouseService = inject(CompanyWarehouseService);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -86,7 +86,7 @@ export class WarehouseFormPageComponent implements OnInit {
     }
 
     this.entityId.set(id);
-    this.storageService
+    this.warehouseService
       .getById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -113,13 +113,13 @@ export class WarehouseFormPageComponent implements OnInit {
     this.submitting.set(true);
 
     const request$ = this.isEdit()
-      ? this.storageService.update(this.entityId()!, {
+      ? this.warehouseService.update(this.entityId()!, {
           ...payload,
           warehouseLabel,
           warehouseName,
           warehouseCity,
         })
-      : this.storageService.create({ ...payload, warehouseLabel, warehouseName, warehouseCity });
+      : this.warehouseService.create({ ...payload, warehouseLabel, warehouseName, warehouseCity });
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

@@ -34,7 +34,7 @@ export class TransportFormPageComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly routeService = inject(UserTransportService);
+  private readonly transportService = inject(UserTransportService);
   private readonly companyVehicleService = inject(CompanyVehicleService);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -86,7 +86,7 @@ export class TransportFormPageComponent implements OnInit {
     }
 
     this.entityId.set(id);
-    this.routeService
+    this.transportService
       .getById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -118,8 +118,8 @@ export class TransportFormPageComponent implements OnInit {
     this.submitting.set(true);
 
     const request$ = this.isEdit()
-      ? this.routeService.update(this.entityId()!, { ...payload, vehiclePlate, vehicleName })
-      : this.routeService.create({ ...payload, vehiclePlate, vehicleName });
+      ? this.transportService.update(this.entityId()!, { ...payload, vehiclePlate, vehicleName })
+      : this.transportService.create({ ...payload, vehiclePlate, vehicleName });
 
     request$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

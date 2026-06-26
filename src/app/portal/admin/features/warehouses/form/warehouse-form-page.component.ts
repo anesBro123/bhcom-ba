@@ -17,7 +17,7 @@ import { AdminWarehouseForm, AdminWarehouseFormEditActions } from './warehouse.f
 import type { WarehouseFormModel } from '../data/warehouse.model';
 import { AdminWarehouseService } from '../data/warehouse.service';
 import { AdminPageIcons } from '../../../admin-page-icons';
-import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../admin-home-navigation';
+import { ADMIN_HOME_BACK_LABEL_KEY } from '../../../common/admin-entity-detail-navigation';
 
 @Component({
   selector: 'app-warehouse-form-page',

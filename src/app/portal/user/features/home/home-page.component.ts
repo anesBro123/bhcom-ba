@@ -1,8 +1,6 @@
 import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { map } from 'rxjs';
 
 import {
   USER_CREATE_FREIGHT_URL,
@@ -13,6 +11,7 @@ import {
   userMarketplaceUrl,
   userOurListingsRoute,
 } from '../../../../shared/constants/app-urls';
+import { syncHubEntityTab } from '../../../../shared/utils/hub-tab-sync';
 import { EntityTabsComponent } from '../../../../shared/ui/entity-tabs/entity-tabs.component';
 import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
@@ -49,7 +48,7 @@ export class HomePageComponent {
   protected readonly entityTabs = USER_ENTITY_TAB_CONFIG;
   protected readonly activeTab = signal<UserEntityTab>('transport');
 
-  protected readonly offerUrl = computed(() => {
+  protected readonly createUrl = computed(() => {
     switch (this.activeTab()) {
       case 'freight':
         return USER_CREATE_FREIGHT_URL;
@@ -60,17 +59,12 @@ export class HomePageComponent {
     }
   });
 
-  protected readonly offerLabelKey = computed(() => userCreateListingLabelKey(this.activeTab()));
+  protected readonly createLabelKey = computed(() => userCreateListingLabelKey(this.activeTab()));
 
   protected readonly crossLinkRoute = computed(() => userOurListingsRoute(this.activeTab()));
 
   constructor() {
-    this.route.queryParamMap
-      .pipe(
-        map((params) => parseUserEntityTab(params.get('tab'))),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((tab) => this.activeTab.set(tab));
+    syncHubEntityTab(this.route, this.destroyRef, parseUserEntityTab, this.activeTab);
   }
 
   protected onTabChange(tab: UserEntityTab | string): void {

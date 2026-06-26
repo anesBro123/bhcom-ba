@@ -6,6 +6,7 @@
   />
 
   <app-entity-tabs
+    accentMode="neutral"
     ariaLabelKey="portal.admin.features.adminEntityTabs.ariaLabel"
     [activeTab]="activeTab()"
     [tabs]="entityTabs"
@@ -15,12 +16,12 @@
 
 @switch (activeTab()) {
   @case ('vehicles') {
-    <app-vehicle-table-page [embedded]="true" />
+    <app-vehicle-table-page />
   }
   @case ('warehouses') {
-    <app-warehouse-table-page [embedded]="true" />
+    <app-warehouse-table-page />
   }
   @default {
-    <app-user-table-page [embedded]="true" />
+    <app-user-table-page />
   }
 }

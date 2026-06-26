@@ -1,63 +1,37 @@
-import { BIH_CITY_OPTIONS } from '../../../../../shared/constants/bih-cities';
-import { USER_ENTITY_STATUS_OPTIONS } from '../../../../../shared/constants/user-entity-status';
+import { entityStatusFilter, routeCityFilters } from '../../../../../shared/table/user-list-filter-partials';
 
 import type { FilterDef } from '../../../../../shared/table/table.types';
 import { FREIGHT_TYPE_OPTIONS } from './freight.constants';
 import type { Freight } from './freight.model';
 
+const I18N = 'portal.user.features.freight.table.filters';
+
 export const FREIGHT_TABLE_FILTERS: FilterDef<Freight>[] = [
-  {
-    key: 'origin',
-    type: 'multiSelect',
-    titleKey: 'portal.user.features.freight.table.filters.origin',
-    placeholderKey: 'portal.user.features.freight.table.filters.allOrigins',
-    options: BIH_CITY_OPTIONS.map((city) => ({ value: city.value, label: city.label })),
-    searchable: true,
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.route',
-  },
-  {
-    key: 'destination',
-    type: 'multiSelect',
-    titleKey: 'portal.user.features.freight.table.filters.destination',
-    placeholderKey: 'portal.user.features.freight.table.filters.allDestinations',
-    options: BIH_CITY_OPTIONS.map((city) => ({ value: city.value, label: city.label })),
-    searchable: true,
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.route',
-  },
-  {
-    key: 'status',
-    type: 'optionTiles',
-    titleKey: 'portal.user.features.freight.table.filters.status',
-    options: [...USER_ENTITY_STATUS_OPTIONS],
-    showStatusBadges: true,
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.attributes',
-  },
+  ...routeCityFilters<Freight>(I18N),
+  entityStatusFilter<Freight>(I18N),
   {
     key: 'freightType',
     type: 'optionTiles',
-    titleKey: 'portal.user.features.freight.table.filters.freightType',
+    titleKey: `${I18N}.freightType`,
     options: [...FREIGHT_TYPE_OPTIONS],
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.attributes',
   },
   {
     key: 'size',
     type: 'numberRange',
-    titleKey: 'portal.user.features.freight.table.filters.size',
+    titleKey: `${I18N}.size`,
     min: 0,
     max: 50,
     step: 0.5,
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.attributes',
   },
   {
     key: 'weightKg',
     type: 'numberRange',
-    titleKey: 'portal.user.features.freight.table.filters.weightKg',
-    chipTitleKey: 'portal.user.features.freight.table.filters.weightChip',
+    titleKey: `${I18N}.weightKg`,
+    chipTitleKey: `${I18N}.weightChip`,
     min: 0,
     max: 5000,
     step: 50,
     unitSuffixKey: 'shared.table.filters.units.kg',
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.attributes',
   },
   {
     key: 'neededByDate',
@@ -65,17 +39,16 @@ export const FREIGHT_TABLE_FILTERS: FilterDef<Freight>[] = [
     titleKey: 'shared.table.filters.period',
     field: 'neededByDate',
     singleDate: true,
-    groupTitleKey: 'portal.user.features.freight.table.filterGroups.dates',
   },
   {
     key: 'search',
     type: 'search',
-    titleKey: 'portal.user.features.freight.table.filters.search',
-    placeholderKey: 'portal.user.features.freight.table.filters.searchPlaceholder',
+    titleKey: `${I18N}.search`,
+    placeholderKey: `${I18N}.searchPlaceholder`,
     debounceMs: 300,
     searchFields: ['description'],
   },
 ];
 
 export const FREIGHT_ALL_FILTER_STORAGE_KEY = 'bhcom-ba.filters.user.freight.all';
-export const FREIGHT_OUR_FILTER_STORAGE_KEY = 'bhcom-ba.filters.user.freight.mine';
+export const FREIGHT_OUR_FILTER_STORAGE_KEY = 'bhcom-ba.filters.user.freight.our';

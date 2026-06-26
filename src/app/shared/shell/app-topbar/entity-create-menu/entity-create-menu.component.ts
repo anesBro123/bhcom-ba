@@ -4,29 +4,38 @@ import {
   ElementRef,
   HostListener,
   inject,
+  input,
   output,
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LucidePlus } from '@lucide/angular';
+import type { LucideIcon } from '@lucide/angular';
 
-import { entityContextClass } from '../../../constants/entity-context-class';
-import { USER_OFFER_OPTIONS } from '../../../../portal/user/user-offer-options.config';
+import { entityContextClass, type EntityContextTab } from '../../../constants/entity-context-class';
+
+export interface EntityCreateMenuOption {
+  entityTab: EntityContextTab;
+  labelKey: string;
+  icon: LucideIcon;
+  createUrl: string;
+}
 
 @Component({
-  selector: 'app-offer-menu',
+  selector: 'app-entity-create-menu',
   imports: [TranslatePipe, NgClass, NgComponentOutlet, LucidePlus],
-  templateUrl: './offer-menu.component.html',
-  styleUrl: './offer-menu.component.scss',
+  templateUrl: './entity-create-menu.component.html',
+  styleUrl: './entity-create-menu.component.scss',
 })
-export class OfferMenuComponent {
+export class EntityCreateMenuComponent {
   private readonly elementRef = inject(ElementRef);
   private readonly router = inject(Router);
 
+  readonly options = input.required<EntityCreateMenuOption[]>();
+  readonly openMenuAriaLabelKey = input.required<string>();
   readonly menuOpenChange = output<boolean>();
 
-  protected readonly options = USER_OFFER_OPTIONS;
   protected readonly menuOpen = signal(false);
   protected readonly iconInputs = { size: 18 };
   protected readonly entityContextClass = entityContextClass;

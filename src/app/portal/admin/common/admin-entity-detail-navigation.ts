@@ -3,7 +3,7 @@ import {
   type AdminEntityTab,
 } from '../../../shared/constants/admin-urls';
 
-import { ADMIN_HOME_BACK_LABEL_KEY } from '../admin-home-navigation';
+export const ADMIN_HOME_BACK_LABEL_KEY = 'portal.admin.pages.home.title';
 
 export function resolveAdminDetailBack(
   tab: AdminEntityTab,
