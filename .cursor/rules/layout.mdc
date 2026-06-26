@@ -10,8 +10,7 @@ alwaysApply: false
 
 Single layout for guest + user + admin portals — **no sidebar**, **no footer**.
 
-- `AppShellComponent` (`app-shell`) — `app-topbar` + scrollable `.app-shell__content` + `<router-outlet>`
-- Host class `portal-user` | `portal-admin` from `AuthService.portalKind()` (accent tokens)
+- `AppShellComponent` (`app-shell`) — `app-topbar` + scrollable `.app-shell__content` + `<router-outlet>` (no portal accent host class)
 - Content padding: `styles/_shell-content.scss` mixin; breakpoint via `styles/_breakpoints.scss`
 
 Registered in `app.routes.ts` as parent of all routes (guest pages + lazy portal trees).
@@ -27,7 +26,7 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 | **admin** | Brand → `homeUrl` + **create** `+` menu | theme → language → account |
 
 - `ThemePickerComponent` / `LanguagePickerComponent` — `shared/ui/`; single-click toggles
-- `BrandMarkComponent` — optional portal suffix from `PortalConfig.shell.brandSuffixKey`
+- `BrandMarkComponent` — admin topbar shows neutral **ADMIN** suffix (`--text-muted`) via `PortalConfig.shell.brandSuffixKey`; user topbar shows plain BHCOM
 - **`EntityCreateMenuComponent`** (`shared/shell/app-topbar/entity-create-menu/`) — shared `+` dropdown for user and admin; per-option `entityTab` for colored spine + icon; options from `USER_OFFER_OPTIONS` / `ADMIN_CREATE_OPTIONS`; aria: `shared.topbar.offer.openMenu` (user) / `shared.topbar.create.openMenu` (admin)
 - Account menu: **My listings** / **Moje objave** (`LucideListChecks`, user → `userOurListingsUrl()`), settings (admin → `ADMIN_SETTINGS_URL`), logout → `SIGN_IN_URL`
 - Styles: `styles/_topbar.scss` (`topbar-base`, `topbar-icon-btn`)
@@ -54,7 +53,7 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 - Use `@use 'styles/breakpoints' as *` + `@include below-md` in layout SCSS
 - **Mobile breakpoint:** `shared/constants/viewport.ts` — `MOBILE_MEDIA_QUERY` (`max-width: 768px`); used by `DataTableComponent`, `FormStepperComponent`
 - **Theme surfaces:** 4-layer stack — see `theme-tokens.mdc`. Topbar = chrome; page canvas = `--bg-app`
-- **Portal accent:** `AppShellComponent` host `portal-user` | `portal-admin`; tokens in `src/styles/_portal-accent.scss`. Topbar nav active link uses `--portal-accent-muted`. **Do not use `--portal-accent` on portal page content** for links/buttons/cards; guest auth cards may use accent for portal picker CTAs.
+- **Portal accent (guest only):** user green / admin blue on picker cards + login/register pages (`login--user`, `login--admin`, `register--admin`, `portal-card--*`); tokens in `src/styles/_portal-accent.scss`. Authenticated shell/topbar use neutral chrome — **no** `--portal-accent` on portal page content.
 
 ## Related rules
 

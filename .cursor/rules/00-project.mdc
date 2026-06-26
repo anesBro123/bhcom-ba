@@ -55,7 +55,7 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 - Forms: `shared/form/` (barrel `index.ts`); Tables: `shared/table/` (barrel `index.ts`); Confirm: `shared/confirm/` (`ConfirmService`, global `ConfirmDialogComponent` in `app.html`)
 - Features: `portal/user/features/` (home marketplace hub, our-listings, transport, freight, warehouse); `portal/admin/features/` (home hub, settings, users, vehicles, warehouses)
 - i18n: `public/assets/en.json` + `bh.json`
-- Theme/breakpoints: `src/styles.scss`, `src/styles/_entity-service-accent.scss`, `src/styles/_table-chrome-split-card.scss`, `src/styles/_interaction.scss`, `src/styles/_breakpoints.scss`, `shared/constants/viewport.ts` (`MOBILE_MEDIA_QUERY`)
+- Theme/breakpoints: `src/styles.scss`, `src/styles/_portal-accent.scss` (guest picker/login/register only), `src/styles/_entity-service-accent.scss`, `src/styles/_table-chrome-split-card.scss`, `src/styles/_interaction.scss`, `src/styles/_breakpoints.scss`, `shared/constants/viewport.ts` (`MOBILE_MEDIA_QUERY`)
 - Shared UI widgets: `shared/ui/` — brand-mark, **theme-picker** / **language-picker** (single-click toggles; language shows EN/BS), entity-tabs, page-title, page-back-link, page-header, primary-action-link, **detail-page-layout**, **entity-detail-summary**, **detail-action-bar**, route-display, date-range-display, **date-period-picker**, vehicle-display, warehouse-display, status-badge
 - Topbar create menu: `shared/shell/app-topbar/entity-create-menu/` — `EntityCreateMenuComponent` (`+` beside brand; user + admin)
 
@@ -68,8 +68,9 @@ Paths below are relative to `src/app/` unless prefixed with `src/`.
 
 ## Layout behavior (do not reimplement ad hoc)
 
-- **Single shell:** `AppShellComponent` — topbar + scrollable `.app-shell__content` for all routes
-- **User topbar:** brand → marketplace home (`USER_HOME_URL`); **`EntityCreateMenuComponent`** (`+` beside brand) → create URLs (`shared.topbar.offer.openMenu`); account **Moje objave** / **My listings** (`LucideListChecks`) → `userOurListingsUrl()`
+- **Single shell:** `AppShellComponent` — topbar + scrollable `.app-shell__content` for all routes (no portal accent host class)
+- **User topbar:** plain **BHCOM** brand → marketplace home (`USER_HOME_URL`); **`EntityCreateMenuComponent`** (`+` beside brand) → create URLs (`shared.topbar.offer.openMenu`); account **Moje objave** / **My listings** (`LucideListChecks`) → `userOurListingsUrl()`
+- **Admin topbar:** **BHCOM** + neutral **ADMIN** suffix (`portal.shell.admin.badge`, `--text-muted`)
 - **Main scroll:** `.app-shell__content`
 
 ## References for patterns

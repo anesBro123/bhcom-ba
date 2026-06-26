@@ -123,7 +123,7 @@ Mixins in `src/styles/_interaction.scss` — `@use 'styles/interaction' as inter
 3. Secondary buttons: `--bg-hover-row` or `--bg-hover-subtle`.
 4. Text links: color shift + underline (never opacity alone).
 5. Table rows / mobile cards: `--bg-table-row-hover`.
-6. Portal page content: neutral focus rings and hovers — `--portal-accent` is **guest portal picker / login only** (see `layout.mdc`).
+6. Portal page content: neutral focus rings and hovers — `--portal-accent` is **guest picker / login / register only** (see `layout.mdc`).
 
 ## Reference implementations
 

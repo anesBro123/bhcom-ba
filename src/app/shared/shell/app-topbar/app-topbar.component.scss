@@ -30,7 +30,7 @@
   }
 
   &--active {
-    color: var(--portal-accent-muted, var(--text-primary));
+    color: var(--text-primary);
     font-weight: 600;
   }
 }
@@ -42,16 +42,14 @@
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--portal-accent-admin);
+  color: var(--text-primary);
   text-decoration: none;
   background: transparent;
-  border: 1px solid var(--portal-accent-admin);
-  transition:
-    background-color 0.15s ease,
-    opacity 0.15s ease;
+  border: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease;
 
   &:hover {
-    background: var(--portal-accent-admin-soft);
+    background: var(--bg-hover-subtle);
   }
 }
 

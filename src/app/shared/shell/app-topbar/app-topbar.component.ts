@@ -92,8 +92,8 @@ export class AppTopbarComponent {
     return this.portalConfig()?.shell.homeUrl ?? SIGN_IN_URL;
   });
 
-  protected readonly brandSuffixKey = computed(
-    () => this.portalConfig()?.shell.brandSuffixKey,
+  protected readonly brandSuffixKey = computed(() =>
+    this.mode() === 'admin' ? this.portalConfig()?.shell.brandSuffixKey : undefined,
   );
 
   protected readonly topbarNav = computed(() => this.portalConfig()?.topbarNav ?? []);

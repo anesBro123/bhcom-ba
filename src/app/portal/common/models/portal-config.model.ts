@@ -11,7 +11,8 @@ export interface PortalConfig {
   portalKind: PortalKind;
   topbarNav: TopbarNavItem[];
   shell: {
-    brandSuffixKey: string;
+    /** Admin topbar brand suffix (`portal.shell.admin.badge`); neutral styling in `BrandMarkComponent`. */
+    brandSuffixKey?: string;
     homeUrl: string;
   };
 }

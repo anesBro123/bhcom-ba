@@ -321,9 +321,6 @@
     "shell": {
       "admin": {
         "badge": "ADMIN"
-      },
-      "user": {
-        "badge": "KORISNIK"
       }
     },
     "admin": {

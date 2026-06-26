@@ -75,9 +75,9 @@ Guest may import from `shared/**` only for URLs and auth. Do **not** import port
 
 - **Portal CRUD (canonical):** `portal/admin/features/vehicles/` — `data/`, `form/`, `table/`; list + create + edit; see `portal-feature.mdc`
 - **Admin home hub:** `portal/admin/features/home/` — company management hub at `/admin/home?tab=` with `EntityTabsComponent` (`accentMode="neutral"`) + embedded tables; row click → detail; create via topbar `EntityCreateMenuComponent` — see `entity-tabs.mdc`, `detail-page.mdc`, `portal-feature.mdc`
-- **App shell:** `src/app/shared/shell/` (`AppShellComponent`, `AppTopbarComponent`); topbar: theme → language → notifications → account (when authenticated)
+- **App shell:** `src/app/shared/shell/` (`AppShellComponent`, `AppTopbarComponent`); topbar: theme → language → notifications → account (when authenticated); **brand:** plain BHCOM (user) or BHCOM + neutral **ADMIN** suffix (admin); guest-only portal accents on picker/login/register — see `layout.mdc`
 - **Topbar create menu:** `shared/shell/app-topbar/entity-create-menu/` — `EntityCreateMenuComponent` (`+` beside brand); user options from `user-offer-options.config.ts` (`shared.topbar.offer.openMenu`); admin from `admin-create-options.config.ts` (`shared.topbar.create.openMenu`)
-- **User topbar:** brand → marketplace (**Tržište**); account **Moje objave** / **My listings** (`LucideListChecks`) → `userOurListingsUrl()`
+- **User topbar:** brand (plain BHCOM) → marketplace (**Tržište**); account **Moje objave** / **My listings** (`LucideListChecks`) → `userOurListingsUrl()`
 - **User marketplace home:** `portal/user/features/home/` — **Tržište** / **Marketplace**; `.page-hub-header` + tab publish CTA + `EntityTabsComponent` + embedded `*AllTablePageComponent`; icon `UserPageIcons.marketplace` (`LucideLayoutGrid`); tab sync via `syncHubEntityTab()` in `shared/utils/hub-tab-sync.ts`
 - **User my listings:** `portal/user/features/our-listings/` — **Moje objave** / **My listings**; same hub pattern + embedded `*OurTablePageComponent`; icon `UserPageIcons.ourListings` (`LucideListChecks`)
 - **User CRUD (reference):** `portal/user/features/transport/` — `data/`, `form/`, `transport.table.ts` (`buildTransportTable`), `table-all/`, `table-our/`, `detail/`; All vs Our list split; row click → detail page; list pages embedded in hub routes only

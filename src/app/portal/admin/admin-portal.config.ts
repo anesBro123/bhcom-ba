@@ -1,4 +1,3 @@
-/** Portal accent colors: see src/styles/_portal-accent.scss */
 import { ADMIN_HOME_URL } from '../../shared/constants/app-urls';
 import { PortalConfig } from '../common/models/portal-config.model';
 
