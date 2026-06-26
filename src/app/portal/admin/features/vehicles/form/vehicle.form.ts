@@ -37,14 +37,18 @@ export const AdminVehicleForm = defineForm<VehicleFormModel>()({
             },
             {
               key: 'datumPrveRegistracije',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.admin.features.vehicles.form.fields.datumPrveRegistracije',
+              placeholderKey: 'shared.datePeriod.placeholder',
               colSpan: 2,
             },
             {
               key: 'datumIzdavanjaDozvole',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.admin.features.vehicles.form.fields.datumIzdavanjaDozvole',
+              placeholderKey: 'shared.datePeriod.placeholder',
               colSpan: 2,
             },
             {
@@ -309,8 +313,10 @@ export const AdminVehicleForm = defineForm<VehicleFormModel>()({
           fields: [
             {
               key: 'vazenjeRegistracije',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.admin.features.vehicles.form.fields.vazenjeRegistracije',
+              placeholderKey: 'shared.datePeriod.placeholder',
               colSpan: 2,
             },
             {
@@ -336,8 +342,10 @@ export const AdminVehicleForm = defineForm<VehicleFormModel>()({
             },
             {
               key: 'zabranaOtudjenjaDo',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.admin.features.vehicles.form.fields.zabranaOtudjenjaDo',
+              placeholderKey: 'shared.datePeriod.placeholder',
               colSpan: 2,
             },
             {

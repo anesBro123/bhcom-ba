@@ -99,6 +99,59 @@ app-data-table.data-table--split-card {
     grid-row: 2;
     width: 100%;
   }
+
+  // Flat list shell — row cards are the primary surfaces on mobile.
+  app-data-table.data-table--split-card .data-table-data-card {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+  }
+
+  app-data-table.data-table--split-card .data-table-cards {
+    gap: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Card view shell — desktop grid toggle (mobile always uses cards via media query above).
+app-data-table.data-table--split-card.data-table--card-view {
+  .data-table-data-card {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .data-table-cards {
+    gap: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Stacked fields — desktop card view.
+app-data-table.data-table--card-view .data-table-row-card__field {
+  grid-template-columns: 1fr;
+  gap: 0.125rem;
+  padding: 0.5rem 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+}
+
+@media (max-width: 768px) {
+  app-data-table .data-table-row-card__field {
+    grid-template-columns: 1fr;
+    gap: 0.125rem;
+    padding: 0.5rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+  }
 }
 
 // Mobile filter toolbar — global to keep data-table.component.scss under budget
@@ -196,7 +249,7 @@ app-data-table.data-table--card-view {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
-    padding-top: 0.75rem;
+    padding-top: 0;
   }
 
   .data-table-row-card__empty {

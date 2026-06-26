@@ -3,6 +3,7 @@
 .form-stepper {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .form-stepper__current-title {
@@ -177,14 +178,14 @@
   }
 
   .form-stepper__columns {
-    scroll-snap-type: x proximity;
-    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    overflow-x: visible;
+    scroll-snap-type: none;
+    mask-image: none;
   }
 
   .form-stepper__column {
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-    min-width: 2.75rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .form-stepper__title {

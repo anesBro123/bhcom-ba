@@ -44,12 +44,12 @@ export function filterPanelStorageKey(filterStorageKey: string): string {
 
 export function loadFilterPanelExpanded(key: string): boolean {
   if (typeof localStorage === 'undefined') {
-    return true;
+    return false;
   }
 
   const raw = localStorage.getItem(key);
   if (raw === null) {
-    return true;
+    return false;
   }
 
   return raw === 'true';

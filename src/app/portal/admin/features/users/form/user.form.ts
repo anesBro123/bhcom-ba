@@ -34,9 +34,10 @@ export const AdminUserForm = defineForm<UserFormModel>()({
             },
             {
               key: 'dateOfBirth',
-              type: 'date',
+              type: 'datePeriod',
+              periodMode: 'single',
               labelKey: 'portal.admin.features.users.form.fields.dateOfBirth',
-              placeholderKey: 'portal.admin.features.users.form.placeholders.dateOfBirth',
+              placeholderKey: 'shared.datePeriod.placeholder',
               colSpan: 2,
             },
             {

@@ -1,10 +1,19 @@
 @use 'styles/breakpoints' as *;
 @use 'styles/interaction' as interaction;
 
+:host {
+  display: block;
+}
+
 .detail-action-bar {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.detail-action-bar--inline {
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .detail-action-bar--stack {
@@ -77,12 +86,19 @@
 }
 
 @include below-md {
+  :host {
+    width: 100%;
+  }
+
   .detail-action-bar--inline {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
+    width: 100%;
+    gap: 0.625rem;
   }
 
   .detail-action-bar--inline .detail-action-bar__btn {
     width: 100%;
+    box-sizing: border-box;
   }
 }

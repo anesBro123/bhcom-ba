@@ -86,6 +86,10 @@ export class FormStepperComponent<T extends object> {
   }
 
   private scrollStepIntoView(index: number): void {
+    if (this.isMobileLayout()) {
+      return;
+    }
+
     const nav = this.stepsNav()?.nativeElement;
     const step = nav?.querySelector<HTMLElement>(`[data-step-index="${index}"]`);
     step?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });

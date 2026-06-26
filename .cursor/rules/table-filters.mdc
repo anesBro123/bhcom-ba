@@ -17,7 +17,7 @@ User portal list pages (transport, freight, warehouse — All + My) and **admin 
 | Chip + summary utils | `shared/table/filter-chips.utils.ts` — `buildFilterChips()`, `buildFilterSummary()`, `truncateFilterSelection()` |
 | User filter partials | `shared/table/user-list-filter-partials.ts` — `routeCityFilters()`, `entityStatusFilter()` reused across transport/freight/warehouse |
 | Number-range helpers | `shared/table/number-range-filter.utils.ts` — `isNarrowedNumberRange()`, `sanitizeNumberRangeValue()`, `clampNumberRange()`, `valueFromTrackPercent()` |
-| Persistence | `shared/table/table-filter-storage.ts` — filter values, `panelExpanded`, and **`viewMode`** (`loadViewMode` / `saveViewMode`) in localStorage |
+| Persistence | `shared/table/table-filter-storage.ts` — filter values, **`panelExpanded`** (`loadFilterPanelExpanded` / `saveFilterPanelExpanded` at `` `${filterStorageKey}.panelExpanded` `` — **default closed** on first visit), and **`viewMode`** (`loadViewMode` / `saveViewMode`) in localStorage |
 | Flyout shell | `shared/table/data-table/` — controls card + data card (default), toolbar, chips, right overlay flyout (full-screen ≤768px) |
 | Filter bar | `shared/table/table-filter-bar/` — flat per-filter accordion list; `layout: 'flyout'` single column |
 | Multi-select | `shared/table/table-filter-multi-select/` — searchable long lists (cities) |
@@ -101,9 +101,10 @@ Virtual filter keys (not entity fields): `search`, `transportPeriod`, `availabil
   - Text-link style (`--text-secondary` → underline on hover); **not** a bordered toolbar button. Global layout: `_table-chrome-split-card.scss`, `_table-chrome-band-ladder.scss`.
 - Controls in fixed right overlay (`layout="flyout"` on filter bar, **~30rem** desktop width); **mobile = full-screen** panel.
 - **Flat per-filter accordion list** — no RUTA/ATRIBUTI/DATUMI section headers; each filter is its own collapsible row.
-- `panelExpanded` persisted via `filterPanelStorageKey(filterStorageKey)`; default closed.
-- **Collapsed + active filters:** muted `{{count}} active` on **desktop** toggle label — **no** numeric text badge on mobile (dot only). **Split-card (default):** entity hosts — **3px left + 1px top** `--entity-accent-spine` on controls + data cards (no filter-active border upgrade); neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
-- Auto-open flyout on first non-search filter; close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
+- **Flyout open state:** `loadFilterPanelExpanded()` → `false` when no stored value (first visit / hub tables on Tržište, Moje objave, admin home). Hydrated in `DataTableComponent.hydrateFilterPanelExpanded()`; user toggle persists via `saveFilterPanelExpanded`. **Do not** default the flyout open on load.
+- **Auto-open exception:** flyout opens once when the user applies their **first non-search** filter (`onFilterChange` — e.g. city, status, date range); search-only does not open it. Persists open if that path runs.
+- **Collapsed + active filters:** muted `{{count}} active` on **desktop** toggle label — **no** numeric text badge on mobile (dot only). **Split-card (default):** entity hosts — **3px left + 1px top** `--entity-accent-spine` on controls card; **list** view data card keeps spine; **card** view (mobile + desktop toggle) uses flat data shell with spine per row card; neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. **Do not** add a second grey `border-left` on inner `.data-table-filters--active` (suppressed in split-card layout).
+- Close multi-select popovers on flyout close (`closeFilterDropdownsToken`).
 - Escape, backdrop, and close button dismiss flyout.
 - Row dividers: `--border-filter-divider` between filters in flyout list.
 
@@ -242,6 +243,7 @@ i18n: `portal.admin.features.<entity>.table.filters.*`; reuse `shared.common.boo
 ## Do not
 
 - Rebuild filter bar, chips, or panel outside `DataTableComponent`.
+- Default the filter flyout **open** on first page load — `loadFilterPanelExpanded()` must return `false` when localStorage has no `` `${filterStorageKey}.panelExpanded` `` entry.
 - Reintroduce grouped section headers / `groupSections` in flyout without explicit product ask.
 - Put `ng-content` in mutually exclusive `@if` branches in `TableFilterFieldComponent` (breaks projection).
 - Embed `+N` inside ellipsized summary text strings.

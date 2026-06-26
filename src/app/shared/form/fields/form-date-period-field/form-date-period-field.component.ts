@@ -22,14 +22,15 @@ export class FormDatePeriodFieldComponent<T extends object> {
 
   protected readonly periodValue = computed((): DatePeriodValue => {
     const field = this.field();
-    const start = String(this.formGroup().get(field.key)?.value ?? '').trim();
+    const formValue = this.formValue();
+    const start = String(formValue[field.key as keyof T] ?? '').trim();
 
     if (this.isSingle()) {
       return start ? { from: start } : {};
     }
 
     const endKey = field.endKey;
-    const end = endKey ? String(this.formGroup().get(endKey)?.value ?? '').trim() : '';
+    const end = endKey ? String(formValue[endKey as keyof T] ?? '').trim() : '';
     const value: DatePeriodValue = {};
     if (start) {
       value.from = start;

@@ -21,6 +21,10 @@
 
 @include below-md {
   .detail-page-layout__actions {
-    justify-content: stretch;
+    align-items: stretch;
+
+    > * {
+      width: 100%;
+    }
   }
 }

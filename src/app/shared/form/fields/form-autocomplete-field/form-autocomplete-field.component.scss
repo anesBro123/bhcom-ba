@@ -20,10 +20,10 @@
   padding: 0.25rem;
   list-style: none;
   overflow-y: auto;
-  border: 1px solid var(--border-form-input);
+  border: 1px solid var(--border-subtle);
   border-radius: 0.5rem;
-  background: var(--bg-form-input);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-table-actions-menu);
 }
 
 .form-autocomplete__option {
@@ -35,10 +35,6 @@
 
   &:hover,
   &--active {
-    background: var(--bg-form-step-active-pill, rgba(255, 255, 255, 0.08));
+    background: var(--bg-hover-subtle);
   }
-}
-
-[data-theme='light'] .form-autocomplete__panel {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }

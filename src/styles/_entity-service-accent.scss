@@ -98,14 +98,28 @@ app-data-table.data-table--band-ladder[class*='entity-context--'] {
   }
 }
 
+// Card view — list shell is neutral; entity spine on each row card.
+app-data-table.data-table--band-ladder[class*='entity-context--'].data-table--card-view .data-table-card {
+  border-left-width: 1px;
+  border-left-color: var(--border-table);
+  border-top-width: 1px;
+  border-top-color: var(--border-table);
+}
+
+app-data-table.data-table--band-ladder[class*='entity-context--'].data-table--card-view .data-table-row-card {
+  @include entity-card-accent-rest;
+}
+
 @media (max-width: 768px) {
-  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card {
+  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-card {
     border-left-width: 1px;
     border-left-color: var(--border-table);
+    border-top-width: 1px;
+    border-top-color: var(--border-table);
   }
 
-  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card--clickable:active {
-    border-left-color: var(--border-table);
+  app-data-table.data-table--band-ladder[class*='entity-context--'] .data-table-row-card {
+    @include entity-card-accent-rest;
   }
 }
 
@@ -130,14 +144,45 @@ app-data-table.data-table--split-card[class*='entity-context--'] {
   }
 }
 
+// Card view — flat data shell; entity spine on each row card (desktop toggle).
+app-data-table.data-table--split-card[class*='entity-context--'].data-table--card-view .data-table-data-card {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+app-data-table.data-table--split-card[class*='entity-context--'].data-table--card-view .data-table-row-card {
+  @include entity-card-accent-rest;
+}
+
 @media (max-width: 768px) {
-  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card {
-    border-left-width: 1px;
-    border-left-color: var(--border-table);
+  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-data-card {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
   }
 
-  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card--clickable:active {
-    border-left-color: var(--border-table);
+  app-data-table.data-table--split-card[class*='entity-context--'] .data-table-row-card {
+    @include entity-card-accent-rest;
+  }
+}
+
+// Neutral hub tables — subtle spine per row in card view (no entityTab).
+app-data-table.data-table--split-card:not([class*='entity-context--']).data-table--card-view .data-table-row-card {
+  border-left-width: 3px;
+  border-left-color: var(--border-subtle);
+  border-top-width: 1px;
+  border-top-color: var(--border-subtle);
+}
+
+@media (max-width: 768px) {
+  app-data-table.data-table--split-card:not([class*='entity-context--']) .data-table-row-card {
+    border-left-width: 3px;
+    border-left-color: var(--border-subtle);
+    border-top-width: 1px;
+    border-top-color: var(--border-subtle);
   }
 }
 

@@ -47,11 +47,11 @@ Canvas (--bg-app) visible between cards
 
 **Desktop card grid:** global styles on `app-data-table.data-table--card-view .data-table-cards--grid` (not component SCSS — avoids `display: flex` override). `padding-top: 0.75rem` above first card row; `gap: 1rem` between cards.
 
-**Table row cards (mobile + desktop card view):** `--border-table-row-card`, `--shadow-table-row-card`, `--shadow-table-row-card-hover` in `styles.scss`; chrome in `_table-chrome-split-card.scss` (`0.75rem` radius, `1.125rem` padding, subtle elevation). Hover lifts border + shadow on clickable rows.
+**Table row cards (card view — mobile + desktop toggle):** `--border-table-row-card`, `--shadow-table-row-card`, `--shadow-table-row-card-hover` in `styles.scss`; chrome in `_table-chrome-split-card.scss` (`0.75rem` radius, `1.125rem` padding, subtle elevation). Flat data shell, `1rem` gap, stacked fields, entity spine per row when `entityTab` is set. Hover lifts border + shadow on clickable rows.
 
-**Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts keep **3px left + 1px top** on both cards — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
+**Active filters (split card):** neutral `3px` left on `.data-table-controls-card--active` when no `entityTab`. Entity hosts: **3px left + 1px top** on controls card; **list** view data card keeps spine; **card** view data card is flat — filter state via chips/active count/dot, not border upgrade. Inner `.data-table-filters--active` must **not** add its own `border-left`. See `table-filters.mdc`.
 
-**User hub tables:** when `entityTab` is set, **controls + data cards** share identical chrome — `1px` neutral right/bottom + **3px left** + **1px top** `--entity-accent-spine`. No chips wash, no filter-active border emphasis. See `entity-service-colors.mdc`.
+**User hub tables:** when `entityTab` is set, controls card keeps entity spine; **card view** (mobile + desktop toggle) uses flat data shell with spine per row card; **list** view data card keeps full spine. No chips wash, no filter-active border emphasis. See `entity-service-colors.mdc`.
 
 **Table header tokens:** `--border-table-header-strong`, `--shadow-table-header-sticky`, `--text-table-header-size` (caption), `--text-table-header-weight` (semibold).
 
