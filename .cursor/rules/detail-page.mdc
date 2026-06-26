@@ -40,10 +40,10 @@ Read-only entity detail **pages** for user portal tables. Do not use `DetailModa
 
 | Export | Role |
 |--------|------|
-| `navigateToEntityDetail(router, detailUrl, origin)` | Table row click / viewDetails — passes `detailOrigin: 'find' \| 'our'` in router state |
+| `navigateToEntityDetail(router, detailUrl, origin)` | Table row click / viewDetails — passes `detailOrigin: 'search' \| 'our'` in router state |
 | `readEntityDetailOrigin()` | Read `detailOrigin` from `history.state` on detail page load |
-| `resolveDetailBack(tab, isOwnListing, origin?)` | Back link URL + `labelKey` (Find vs Our listings tab) |
-| `resolveDetailSubtitleKey(pageKey, isOwnListing, origin?)` | `subtitleFind` vs `subtitleOur` i18n key |
+| `resolveDetailBack(tab, isOwnListing, origin?)` | Back link URL + `labelKey` (`portal.user.nav.search` or `portal.user.nav.ourListings`) |
+| `resolveDetailSubtitleKey(isOwnListing, origin?)` | `portal.user.pages.listingDetail.subtitleSearch` or `.subtitleOur` |
 | `isOwnListingEntity(entity, companyId)` | Ownership check for actions + fallbacks |
 
 ## Per-entity pattern
@@ -65,10 +65,9 @@ URL builders in `user-urls.ts`: `userTransportDetailUrl(id)`, `userFreightDetail
 ## Page header
 
 - **Title:** static `portal.user.pages.view*.title`
-- **Subtitle:** static UX copy — **never** entity data (no `origin → destination`, no warehouse name). Use computed `pageSubtitleKey()` from `resolveDetailSubtitleKey()`:
-  - `portal.user.pages.viewTransport.subtitleFind` / `.subtitleOur` (same for freight, warehouse)
+- **Subtitle:** static UX copy — **never** entity data (no `origin → destination`, no warehouse name). Use computed `pageSubtitleKey()` from `resolveDetailSubtitleKey()` → `portal.user.pages.listingDetail.subtitleSearch` / `.subtitleOur` (shared across transport, freight, warehouse).
 - **Back link:** `PageBackLinkComponent` without `[form]` (read-only)
-- **Actions:** `DetailActionBarComponent` in `[detailFooterActions]` below the details card — right-aligned; Edit/Delete (own) or Send request (Find)
+- **Actions:** `DetailActionBarComponent` in `[detailFooterActions]` below the details card — right-aligned; Edit/Delete (own) or Send request (marketplace)
 
 ## Page template
 
@@ -107,8 +106,8 @@ Shared card styles: `styles/_detail-page.scss` (`.detail-page-card`).
 
 | Scope | Actions |
 |-------|---------|
-| External (Find) | Send request (primary) |
-| Own (Our listings) | Edit (primary link) + Delete (danger) |
+| External (marketplace) | Send request (primary) |
+| Own (my listings) | Edit (primary link) + Delete (danger) |
 
 Handle `sendRequest` / `delete` in page TS with `ConfirmService`; edit uses `route` on action def.
 
@@ -129,8 +128,8 @@ Handle `sendRequest` / `delete` in page TS with `ConfirmService`; edit uses `rou
 | Path | Use for |
 |------|---------|
 | `portal.user.pages.viewTransport\|viewFreight\|viewWarehouse.title` | Page title |
-| `portal.user.pages.view*.subtitleFind` | Find / external context subtitle |
-| `portal.user.pages.view*.subtitleOur` | Our listings / own context subtitle |
+| `portal.user.pages.listingDetail.subtitleSearch` | Another company's listing (all entities) |
+| `portal.user.pages.listingDetail.subtitleOur` | Your company's listing (all entities) |
 | `portal.user.features.<entity>.detail.sections.*` | Section headings in DetailView |
 
 ## Examples

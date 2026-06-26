@@ -58,7 +58,7 @@ export class WarehouseOurTablePageComponent {
   protected readonly pageSubtitleKey = 'portal.user.pages.ourWarehouse.subtitle';
   protected readonly pageIcon = UserPageIcons.warehouse;
   protected readonly createUrl = USER_CREATE_WAREHOUSE_URL;
-  protected readonly createLabelKey = 'portal.user.nav.offerWarehouse';
+  protected readonly createLabelKey = 'portal.user.pages.createWarehouse.title';
   protected readonly statusKey = warehouseOurStatusCellKey;
   protected readonly warehouseKey = warehouseOurWarehouseCellKey;
   protected readonly periodKey = warehouseOurPeriodCellKey;

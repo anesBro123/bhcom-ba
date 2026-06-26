@@ -25,10 +25,10 @@ Do not rebuild pagination/filter/sort UI outside `DataTableComponent`. Do not us
 
 Marketplace (`table-all/`) and our (`table-our/`) table page components are **not** standalone routes. Hub pages embed them:
 
-- `features/find/find-page.component.*` — `TransportAllTablePageComponent`, etc. with `[embedded]="true"`
+- `features/home/home-page.component.*` — `TransportAllTablePageComponent`, etc. with `[embedded]="true"`
 - `features/our-listings/our-listings-page.component.*` — `TransportOurTablePageComponent`, etc. with `[embedded]="true"`; hub header owns tab-specific create CTA
 
-See `entity-tabs.mdc` for tab URL convention (`userFindUrl`, `userOurListingsUrl`, `userFindRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
+See `entity-tabs.mdc` for tab URL convention (`userSearchUrl`, `userOurListingsUrl`, `userSearchRoute`, `userOurListingsRoute`, `navLinkActiveOptions`).
 
 **Entity service chrome:** pass `[entityTab]="'transport'|'freight'|'warehouse'"` on embedded `DataTableComponent` — identical rest left spine on controls + data cards, row hover; **row cards (mobile + desktop card view) have no entity left spine**. Default table chrome is **split card** (`tableChromeVariant` default `'splitCard'`). Styles: `_entity-service-accent.scss`, `_table-chrome-split-card.scss`. See `entity-service-colors.mdc`, `table-filters.mdc`.
 

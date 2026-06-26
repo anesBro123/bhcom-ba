@@ -1,6 +1,6 @@
 ---
 description: User portal service-type colors (transport, freight, warehouse) — context chrome only
-globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/portal/user/features/home/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/offer/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
+globs: src/styles/_entity-service-accent.scss,src/styles/_table-chrome-split-card.scss,src/app/shared/constants/entity-context-class.ts,src/app/shared/ui/intent-card/**,src/app/shared/ui/quick-action-card/**,src/app/shared/ui/entity-tabs/**,src/app/shared/ui/page-title/**,src/app/shared/table/data-table/**,src/app/shared/shell/app-topbar/offer-menu/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/features/*/form/**,src/app/portal/user/features/*/detail/**,src/app/portal/user/features/*/table-*/
 alwaysApply: false
 ---
 
@@ -47,7 +47,7 @@ Icons + labels remain required (color-blind safe).
 | Component | Input | When to set |
 |-----------|-------|-------------|
 | `IntentCardComponent` | `entityTab` | Home journey, Offer picker |
-| `QuickActionCardComponent` | `entityTab`, `queryParams?` | User home quick actions; **omit** on admin dashboard (neutral) |
+| `QuickActionCardComponent` | `entityTab`, `queryParams?` | Admin dashboard (neutral); **omit** on user marketplace home |
 | `PageTitleComponent` | `entityTab` | User entity create/edit + detail pages |
 | `DataTableComponent` | `entityTab`, `tableChromeVariant?` | User hub tables: set `entityTab`. Chrome layout: default `'splitCard'`; legacy `'bandLadder'` |
 | `EntityTabsComponent` | (active tab) | Applies `entity-context--*` on **active** pill only |
@@ -70,23 +70,6 @@ When `entityTab` is set on host:
 
 Table entity chrome lives in `_entity-service-accent.scss` + `_table-chrome-split-card.scss` (global) to stay within component SCSS budget.
 
-## User home (`portal/user/features/home/`)
-
-Order: **snapshot** → **quick actions** → **journey** → browse footer.
-
-| Section | Widget | Config |
-|---------|--------|--------|
-| Quick actions | `QuickActionCardComponent` | `home.actions.config.ts` — 3×2 grid (Find + Offer per entity); admin-style panel SCSS; desktop subgrid for equal card heights |
-| Journey | `IntentCardComponent` | `journeyGroups` in `home-page.component.ts` — scenario cards with `[entityTab]` |
-
-Quick action titles: `portal.user.nav.findTransport|findFreight|findWarehouse` + `offerTransport|…`. Descriptions: `portal.user.features.home.actions.*.description`.
-
-## i18n
-
-- `portal.user.features.home.quickActions.title`
-- `portal.user.features.home.actions.find*.description` / `offer*.description`
-- `portal.user.features.home.journey.*` (journey cards unchanged)
-- `portal.user.nav.findTransport|findFreight|findWarehouse`
 
 ## Adding a fourth service type
 

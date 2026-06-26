@@ -1,119 +1,31 @@
-<app-page-title
-  titleKey="portal.user.pages.home.title"
-  subtitleKey="portal.user.pages.home.subtitle"
-  [icon]="pageIcon"
-/>
+<div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
+  <app-page-header>
+    <app-page-title
+      titleKey="portal.user.pages.home.title"
+      subtitleKey="portal.user.pages.home.subtitle"
+      [icon]="pageIcon"
+    />
+    <app-primary-action-link
+      [route]="offerUrl()"
+      [labelKey]="offerLabelKey()"
+    />
+  </app-page-header>
 
-<div class="home-page">
-  @if (snapshot(); as snap) {
-    <section class="home-page__snapshot" [attr.aria-label]="'portal.user.features.home.snapshot.ariaLabel' | translate">
-      @if (snap.openTotal > 0) {
-        <div class="home-page__snapshot-main">
-          <p class="home-page__snapshot-text">
-            @if (snap.expiringSoon > 0) {
-              {{
-                'portal.user.features.home.snapshot.labelWithExpiring'
-                  | translate: { openCount: snap.openTotal, expiringCount: snap.expiringSoon }
-              }}
-            } @else {
-              {{
-                'portal.user.features.home.snapshot.labelOpenOnly'
-                  | translate: { openCount: snap.openTotal }
-              }}
-            }
-          </p>
-          <p class="home-page__snapshot-breakdown">
-            {{
-              'portal.user.features.home.snapshot.breakdown'
-                | translate: {
-                    transport: snap.transport,
-                    freight: snap.freight,
-                    warehouse: snap.warehouse,
-                  }
-            }}
-          </p>
-        </div>
-        <a
-          [routerLink]="ourListingsLink.route"
-          [queryParams]="ourListingsLink.queryParams"
-          class="home-page__snapshot-link"
-        >
-          {{ 'portal.user.features.home.snapshot.cta' | translate }}
-        </a>
-      } @else {
-        <p class="home-page__snapshot-text">
-          {{ 'portal.user.features.home.snapshot.empty' | translate }}
-        </p>
-        <a [routerLink]="offerUrl" class="home-page__snapshot-link">
-          {{ 'portal.user.features.home.snapshot.emptyCta' | translate }}
-        </a>
-      }
-    </section>
-  }
-
-  <section class="home-page__quick-actions">
-    <div class="home-page__section-panel">
-      <h2 class="home-page__section-title">
-        {{ 'portal.user.features.home.quickActions.title' | translate }}
-      </h2>
-      <div class="home-page__action-grid">
-        @for (group of entityActionGroups; track group[0].entityTab) {
-          <div class="home-page__action-column">
-            @for (action of group; track action.route + (action.queryParams?.['tab'] ?? '')) {
-              <app-quick-action-card
-                [titleKey]="action.titleKey"
-                [descriptionKey]="action.descriptionKey"
-                [route]="action.route"
-                [queryParams]="action.queryParams"
-                [icon]="action.icon"
-                [entityTab]="action.entityTab"
-              />
-            }
-          </div>
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="home-page__journey">
-    <div class="home-page__section-panel">
-      <div class="home-page__journey-intro">
-        <h2 class="home-page__section-title">
-          {{ 'portal.user.features.home.journey.heading' | translate }}
-        </h2>
-        <p class="home-page__journey-subheading">
-          {{ 'portal.user.features.home.journey.subheading' | translate }}
-        </p>
-      </div>
-
-      @for (group of journeyGroups; track group.titleKey) {
-        <div class="home-page__journey-group">
-          <h3 class="home-page__journey-group-title">{{ group.titleKey | translate }}</h3>
-          <div class="home-page__journey-grid">
-            @for (card of group.cards; track card.titleKey) {
-              <app-intent-card
-                [icon]="card.icon"
-                [titleKey]="card.titleKey"
-                [descriptionKey]="card.bodyKey"
-                [actions]="card.actions"
-                [clickableCard]="true"
-                [entityTab]="group.entityTab"
-              />
-            }
-          </div>
-        </div>
-      }
-    </div>
-  </section>
-
-  <footer class="home-page__browse">
-    <span class="home-page__browse-label">
-      {{ 'portal.user.features.home.browseMarketplace' | translate }}:
-    </span>
-    <a [routerLink]="marketplaceTransportLink.route" [queryParams]="marketplaceTransportLink.queryParams">{{ 'portal.user.nav.transport' | translate }}</a>
-    <span class="home-page__browse-sep" aria-hidden="true">·</span>
-    <a [routerLink]="marketplaceFreightLink.route" [queryParams]="marketplaceFreightLink.queryParams">{{ 'portal.user.nav.freight' | translate }}</a>
-    <span class="home-page__browse-sep" aria-hidden="true">·</span>
-    <a [routerLink]="marketplaceWarehouseLink.route" [queryParams]="marketplaceWarehouseLink.queryParams">{{ 'portal.user.nav.warehouse' | translate }}</a>
-  </footer>
+  <app-entity-tabs
+    [activeTab]="activeTab()"
+    [tabs]="entityTabs"
+    (tabChange)="onTabChange($event)"
+  />
 </div>
+
+@switch (activeTab()) {
+  @case ('freight') {
+    <app-freight-all-table-page [embedded]="true" />
+  }
+  @case ('warehouse') {
+    <app-warehouse-all-table-page [embedded]="true" />
+  }
+  @default {
+    <app-transport-all-table-page [embedded]="true" />
+  }
+}

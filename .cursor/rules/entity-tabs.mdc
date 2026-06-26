@@ -1,12 +1,12 @@
 ---
-description: Entity tab hub UI for user portal Find and Our listings pages
-globs: src/app/shared/ui/entity-tabs/**,src/app/portal/user/features/find/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/user-entity-tabs.config.ts,src/styles/_page-hub-header.scss
+description: Entity tab hub UI for user portal marketplace home and my listings pages
+globs: src/app/shared/ui/entity-tabs/**,src/app/portal/user/features/home/**,src/app/portal/user/features/our-listings/**,src/app/portal/user/user-entity-tabs.config.ts,src/styles/_page-hub-header.scss
 alwaysApply: false
 ---
 
 # Entity tabs (`EntityTabsComponent`)
 
-Shared sticky tab bar for user portal **Find** (`/find`) and **Our listings** (`/our-listings`) hub pages.
+Shared tab bar for user portal **marketplace home** — **Tržište** / **Marketplace** (`/home`) — and **my listings** — **Moje objave** / **My listings** (`/our-listings`) hub pages.
 
 ## Component
 
@@ -32,62 +32,73 @@ Tab config: `portal/user/user-entity-tabs.config.ts` → `USER_ENTITY_TAB_CONFIG
 
 ## URL convention
 
-| Constant | Path |
-|----------|------|
-| `USER_FIND_URL` | `/find` |
-| `USER_OUR_LISTINGS_URL` | `/our-listings` |
-| `userFindUrl(tab?)` | `/find?tab=transport` — use with `navigateByUrl()` only |
-| `userOurListingsUrl(tab?)` | `/our-listings?tab=transport` — use with `navigateByUrl()` only |
-| `userFindRoute(tab?)` | `{ route, queryParams }` — use with `[routerLink]` + `[queryParams]` |
-| `userOurListingsRoute(tab?)` | `{ route, queryParams }` — use with `[routerLink]` + `[queryParams]` |
+| Constant | Path / role |
+|----------|-------------|
+| `USER_HOME_URL` | `/home` — marketplace hub |
+| `USER_OUR_LISTINGS_URL` | `/our-listings` — my listings hub |
+| `userSearchUrl(tab?)` | `/home?tab=transport` — marketplace tab navigation (`navigateByUrl()` only) |
+| `userOurListingsUrl(tab?)` | `/our-listings?tab=transport` — my listings tab navigation |
+| `userSearchRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for marketplace |
+| `userOurListingsRoute(tab?)` | `{ route, queryParams }` — `[routerLink]` + `[queryParams]` for my listings |
 
 Parse query with `parseUserEntityTab()` from `shared/constants/user-urls.ts`.
 
-Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userFindUrl()` / `userOurListingsUrl()` on tab change (programmatic navigation).
+Hub pages subscribe to `ActivatedRoute.queryParamMap` and navigate with `userSearchUrl()` / `userOurListingsUrl()` on tab change.
 
-For `[routerLink]` in templates, use `userFindRoute()` / `userOurListingsRoute()` — `{ route, queryParams }`. Do **not** bind `userFindUrl()` strings to `routerLink` (Angular encodes `?` into the path segment).
-
-Hub pages use `EntityTabsComponent` for in-page tab switching — see `layout.mdc`.
+For `[routerLink]` in templates, use `userSearchRoute()` / `userOurListingsRoute()`. Do **not** bind `userSearchUrl()` strings to `routerLink` (Angular encodes `?` into the path segment).
 
 ## Hub pages
 
-| Feature | Route | Title keys | Table body |
-|---------|-------|------------|------------|
-| `features/find/` | `/find` | `pages.find.*` | Embedded `*AllTablePageComponent` with `[embedded]="true"` — no create CTA |
-| `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | Embedded `*OurTablePageComponent` with `[embedded]="true"`; hub header owns tab-specific `PrimaryActionLink` |
+| Feature | Route | Title keys | Icon | Table body |
+|---------|-------|------------|------|------------|
+| `features/home/` | `/home` | `pages.home.*` | `UserPageIcons.marketplace` (`LucideLayoutGrid`) | Embedded `*AllTablePageComponent` `[embedded]="true"` |
+| `features/our-listings/` | `/our-listings` | `pages.ourListings.*` | `UserPageIcons.ourListings` (`LucideListChecks`) | Embedded `*OurTablePageComponent` `[embedded]="true"` |
 
-List tables stay in feature `table-all/` / `table-our/` folders — **not** standalone routes in Plan 3.
+Both hubs: `PageHeaderComponent` + tab-specific `PrimaryActionLink` (publish CTA via `userCreateListingLabelKey()`).
+
+### Hub copy (parallel structure)
+
+| Hub | EN title | BS title | Subtitle pattern |
+|-----|----------|----------|------------------|
+| Marketplace | Marketplace | Tržište | Browse **other companies'** listings |
+| My listings | My listings | Moje objave | Manage **your company's** listings |
+
+Keys: `portal.user.pages.home.*`, `portal.user.pages.ourListings.*`.
+
+List tables stay in feature `table-all/` / `table-our/` folders — **not** standalone routes.
 
 ### `.page-hub-header` wrapper (required)
 
-Wrap **page title** (+ `PageHeader` on Our listings) and **`app-entity-tabs`** in `<div class="page-hub-header">`. Styles: `src/styles/_page-hub-header.scss` — import with `@use 'styles/page-hub-header';` in hub page SCSS.
+Wrap **page header** (`PageHeader` + title + tab-specific publish CTA) and **`app-entity-tabs`** in `<div class="page-hub-header">`. Styles: `src/styles/_page-hub-header.scss` — `@use 'styles/page-hub-header';` in hub page SCSS.
 
 ```html
-<!-- Find -->
-<div class="page-hub-header">
-  <app-page-title … />
-  <app-entity-tabs … />
-</div>
-
-<!-- Our listings -->
-<div class="page-hub-header">
-  <app-page-header>…</app-page-header>
+<div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
+  <app-page-header>
+    <app-page-title titleKey="portal.user.pages.home.title" … [icon]="pageIcon" />
+    <app-primary-action-link [route]="offerUrl()" [labelKey]="offerLabelKey()" />
+  </app-page-header>
   <app-entity-tabs … />
 </div>
 ```
 
-Embedded table pages render **below** the wrapper — not inside it. Spacing inside the zone: `PageTitleComponent` and `PageHeaderComponent` drop bottom margin; tabs get `margin-top: 0.875rem` via `:host-context(.page-hub-header)` in `entity-tabs.component.scss`. See `page-title.mdc`.
+My listings hub: same pattern with `pages.ourListings.*` keys.
+
+Embedded table pages render **below** the wrapper. See `page-title.mdc`.
 
 ## Embedded table pages
 
 Marketplace and our table page components accept `embedded = input(false)`. When `true`, skip `PageTitleComponent` / `PageHeaderComponent` chrome; render `DataTableComponent` only.
 
-## Sidebar (Plan 3)
+## Topbar navigation
 
-User portal primary nav: topbar Search + Offer links (`user-topbar-nav.config.ts`). Hub routes (`/find`, `/our-listings`) use `EntityTabsComponent` for entity tabs — see `layout.mdc`.
+- Brand → `USER_HOME_URL` (marketplace)
+- Offer → `OfferMenuComponent` (`+` beside brand)
+- My listings → account menu only (`shared.topbar.account.profile` → `userOurListingsUrl()`; icon `LucideListChecks` in topbar)
+- `user-topbar-nav.config.ts` — empty (`topbarNav: []`)
 
 ## Do not
 
 - Register standalone `/transport`, `/freight`, `/warehouse`, or `*/our` list routes alongside hubs.
-- Hardcode `/find?tab=` strings — use `userFindUrl()` / `userOurListingsUrl()`.
-- Render `app-entity-tabs` as a sibling of `app-page-title` / `app-page-header` without the `.page-hub-header` wrapper on Find or Our listings.
+- Register a separate `/find` route.
+- Hardcode `/home?tab=` strings — use URL builders from `user-urls.ts`.
+- Render `app-entity-tabs` outside `.page-hub-header` on hub pages.

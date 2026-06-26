@@ -1,5 +1,10 @@
 <header class="topbar app-topbar">
-  <app-brand-mark [linkUrl]="brandLinkUrl()" [portalSuffixKey]="brandSuffixKey()" />
+  <div class="app-topbar__start">
+    <app-brand-mark [linkUrl]="brandLinkUrl()" [portalSuffixKey]="brandSuffixKey()" />
+    @if (mode() === 'user') {
+      <app-offer-menu (menuOpenChange)="onOfferMenuOpenChange($event)" />
+    }
+  </div>
 
   @if (mode() === 'guest') {
     <nav class="app-topbar__nav" aria-label="Guest navigation">
@@ -15,12 +20,7 @@
   } @else if (topbarNav().length > 0) {
     <nav class="app-topbar__nav" aria-label="Portal navigation">
       @for (item of topbarNav(); track item.route) {
-        <a
-          class="app-topbar__link"
-          [routerLink]="item.route"
-          routerLinkActive="app-topbar__link--active"
-          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-        >
+        <a class="app-topbar__link" [routerLink]="item.route">
           {{ item.labelKey | translate }}
         </a>
       }
@@ -65,7 +65,7 @@
               role="menuitem"
               (click)="onProfileClick()"
             >
-              <svg lucideUser [size]="18" class="topbar__account-icon" />
+              <svg lucideListChecks [size]="18" class="topbar__account-icon" />
               <span>{{ 'shared.topbar.account.profile' | translate }}</span>
             </button>
             @if (showAdminSettings()) {

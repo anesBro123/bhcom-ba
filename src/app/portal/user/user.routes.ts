@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { FindPageComponent } from './features/find/find-page.component';
 import { FreightFormPageComponent } from './features/freight/form/freight-form-page.component';
 import { HomePageComponent } from './features/home/home-page.component';
-import { OfferPageComponent } from './features/offer/offer-page.component';
 import { OurListingsPageComponent } from './features/our-listings/our-listings-page.component';
 import { TransportFormPageComponent } from './features/transport/form/transport-form-page.component';
 import { TransportDetailPageComponent } from './features/transport/detail/transport-detail-page.component';
@@ -18,19 +16,9 @@ export default [
     data: { titleKey: 'portal.user.pages.home.title' },
   },
   {
-    path: 'find',
-    component: FindPageComponent,
-    data: { titleKey: 'portal.user.pages.find.title' },
-  },
-  {
     path: 'our-listings',
     component: OurListingsPageComponent,
     data: { titleKey: 'portal.user.pages.ourListings.title' },
-  },
-  {
-    path: 'offer',
-    component: OfferPageComponent,
-    data: { titleKey: 'portal.user.pages.offer.title' },
   },
   {
     path: 'transport/create',

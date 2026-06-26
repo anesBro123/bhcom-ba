@@ -1,161 +1,73 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import type { LucideIcon } from '@lucide/angular';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 
 import {
   USER_CREATE_FREIGHT_URL,
   USER_CREATE_TRANSPORT_URL,
   USER_CREATE_WAREHOUSE_URL,
-  USER_FIND_URL,
-  USER_OFFER_URL,
-  userFindRoute,
-  userOurListingsRoute,
+  parseUserEntityTab,
+  type UserEntityTab,
+  userSearchUrl,
 } from '../../../../shared/constants/app-urls';
-import type { UserEntityTab } from '../../../../shared/constants/user-urls';
-import {
-  IntentCardAction,
-  IntentCardComponent,
-} from '../../../../shared/ui/intent-card/intent-card.component';
-import { QuickActionCardComponent } from '../../../../shared/ui/quick-action-card/quick-action-card.component';
+import { EntityTabsComponent } from '../../../../shared/ui/entity-tabs/entity-tabs.component';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header.component';
 import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.component';
+import { PrimaryActionLinkComponent } from '../../../../shared/ui/primary-action-link/primary-action-link.component';
+import { USER_ENTITY_TAB_CONFIG } from '../../user-entity-tabs.config';
 import { UserPageIcons } from '../../user-page-icons';
-import { HomeCounts, HomeService } from './data/home.service';
-import { HOME_ENTITY_ACTION_GROUPS } from './home.actions.config';
-
-interface JourneyCard {
-  titleKey: string;
-  bodyKey: string;
-  icon: LucideIcon;
-  actions: IntentCardAction[];
-}
-
-interface JourneyGroup {
-  titleKey: string;
-  entityTab: UserEntityTab;
-  cards: JourneyCard[];
-}
-
-const JOURNEY_CONTINUE_LABEL_KEY = 'portal.user.features.offer.continue';
+import { userCreateListingLabelKey } from '../../user-offer-options.config';
+import { FreightAllTablePageComponent } from '../freight/table-all/freight-all-table-page.component';
+import { TransportAllTablePageComponent } from '../transport/table-all/transport-all-table-page.component';
+import { WarehouseAllTablePageComponent } from '../warehouse/table-all/warehouse-all-table-page.component';
 
 @Component({
   selector: 'app-home-page',
   imports: [
+    PageHeaderComponent,
     PageTitleComponent,
-    RouterLink,
-    TranslateModule,
-    QuickActionCardComponent,
-    IntentCardComponent,
+    PrimaryActionLinkComponent,
+    EntityTabsComponent,
+    TransportAllTablePageComponent,
+    FreightAllTablePageComponent,
+    WarehouseAllTablePageComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  private readonly homeService = inject(HomeService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  protected readonly pageIcon = UserPageIcons.home;
-  protected readonly ourListingsLink = userOurListingsRoute('transport');
-  protected readonly offerUrl = USER_OFFER_URL;
-  protected readonly marketplaceTransportLink = userFindRoute('transport');
-  protected readonly marketplaceFreightLink = userFindRoute('freight');
-  protected readonly marketplaceWarehouseLink = userFindRoute('warehouse');
-  protected readonly entityActionGroups = HOME_ENTITY_ACTION_GROUPS;
+  protected readonly pageIcon = UserPageIcons.marketplace;
+  protected readonly entityTabs = USER_ENTITY_TAB_CONFIG;
+  protected readonly activeTab = signal<UserEntityTab>('transport');
 
-  protected readonly snapshot = signal<HomeCounts | null>(null);
+  protected readonly offerUrl = computed(() => {
+    switch (this.activeTab()) {
+      case 'freight':
+        return USER_CREATE_FREIGHT_URL;
+      case 'warehouse':
+        return USER_CREATE_WAREHOUSE_URL;
+      default:
+        return USER_CREATE_TRANSPORT_URL;
+    }
+  });
 
-  protected readonly journeyGroups: JourneyGroup[] = [
-    {
-      titleKey: 'portal.user.features.home.journey.groups.transport',
-      entityTab: 'transport',
-      cards: [
-        {
-          titleKey: 'portal.user.features.home.journey.needTransport.title',
-          bodyKey: 'portal.user.features.home.journey.needTransport.body',
-          icon: UserPageIcons.transport,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_FIND_URL,
-              queryParams: { tab: 'transport' },
-            },
-          ],
-        },
-        {
-          titleKey: 'portal.user.features.home.journey.haveTransport.title',
-          bodyKey: 'portal.user.features.home.journey.haveTransport.body',
-          icon: UserPageIcons.transport,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_CREATE_TRANSPORT_URL,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      titleKey: 'portal.user.features.home.journey.groups.freight',
-      entityTab: 'freight',
-      cards: [
-        {
-          titleKey: 'portal.user.features.home.journey.needFreight.title',
-          bodyKey: 'portal.user.features.home.journey.needFreight.body',
-          icon: UserPageIcons.freight,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_FIND_URL,
-              queryParams: { tab: 'freight' },
-            },
-          ],
-        },
-        {
-          titleKey: 'portal.user.features.home.journey.haveFreight.title',
-          bodyKey: 'portal.user.features.home.journey.haveFreight.body',
-          icon: UserPageIcons.freight,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_CREATE_FREIGHT_URL,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      titleKey: 'portal.user.features.home.journey.groups.warehouse',
-      entityTab: 'warehouse',
-      cards: [
-        {
-          titleKey: 'portal.user.features.home.journey.needWarehouse.title',
-          bodyKey: 'portal.user.features.home.journey.needWarehouse.body',
-          icon: UserPageIcons.warehouse,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_FIND_URL,
-              queryParams: { tab: 'warehouse' },
-            },
-          ],
-        },
-        {
-          titleKey: 'portal.user.features.home.journey.haveWarehouse.title',
-          bodyKey: 'portal.user.features.home.journey.haveWarehouse.body',
-          icon: UserPageIcons.warehouse,
-          actions: [
-            {
-              labelKey: JOURNEY_CONTINUE_LABEL_KEY,
-              route: USER_CREATE_WAREHOUSE_URL,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  protected readonly offerLabelKey = computed(() => userCreateListingLabelKey(this.activeTab()));
 
   constructor() {
-    this.homeService.getSnapshot().subscribe({
-      next: (counts) => this.snapshot.set(counts),
-    });
+    this.route.queryParamMap
+      .pipe(
+        map((params) => parseUserEntityTab(params.get('tab'))),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((tab) => this.activeTab.set(tab));
+  }
+
+  protected onTabChange(tab: UserEntityTab): void {
+    void this.router.navigateByUrl(userSearchUrl(tab));
   }
 }

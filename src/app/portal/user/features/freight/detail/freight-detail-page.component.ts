@@ -8,7 +8,7 @@ import { AuthService } from '../../../../../shared/core/auth/auth.service';
 import { ConfirmService } from '../../../../../shared/confirm';
 import {
   userEditFreightUrl,
-  userFindUrl,
+  userSearchUrl,
   userOurListingsUrl,
 } from '../../../../../shared/constants/app-urls';
 import {
@@ -79,7 +79,7 @@ export class FreightDetailPageComponent implements OnInit {
   );
 
   protected readonly pageSubtitleKey = computed(() =>
-    resolveDetailSubtitleKey('viewFreight', this.isOwnListing(), this.detailOrigin),
+    resolveDetailSubtitleKey(this.isOwnListing(), this.detailOrigin),
   );
 
   protected readonly detailActions = computed(() => {
@@ -97,7 +97,7 @@ export class FreightDetailPageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
-      void this.router.navigateByUrl(userFindUrl('freight'));
+      void this.router.navigateByUrl(userSearchUrl('freight'));
       return;
     }
 
@@ -110,7 +110,7 @@ export class FreightDetailPageComponent implements OnInit {
           this.loading.set(false);
         },
         error: () => {
-          void this.router.navigateByUrl(userFindUrl('freight'));
+          void this.router.navigateByUrl(userSearchUrl('freight'));
         },
       });
   }

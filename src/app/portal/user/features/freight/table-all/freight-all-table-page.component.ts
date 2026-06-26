@@ -69,7 +69,7 @@ export class FreightAllTablePageComponent {
   }
 
   protected onRowClick(row: Freight): void {
-    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'find');
+    navigateToEntityDetail(this.router, userFreightDetailUrl(row.id), 'search');
   }
 
   protected onRowAction(event: RowActionEvent<Freight>): void {

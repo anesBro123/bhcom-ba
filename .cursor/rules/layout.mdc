@@ -23,19 +23,19 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 | Mode | Left zone | Right zone |
 |------|-----------|------------|
 | **guest** | Brand; Register always; Sign in link when not on `/` | theme → language |
-| **user** | Brand → `homeUrl`; **topbar nav** links from `PortalConfig.topbarNav` (Search, Offer) | theme → language → notifications → account |
+| **user** | Brand + **offer** `+` menu (left) | theme → language → notifications → account |
 | **admin** | Brand → `homeUrl` | theme → language → account |
 
 - `ThemePickerComponent` / `LanguagePickerComponent` — `shared/ui/`; single-click toggles
 - `BrandMarkComponent` — optional portal suffix from `PortalConfig.shell.brandSuffixKey`
-- Account menu: profile (stub), settings (admin → `ADMIN_SETTINGS_URL`), logout → `SIGN_IN_URL`
+- Account menu: **My listings** / **Moje objave** (`LucideListChecks`, user → `userOurListingsUrl()`), settings (admin → `ADMIN_SETTINGS_URL`), logout → `SIGN_IN_URL`
 - Styles: `styles/_topbar.scss` (`topbar-base`, `topbar-icon-btn`)
 
 ## Portal config & topbar nav
 
 - `PORTAL_CONFIG` provided on lazy portal branches in `app.routes.ts` (`USER_PORTAL_CONFIG`, `ADMIN_PORTAL_CONFIG`)
 - `PortalConfig.topbarNav: TopbarNavItem[]` — `{ labelKey, route, exact? }`
-- User: `portal/user/user-topbar-nav.config.ts` (Search → `USER_FIND_URL`, Offer → `USER_OFFER_URL`)
+- User: `portal/user/user-topbar-nav.config.ts` — empty (browse via brand → `USER_HOME_URL`); offer via `OfferMenuComponent` in topbar
 - Admin: `topbarNav: []` (in-page nav in Plan 3)
 
 ## Shared UI widgets (`shared/ui/`)
@@ -48,7 +48,7 @@ Modes from `AuthService` + optional `PORTAL_CONFIG`:
 - `RouteDisplayComponent`, `VehicleDisplayComponent`, `DateRangeDisplayComponent`, `WarehouseDisplayComponent`, `StatusBadgeComponent` — table cells; see `tables.mdc`
 - `DatePeriodPickerComponent` — filter + form date input — see `forms.mdc`, `table-filters.mdc`
 - `PageHeaderComponent` + `PrimaryActionLinkComponent` — list page create CTA — see `page-title.mdc`
-- **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — Find / Our listings — see `entity-tabs.mdc`
+- **User hub header:** `.page-hub-header` (`styles/_page-hub-header.scss`) — marketplace home (Tržište) / my listings (Moje objave) — see `entity-tabs.mdc`
 
 ## Styling
 

@@ -13,7 +13,7 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 1. Scaffold `data/`, `form/`, `table/` under `portal/admin/features/<entity>/` (or user equivalent).
 2. Add URLs to `shared/constants/admin-urls.ts` (or `user-urls.ts` for user features): list, create, `editUrl(id)`.
 3. Register three routes in `admin.routes.ts`: list, `create`, `:id/edit` (same form component for create + edit).
-4. Add nav section in `admin-nav.config.ts` (or `user-nav.config.ts`): `NavSection` with `icon` from `AdminPageIcons` / `UserPageIcons`. Admin uses `items` with `route` from `app-urls.ts`. **User portal:** four flat sections with `NavSection.route` — Home, Find, Our listings, Offer; see `user-nav.config.ts`, `layout.mdc`.
+4. Add nav section in `admin-nav.config.ts` only for admin features. **User portal:** no sidebar — marketplace via brand; my listings via account menu; offer via topbar `OfferMenuComponent` — see `layout.mdc`, `entity-tabs.mdc`.
 5. i18n: `portal.<portal>.features.<entity>.*` + `pages.*` + `nav.*` in both `en.json` and `bh.json`.
 6. Stepper CRUD form: `stepperDataReady` signal + `[stepperMode]` / `[stepperDataReady]` on `<app-form-page>` — see `forms.mdc` and `portal-feature.mdc`.
 7. **Page title + back link:** `PageBackLinkComponent` + `PageTitleComponent` with `pageTitleKey` / `pageSubtitleKey` / `pageIcon`; form page also needs `backUrl` (list URL) + `backLabelKey` (nav list label) — see **`page-title.mdc`**, **`shared-constants.mdc`**.
@@ -23,37 +23,31 @@ Follow **`portal-feature.mdc`** — reference implementation: `portal/admin/feat
 
 1. Feature folder: `portal/user/features/<domain>/` or `portal/admin/features/<domain>/` (not both).
 2. Register route in `user.routes.ts` or `admin.routes.ts` under `PortalShellComponent` children.
-3. If in sidebar: add entries in `user-nav.config.ts` or `admin-nav.config.ts`. **User:** flat `NavSection` with `route` + `icon` (Home, Find, Our listings, Offer). **Admin:** grouped `NavSection` + `items`. Routes from `shared/constants/app-urls.ts` (see `app-urls.mdc`, `layout.mdc`).
+3. If in sidebar: add entries in `admin-nav.config.ts` only. **User:** hubs at `/home` and `/our-listings` — no sidebar nav. Routes from `shared/constants/app-urls.ts` (see `app-urls.mdc`, `layout.mdc`).
 4. **Stub / title-only page:** dedicated feature page with static `PageTitleComponent` keys — see `portal/admin/features/settings/`.
-5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/transport/table-all/` (embedded in Find hub).
+5. Table list: feature `*.service.ts` with `list(TableQuery)` — see `portal/user/features/transport/table-all/` (embedded in marketplace hub).
 
-## User hub page (Find / Our listings)
+## User hub page (marketplace / my listings)
 
-Follow **`entity-tabs.mdc`** — reference: `portal/user/features/find/`, `portal/user/features/our-listings/`.
+Follow **`entity-tabs.mdc`** — reference: `portal/user/features/home/`, `portal/user/features/our-listings/`.
 
-1. Add `USER_FIND_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userFindUrl` / `userOurListingsUrl` for TS; `userFindRoute` / `userOurListingsRoute` for templates).
-2. Register `find` and `our-listings` routes in `user.routes.ts` — **do not** register standalone entity list routes.
-3. Hub page: wrap title (+ `PageHeaderComponent` + tab-specific `PrimaryActionLink` on Our listings only) and `EntityTabsComponent` in **`.page-hub-header`** (`@use 'styles/page-hub-header'` in page SCSS) + embedded table page components with `[embedded]="true"` below the wrapper.
-4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=` query param; navigate with `userFindUrl()` / `userOurListingsUrl()` on tab change.
-5. Sidebar active state: `navLinkActiveOptions(exact)` on hub nav links — see `layout.mdc`.
-6. i18n: `portal.user.pages.find.*`, `portal.user.pages.ourListings.*`, `portal.user.features.entityTabs.*` in both locale files.
-6. Feature HTTP: colocate `*.service.ts` in `data/`; promote to `portal/{user|admin}/data/` when shared within one portal.
-   - **Admin (implemented):** `admin-dashboard-page.*`, `admin-dashboard.actions.config.ts`, `data/admin-dashboard.service.ts`
-   - **KPI row:** `<app-metric-card>` in a 3-col desktop / 1-col mobile grid; wrap each card in `<a routerLink>` for navigation; counts from existing entity services via `list()` → `total` (or dedicated dashboard service with `forkJoin`); show `—` while loading; prefer `variant="default"` for neutral icons
-   - **Quick actions:** `<app-quick-action-card>` from `shared/ui/quick-action-card/`; entity icons from `UserPageIcons` on dashboard action config; reuse nav `titleKey`s + `portal.<portal>.features.dashboard.actions.*.description` for subtitles
-   - **Admin layout:** 3 entity columns (browse + create stacked per entity); settings action alone on its own row below
-   - **Nav:** add Dashboard section with `ADMIN_HOME_URL` / `USER_HOME_URL`, `UserPageIcons.home` / `AdminPageIcons.dashboard` on `NavSection.icon`, overview item (`exact: true`)
-   - **i18n:** `portal.<portal>.features.dashboard.metrics.*`, `…quickActions.title`, `…actions.*.description`; add `portal.admin.nav.sections.dashboard` + `portal.admin.nav.overview` for admin
-   - **User (implemented):** `portal/user/features/home/` — snapshot + quick actions (`home.actions.config.ts`) + journey; see `entity-service-colors.mdc`, not legacy `user-dashboard-page`
+1. Add `USER_HOME_URL` / `USER_OUR_LISTINGS_URL` + URL builders to `user-urls.ts` if not present (`userSearchUrl` / `userOurListingsUrl` for TS; `userSearchRoute` / `userOurListingsRoute` for templates).
+2. Register `home` and `our-listings` routes in `user.routes.ts` — **do not** register standalone entity list routes or a separate `/find` route.
+3. Hub page: wrap `PageHeaderComponent` (title + tab-specific publish CTA) and `EntityTabsComponent` in **`.page-hub-header`** + embedded table pages with `[embedded]="true"` below.
+4. Tab config in `portal/user/user-entity-tabs.config.ts`; subscribe to `?tab=`; navigate with `userSearchUrl()` / `userOurListingsUrl()`.
+5. i18n: `portal.user.pages.home.*`, `portal.user.pages.ourListings.*`, `portal.user.features.entityTabs.*`.
 
-## User home page (`portal/user/features/home/`)
+## User marketplace home (`portal/user/features/home/`)
 
-- Standalone `<app-page-title>` with header divider (not `.page-hub-header`).
-- **Order:** company snapshot → **quick actions** panel → **journey** section → browse marketplace footer.
-- **Quick actions:** `home.actions.config.ts` → `HOME_ENTITY_ACTION_GROUPS`; admin-style 3-column panel (`home-page.component.scss` subgrid for equal card heights); `QuickActionCardComponent` with `[entityTab]`, `[queryParams]` for Find rows; titles `portal.user.nav.find*` + `offer*`; descriptions `portal.user.features.home.actions.*`. See `entity-service-colors.mdc`.
-- **Journey:** grouped scenario cards via `journeyGroups`; `IntentCardComponent` with `[clickableCard]="true"`, `[entityTab]`, Continue label `portal.user.features.offer.continue`.
-- Journey grid: `repeat(auto-fit, minmax(min(100%, 24rem), 24rem))`, `justify-content: start`.
-- Reference: `home-page.component.*`, `home.actions.config.ts`, `entity-service-colors.mdc`.
+- Title **Tržište** / **Marketplace** — `pages.home.*`; icon `UserPageIcons.marketplace`.
+- Embedded `*AllTablePageComponent` per active tab.
+- Reference: `home-page.component.*`, `entity-tabs.mdc`.
+
+## User my listings (`portal/user/features/our-listings/`)
+
+- Title **Moje objave** / **My listings** — `pages.ourListings.*`; icon `UserPageIcons.ourListings`.
+- Embedded `*OurTablePageComponent` per active tab.
+- Account menu + detail/form back links use `portal.user.nav.ourListings`.
 
 ## Guest page
 

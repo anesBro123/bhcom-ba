@@ -64,7 +64,7 @@ export class FreightOurTablePageComponent {
   protected readonly pageSubtitleKey = 'portal.user.pages.ourFreight.subtitle';
   protected readonly pageIcon = UserPageIcons.freight;
   protected readonly createUrl = USER_CREATE_FREIGHT_URL;
-  protected readonly createLabelKey = 'portal.user.nav.offerFreight';
+  protected readonly createLabelKey = 'portal.user.pages.createFreight.title';
   protected readonly routeKey = freightOurRouteCellKey;
   protected readonly statusKey = freightOurStatusCellKey;
   protected readonly freightTypeKey = freightOurTypeCellKey;

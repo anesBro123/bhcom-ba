@@ -1,6 +1,4 @@
 export const USER_HOME_URL = '/home';
-export const USER_OFFER_URL = '/offer';
-export const USER_FIND_URL = '/find';
 export const USER_OUR_LISTINGS_URL = '/our-listings';
 
 export const USER_ENTITY_TABS = ['transport', 'freight', 'warehouse'] as const;
@@ -13,22 +11,22 @@ export function parseUserEntityTab(value: string | null | undefined): UserEntity
   return 'transport';
 }
 
-export function userFindUrl(tab: UserEntityTab = 'transport'): string {
-  return `${USER_FIND_URL}?tab=${tab}`;
+export function userSearchUrl(tab: UserEntityTab = 'transport'): string {
+  return `${USER_HOME_URL}?tab=${tab}`;
 }
 
 export function userOurListingsUrl(tab: UserEntityTab = 'transport'): string {
   return `${USER_OUR_LISTINGS_URL}?tab=${tab}`;
 }
 
-/** For `[routerLink]` — do not pass `userFindUrl()` / `userOurListingsUrl()` strings (query gets encoded into the path). */
+/** For `[routerLink]` — do not pass `userSearchUrl()` / `userOurListingsUrl()` strings (query gets encoded into the path). */
 export interface UserEntityTabRoute {
   route: string;
   queryParams: { tab: UserEntityTab };
 }
 
-export function userFindRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
-  return { route: USER_FIND_URL, queryParams: { tab } };
+export function userSearchRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {
+  return { route: USER_HOME_URL, queryParams: { tab } };
 }
 
 export function userOurListingsRoute(tab: UserEntityTab = 'transport'): UserEntityTabRoute {

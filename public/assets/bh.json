@@ -18,9 +18,12 @@
       "changeLanguage": "Promijeni jezik",
       "profile": "Korisnički profil",
       "openAccountMenu": "Otvori meni računa",
+      "offer": {
+        "openMenu": "Objavi"
+      },
       "account": {
         "title": "Moj račun",
-        "profile": "Profil",
+        "profile": "Moje objave",
         "settings": "Postavke",
         "logout": "Odjava"
       },
@@ -759,46 +762,29 @@
       "nav": {
         "sections": {
           "home": "POČETNA",
-          "find": "PRONAĐI",
-          "ourListings": "NAŠE OBJAVE",
+          "search": "TRŽIŠTE",
+          "ourListings": "MOJE OBJAVE",
           "offer": "PONUDI"
         },
         "home": "Početna",
-        "find": "Pronađi",
-        "ourListings": "Naše objave",
+        "search": "Tržište",
+        "ourListings": "Moje objave",
         "offer": "Ponudi",
         "transport": "Prevoz",
         "freight": "Teret",
         "warehouse": "Skladište",
-        "ourTransport": "Naš prevoz",
-        "ourFreight": "Naš teret",
-        "ourWarehouse": "Naša skladišta",
         "marketplaceTransport": "Prevoz na tržištu",
         "marketplaceFreight": "Teret na tržištu",
-        "marketplaceWarehouse": "Skladište na tržištu",
-        "findTransport": "Pronađi prevoz",
-        "findFreight": "Pronađi teret",
-        "findWarehouse": "Pronađi skladište",
-        "offerTransport": "Ponudi prevoz",
-        "offerFreight": "Ponudi teret",
-        "offerWarehouse": "Ponudi skladište"
+        "marketplaceWarehouse": "Skladište na tržištu"
       },
       "pages": {
         "home": {
-          "title": "Početna",
-          "subtitle": "Počnite ovdje — pronađite što vam treba ili objavite ponudu vaše kompanije."
-        },
-        "offer": {
-          "title": "Ponudite uslugu",
-          "subtitle": "Odaberite šta vaša kompanija želi ponuditi na tržištu."
-        },
-        "find": {
-          "title": "Pronađi",
-          "subtitle": "Pregledajte objave drugih kompanija na tržištu."
+          "title": "Tržište",
+          "subtitle": "Pregledajte objave drugih kompanija."
         },
         "ourListings": {
-          "title": "Naše objave",
-          "subtitle": "Sve što je objavila vaša kompanija — od bilo kog člana tima."
+          "title": "Moje objave",
+          "subtitle": "Upravljajte objavama vaše kompanije."
         },
         "marketplaceTransport": {
           "title": "Prevoz na tržištu",
@@ -818,7 +804,7 @@
         },
         "marketplaceFreight": {
           "title": "Teret na tržištu",
-          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pronađite pošiljke koje odgovaraju vašem prevozu."
+          "subtitle": "Pregledajte teret koji su objavile druge kompanije. Pretražite pošiljke koje odgovaraju vašem prevozu."
         },
         "ourFreight": {
           "title": "Naš teret",
@@ -848,20 +834,18 @@
           "title": "Uredi skladište",
           "subtitle": "Ažurirajte skladište, datume dostupnosti, veličinu prostora ili opis."
         },
+        "listingDetail": {
+          "subtitleSearch": "Pregledajte objavu druge kompanije.",
+          "subtitleOur": "Upravljajte objavom vaše kompanije."
+        },
         "viewTransport": {
-          "title": "Detalji prevoza",
-          "subtitleFind": "Pregledajte prevoz, raspored i vozilo prije slanja zahtjeva.",
-          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za prevoz koji je objavila vaša kompanija."
+          "title": "Detalji prevoza"
         },
         "viewFreight": {
-          "title": "Detalji tereta",
-          "subtitleFind": "Pregledajte informacije o pošiljci i relaciju prije slanja zahtjeva.",
-          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za teret koji je objavila vaša kompanija."
+          "title": "Detalji tereta"
         },
         "viewWarehouse": {
-          "title": "Detalji skladišta",
-          "subtitleFind": "Pregledajte dostupnost, prostor i lokaciju prije slanja zahtjeva.",
-          "subtitleOur": "Pregledajte i upravljajte ovim oglasom za skladište koji je objavila vaša kompanija."
+          "title": "Detalji skladišta"
         }
       },
       "features": {
@@ -1164,95 +1148,6 @@
           "transport": "Prevoz",
           "freight": "Teret",
           "warehouse": "Skladište"
-        },
-        "find": {
-          "manageListingsPrompt": "Upravljate objavama vaše kompanije?",
-          "manageListingsLink": "Naše objave"
-        },
-        "home": {
-          "snapshot": {
-            "ariaLabel": "Pregled objava kompanije",
-            "labelOpenOnly": "{{openCount}} aktivnih objava",
-            "labelWithExpiring": "{{openCount}} aktivnih objava · {{expiringCount}} uskoro ističe",
-            "breakdown": "{{transport}} prevoz · {{freight}} teret · {{warehouse}} skladište",
-            "cta": "Pogledaj naše objave",
-            "empty": "Vaša kompanija još nema objava.",
-            "emptyCta": "Objavite prvu objavu"
-          },
-          "quickActions": {
-            "title": "Brze akcije"
-          },
-          "actions": {
-            "findTransport": {
-              "description": "Pregledajte prevoz koji nude druge kompanije"
-            },
-            "offerTransport": {
-              "description": "Objavite prevoz koji vaša kompanija nudi"
-            },
-            "findFreight": {
-              "description": "Pregledajte teret koji su objavile druge kompanije"
-            },
-            "offerFreight": {
-              "description": "Objavite teret za koji vašoj kompaniji treba prevoz"
-            },
-            "findWarehouse": {
-              "description": "Pregledajte skladišni prostor koji nude druge kompanije"
-            },
-            "offerWarehouse": {
-              "description": "Objavite slobodan prostor u skladištu vaše kompanije"
-            }
-          },
-          "journey": {
-            "heading": "Šta vam treba danas?",
-            "subheading": "Odaberite situaciju — odvest ćemo vas na pravo mjesto.",
-            "groups": {
-              "transport": "Prevoz",
-              "freight": "Teret",
-              "warehouse": "Skladište"
-            },
-            "needTransport": {
-              "title": "Treba mi prevoz",
-              "body": "Pregledajte prevoz koji nude druge kompanije."
-            },
-            "haveTransport": {
-              "title": "Imam kapacitet za prevoz",
-              "body": "Objavite prevoz koji vaša kompanija nudi."
-            },
-            "needFreight": {
-              "title": "Treba mi teret za vožnju",
-              "body": "Pregledajte teret koji su objavile druge kompanije."
-            },
-            "haveFreight": {
-              "title": "Imam teret za transport",
-              "body": "Objavite teret za koji vašoj kompaniji treba prevoz."
-            },
-            "needWarehouse": {
-              "title": "Treba mi skladišni prostor",
-              "body": "Pregledajte skladišni prostor koji nude druge kompanije."
-            },
-            "haveWarehouse": {
-              "title": "Imam skladišni prostor",
-              "body": "Objavite slobodan prostor u skladištu vaše kompanije."
-            }
-          },
-          "browseMarketplace": "Ili pregledajte tržište"
-        },
-        "offer": {
-          "transport": {
-            "title": "Ponudi prevoz",
-            "description": "Prevoz koji vaša kompanija nudi sa slobodnim kapacitetom vozila."
-          },
-          "freight": {
-            "title": "Ponudi teret",
-            "description": "Teret za koji vašoj kompaniji treba prevoz."
-          },
-          "warehouse": {
-            "title": "Ponudi skladište",
-            "description": "Skladišni prostor koji vaša kompanija nudi za određeni period."
-          },
-          "continue": "Nastavi",
-          "notSure": "Niste sigurni?",
-          "backHome": "Nazad na početnu"
         }
       }
     }

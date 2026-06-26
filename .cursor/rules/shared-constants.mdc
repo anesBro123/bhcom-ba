@@ -60,7 +60,7 @@ Entity icons for **sidebar section headers**, **collapsed flyout triggers**, and
 | File | Export | Keys |
 |------|--------|------|
 | `portal/admin/admin-page-icons.ts` | `AdminPageIcons` | `dashboard`, `users`, `vehicles`, `warehouses`, `settings` |
-| `portal/user/user-page-icons.ts` | `UserPageIcons` | `home` (`LucideHome`), `find`, `ourListings`, `offer`, `transport`, `freight`, `warehouse` |
+| `portal/user/user-page-icons.ts` | `UserPageIcons` | `home` (`LucideHome`), `find`, `marketplace` (`LucideLayoutGrid`), `ourListings` (`LucideListChecks`), `offer`, `transport`, `freight`, `warehouse` |
 
 - `NavSection.icon` in nav configs — flat user links, section title (expanded admin), flyout trigger (collapsed admin), and page titles.
 - **User sidebar:** flat `NavSection.route` links only — no nested `NavItem`s; labels from `portal.user.nav.*`.

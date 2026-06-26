@@ -64,7 +64,7 @@ export class TransportOurTablePageComponent {
   protected readonly pageSubtitleKey = 'portal.user.pages.ourTransport.subtitle';
   protected readonly pageIcon = UserPageIcons.transport;
   protected readonly createUrl = USER_CREATE_TRANSPORT_URL;
-  protected readonly createLabelKey = 'portal.user.nav.offerTransport';
+  protected readonly createLabelKey = 'portal.user.pages.createTransport.title';
   protected readonly transportKey = transportOurCellKey;
   protected readonly statusKey = transportOurStatusCellKey;
   protected readonly vehicleKey = transportOurVehicleCellKey;

@@ -21,7 +21,7 @@ portal.admin.nav.*                — admin sidebar
 portal.admin.pages.*              — admin route page header ({ title, subtitle })
 portal.admin.features.<feature>.* — admin feature (form, table)
 portal.user.nav.*             — user sidebar
-portal.user.pages.*           — user route page header ({ title, subtitle } or view detail: { title, subtitleFind, subtitleOur })
+portal.user.pages.*           — user route page header ({ title, subtitle }; detail subtitles: `listingDetail.subtitleSearch` / `.subtitleOur`)
 portal.user.features.<domain>.<feature>.* — user feature (form, table)
 ```
 
@@ -76,7 +76,18 @@ portal.admin.pages.createVehicle.title
 
 Reuse existing nav label keys (`portal.admin.nav.allUsers`, etc.) for admin quick-action card titles; add `…dashboard.actions.*.description` only for helper text.
 
-User home quick actions: titles `portal.user.nav.findTransport|findFreight|findWarehouse` + `offerTransport|…`; descriptions `portal.user.features.home.actions.*`; panel title `portal.user.features.home.quickActions.title`. Journey copy stays under `portal.user.features.home.journey.*`. See `entity-service-colors.mdc`.
+User topbar: `shared.topbar.offer.*` for offer menu; account **My listings** (`shared.topbar.account.profile` mirrors `portal.user.nav.ourListings`) → `userOurListingsUrl()`. Detail back-nav: `portal.user.nav.search` (Marketplace / Tržište) or `portal.user.nav.ourListings` (My listings / Moje objave).
+
+### User portal vocabulary (EN / BS)
+
+| Concept | EN keys | BS labels |
+|---------|---------|-----------|
+| Marketplace hub | `pages.home.*`, `nav.search` | Tržište |
+| My listings hub | `pages.ourListings.*`, `nav.ourListings` | Moje objave |
+| Detail subtitle (other company) | `pages.listingDetail.subtitleSearch` | Pregledajte objavu druge kompanije. |
+| Detail subtitle (your company) | `pages.listingDetail.subtitleOur` | Upravljajte objavom vaše kompanije. |
+
+Hub subtitles use parallel verb + **other company** vs **your company** — do not repeat entity types (tabs cover transport/freight/warehouse).
 
 ### Portal user feature example
 
@@ -85,22 +96,17 @@ portal.user.features.freight.form.sections.route.title
 portal.user.features.freight.form.sections.freight.title
 portal.user.features.entityTabs.transport
 portal.user.features.entityTabs.ariaLabel
-portal.user.features.find.manageListingsPrompt
-portal.user.nav.home
-portal.user.nav.find
+portal.user.nav.search
 portal.user.nav.ourListings
-portal.user.nav.offer
 portal.user.pages.home.title
-portal.user.features.home.quickActions.title
-portal.user.features.home.actions.findTransport.description
-portal.user.features.home.journey.heading
-portal.user.nav.findTransport
-portal.user.nav.offerTransport
-portal.user.pages.offer.title
-portal.user.pages.find.title
-portal.user.pages.find.subtitle
+portal.user.pages.home.subtitle
 portal.user.pages.ourListings.title
 portal.user.pages.ourListings.subtitle
+portal.user.pages.listingDetail.subtitleSearch
+portal.user.pages.listingDetail.subtitleOur
+shared.topbar.account.profile
+shared.topbar.offer.openMenu
+portal.user.pages.createTransport.title
 ```
 
 **City fields:** municipality names in `BIH_CITY_OPTIONS` use plain `label` strings — no per-city i18n keys.
@@ -113,7 +119,7 @@ portal.user.pages.ourListings.subtitle
 4. **Table defs** (`*.table.ts`) — keys under `…features.<feature>.table.*` including `title` + `subtitle`; use `shared.table.common.*` for shared table chrome. Destructive row actions: add `…table.deleteConfirm.title` / `…message` in the feature namespace; button labels use `shared.confirm.common.*` (see `confirm.mdc`).
 5. **Route `data`** — `titleKey: 'portal.<portal>.pages.<pageId>.title'` (optional; page templates usually own title keys via `PageTitleComponent`).
 6. **Page subtitles** — every portal page needs a subtitle under `portal.*.pages.<id>.subtitle`. Page components own `pageTitleKey` / `pageSubtitleKey` — not table or form defs. Write helpful UX copy — do not repeat the title.
-7. **Nav labels** — user flat sidebar: `portal.user.nav.home|find|ourListings|offer`; admin grouped items: `portal.<portal>.nav.<itemId>`; section headers (admin): `portal.<portal>.nav.sections.*`.
+7. **Nav labels** — user publish CTAs + offer menu: `portal.user.pages.createTransport|createFreight|createWarehouse.title`; topbar `shared.topbar.offer.openMenu`; account my listings → our listings (`shared.topbar.account.profile` mirrors `portal.user.nav.ourListings`); admin grouped items: `portal.<portal>.nav.<itemId>`; section headers (admin): `portal.<portal>.nav.sections.*`.
 8. **Enum/select options** — colocate under the same feature subtree (e.g. `…form.vrstaVozila.putnicko`).
 9. **Entity status labels** — interim shared union: `shared.entityStatus.*`; when an entity gets its own statuses, add `portal.<portal>.features.<entity>.status.<value>` — see `entity-status.mdc`.
 

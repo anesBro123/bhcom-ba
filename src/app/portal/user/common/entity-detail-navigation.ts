@@ -2,22 +2,19 @@ import { Router } from '@angular/router';
 
 import { belongsToCompany } from '../../../shared/constants/user-list-scope';
 import {
-  userFindUrl,
   userOurListingsUrl,
+  userSearchUrl,
   type UserEntityTab,
 } from '../../../shared/constants/user-urls';
 
-export type EntityDetailOrigin = 'find' | 'our';
+export type EntityDetailOrigin = 'search' | 'our';
 
 export interface EntityDetailNavigationState {
   detailOrigin?: EntityDetailOrigin;
 }
 
-const OUR_LISTINGS_BACK_LABEL_KEYS: Record<UserEntityTab, string> = {
-  transport: 'portal.user.nav.ourTransport',
-  freight: 'portal.user.nav.ourFreight',
-  warehouse: 'portal.user.nav.ourWarehouse',
-};
+export const SEARCH_BACK_LABEL_KEY = 'portal.user.nav.search';
+export const OUR_LISTINGS_BACK_LABEL_KEY = 'portal.user.nav.ourListings';
 
 export function navigateToEntityDetail(
   router: Router,
@@ -29,7 +26,18 @@ export function navigateToEntityDetail(
 
 export function readEntityDetailOrigin(): EntityDetailOrigin | undefined {
   const state = history.state as EntityDetailNavigationState | null;
-  return state?.detailOrigin;
+  const origin = state?.detailOrigin;
+  if ((origin as string | undefined) === 'find') {
+    return 'search';
+  }
+  return origin;
+}
+
+export function isOurListingsContext(
+  isOwnListing: boolean,
+  origin?: EntityDetailOrigin,
+): boolean {
+  return origin === 'our' || (origin !== 'search' && isOwnListing);
 }
 
 export function resolveDetailBack(
@@ -37,19 +45,11 @@ export function resolveDetailBack(
   isOwnListing: boolean,
   origin?: EntityDetailOrigin,
 ): { url: string; labelKey: string } {
-  if (origin === 'find') {
-    return { url: userFindUrl(tab), labelKey: 'portal.user.nav.find' };
+  if (isOurListingsContext(isOwnListing, origin)) {
+    return { url: userOurListingsUrl(tab), labelKey: OUR_LISTINGS_BACK_LABEL_KEY };
   }
 
-  if (origin === 'our') {
-    return { url: userOurListingsUrl(tab), labelKey: OUR_LISTINGS_BACK_LABEL_KEYS[tab] };
-  }
-
-  if (isOwnListing) {
-    return { url: userOurListingsUrl(tab), labelKey: OUR_LISTINGS_BACK_LABEL_KEYS[tab] };
-  }
-
-  return { url: userFindUrl(tab), labelKey: 'portal.user.nav.find' };
+  return { url: userSearchUrl(tab), labelKey: SEARCH_BACK_LABEL_KEY };
 }
 
 export function isOwnListingEntity(
@@ -59,15 +59,11 @@ export function isOwnListingEntity(
   return belongsToCompany(entity, companyId);
 }
 
-export type EntityDetailPageKey = 'viewTransport' | 'viewFreight' | 'viewWarehouse';
-
 export function resolveDetailSubtitleKey(
-  pageKey: EntityDetailPageKey,
   isOwnListing: boolean,
   origin?: EntityDetailOrigin,
 ): string {
-  const isOurContext = origin === 'our' || (origin !== 'find' && isOwnListing);
-  const suffix = isOurContext ? 'subtitleOur' : 'subtitleFind';
+  const suffix = isOurListingsContext(isOwnListing, origin) ? 'subtitleOur' : 'subtitleSearch';
 
-  return `portal.user.pages.${pageKey}.${suffix}`;
+  return `portal.user.pages.listingDetail.${suffix}`;
 }

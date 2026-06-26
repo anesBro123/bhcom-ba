@@ -4,6 +4,13 @@
 @include topbar.topbar-base;
 @include topbar.topbar-icon-btn;
 
+.app-topbar__start {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
 .app-topbar__nav {
   display: none;
   align-items: center;

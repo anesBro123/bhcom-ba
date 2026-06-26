@@ -65,7 +65,7 @@ export class TransportAllTablePageComponent {
   protected readonly loadRoutes: TableLoader<Transport> = (query) => this.routeService.listAll(query);
 
   protected onRowClick(row: Transport): void {
-    navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'find');
+    navigateToEntityDetail(this.router, userTransportDetailUrl(row.id), 'search');
   }
 
   protected onRowAction(event: RowActionEvent<Transport>): void {

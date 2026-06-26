@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { userOurListingsUrl } from '../../../../../shared/constants/app-urls';
+import { OUR_LISTINGS_BACK_LABEL_KEY } from '../../../common/entity-detail-navigation';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import {
@@ -54,7 +55,7 @@ export class WarehouseFormPageComponent implements OnInit {
 
   protected readonly pageIcon = UserPageIcons.warehouse;
   protected readonly backUrl = userOurListingsUrl('warehouse');
-  protected readonly backLabelKey = 'portal.user.nav.ourWarehouse';
+  protected readonly backLabelKey = OUR_LISTINGS_BACK_LABEL_KEY;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

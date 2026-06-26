@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormPageComponent } from '../../../../../shared/form';
 import { userOurListingsUrl } from '../../../../../shared/constants/app-urls';
+import { OUR_LISTINGS_BACK_LABEL_KEY } from '../../../common/entity-detail-navigation';
 import { PageBackLinkComponent } from '../../../../../shared/ui/page-back-link/page-back-link.component';
 import { PageTitleComponent } from '../../../../../shared/ui/page-title/page-title.component';
 import { notPastDateValidator } from '../../../../../shared/utils/date-input';
@@ -49,7 +50,7 @@ export class FreightFormPageComponent implements OnInit {
 
   protected readonly pageIcon = UserPageIcons.freight;
   protected readonly backUrl = userOurListingsUrl('freight');
-  protected readonly backLabelKey = 'portal.user.nav.ourFreight';
+  protected readonly backLabelKey = OUR_LISTINGS_BACK_LABEL_KEY;
 
   protected readonly formDef = computed(() => {
     const editing = this.isEdit();

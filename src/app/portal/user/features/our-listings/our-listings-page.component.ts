@@ -17,6 +17,7 @@ import { PageTitleComponent } from '../../../../shared/ui/page-title/page-title.
 import { PrimaryActionLinkComponent } from '../../../../shared/ui/primary-action-link/primary-action-link.component';
 import { USER_ENTITY_TAB_CONFIG } from '../../user-entity-tabs.config';
 import { UserPageIcons } from '../../user-page-icons';
+import { userCreateListingLabelKey } from '../../user-offer-options.config';
 import { FreightOurTablePageComponent } from '../freight/table-our/freight-our-table-page.component';
 import { TransportOurTablePageComponent } from '../transport/table-our/transport-our-table-page.component';
 import { WarehouseOurTablePageComponent } from '../warehouse/table-our/warehouse-our-table-page.component';
@@ -55,16 +56,7 @@ export class OurListingsPageComponent {
     }
   });
 
-  protected readonly createLabelKey = computed(() => {
-    switch (this.activeTab()) {
-      case 'freight':
-        return 'portal.user.nav.offerFreight';
-      case 'warehouse':
-        return 'portal.user.nav.offerWarehouse';
-      default:
-        return 'portal.user.nav.offerTransport';
-    }
-  });
+  protected readonly createLabelKey = computed(() => userCreateListingLabelKey(this.activeTab()));
 
   constructor() {
     this.route.queryParamMap

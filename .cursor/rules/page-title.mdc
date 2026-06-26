@@ -18,7 +18,7 @@ Canonical top-level heading for **portal shell pages** (dashboard, table, form, 
 |------|-------|
 | Path | `shared/ui/page-back-link/page-back-link.component.ts` |
 | Selector | `app-page-back-link` |
-| Inputs | `route` (required list URL from `app-urls.ts`); `labelKey` (required — reuse `portal.*.nav.all*` or `portal.user.nav.our*`); `form` (required `FormGroup` — dirty guard) |
+| Inputs | `route` (required list URL from `app-urls.ts`); `labelKey` (required — reuse `portal.*.nav.all*` or `portal.user.nav.ourListings`); `form` (required `FormGroup` — dirty guard) |
 | Import | Direct path — no barrel |
 
 ## `PageTitleComponent`
@@ -100,7 +100,7 @@ Same flex pattern in `FormSectionComponent` (`.form-section-card__text`) — see
 |---------|------------------|
 | Standalone `<app-page-title>` (Home, Offer, dashboard, forms, detail) | `.page-title-block` — `border-bottom` + `padding-bottom: 1rem` |
 | `<app-page-header>` + create CTA (admin tables) | `.page-header` — full-width `border-bottom` |
-| `.page-hub-header` (Find, Our listings) | Wrapper only — after tabs; no border on title or page-header inside |
+| `.page-hub-header` (marketplace, my listings) | Wrapper only — after tabs; no border on title or page-header inside |
 
 Do not stack duplicate borders — `:host-context(.page-hub-header)` and `:host-context(.page-header)` remove border from `.page-title-block`.
 
@@ -116,36 +116,26 @@ Do not stack duplicate borders — `:host-context(.page-hub-header)` and `:host-
 
 Inside `.page-hub-header`, `PageHeaderComponent` drops border and bottom margin — tabs follow in the same header zone. See **User hub header** below.
 
-## User hub header (Find / Our listings)
+## User hub header (marketplace / my listings)
 
-Find and Our listings group page title (+ optional `PageHeader` on Our listings) and `EntityTabsComponent` in a **`.page-hub-header`** wrapper — shared styles in `src/styles/_page-hub-header.scss`.
+Marketplace (**Tržište**) and my listings (**Moje objave**) group `PageHeaderComponent` (title + tab-specific publish CTA) and `EntityTabsComponent` in **`.page-hub-header`** — `src/styles/_page-hub-header.scss`.
 
 Hub page SCSS: `@use 'styles/page-hub-header';`
 
-**Find** — title + tabs only:
-
 ```html
-<div class="page-hub-header">
-  <app-page-title … />
-  <app-entity-tabs … />
-</div>
-```
-
-**Our listings** — `PageHeader` (title + tab-specific create CTA) + tabs:
-
-```html
-<div class="page-hub-header">
+<div class="page-hub-header" [attr.data-entity-tab]="activeTab()">
   <app-page-header>
-    <app-page-title … />
-    <app-primary-action-link … />
+    <app-page-title titleKey="portal.user.pages.home.title" … [icon]="pageIcon" />
+    <app-primary-action-link [route]="createUrl()" [labelKey]="createLabelKey()" />
   </app-page-header>
   <app-entity-tabs … />
 </div>
 ```
 
-Wrapper: `padding-bottom: 1rem`, `border-bottom: 1px solid var(--border-subtle)`, `margin-bottom: 1.25rem` before table content. `EntityTabsComponent` tightens top margin (`0.875rem`) inside the wrapper via `:host-context(.page-hub-header)`.
+- Marketplace home: `pages.home.*`, `UserPageIcons.marketplace`
+- My listings: `pages.ourListings.*`, `UserPageIcons.ourListings`
 
-Reference: `portal/user/features/find/`, `portal/user/features/our-listings/`. See `entity-tabs.mdc`.
+Reference: `portal/user/features/home/`, `portal/user/features/our-listings/`. See `entity-tabs.mdc`.
 
 ## Subtitle copy (UX)
 
@@ -153,7 +143,7 @@ Reference: `portal/user/features/find/`, `portal/user/features/our-listings/`. S
 - List pages: search, filter, or manage context.
 - Stepper forms: mention the guided flow (e.g. *"Follow the steps below to create and schedule your shipment"*).
 - Create vs edit: use different subtitles when it helps.
-- **Detail pages (user portal):** static purpose copy only — **never** put route or warehouse data in the subtitle. Use `subtitleFind` / `subtitleOur` keys resolved by `resolveDetailSubtitleKey()`; entity identity (location + status) belongs in `EntityDetailSummaryComponent` — see `detail-page.mdc`.
+- **Detail pages (user portal):** shared `portal.user.pages.listingDetail.subtitleSearch` / `.subtitleOur` via `resolveDetailSubtitleKey()` — entity identity in `EntityDetailSummaryComponent` — see `detail-page.mdc`.
 
 ## i18n key sources
 
@@ -166,7 +156,7 @@ All page header copy uses **`portal.<portal>.pages.<id>.title`** and **`.subtitl
 | Table list | `pageTitleKey` / `pageSubtitleKey` constants | `portal.admin.pages.vehicles.title` |
 | Form create | `pageTitleKey` / `pageSubtitleKey` constants or computed | `portal.admin.pages.createUser.title` |
 | Form edit | computed from `isEdit()` | `portal.admin.pages.editUser.title` |
-| Detail (user portal) | computed `pageSubtitleKey()` via `resolveDetailSubtitleKey()` | `portal.user.pages.viewTransport.subtitleFind` / `.subtitleOur` |
+| Detail (user portal) | computed `pageSubtitleKey()` via `resolveDetailSubtitleKey()` | `portal.user.pages.listingDetail.subtitleSearch` / `.subtitleOur` |
 | Dashboard / settings | static in template | `portal.admin.pages.dashboard.title` |
 
 ## Where to render
@@ -225,7 +215,7 @@ imports: [PageHeaderComponent, PageTitleComponent, PrimaryActionLinkComponent, D
 
 ## Form back link (create/edit pages)
 
-**Required** on every portal create/edit form page. Renders above `PageTitleComponent` — returns to the entity list (admin: `portal.<portal>.nav.all*`; user: `portal.user.nav.our*`). Same URL as post-save redirect.
+**Required** on every portal create/edit form page. Renders above `PageTitleComponent` — returns to the entity list (admin: `portal.<portal>.nav.all*`; user: `userOurListingsUrl(matchingEntity)` + `portal.user.nav.ourListings`). Same URL as post-save redirect.
 
 ```html
 <app-page-back-link [route]="backUrl" [labelKey]="backLabelKey" [form]="form" />
@@ -243,7 +233,7 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 ```
 
 - `backUrl` — list URL from `app-urls.ts` (never hardcode paths).
-- `backLabelKey` — reuse matching nav list label (`portal.admin.nav.allVehicles`, `portal.user.nav.myRoutes`, etc.).
+- `backLabelKey` — reuse matching nav label (`portal.admin.nav.allVehicles`, `portal.user.nav.ourListings`, etc.).
 - `[form]` — when dirty, `ConfirmService` prompts with `shared.form.common.discardChanges.*` before navigating.
 - Component: `shared/ui/page-back-link/` — not inside `FormPageComponent`.
 
@@ -254,7 +244,7 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - Render page titles inside `DataTableComponent` or `FormPageComponent` — those frameworks handle table/form chrome only.
 - Ship a portal page without a subtitle — always provide `subtitleKey` and matching i18n under `portal.*.pages.*`.
 - Use inline `<h1 class="page-title">` or duplicate title SCSS on feature pages — styling lives in `page-title.component.scss` (+ `styles/_page-hub-header.scss` for hub wrappers only).
-- Put Find / Our listings title and tabs as siblings without `.page-hub-header` — always wrap per **User hub header** above.
+- Put marketplace / my listings title and tabs as siblings without `.page-hub-header` — always wrap per **User hub header** above.
 - Use `PageTitleComponent` on **guest** pages (login, register, landing) — guest pages keep their own auth/marketing title styles.
 - Put create CTAs inside `PageTitleComponent` — use `PageHeaderComponent` + `PrimaryActionLinkComponent` on the page instead.
 - Put border or background on page title icons — bare decorative icon only; use chrome on clickable controls.
@@ -266,7 +256,7 @@ imports: [PageBackLinkComponent, PageTitleComponent, FormPageComponent, …],
 - Form (create/edit with back link): `portal/admin/features/vehicles/form/vehicle-form-page.component.*`
 - Dashboard / Home (standalone title): `portal/admin/features/dashboard/`, `portal/user/features/home/`
 - Settings (title-only): `portal/admin/features/settings/admin-settings-page.component.*`
-- User hub (title + tabs): `portal/user/features/find/find-page.component.*`
+- User hub (title + tabs): `portal/user/features/home/home-page.component.*`
 - User hub (title + CTA + tabs): `portal/user/features/our-listings/our-listings-page.component.*`
 
 Related: `layout.mdc`, `entity-tabs.mdc`, `entity-service-colors.mdc`, `new-page.mdc`, `portal-feature.mdc`, `tables.mdc`, `forms.mdc`

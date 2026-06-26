@@ -58,7 +58,7 @@ export class WarehouseAllTablePageComponent {
     this.storageService.listAll(query);
 
   protected onRowClick(row: Warehouse): void {
-    navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'find');
+    navigateToEntityDetail(this.router, userWarehouseDetailUrl(row.id), 'search');
   }
 
   protected onRowAction(event: RowActionEvent<Warehouse>): void {

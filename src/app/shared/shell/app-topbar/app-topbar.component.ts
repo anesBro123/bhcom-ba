@@ -1,25 +1,28 @@
-import { Component, computed, ElementRef, HostListener, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   LucideBell,
   LucideCircleUser,
+  LucideListChecks,
   LucideLogOut,
   LucideSettings,
-  LucideUser,
 } from '@lucide/angular';
 import { filter, map } from 'rxjs';
 import {
   ADMIN_SETTINGS_URL,
   COMPANY_REGISTER_URL,
   SIGN_IN_URL,
+  userOurListingsUrl,
 } from '../../constants/app-urls';
 import { AuthService } from '../../core/auth/auth.service';
 import { BrandMarkComponent } from '../../ui/brand-mark/brand-mark.component';
 import { LanguagePickerComponent } from '../../ui/language-picker/language-picker.component';
 import { ThemePickerComponent } from '../../ui/theme-picker/theme-picker.component';
-import { PORTAL_CONFIG } from '../../../portal/common/models/portal-config.model';
+import { ADMIN_PORTAL_CONFIG } from '../../../portal/admin/admin-portal.config';
+import { USER_PORTAL_CONFIG } from '../../../portal/user/user-portal.config';
+import { OfferMenuComponent } from './offer-menu/offer-menu.component';
 
 type TopbarMode = 'guest' | 'user' | 'admin';
 
@@ -27,14 +30,14 @@ type TopbarMode = 'guest' | 'user' | 'admin';
   selector: 'app-topbar',
   imports: [
     RouterLink,
-    RouterLinkActive,
     TranslatePipe,
     BrandMarkComponent,
     ThemePickerComponent,
     LanguagePickerComponent,
+    OfferMenuComponent,
     LucideBell,
     LucideCircleUser,
-    LucideUser,
+    LucideListChecks,
     LucideSettings,
     LucideLogOut,
   ],
@@ -45,7 +48,19 @@ export class AppTopbarComponent {
   private readonly elementRef = inject(ElementRef);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly portalConfig = inject(PORTAL_CONFIG, { optional: true });
+
+  private readonly portalConfig = computed(() => {
+    const kind = this.auth.portalKind();
+    if (kind === 'admin') {
+      return ADMIN_PORTAL_CONFIG;
+    }
+    if (kind === 'user') {
+      return USER_PORTAL_CONFIG;
+    }
+    return null;
+  });
+
+  private readonly offerMenu = viewChild(OfferMenuComponent);
 
   protected readonly accountMenuOpen = signal(false);
 
@@ -72,14 +87,14 @@ export class AppTopbarComponent {
     if (this.mode() === 'guest') {
       return SIGN_IN_URL;
     }
-    return this.portalConfig?.shell.homeUrl ?? SIGN_IN_URL;
+    return this.portalConfig()?.shell.homeUrl ?? SIGN_IN_URL;
   });
 
   protected readonly brandSuffixKey = computed(
-    () => this.portalConfig?.shell.brandSuffixKey,
+    () => this.portalConfig()?.shell.brandSuffixKey,
   );
 
-  protected readonly topbarNav = computed(() => this.portalConfig?.topbarNav ?? []);
+  protected readonly topbarNav = computed(() => this.portalConfig()?.topbarNav ?? []);
 
   protected readonly showAdminSettings = computed(() => this.mode() === 'admin');
 
@@ -91,15 +106,26 @@ export class AppTopbarComponent {
   onDocumentClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.accountMenuOpen.set(false);
+      this.offerMenu()?.close();
+    }
+  }
+
+  protected onOfferMenuOpenChange(open: boolean): void {
+    if (open) {
+      this.accountMenuOpen.set(false);
     }
   }
 
   protected toggleAccountMenu(): void {
+    this.offerMenu()?.close();
     this.accountMenuOpen.update((open) => !open);
   }
 
   protected onProfileClick(): void {
     this.accountMenuOpen.set(false);
+    if (this.mode() === 'user') {
+      void this.router.navigateByUrl(userOurListingsUrl('transport'));
+    }
   }
 
   protected onSettingsClick(): void {

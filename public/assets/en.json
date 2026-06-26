@@ -18,9 +18,12 @@
       "changeLanguage": "Change language",
       "profile": "User profile",
       "openAccountMenu": "Open account menu",
+      "offer": {
+        "openMenu": "Publish"
+      },
       "account": {
         "title": "My Account",
-        "profile": "Profile",
+        "profile": "My listings",
         "settings": "Settings",
         "logout": "Log out"
       },
@@ -759,46 +762,29 @@
       "nav": {
         "sections": {
           "home": "HOME",
-          "find": "FIND",
-          "ourListings": "OUR LISTINGS",
+          "search": "MARKETPLACE",
+          "ourListings": "MY LISTINGS",
           "offer": "OFFER"
         },
         "home": "Home",
-        "find": "Find",
-        "ourListings": "Our listings",
+        "search": "Marketplace",
+        "ourListings": "My listings",
         "offer": "Offer",
         "transport": "Transport",
         "freight": "Freight",
         "warehouse": "Warehouse",
-        "ourTransport": "Our transport",
-        "ourFreight": "Our freight",
-        "ourWarehouse": "Our warehouse",
         "marketplaceTransport": "Marketplace transport",
         "marketplaceFreight": "Marketplace freight",
-        "marketplaceWarehouse": "Marketplace warehouse",
-        "findTransport": "Find transport",
-        "findFreight": "Find freight",
-        "findWarehouse": "Find warehouse",
-        "offerTransport": "Offer transport",
-        "offerFreight": "Offer freight",
-        "offerWarehouse": "Offer warehouse"
+        "marketplaceWarehouse": "Marketplace warehouse"
       },
       "pages": {
         "home": {
-          "title": "Home",
-          "subtitle": "Start here — find what you need or publish what your company offers."
-        },
-        "offer": {
-          "title": "Offer service",
-          "subtitle": "Choose what your company wants to offer on the marketplace."
-        },
-        "find": {
-          "title": "Find",
-          "subtitle": "Browse listings from other companies on the marketplace."
+          "title": "Marketplace",
+          "subtitle": "Browse other companies' listings."
         },
         "ourListings": {
-          "title": "Our listings",
-          "subtitle": "Everything your company published — from any team member."
+          "title": "My listings",
+          "subtitle": "Manage your company's listings."
         },
         "marketplaceTransport": {
           "title": "Transport on the marketplace",
@@ -818,7 +804,7 @@
         },
         "marketplaceFreight": {
           "title": "Freight on the marketplace",
-          "subtitle": "Browse freight published by other companies. Find shipments that match your transport."
+          "subtitle": "Browse freight published by other companies. Search for shipments that match your transport."
         },
         "ourFreight": {
           "title": "Our freight",
@@ -848,20 +834,18 @@
           "title": "Edit warehouse",
           "subtitle": "Update warehouse, availability dates, space size, or description."
         },
+        "listingDetail": {
+          "subtitleSearch": "Review another company's listing.",
+          "subtitleOur": "Manage your company's listing."
+        },
         "viewTransport": {
-          "title": "Transport details",
-          "subtitleFind": "Review transport details, schedule, and vehicle before sending a request.",
-          "subtitleOur": "View and manage this transport listing your company published."
+          "title": "Transport details"
         },
         "viewFreight": {
-          "title": "Freight details",
-          "subtitleFind": "Review shipment info and lane before sending a request.",
-          "subtitleOur": "View and manage this freight listing your company published."
+          "title": "Freight details"
         },
         "viewWarehouse": {
-          "title": "Warehouse details",
-          "subtitleFind": "Review availability, space, and location before sending a request.",
-          "subtitleOur": "View and manage this warehouse listing your company published."
+          "title": "Warehouse details"
         }
       },
       "features": {
@@ -1164,95 +1148,6 @@
           "transport": "Transport",
           "freight": "Freight",
           "warehouse": "Warehouse"
-        },
-        "find": {
-          "manageListingsPrompt": "Manage your company's listings?",
-          "manageListingsLink": "Our listings"
-        },
-        "home": {
-          "snapshot": {
-            "ariaLabel": "Company listings overview",
-            "labelOpenOnly": "{{openCount}} open listings",
-            "labelWithExpiring": "{{openCount}} open listings · {{expiringCount}} expiring soon",
-            "breakdown": "{{transport}} transport · {{freight}} freight · {{warehouse}} warehouse",
-            "cta": "View our listings",
-            "empty": "Your company has no listings yet.",
-            "emptyCta": "Publish your first listing"
-          },
-          "quickActions": {
-            "title": "Quick actions"
-          },
-          "actions": {
-            "findTransport": {
-              "description": "Browse transport offered by other companies"
-            },
-            "offerTransport": {
-              "description": "Publish transport your company can offer"
-            },
-            "findFreight": {
-              "description": "Browse freight published by other companies"
-            },
-            "offerFreight": {
-              "description": "Publish freight your company needs transported"
-            },
-            "findWarehouse": {
-              "description": "Browse warehouse space offered by other companies"
-            },
-            "offerWarehouse": {
-              "description": "Publish available space in your company's warehouse"
-            }
-          },
-          "journey": {
-            "heading": "What do you need today?",
-            "subheading": "Pick a situation — we'll take you to the right place.",
-            "groups": {
-              "transport": "Transport",
-              "freight": "Freight",
-              "warehouse": "Warehouse"
-            },
-            "needTransport": {
-              "title": "I need transport",
-              "body": "Browse transport offered by other companies."
-            },
-            "haveTransport": {
-              "title": "I have transport capacity",
-              "body": "Publish transport your company can offer."
-            },
-            "needFreight": {
-              "title": "I need freight to haul",
-              "body": "Browse freight published by other companies."
-            },
-            "haveFreight": {
-              "title": "I have freight to move",
-              "body": "Publish freight your company needs transported."
-            },
-            "needWarehouse": {
-              "title": "I need warehouse space",
-              "body": "Browse warehouse space offered by other companies."
-            },
-            "haveWarehouse": {
-              "title": "I have warehouse space",
-              "body": "Publish available space in your company's warehouse."
-            }
-          },
-          "browseMarketplace": "Or browse the marketplace"
-        },
-        "offer": {
-          "transport": {
-            "title": "Offer transport",
-            "description": "Transport your company offers with available vehicle capacity."
-          },
-          "freight": {
-            "title": "Offer freight",
-            "description": "Freight your company needs transported."
-          },
-          "warehouse": {
-            "title": "Offer warehouse",
-            "description": "Warehouse space your company can offer for a specific period."
-          },
-          "continue": "Continue",
-          "notSure": "Not sure?",
-          "backHome": "Back to home"
         }
       }
     }
